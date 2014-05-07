@@ -31,6 +31,10 @@ set cmdheight=2
 set columns=80
 set textwidth=80
 
+" Autocomplete
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
 if has("gui_macvim")
   " Press Ctrl-Tab to switch between open tabs (like browser tabs) to 
   " the right side. Ctrl-Shift-Tab goes the other way.
