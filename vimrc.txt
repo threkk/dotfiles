@@ -55,6 +55,9 @@ if has("gui_macvim")
   noremap <D-0> :tablast<CR>
 endif
 
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
+
 "Bundle
 "filetype off
 "set rtp+=~/.vim/bundle/vundle/
