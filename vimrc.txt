@@ -1,3 +1,24 @@
+call plug#begin('~/.vim/plugged')
+  
+  " Plugins
+  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " File tree
+  Plug 'vim-scripts/AutoComplPop'                         " Autocomplete
+  Plug 'junegunn/goyo.vim'                                " Centers text
+  Plug 'scrooloose/syntastic'                             " Syntax checker
+  Plug 'scrooloose/nerdcommenter'                         " Comments 
+  Plug 'tpope/vim-surround'                               " Brackets
+  Plug 'msanders/snipmate.vim'                            " Snippets
+  Plug 'rstacruz/sparkup'                                 " HTML expander
+  Plug 'kien/rainbow_parentheses.vim'                     " Brackets color
+  Plug 'shemerey/vim-peepopen'                            " Path search
+  
+  " Themes
+  Plug 'altercation/vim-colors-solarized'
+  Plug 'jpo/vim-railscasts-theme'
+  Plug '29decibel/codeschool-vim-theme'
+  Plug 'endel/vim-github-colorscheme'
+call plug#end()
+
 set history=700
 set wildmenu
 set wildmode=list:longest
@@ -9,11 +30,10 @@ set ignorecase
 set smartcase
 set hlsearch
 set magic
-syntax on
 set encoding=utf8
 set expandtab
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set smarttab
 set ai
 set si
@@ -22,18 +42,20 @@ set mouse=a
 set noerrorbells
 set nocompatible
 filetype plugin indent on
-set showmode
+filetype plugin on
 set nowrap
-colorscheme torte "darkblue default o torte
+set showmode
 set title
 set ttyfast
 set cmdheight=2
 set columns=80
+set colorcolumn=80
 set textwidth=80
 
-" Autocomplete
-filetype plugin on
-set omnifunc=syntaxcomplete#Complete
+" Theme selector
+syntax enable
+set background=dark
+colorscheme railscasts
 
 if has("gui_macvim")
   " Press Ctrl-Tab to switch between open tabs (like browser tabs) to 
@@ -55,18 +77,22 @@ if has("gui_macvim")
   noremap <D-0> :tablast<CR>
 endif
 
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
+" NerdTree config.
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-"Bundle
-"filetype off
-"set rtp+=~/.vim/bundle/vundle/
-"call vundle#rc()
+" Syntastic config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-"Bundle 'gmarik/vundle'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
-"Bundle 'scrooloose/syntastic'
-"Bundle 'scrooloose/nerdtree'
-
-"Bundle 'surround.vim'
-"Bundle 'EasyMotion'
+" Rainbow parenthesis
+autocmd VimEnter * RainbowParenthesesToggle
+autocmd Syntax * RainbowParenthesesLoadRound
+autocmd Syntax * RainbowParenthesesLoadSquare
+autocmd Syntax * RainbowParenthesesLoadBraces

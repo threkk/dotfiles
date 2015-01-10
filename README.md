@@ -10,5 +10,13 @@ git clone https://github.com/threkk/vim-setup.git
 mv vim-setup .vim
 ln .vim/vimrc.txt .vimrc
 ```
+To install all the plugins and themes, you need to use Plug.
+
+Open vim and type:
+```
+:PlugUpdate
+```
+
+To read the complete [Plug commands](https://github.com/junegunn/vim-plug).
 
 License: MIT
