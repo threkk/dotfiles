@@ -12,9 +12,9 @@ ln .vim/vimrc.txt .vimrc
 ```
 To install all the plugins and themes, you need to use Plug.
 
-Open vim and type:
+Open vim (it will give an error, press ENTER) and type:
 ```
-:PlugUpdate
+:PlugInstall
 ```
 
 To read the complete [Plug commands](https://github.com/junegunn/vim-plug).
