@@ -11,12 +11,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'rstacruz/sparkup'                                 " HTML expander
   Plug 'kien/rainbow_parentheses.vim'                     " Brackets color
   Plug 'shemerey/vim-peepopen'                            " Path search
-  
+  Plug 'kien/ctrlp.vim'                                   " Ctrl-P
+  Plug 'fisadev/vim-ctrlp-cmdpalette'                     " Ctrl-Palete
   " Themes
   Plug 'altercation/vim-colors-solarized'
   Plug 'jpo/vim-railscasts-theme'
   Plug '29decibel/codeschool-vim-theme'
   Plug 'endel/vim-github-colorscheme'
+  Plug 'trusktr/seti.vim'
 call plug#end()
 
 set history=700
@@ -55,7 +57,7 @@ set textwidth=80
 " Theme selector
 syntax enable
 set background=dark
-colorscheme railscasts
+colorscheme seti
 
 if has("gui_macvim")
   " Press Ctrl-Tab to switch between open tabs (like browser tabs) to 
@@ -96,3 +98,8 @@ autocmd VimEnter * RainbowParenthesesToggle
 autocmd Syntax * RainbowParenthesesLoadRound
 autocmd Syntax * RainbowParenthesesLoadSquare
 autocmd Syntax * RainbowParenthesesLoadBraces
+
+" CmdPCommandPalette
+let g:ctrlp_map = '<c-l>'
+let g:ctrlp_cmdpalette_execute = 1
+map <C-p> :CtrlPCmdPalette<CR>
