@@ -13,6 +13,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'shemerey/vim-peepopen'                            " Path search
   Plug 'kien/ctrlp.vim'                                   " Ctrl-P
   Plug 'fisadev/vim-ctrlp-cmdpalette'                     " Ctrl-Palete
+  Plug 'bling/vim-airline'                                " Better statusline.
+  Plug 'airblade/vim-gitgutter'                           " Git Diff
+  Plug 'gorodinskiy/vim-coloresque'                       " RGB Colors
+
   " Themes
   Plug 'altercation/vim-colors-solarized'
   Plug 'jpo/vim-railscasts-theme'
@@ -103,3 +107,7 @@ autocmd Syntax * RainbowParenthesesLoadBraces
 let g:ctrlp_map = '<c-l>'
 let g:ctrlp_cmdpalette_execute = 1
 map <C-p> :CtrlPCmdPalette<CR>
+
+" Vim Airline
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
