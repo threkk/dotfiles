@@ -1,0 +1,47 @@
+{
+  "author": "GlitchMr <glitchmr@myopera.com> (http://glitchmr.pl/)",
+  "name": "sprint",
+  "description": "Complex sprintf() implementation",
+  "version": "v0.3.0-next",
+  "homepage": "https://github.com/GlitchMr/sprint",
+  "keywords": [
+    "sprintf",
+    "format",
+    "snprintf",
+    "printf",
+    "fprintf",
+    "vprintf",
+    "vfprintf",
+    "vsprintf",
+    "vsnprintf",
+    "vasprintf",
+    "print",
+    "echo"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/GlitchMr/sprint.git"
+  },
+  "main": "./lib/sprint",
+  "directories": {
+    "lib": "./lib"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/GlitchMr/sprint/raw/master/LICENSE"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/GlitchMr/sprint/issues"
+  },
+  "scripts": {
+    "test": "node test/sprint"
+  }
+}

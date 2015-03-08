@@ -1,0 +1,869 @@
+{
+  "name": "node-debugger",
+  "main": "./lib/node-debugger",
+  "version": "0.2.3",
+  "description": "Debugger For Nodejs",
+  "activationEvents": [
+    "node-debugger:toggle"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kiddkai/atom-node-debugger"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.140.0"
+  },
+  "dependencies": {
+    "emissary": "^1.3.0",
+    "lodash": "^2.4.1",
+    "node-debugger": "git+https://github.com/kiddkai/node-debugger.git#master",
+    "q": "^1.0.1",
+    "split": "^0.3.0",
+    "through2": "^0.6.1",
+    "which": "^1.0.5"
+  },
+  "devDependencies": {
+    "from": "^0.1.3"
+  },
+  "readme": "node-debugger package [![Build Status](https://travis-ci.org/kiddkai/atom-node-debugger.svg)](https://travis-ci.org/kiddkai/atom-node-debugger) [![Build status](https://ci.appveyor.com/api/projects/status/5b3pwtpbt3k9pdwg)](https://ci.appveyor.com/project/kiddkai/atom-node-debugger)\n==============================\n[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/kiddkai/atom-node-debugger?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n\nThis is a Node.js debugger for atom. Still working on progress. It still buggy now. I still using my spare time to work on it. Please provide me some feedback to make it better.\n\n\n![](https://raw.githubusercontent.com/kiddkai/atom-node-debugger/master/screenshot.gif)\n\n\nUsage\n------\n\n### Show panel\n\n```\nctrl + shift + p -> Node Debugger: Toggle\n```\n\n### After you start your app\n\n\nAdd a breakpoint\n```\nctrl + shift + p -> breakpoint add\n```\n\nPlease click [here](https://github.com/kiddkai/atom-node-debugger/issues/new)\nto provide me more suggestions to improve this debugger, thanks :D\n\nDone\n------\n\n1. Main Control\n2. Run a node process (.js) files\n3. Connect to debugger\n4. Show [stderr/stdout] log\n5. Jump to source when `break`\n6. Breakpoint Control\n    + add breakpoint\n    + show breakpoint in the gutter\n    + List breakpoints\n7. Script Control[load]\n8. Continue Control[next/step...]\n9. Frame Info[argument/locals]\n10. Evaluate Expression\n11. Show variables\n\n\n\nStill working in progress\n\nTODO\n------\n- Adapting the latest api for adding the mark to Gutter\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/kiddkai/atom-node-debugger/issues"
+  },
+  "homepage": "https://github.com/kiddkai/atom-node-debugger",
+  "_id": "node-debugger@0.2.3",
+  "_shasum": "158a7227335c0e16399286e26613baeb7fec1ad1",
+  "_resolved": "file:../d-115024-1013-1prw9l1/package.tgz",
+  "_from": "../d-115024-1013-1prw9l1/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [
+      {
+        "name": "emissary",
+        "version": "1.3.1",
+        "path": "node_modules/emissary/lib/emissary.js"
+      },
+      {
+        "name": "harmony-collections",
+        "version": "0.3.7",
+        "path": "node_modules/emissary/node_modules/harmony-collections/harmony-collections.js"
+      },
+      {
+        "name": "mixto",
+        "version": "1.0.0",
+        "path": "node_modules/emissary/node_modules/mixto/lib/mixin.js"
+      },
+      {
+        "name": "property-accessors",
+        "version": "1.1.0",
+        "path": "node_modules/emissary/node_modules/property-accessors/lib/property-accessors.js"
+      },
+      {
+        "name": "harmony-collections",
+        "version": "0.3.7",
+        "path": "node_modules/emissary/node_modules/property-accessors/node_modules/harmony-collections/harmony-collections.js"
+      },
+      {
+        "name": "underscore-plus",
+        "version": "1.6.6",
+        "path": "node_modules/emissary/node_modules/underscore-plus/lib/underscore-plus.js"
+      },
+      {
+        "name": "underscore",
+        "version": "1.6.0",
+        "path": "node_modules/emissary/node_modules/underscore-plus/node_modules/underscore/underscore.js"
+      },
+      {
+        "name": "lodash",
+        "version": "2.4.1",
+        "path": "node_modules/lodash/dist/lodash.js"
+      },
+      {
+        "name": "node-debugger",
+        "version": "0.0.1",
+        "path": "node_modules/node-debugger/lib/debugger.js"
+      },
+      {
+        "name": "debugger-breakpoint",
+        "version": "0.0.0",
+        "path": "node_modules/node-debugger/node_modules/debugger-breakpoint/index.js"
+      },
+      {
+        "name": "debugger-connection",
+        "version": "0.0.1",
+        "path": "node_modules/node-debugger/node_modules/debugger-connection/lib/connection.js"
+      },
+      {
+        "name": "debug",
+        "version": "0.7.4",
+        "path": "node_modules/node-debugger/node_modules/debugger-connection/node_modules/debug/lib/debug.js"
+      },
+      {
+        "name": "debugger-frame",
+        "version": "0.0.0",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/index.js"
+      },
+      {
+        "name": "debug",
+        "version": "2.1.1",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/debug/node.js"
+      },
+      {
+        "name": "ms",
+        "version": "0.6.2",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/debug/node_modules/ms/index.js"
+      },
+      {
+        "name": "mocha",
+        "version": "1.21.5",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/index.js"
+      },
+      {
+        "name": "commander",
+        "version": "2.3.0",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/commander/index.js"
+      },
+      {
+        "name": "debug",
+        "version": "2.0.0",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/debug/node.js"
+      },
+      {
+        "name": "ms",
+        "version": "0.6.2",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/debug/node_modules/ms/index.js"
+      },
+      {
+        "name": "diff",
+        "version": "1.0.8",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/diff/diff.js"
+      },
+      {
+        "name": "escape-string-regexp",
+        "version": "1.0.2",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/escape-string-regexp/index.js"
+      },
+      {
+        "name": "glob",
+        "version": "3.2.3",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/glob.js"
+      },
+      {
+        "name": "graceful-fs",
+        "version": "2.0.3",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/graceful-fs/graceful-fs.js"
+      },
+      {
+        "name": "inherits",
+        "version": "2.0.1",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/inherits/inherits.js"
+      },
+      {
+        "name": "minimatch",
+        "version": "0.2.14",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/minimatch/minimatch.js"
+      },
+      {
+        "name": "lru-cache",
+        "version": "2.5.0",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
+      },
+      {
+        "name": "sigmund",
+        "version": "1.0.0",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/minimatch/node_modules/sigmund/sigmund.js"
+      },
+      {
+        "name": "growl",
+        "version": "1.8.1",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/growl/lib/growl.js"
+      },
+      {
+        "name": "jade",
+        "version": "0.26.3",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/index.js"
+      },
+      {
+        "name": "commander",
+        "version": "0.6.1",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/node_modules/commander/index.js"
+      },
+      {
+        "name": "mkdirp",
+        "version": "0.3.0",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/node_modules/mkdirp/index.js"
+      },
+      {
+        "name": "mkdirp",
+        "version": "0.5.0",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/mkdirp/index.js"
+      },
+      {
+        "name": "minimist",
+        "version": "0.0.8",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/mkdirp/node_modules/minimist/index.js"
+      },
+      {
+        "name": "should",
+        "version": "4.6.1",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/should.js"
+      },
+      {
+        "name": "should-equal",
+        "version": "0.3.1",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-equal/index.js"
+      },
+      {
+        "name": "should-format",
+        "version": "0.0.7",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-format/index.js"
+      },
+      {
+        "name": "should-type",
+        "version": "0.0.4",
+        "path": "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-type/index.js"
+      },
+      {
+        "name": "debugger-runner",
+        "version": "0.0.1",
+        "path": "node_modules/node-debugger/node_modules/debugger-runner/index.js"
+      },
+      {
+        "name": "portscanner",
+        "version": "1.0.0",
+        "path": "node_modules/node-debugger/node_modules/debugger-runner/node_modules/portscanner/lib/portscanner.js"
+      },
+      {
+        "name": "async",
+        "version": "0.1.15",
+        "path": "node_modules/node-debugger/node_modules/debugger-runner/node_modules/portscanner/node_modules/async/index.js"
+      },
+      {
+        "name": "debugger-script",
+        "version": "0.0.1",
+        "path": "node_modules/node-debugger/node_modules/debugger-script/lib/script-manager.js"
+      },
+      {
+        "name": "immutable",
+        "version": "2.6.2",
+        "path": "node_modules/node-debugger/node_modules/debugger-script/node_modules/immutable/dist/immutable.js"
+      },
+      {
+        "name": "q",
+        "version": "1.1.2",
+        "path": "node_modules/q/q.js"
+      },
+      {
+        "name": "split",
+        "version": "0.3.2",
+        "path": "node_modules/split/index.js"
+      },
+      {
+        "name": "through",
+        "version": "2.3.6",
+        "path": "node_modules/split/node_modules/through/index.js"
+      },
+      {
+        "name": "through2",
+        "version": "0.6.3",
+        "path": "node_modules/through2/through2.js"
+      },
+      {
+        "name": "readable-stream",
+        "version": "1.0.33",
+        "path": "node_modules/through2/node_modules/readable-stream/readable.js"
+      },
+      {
+        "name": "core-util-is",
+        "version": "1.0.1",
+        "path": "node_modules/through2/node_modules/readable-stream/node_modules/core-util-is/lib/util.js"
+      },
+      {
+        "name": "inherits",
+        "version": "2.0.1",
+        "path": "node_modules/through2/node_modules/readable-stream/node_modules/inherits/inherits.js"
+      },
+      {
+        "name": "isarray",
+        "version": "0.0.1",
+        "path": "node_modules/through2/node_modules/readable-stream/node_modules/isarray/index.js"
+      },
+      {
+        "name": "string_decoder",
+        "version": "0.10.31",
+        "path": "node_modules/through2/node_modules/readable-stream/node_modules/string_decoder/index.js"
+      },
+      {
+        "name": "xtend",
+        "version": "4.0.0",
+        "path": "node_modules/through2/node_modules/xtend/immutable.js"
+      },
+      {
+        "name": "which",
+        "version": "1.0.8",
+        "path": "node_modules/which/which.js"
+      }
+    ],
+    "extensions": {
+      ".coffee": [
+        "lib/breakpoint-gutter/state.coffee",
+        "lib/breakpoint-gutter/view.coffee",
+        "lib/breakpoint-item-view.coffee",
+        "lib/breakpoint-list/index.coffee",
+        "lib/breakpoint-list/item-view.coffee",
+        "lib/breakpoint-list/state.coffee",
+        "lib/breakpoint-view.coffee",
+        "lib/config-view.coffee",
+        "lib/console-view.coffee",
+        "lib/debugger.coffee",
+        "lib/editor-util.coffee",
+        "lib/frame-view.coffee",
+        "lib/functional-view.coffee",
+        "lib/loading-view.coffee",
+        "lib/log-view.coffee",
+        "lib/main-view.coffee",
+        "lib/node-debugger-view.coffee",
+        "lib/node-debugger.coffee",
+        "lib/notification/index.coffee",
+        "lib/variable-view.coffee"
+      ],
+      ".js": [
+        "node_modules/emissary/lib/behavior.js",
+        "node_modules/emissary/lib/emissary.js",
+        "node_modules/emissary/lib/emitter.js",
+        "node_modules/emissary/lib/helpers.js",
+        "node_modules/emissary/lib/signal.js",
+        "node_modules/emissary/lib/subscriber.js",
+        "node_modules/emissary/lib/subscription.js",
+        "node_modules/emissary/node_modules/harmony-collections/harmony-collections.js",
+        "node_modules/emissary/node_modules/harmony-collections/harmony-collections.min.js",
+        "node_modules/emissary/node_modules/mixto/lib/mixin.js",
+        "node_modules/emissary/node_modules/property-accessors/lib/property-accessors.js",
+        "node_modules/emissary/node_modules/property-accessors/node_modules/harmony-collections/harmony-collections.js",
+        "node_modules/emissary/node_modules/property-accessors/node_modules/harmony-collections/harmony-collections.min.js",
+        "node_modules/emissary/node_modules/underscore-plus/lib/underscore-plus.js",
+        "node_modules/emissary/node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
+        "node_modules/emissary/node_modules/underscore-plus/node_modules/underscore/underscore.js",
+        "node_modules/lodash/dist/lodash.compat.js",
+        "node_modules/lodash/dist/lodash.compat.min.js",
+        "node_modules/lodash/dist/lodash.js",
+        "node_modules/lodash/dist/lodash.min.js",
+        "node_modules/lodash/dist/lodash.underscore.js",
+        "node_modules/lodash/dist/lodash.underscore.min.js",
+        "node_modules/lodash/lodash.js",
+        "node_modules/node-debugger/lib/debugger.js",
+        "node_modules/node-debugger/node_modules/debugger-breakpoint/index.js",
+        "node_modules/node-debugger/node_modules/debugger-breakpoint/lib/breakpoint.js",
+        "node_modules/node-debugger/node_modules/debugger-connection/lib/connection.js",
+        "node_modules/node-debugger/node_modules/debugger-connection/node_modules/debug/debug.js",
+        "node_modules/node-debugger/node_modules/debugger-connection/node_modules/debug/index.js",
+        "node_modules/node-debugger/node_modules/debugger-connection/node_modules/debug/lib/debug.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/lib/frame.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/lib/variable.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/debug/browser.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/debug/debug.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/debug/node.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/debug/node_modules/ms/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/browser/debug.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/browser/diff.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/browser/escape-string-regexp.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/browser/events.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/browser/fs.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/browser/glob.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/browser/path.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/browser/progress.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/browser/tty.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/context.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/hook.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/interfaces/bdd.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/interfaces/exports.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/interfaces/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/interfaces/qunit.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/interfaces/tdd.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/mocha.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/ms.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/base.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/doc.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/dot.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/html-cov.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/html.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/json-cov.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/json-stream.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/json.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/landing.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/list.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/markdown.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/min.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/nyan.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/progress.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/spec.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/tap.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters/xunit.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/runnable.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/runner.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/suite.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/test.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/utils.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/mocha.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/commander/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/debug/browser.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/debug/debug.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/debug/node.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/debug/node_modules/ms/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/diff/diff.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/escape-string-regexp/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/examples/g.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/examples/usr-local.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/glob.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/graceful-fs/graceful-fs.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/graceful-fs/polyfills.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/inherits/inherits.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/inherits/inherits_browser.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/inherits/test.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/minimatch/minimatch.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/minimatch/node_modules/sigmund/bench.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/minimatch/node_modules/sigmund/sigmund.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/growl/lib/growl.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/growl/test.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/jade.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/jade.min.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/compiler.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/doctypes.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/filters.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/inline-tags.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/jade.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/lexer.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/attrs.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/block-comment.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/block.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/case.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/code.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/comment.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/doctype.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/each.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/filter.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/literal.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/mixin.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/node.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/tag.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes/text.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/parser.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/runtime.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/self-closing.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/utils.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/node_modules/commander/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/node_modules/commander/lib/commander.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/node_modules/mkdirp/examples/pow.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/node_modules/mkdirp/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/runtime.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/runtime.min.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/testing/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/testing/user.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/mkdirp/bin/cmd.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/mkdirp/examples/pow.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/mkdirp/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/mkdirp/node_modules/minimist/example/parse.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/mkdirp/node_modules/minimist/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/gulpfile.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/assertion-error.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/assertion.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/config.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/eql.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/ext/_assert.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/ext/assert.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/ext/bool.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/ext/chain.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/ext/contain.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/ext/eql.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/ext/error.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/ext/match.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/ext/number.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/ext/property.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/ext/string.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/ext/type.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/node-equal.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/should.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/util.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-equal/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-equal/test.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-format/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-type/index.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/should.js",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/should.min.js",
+        "node_modules/node-debugger/node_modules/debugger-runner/index.js",
+        "node_modules/node-debugger/node_modules/debugger-runner/node_modules/portscanner/lib/portscanner.js",
+        "node_modules/node-debugger/node_modules/debugger-runner/node_modules/portscanner/node_modules/async/deps/nodeunit.js",
+        "node_modules/node-debugger/node_modules/debugger-runner/node_modules/portscanner/node_modules/async/dist/async.min.js",
+        "node_modules/node-debugger/node_modules/debugger-runner/node_modules/portscanner/node_modules/async/index.js",
+        "node_modules/node-debugger/node_modules/debugger-runner/node_modules/portscanner/node_modules/async/lib/async.js",
+        "node_modules/node-debugger/node_modules/debugger-script/lib/script-manager.js",
+        "node_modules/node-debugger/node_modules/debugger-script/lib/script.js",
+        "node_modules/node-debugger/node_modules/debugger-script/node_modules/immutable/dist/immutable.js",
+        "node_modules/node-debugger/node_modules/debugger-script/node_modules/immutable/dist/immutable.min.js",
+        "node_modules/q/q.js",
+        "node_modules/q/queue.js",
+        "node_modules/split/examples/pretty.js",
+        "node_modules/split/index.js",
+        "node_modules/split/node_modules/through/index.js",
+        "node_modules/through2/node_modules/readable-stream/duplex.js",
+        "node_modules/through2/node_modules/readable-stream/lib/_stream_duplex.js",
+        "node_modules/through2/node_modules/readable-stream/lib/_stream_passthrough.js",
+        "node_modules/through2/node_modules/readable-stream/lib/_stream_readable.js",
+        "node_modules/through2/node_modules/readable-stream/lib/_stream_transform.js",
+        "node_modules/through2/node_modules/readable-stream/lib/_stream_writable.js",
+        "node_modules/through2/node_modules/readable-stream/node_modules/core-util-is/lib/util.js",
+        "node_modules/through2/node_modules/readable-stream/node_modules/core-util-is/util.js",
+        "node_modules/through2/node_modules/readable-stream/node_modules/inherits/inherits.js",
+        "node_modules/through2/node_modules/readable-stream/node_modules/inherits/inherits_browser.js",
+        "node_modules/through2/node_modules/readable-stream/node_modules/inherits/test.js",
+        "node_modules/through2/node_modules/readable-stream/node_modules/isarray/build/build.js",
+        "node_modules/through2/node_modules/readable-stream/node_modules/isarray/index.js",
+        "node_modules/through2/node_modules/readable-stream/node_modules/string_decoder/index.js",
+        "node_modules/through2/node_modules/readable-stream/passthrough.js",
+        "node_modules/through2/node_modules/readable-stream/readable.js",
+        "node_modules/through2/node_modules/readable-stream/transform.js",
+        "node_modules/through2/node_modules/readable-stream/writable.js",
+        "node_modules/through2/node_modules/xtend/immutable.js",
+        "node_modules/through2/node_modules/xtend/mutable.js",
+        "node_modules/through2/node_modules/xtend/test.js",
+        "node_modules/through2/through2.js",
+        "node_modules/which/which.js"
+      ],
+      ".json": [
+        "node_modules/emissary/node_modules/harmony-collections/package.json",
+        "node_modules/emissary/node_modules/mixto/package.json",
+        "node_modules/emissary/node_modules/property-accessors/node_modules/harmony-collections/package.json",
+        "node_modules/emissary/node_modules/property-accessors/package.json",
+        "node_modules/emissary/node_modules/underscore-plus/node_modules/underscore/package.json",
+        "node_modules/emissary/node_modules/underscore-plus/package.json",
+        "node_modules/emissary/package.json",
+        "node_modules/lodash/package.json",
+        "node_modules/node-debugger/node_modules/debugger-breakpoint/package.json",
+        "node_modules/node-debugger/node_modules/debugger-connection/node_modules/debug/package.json",
+        "node_modules/node-debugger/node_modules/debugger-connection/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/debug/bower.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/debug/component.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/debug/node_modules/ms/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/debug/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/commander/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/debug/component.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/debug/node_modules/ms/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/debug/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/diff/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/escape-string-regexp/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/graceful-fs/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/inherits/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/minimatch/node_modules/sigmund/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/minimatch/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/growl/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/node_modules/commander/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/node_modules/mkdirp/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/mkdirp/node_modules/minimist/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/mkdirp/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/bower.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-equal/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-format/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-type/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/package.json",
+        "node_modules/node-debugger/node_modules/debugger-frame/package.json",
+        "node_modules/node-debugger/node_modules/debugger-runner/node_modules/portscanner/node_modules/async/package.json",
+        "node_modules/node-debugger/node_modules/debugger-runner/node_modules/portscanner/package.json",
+        "node_modules/node-debugger/node_modules/debugger-runner/package.json",
+        "node_modules/node-debugger/node_modules/debugger-script/node_modules/immutable/package.json",
+        "node_modules/node-debugger/node_modules/debugger-script/package.json",
+        "node_modules/node-debugger/package.json",
+        "node_modules/q/package.json",
+        "node_modules/split/node_modules/through/package.json",
+        "node_modules/split/package.json",
+        "node_modules/through2/node_modules/readable-stream/node_modules/core-util-is/package.json",
+        "node_modules/through2/node_modules/readable-stream/node_modules/inherits/package.json",
+        "node_modules/through2/node_modules/readable-stream/node_modules/isarray/component.json",
+        "node_modules/through2/node_modules/readable-stream/node_modules/isarray/package.json",
+        "node_modules/through2/node_modules/readable-stream/node_modules/string_decoder/package.json",
+        "node_modules/through2/node_modules/readable-stream/package.json",
+        "node_modules/through2/node_modules/xtend/package.json",
+        "node_modules/through2/package.json",
+        "node_modules/which/package.json",
+        "package.json"
+      ]
+    },
+    "folders": [
+      {
+        "paths": [
+          "demo",
+          "lib/breakpoint-gutter",
+          "lib",
+          "lib/breakpoint-list",
+          "lib/notification",
+          "",
+          "spec",
+          "spec/fixtures"
+        ],
+        "dependencies": {
+          "emissary": "^1.3.0",
+          "lodash": "^2.4.1",
+          "q": "^1.0.1",
+          "split": "^0.3.0",
+          "through2": "^0.6.1",
+          "which": "^1.0.5"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/emissary/lib",
+          "node_modules/emissary"
+        ],
+        "dependencies": {
+          "underscore-plus": "1.x",
+          "mixto": "1.x",
+          "property-accessors": "^1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/emissary/node_modules/property-accessors/lib",
+          "node_modules/emissary/node_modules/property-accessors"
+        ],
+        "dependencies": {
+          "mixto": "1.x"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/emissary/node_modules/underscore-plus/lib",
+          "node_modules/emissary/node_modules/underscore-plus"
+        ],
+        "dependencies": {
+          "underscore": "~1.6.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/lib",
+          "node_modules/node-debugger",
+          "node_modules/node-debugger/test"
+        ],
+        "dependencies": {
+          "lodash": "^2.4.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-breakpoint",
+          "node_modules/node-debugger/node_modules/debugger-breakpoint/lib",
+          "node_modules/node-debugger/node_modules/debugger-breakpoint/test"
+        ],
+        "dependencies": {
+          "lodash": "^2.4.1",
+          "q": "^1.0.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-connection/lib",
+          "node_modules/node-debugger/node_modules/debugger-connection"
+        ],
+        "dependencies": {
+          "debug": "^0.7.4",
+          "lodash": "^2.4.1",
+          "q": "^1.0.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-frame",
+          "node_modules/node-debugger/node_modules/debugger-frame/lib"
+        ],
+        "dependencies": {
+          "debug": "^2.0.0",
+          "mocha": "^1.21.4",
+          "q": "^1.0.1",
+          "should": "^4.0.4"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/debug"
+        ],
+        "dependencies": {
+          "ms": "0.6.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/browser",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/interfaces",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/lib/reporters"
+        ],
+        "dependencies": {
+          "commander": "2.3.0",
+          "debug": "2.0.0",
+          "diff": "1.0.8",
+          "escape-string-regexp": "1.0.2",
+          "glob": "3.2.3",
+          "growl": "1.8.1",
+          "jade": "0.26.3",
+          "mkdirp": "0.5.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/debug"
+        ],
+        "dependencies": {
+          "ms": "0.6.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/examples",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/test"
+        ],
+        "dependencies": {
+          "minimatch": "~0.2.11",
+          "graceful-fs": "~2.0.0",
+          "inherits": "2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/minimatch",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/glob/node_modules/minimatch/test"
+        ],
+        "dependencies": {
+          "lru-cache": "2",
+          "sigmund": "~1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/lib/nodes",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/jade/testing"
+        ],
+        "dependencies": {
+          "commander": "0.6.1",
+          "mkdirp": "0.3.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/mkdirp/bin",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/mkdirp/examples",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/mkdirp",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/mocha/node_modules/mkdirp/test"
+        ],
+        "dependencies": {
+          "minimist": "0.0.8"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/lib/ext"
+        ],
+        "dependencies": {
+          "should-equal": "0.3.1",
+          "should-format": "0.0.7",
+          "should-type": "0.0.4"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-equal"
+        ],
+        "dependencies": {
+          "should-type": "0.0.4"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-format",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-format/tests/browser",
+          "node_modules/node-debugger/node_modules/debugger-frame/node_modules/should/node_modules/should-format/tests"
+        ],
+        "dependencies": {
+          "should-type": "0.0.4"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-runner",
+          "node_modules/node-debugger/node_modules/debugger-runner/test"
+        ],
+        "dependencies": {
+          "portscanner": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-runner/node_modules/portscanner/lib",
+          "node_modules/node-debugger/node_modules/debugger-runner/node_modules/portscanner"
+        ],
+        "dependencies": {
+          "async": "0.1.15"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/node-debugger/node_modules/debugger-script/lib",
+          "node_modules/node-debugger/node_modules/debugger-script",
+          "node_modules/node-debugger/node_modules/debugger-script/test"
+        ],
+        "dependencies": {
+          "lodash": "^2.4.1",
+          "q": "^1.0.1",
+          "immutable": "^2.0.4"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/split/examples",
+          "node_modules/split",
+          "node_modules/split/test"
+        ],
+        "dependencies": {
+          "through": "2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/through2"
+        ],
+        "dependencies": {
+          "readable-stream": ">=1.0.33-1 <1.1.0-0",
+          "xtend": ">=4.0.0 <4.1.0-0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/through2/node_modules/readable-stream",
+          "node_modules/through2/node_modules/readable-stream/lib"
+        ],
+        "dependencies": {
+          "core-util-is": "~1.0.0",
+          "isarray": "0.0.1",
+          "string_decoder": "~0.10.x",
+          "inherits": "~2.0.1"
+        }
+      }
+    ]
+  }
+}

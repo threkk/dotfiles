@@ -1,0 +1,18 @@
+"*":
+  editor:
+    softWrap: true
+    invisibles: {}
+  core:
+    followSymlinks: true
+    themes: [
+      "seti-ui"
+      "seti-syntax"
+    ]
+    projectHome: "/Users/albertommr/Documents"
+  "exception-reporting":
+    userId: "4a138ac0-e767-65b6-447b-2bf73caf9391"
+  welcome:
+    showOnStartup: false
+  linter: {}
+  "autocomplete-plus":
+    confirmCompletion: "enter"
