@@ -50,7 +50,9 @@ set noerrorbells
 set nocompatible
 filetype plugin indent on
 filetype plugin on
-set nowrap
+set wrap
+set linebreak
+set nolist
 set showmode
 set title
 set ttyfast
