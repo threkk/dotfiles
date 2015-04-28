@@ -4,8 +4,7 @@ A collection with all the dotfiles and plugins I use. The branch of this reposit
 - Atom
 - iTerm
 
-The reason of having them separated is because it only makes sense to use them
-in a GUI environment.
+The reason of having them separated is because it only makes sense to use them in a GUI environment.
 
 If you want to use the same configuration, execute the following commands on your root directory:
 
