@@ -24,6 +24,7 @@ call plug#begin('~/.vim/plugged')
   Plug '29decibel/codeschool-vim-theme'
   Plug 'endel/vim-github-colorscheme'
   Plug 'trusktr/seti.vim'
+  Plug 'blueshirts/darcula'
 call plug#end()
 
 set history=700
