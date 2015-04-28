@@ -1,6 +1,6 @@
 {
   "name": "autocomplete-plus",
-  "version": "2.4.1",
+  "version": "2.12.0",
   "main": "./lib/main",
   "description": "Display possible completions in the editor while typing",
   "repository": {
@@ -8,15 +8,17 @@
     "url": "https://github.com/atom-community/autocomplete-plus"
   },
   "engines": {
-    "atom": ">=0.183.0 <2.0.0"
+    "atom": ">=0.189.0 <2.0.0"
   },
   "dependencies": {
+    "atom-slick": "^2.0.0",
+    "clear-cut": "^0.4.0",
     "fuzzaldrin": "^2.1.0",
     "grim": "^1.2.0",
     "minimatch": "^2.0.1",
-    "scoped-property-store": "^0.16.2",
     "selector-kit": "^0.1",
     "semver": "^4.3.1",
+    "stable": "^0.1.5",
     "underscore-plus": "^1.6.6"
   },
   "devDependencies": {
@@ -38,19 +40,34 @@
       }
     }
   },
-  "readme": "# autocomplete+ package [![OS X Build Status](https://travis-ci.org/atom-community/autocomplete-plus.svg?branch=master)](https://travis-ci.org/atom-community/autocomplete-plus) [![Windows Build Status](https://ci.appveyor.com/api/projects/status/4faqdkcw2d0ybgiv/branch/master?svg=true)](https://ci.appveyor.com/project/joefitzgerald/autocomplete-plus/branch/master)\n[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/atom-community/autocomplete-plus)\n\n\n[View the changelog](https://github.com/atom-community/autocomplete-plus/releases)\n\nView and insert possible completions in the editor while typing\n\n![Autocomplete+](http://s14.directupload.net/images/140304/y7r7g5df.gif)\n\n**Note:** In the example above, `Show Suggestions On Keystroke` is enabled.\n\n![The Show Suggestions On Keystroke Setting](https://cloud.githubusercontent.com/assets/744740/5886909/a7071c2a-a372-11e4-9894-f12db4e8a1ae.png)\n\n## Installation\n\n* APM: `apm install autocomplete-plus`\n* Preferences: Open Atom and go to `Preferences > Packages`, search for `autocomplete-plus`, and install it\n\n## Providers\n\n`autocomplete+` has a powerful autocomplete provider API, allowing provider authors to add language-specific behavior to this package.\n\nYou should *definitely* install additional providers (the default provider bundled with this package is somewhat crude): https://github.com/atom-community/autocomplete-plus/wiki/Autocomplete-Providers\n\n## Usage\n\nJust type some stuff, and autocomplete+ will automatically show you some suggestions.\nPress `UP` and `DOWN` to select another suggestion, press `TAB` to confirm your selection. You can change the default keymap in `Preferences`:\n\n* Keymap For Confirming A Suggestion\n* Keymap For Navigating The Suggestion List\n\nAdditionally, the keymap can be customized in your keymap.cson:\n\n```coffeescript\n'atom-text-editor:not(mini).autocomplete-active':\n  'tab': 'unset!'\n  'enter': 'autocomplete-plus:confirm'\n  'up': 'unset!'\n  'down': 'unset!'\n  'ctrl-p': 'autocomplete-plus:select-previous'\n  'ctrl-n': 'autocomplete-plus:select-next'\n```\n\n## Features\n\n* Shows suggestions while typing\n* Includes a default provider (`FuzzyProvider`):\n  * Wordlist generation happens when you open a file, while editing the file, and on save\n  * Suggestions are calculated using `fuzzaldrin`\n* Exposes a provider API which can be used to extend the functionality of the package and provide targeted / contextually correct suggestions\n* Disable autocomplete for file(s) via blacklisting\n* Disable autocomplete for editor scope(s) via blacklisting\n\n## Provider API\n\nGreat autocomplete depends on having great autocomplete providers. If there is not already a great provider for the language / grammar that you are working in, please consider creating a provider.\n\n[Read the `Provider API` documentation](https://github.com/atom-community/autocomplete-plus/wiki/Provider-API) to learn how to create a new autocomplete provider.\n",
+  "readme": "# autocomplete+ package [![OS X Build Status](https://travis-ci.org/atom-community/autocomplete-plus.svg?branch=master)](https://travis-ci.org/atom-community/autocomplete-plus) [![Windows Build Status](https://ci.appveyor.com/api/projects/status/4faqdkcw2d0ybgiv/branch/master?svg=true)](https://ci.appveyor.com/project/joefitzgerald/autocomplete-plus/branch/master)\n[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/atom-community/autocomplete-plus)\n\n\n[View the changelog](https://github.com/atom-community/autocomplete-plus/releases)\n\nView and insert possible completions in the editor while typing\n\n![Autocomplete+](http://s14.directupload.net/images/140304/y7r7g5df.gif)\n\n**Note:** In the example above, `Show Suggestions On Keystroke` is enabled.\n\n![The Show Suggestions On Keystroke Setting](https://cloud.githubusercontent.com/assets/744740/5886909/a7071c2a-a372-11e4-9894-f12db4e8a1ae.png)\n\n## Installation\n\n* APM: `apm install autocomplete-plus`\n* Preferences: Open Atom and go to `Preferences > Packages`, search for `autocomplete-plus`, and install it\n\n## Providers\n\n`autocomplete+` has a powerful autocomplete provider API, allowing provider authors to add language-specific behavior to this package.\n\nYou should *definitely* install additional providers (the default provider bundled with this package is somewhat crude): https://github.com/atom-community/autocomplete-plus/wiki/Autocomplete-Providers\n\n## Usage\n\nJust type some stuff, and autocomplete+ will automatically show you some suggestions.\nPress `UP` and `DOWN` to select another suggestion, press `TAB` to confirm your selection. You can change the default keymap in `Preferences`:\n\n* Keymap For Confirming A Suggestion\n* Keymap For Navigating The Suggestion List\n\nAdditionally, the keymap can be customized in your keymap.cson:\n\n```coffeescript\n'atom-text-editor:not(mini).autocomplete-active':\n  'tab': 'unset!'\n  'enter': 'autocomplete-plus:confirm'\n  'up': 'unset!'\n  'down': 'unset!'\n  'ctrl-p': 'core:move-up'\n  'ctrl-n': 'core:move-down'\n```\n\n## Features\n\n* Shows suggestions while typing\n* Includes a default provider (`FuzzyProvider`):\n  * Wordlist generation happens when you open a file, while editing the file, and on save\n  * Suggestions are calculated using `fuzzaldrin`\n* Exposes a provider API which can be used to extend the functionality of the package and provide targeted / contextually correct suggestions\n* Disable autocomplete for file(s) via blacklisting\n* Disable autocomplete for editor scope(s) via blacklisting\n\n## Provider API\n\nGreat autocomplete depends on having great autocomplete providers. If there is not already a great provider for the language / grammar that you are working in, please consider creating a provider.\n\n[Read the `Provider API` documentation](https://github.com/atom-community/autocomplete-plus/wiki/Provider-API) to learn how to create a new autocomplete provider.\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/atom-community/autocomplete-plus/issues"
   },
   "homepage": "https://github.com/atom-community/autocomplete-plus",
-  "_id": "autocomplete-plus@2.4.1",
-  "_shasum": "97bf35af00ddb9e4aa01cd37d77b3304a4710d34",
-  "_resolved": "file:../d-11528-656-17r4gy7/package.tgz",
-  "_from": "../d-11528-656-17r4gy7/package.tgz",
+  "_id": "autocomplete-plus@2.12.0",
+  "_shasum": "0ecd394b6dce041743d9b3c4571db0c9327de095",
+  "_resolved": "file:../d-115328-2219-1bqo2nj/package.tgz",
+  "_from": "../d-115328-2219-1bqo2nj/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
+      {
+        "name": "atom-slick",
+        "version": "2.0.0",
+        "path": "node_modules/atom-slick/index.js"
+      },
+      {
+        "name": "clear-cut",
+        "version": "0.4.0",
+        "path": "node_modules/clear-cut/lib/main.js"
+      },
+      {
+        "name": "specificity",
+        "version": "0.1.3",
+        "path": "node_modules/clear-cut/node_modules/specificity/specificity.js"
+      },
       {
         "name": "fuzzaldrin",
         "version": "2.1.0",
@@ -58,7 +75,7 @@
       },
       {
         "name": "grim",
-        "version": "1.2.0",
+        "version": "1.2.2",
         "path": "node_modules/grim/lib/grim.js"
       },
       {
@@ -78,7 +95,7 @@
       },
       {
         "name": "fs-plus",
-        "version": "2.5.0",
+        "version": "2.7.1",
         "path": "node_modules/grim/node_modules/coffeestack/node_modules/fs-plus/lib/fs-plus.js"
       },
       {
@@ -113,7 +130,7 @@
       },
       {
         "name": "es6-weak-map",
-        "version": "0.1.2",
+        "version": "0.1.4",
         "path": "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/index.js"
       },
       {
@@ -123,13 +140,8 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.6",
+        "version": "0.10.7",
         "path": "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js"
-      },
-      {
-        "name": "es6-symbol",
-        "version": "2.0.1",
-        "path": "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
       },
       {
         "name": "es6-iterator",
@@ -139,11 +151,6 @@
       {
         "name": "es6-symbol",
         "version": "2.0.1",
-        "path": "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/index.js"
-      },
-      {
-        "name": "es6-symbol",
-        "version": "0.1.1",
         "path": "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/index.js"
       },
       {
@@ -158,7 +165,7 @@
       },
       {
         "name": "minimatch",
-        "version": "2.0.1",
+        "version": "2.0.4",
         "path": "node_modules/minimatch/minimatch.js"
       },
       {
@@ -177,39 +184,19 @@
         "path": "node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/index.js"
       },
       {
-        "name": "scoped-property-store",
-        "version": "0.16.2",
-        "path": "node_modules/scoped-property-store/lib/scoped-property-store.js"
-      },
-      {
-        "name": "atom-slick",
-        "version": "2.0.0",
-        "path": "node_modules/scoped-property-store/node_modules/atom-slick/index.js"
-      },
-      {
-        "name": "event-kit",
-        "version": "1.0.3",
-        "path": "node_modules/scoped-property-store/node_modules/event-kit/lib/event-kit.js"
-      },
-      {
-        "name": "key-path-helpers",
-        "version": "0.1.0",
-        "path": "node_modules/scoped-property-store/node_modules/key-path-helpers/lib/key-path-helpers.js"
-      },
-      {
         "name": "selector-kit",
         "version": "0.1.0",
         "path": "node_modules/selector-kit/lib/selector-kit.js"
       },
       {
-        "name": "atom-slick",
-        "version": "2.0.0",
-        "path": "node_modules/selector-kit/node_modules/atom-slick/index.js"
+        "name": "semver",
+        "version": "4.3.3",
+        "path": "node_modules/semver/semver.js"
       },
       {
-        "name": "semver",
-        "version": "4.3.1",
-        "path": "node_modules/semver/semver.js"
+        "name": "stable",
+        "version": "0.1.5",
+        "path": "node_modules/stable/stable.js"
       },
       {
         "name": "underscore-plus",
@@ -225,6 +212,9 @@
     "extensions": {
       ".json": [
         "coffeelint.json",
+        "node_modules/atom-slick/package.json",
+        "node_modules/clear-cut/node_modules/specificity/package.json",
+        "node_modules/clear-cut/package.json",
         "node_modules/fuzzaldrin/package.json",
         "node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/package.json",
         "node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/package.json",
@@ -237,9 +227,7 @@
         "node_modules/grim/node_modules/coffeestack/node_modules/source-map/package.json",
         "node_modules/grim/node_modules/coffeestack/package.json",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/d/package.json",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/package.json",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/package.json",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/package.json",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/package.json",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/package.json",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/package.json",
@@ -251,14 +239,10 @@
         "node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/package.json",
         "node_modules/minimatch/node_modules/brace-expansion/package.json",
         "node_modules/minimatch/package.json",
-        "node_modules/scoped-property-store/node_modules/atom-slick/package.json",
-        "node_modules/scoped-property-store/node_modules/event-kit/api.json",
-        "node_modules/scoped-property-store/node_modules/event-kit/package.json",
-        "node_modules/scoped-property-store/node_modules/key-path-helpers/package.json",
-        "node_modules/scoped-property-store/package.json",
-        "node_modules/selector-kit/node_modules/atom-slick/package.json",
         "node_modules/selector-kit/package.json",
         "node_modules/semver/package.json",
+        "node_modules/stable/bower.json",
+        "node_modules/stable/package.json",
         "node_modules/underscore-plus/node_modules/underscore/package.json",
         "node_modules/underscore-plus/package.json",
         "package.json"
@@ -268,11 +252,21 @@
         "lib/fuzzy-provider.coffee",
         "lib/main.coffee",
         "lib/provider-manager.coffee",
+        "lib/provider-metadata.coffee",
+        "lib/ref-counted-token-list.coffee",
+        "lib/scope-helpers.coffee",
+        "lib/snippet-parser.coffee",
         "lib/suggestion-list-element.coffee",
         "lib/suggestion-list.coffee",
-        "lib/symbol-provider.coffee"
+        "lib/symbol-provider.coffee",
+        "lib/symbol-store.coffee"
       ],
       ".js": [
+        "node_modules/atom-slick/finder.js",
+        "node_modules/atom-slick/index.js",
+        "node_modules/atom-slick/parser.js",
+        "node_modules/clear-cut/lib/main.js",
+        "node_modules/clear-cut/node_modules/specificity/specificity.js",
         "node_modules/fuzzaldrin/lib/filter.js",
         "node_modules/fuzzaldrin/lib/fuzzaldrin.js",
         "node_modules/fuzzaldrin/lib/matcher.js",
@@ -471,6 +465,11 @@
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/function/valid-function.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/global.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js",
+        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/for-each.js",
+        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/index.js",
+        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/is.js",
+        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/validate-object.js",
+        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/validate.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/_pack-ieee754.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/_unpack-ieee754.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/acosh/implement.js",
@@ -542,13 +541,6 @@
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/index.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/is-implemented.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/shim.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/implement.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-implemented.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-native-implemented.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-symbol.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/polyfill.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/#/index.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/#/pad.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/epsilon/implement.js",
@@ -632,6 +624,10 @@
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/valid-callable.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/valid-object.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/valid-value.js",
+        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-array-like-object.js",
+        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-array-like.js",
+        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-stringifiable-value.js",
+        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-stringifiable.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/reg-exp/#/index.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/reg-exp/#/is-sticky.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/reg-exp/#/is-unicode.js",
@@ -717,13 +713,6 @@
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/get.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/index.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/is-iterable.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/implement.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/index.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/is-implemented.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/is-native-implemented.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/is-symbol.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/polyfill.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/string.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/valid-iterable.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/implement.js",
@@ -732,12 +721,11 @@
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/is-native-implemented.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/is-symbol.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/polyfill.js",
-        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/valid-symbol.js",
+        "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/polyfill.js",
         "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/valid-weak-map.js",
         "node_modules/grim/node_modules/emissary/node_modules/mixto/lib/mixin.js",
         "node_modules/grim/node_modules/emissary/node_modules/property-accessors/lib/property-accessors.js",
-        "node_modules/minimatch/benchmark.js",
         "node_modules/minimatch/browser.js",
         "node_modules/minimatch/minimatch.js",
         "node_modules/minimatch/node_modules/brace-expansion/example.js",
@@ -746,26 +734,13 @@
         "node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js",
         "node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/example/map.js",
         "node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/index.js",
-        "node_modules/scoped-property-store/lib/helpers.js",
-        "node_modules/scoped-property-store/lib/property-set.js",
-        "node_modules/scoped-property-store/lib/scoped-property-store.js",
-        "node_modules/scoped-property-store/lib/selector.js",
-        "node_modules/scoped-property-store/node_modules/atom-slick/finder.js",
-        "node_modules/scoped-property-store/node_modules/atom-slick/index.js",
-        "node_modules/scoped-property-store/node_modules/atom-slick/parser.js",
-        "node_modules/scoped-property-store/node_modules/event-kit/lib/composite-disposable.js",
-        "node_modules/scoped-property-store/node_modules/event-kit/lib/disposable.js",
-        "node_modules/scoped-property-store/node_modules/event-kit/lib/emitter.js",
-        "node_modules/scoped-property-store/node_modules/event-kit/lib/event-kit.js",
-        "node_modules/scoped-property-store/node_modules/key-path-helpers/lib/key-path-helpers.js",
         "node_modules/selector-kit/lib/selector-kit.js",
         "node_modules/selector-kit/lib/selector.js",
-        "node_modules/selector-kit/node_modules/atom-slick/finder.js",
-        "node_modules/selector-kit/node_modules/atom-slick/index.js",
-        "node_modules/selector-kit/node_modules/atom-slick/parser.js",
         "node_modules/semver/semver.browser.js",
         "node_modules/semver/semver.js",
         "node_modules/semver/semver.min.js",
+        "node_modules/stable/stable.js",
+        "node_modules/stable/test.js",
         "node_modules/underscore-plus/lib/underscore-plus.js",
         "node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
         "node_modules/underscore-plus/node_modules/underscore/underscore.js"
@@ -782,13 +757,24 @@
           "spec/issues"
         ],
         "dependencies": {
+          "atom-slick": "^2.0.0",
+          "clear-cut": "^0.4.0",
           "fuzzaldrin": "^2.1.0",
           "grim": "^1.2.0",
           "minimatch": "^2.0.1",
-          "scoped-property-store": "^0.16.2",
           "selector-kit": "^0.1",
           "semver": "^4.3.1",
+          "stable": "^0.1.5",
           "underscore-plus": "^1.6.6"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/clear-cut/lib",
+          "node_modules/clear-cut"
+        ],
+        "dependencies": {
+          "specificity": "0.1.3"
         }
       },
       {
@@ -864,9 +850,9 @@
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.4",
-          "es6-iterator": "~0.1.1",
-          "es6-symbol": "0.1.x"
+          "es5-ext": "~0.10.6",
+          "es6-iterator": "~0.1.3",
+          "es6-symbol": "~2.0.1"
         }
       },
       {
@@ -905,6 +891,7 @@
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/function/#",
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/function",
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext",
+          "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable",
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math",
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/acosh",
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/asinh",
@@ -980,6 +967,7 @@
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/error",
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/function/#",
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/function",
+          "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/iterable",
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/math",
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/math/acosh",
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/math/asinh",
@@ -1038,16 +1026,6 @@
       },
       {
         "paths": [
-          "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol",
-          "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/test"
-        ],
-        "dependencies": {
-          "d": "~0.1.1",
-          "es5-ext": "~0.10.5"
-        }
-      },
-      {
-        "paths": [
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/#",
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator",
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/test/#",
@@ -1061,22 +1039,12 @@
       },
       {
         "paths": [
-          "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol",
-          "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/test"
-        ],
-        "dependencies": {
-          "d": "~0.1.1",
-          "es5-ext": "~0.10.5"
-        }
-      },
-      {
-        "paths": [
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol",
           "node_modules/grim/node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/test"
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.4"
+          "es5-ext": "~0.10.5"
         }
       },
       {
@@ -1091,8 +1059,7 @@
       },
       {
         "paths": [
-          "node_modules/minimatch",
-          "node_modules/minimatch/test"
+          "node_modules/minimatch"
         ],
         "dependencies": {
           "brace-expansion": "^1.0.0"
@@ -1106,28 +1073,6 @@
         "dependencies": {
           "balanced-match": "^0.2.0",
           "concat-map": "0.0.1"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/scoped-property-store/lib",
-          "node_modules/scoped-property-store"
-        ],
-        "dependencies": {
-          "atom-slick": "^2",
-          "event-kit": "^1.0.0",
-          "grim": "^1.0.0",
-          "key-path-helpers": "^0.1.0",
-          "underscore-plus": "^1.6.3"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/scoped-property-store/node_modules/event-kit",
-          "node_modules/scoped-property-store/node_modules/event-kit/lib"
-        ],
-        "dependencies": {
-          "grim": "^1.0.0"
         }
       },
       {

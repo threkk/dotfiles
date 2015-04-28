@@ -16,3 +16,4 @@
   linter: {}
   "autocomplete-plus":
     confirmCompletion: "enter"
+  react: {}

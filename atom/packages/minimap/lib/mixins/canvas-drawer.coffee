@@ -1,7 +1,16 @@
+_ = require 'underscore-plus'
 Mixin = require 'mixto'
 
+# Public: The {CanvasDrawer} mixin is responsible for the rendering of a
+# {Minimap} in a `canvas` element.
+#
+# This mixin is injected in the {MinimapElement} prototype, so all these methods
+# are available on any {MinimapElement} instance.
 module.exports =
 class CanvasDrawer extends Mixin
+  ### Public ###
+
+  # Initializes the canvas elements needed to perform the {Minimap} rendering.
   initializeCanvas: ->
     @canvas = document.createElement('canvas')
     @context = @canvas.getContext('2d')
@@ -11,6 +20,8 @@ class CanvasDrawer extends Mixin
     @offscreenCanvas = document.createElement('canvas')
     @offscreenContext = @offscreenCanvas.getContext('2d')
 
+  # Performs an update of the rendered {Minimap} based on the changes registered
+  # in the instance.
   updateCanvas: ->
     firstRow = @minimap.getFirstVisibleScreenRow()
     lastRow = @minimap.getLastVisibleScreenRow()
@@ -40,6 +51,9 @@ class CanvasDrawer extends Mixin
   #    ##    ## ##     ## ##       ##     ## ##    ##  ##    ##
   #     ######   #######  ########  #######  ##     ##  ######
 
+  # Returns the opacity value to use when rendering the {Minimap} text.
+  #
+  # Returns a {Number}.
   getTextOpacity: -> @textOpacity
 
   # Returns the default text color for an editor content.
@@ -60,10 +74,7 @@ class CanvasDrawer extends Mixin
   # token - A token {Object}.
   #
   # Returns a {String}.
-  getTokenColor: (token) ->
-    #Retrieve color from cache if available
-    flatScopes = (token.scopeDescriptor or token.scopes).join()
-    @retrieveTokenColorFromDom(token)
+  getTokenColor: (token) -> @retrieveTokenColorFromDom(token)
 
   # Returns the background color for the passed-in `decoration` object.
   #
@@ -140,13 +151,7 @@ class CanvasDrawer extends Mixin
 
     # Whitespaces can be substituted by other characters so we need
     # to replace them when that's the case.
-    if line? and line.invisibles?
-      re = ///
-      #{line.invisibles.cr}|
-      #{line.invisibles.eol}|
-      #{line.invisibles.space}|
-      #{line.invisibles.tab}
-      ///g
+    invisibleRegExp = @getInvisibleRegExp(line)
 
     for line, row in lines
       x = 0
@@ -175,7 +180,7 @@ class CanvasDrawer extends Mixin
             @getDefaultColor()
 
           value = token.value
-          value = value.replace(re, ' ') if re?
+          value = value.replace(invisibleRegExp, ' ') if invisibleRegExp?
 
           x = @drawToken(context, value, color, x, y0, charWidth, charHeight)
         else
@@ -196,6 +201,19 @@ class CanvasDrawer extends Mixin
           @drawHighlightOutlineDecoration(context, decoration, y, screenRow, lineHeight, charWidth, canvasWidth)
 
     context.fill()
+
+  # Internal: Returns the regexp to replace invisibles substitution characters
+  # in editor lines.
+  #
+  # line - The screen line for which replacing the invisibles characters.
+  getInvisibleRegExp: (line) ->
+    if line? and line.invisibles?
+      ///
+      #{_.escapeRegExp line.invisibles.cr}|
+      #{_.escapeRegExp line.invisibles.eol}|
+      #{_.escapeRegExp line.invisibles.space}|
+      #{_.escapeRegExp line.invisibles.tab}
+      ///g
 
   # Internal: Draws a single token on the given context.
   #
@@ -410,9 +428,6 @@ class CanvasDrawer extends Mixin
     for change in @pendingChanges
       newIntactRanges = []
       for range in intactRanges
-        if isNaN(change.screenDelta)
-          change.screenDelta = change.end - change.start
-
         if change.end < range.start and change.screenDelta != 0
           newIntactRanges.push(
             start: range.start + change.screenDelta

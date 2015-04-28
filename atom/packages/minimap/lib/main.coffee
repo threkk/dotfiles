@@ -79,7 +79,11 @@ class Main
     scrollAnimation:
       type: 'boolean'
       default: false
-      description: "If this option is enabled then when you click the minimap it will scroll to the destination with animation"
+      description: 'Enables animations when scrolling by clicking on the minimap.'
+    scrollAnimationDuration:
+      type: 'integer'
+      default: 300
+      description: 'The duration of scrolling animations when clicking on the minimap.'
     createPluginInDevMode:
       type: 'boolean'
       default: false
@@ -274,7 +278,7 @@ class Main
       disposable.dispose()
     disposable
 
-  # Internal: Registers
+  # Internal: Registers to the `observeTextEditors` method.
   initSubscriptions: ->
     @subscriptions.add atom.workspace.observeTextEditors (textEditor) =>
       minimap = @minimapForEditor(textEditor)

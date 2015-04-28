@@ -31,6 +31,7 @@ describe 'Autocomplete', ->
         autocompleteManager = mainModule.autocompleteManager
 
       runs ->
+        advanceClock(mainModule.autocompleteManager.providerManager.fuzzyProvider.deferBuildWordListInterval)
         editorView = atom.views.getView(editor)
 
     describe 'where many cursors are defined', ->
@@ -45,7 +46,6 @@ describe 'Autocomplete', ->
 
         runs ->
           editorView = atom.views.getView(editor)
-          console.log editorView.classList
           autocompleteManager = mainModule.autocompleteManager
           expect(editorView.querySelector('.autocomplete-plus')).toExist()
 
@@ -67,7 +67,8 @@ describe 'Autocomplete', ->
       describe 'where text differs between cursors', ->
         it 'cancels the autocomplete', ->
           editor.getBuffer().insert([10, 0], 's:extra:a')
-          editor.setSelectedBufferRanges([[[10, 1], [10, 1]], [[10, 9], [10, 9]]])
+          editor.setCursorBufferPosition([10, 1])
+          editor.addCursorAtBufferPosition([10, 9])
 
           runs ->
             triggerAutocompletion(editor, false, 'h')

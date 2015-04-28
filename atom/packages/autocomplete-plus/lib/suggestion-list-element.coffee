@@ -1,23 +1,56 @@
 {CompositeDisposable} = require 'atom'
 _ = require 'underscore-plus'
+SnippetParser = require './snippet-parser'
+
+ItemTemplate = """
+  <span class="icon-container"></span>
+  <span class="left-label"></span>
+  <span class="word-container">
+    <span class="word"></span>
+    <span class="right-label"></span>
+  </span>
+"""
+
+ListTemplate = """
+  <div class="suggestion-list-scroller">
+    <ol class="list-group"></ol>
+  </div>
+  <div class="suggestion-description">
+    <span class="suggestion-description-content"></span>
+    <a class="suggestion-description-more-link" href="#">More..</a>
+  </div>
+"""
+
+IconTemplate = '<i class="icon"></i>'
+
+DefaultSuggestionTypeIconHTML =
+  'snippet': '<i class="icon-move-right"></i>'
+  'import': '<i class="icon-package"></i>'
+  'require': '<i class="icon-package"></i>'
+  'module': '<i class="icon-package"></i>'
+  'package': '<i class="icon-package"></i>'
+  'tag': '<i class="icon-code"></i>'
+  'attribute': '<i class="icon-tag"></i>'
+
+SnippetStart = 1
+SnippetEnd = 2
+SnippetStartAndEnd = 3
 
 class SuggestionListElement extends HTMLElement
-  maxItems: 1000
-  snippetRegex: /\$\{[0-9]+:([^}]+)\}/g
-  snippetMarkerChar: '|'
-  snippetMarkerRegex: /\|/g
+  maxItems: 200
+  emptySnippetGroupRegex: /(\$\{\d+\:\})|(\$\{\d+\})|(\$\d+)/ig
 
   createdCallback: ->
     @subscriptions = new CompositeDisposable
     @classList.add('popover-list', 'select-list', 'autocomplete-suggestion-list')
     @registerMouseHandling()
+    @snippetParser = new SnippetParser
 
   attachedCallback: ->
     # TODO: Fix overlay decorator to in atom to apply class attribute correctly, then move this to overlay creation point.
     @parentElement.classList.add('autocomplete-plus')
     @addActiveClassToEditor()
     @renderList() unless @ol
-    @calculateMaxListHeight()
     @itemsChanged()
 
   detachedCallback: ->
@@ -25,11 +58,14 @@ class SuggestionListElement extends HTMLElement
 
   initialize: (@model) ->
     return unless model?
-    @subscriptions.add(@model.onDidChangeItems(@itemsChanged.bind(this)))
-    @subscriptions.add(@model.onDidSelectNext(@moveSelectionDown.bind(this)))
-    @subscriptions.add(@model.onDidSelectPrevious(@moveSelectionUp.bind(this)))
-    @subscriptions.add(@model.onDidConfirmSelection(@confirmSelection.bind(this)))
-    @subscriptions.add(@model.onDidDispose(@dispose.bind(this)))
+    @subscriptions.add @model.onDidChangeItems(@itemsChanged.bind(this))
+    @subscriptions.add @model.onDidSelectNext(@moveSelectionDown.bind(this))
+    @subscriptions.add @model.onDidSelectPrevious(@moveSelectionUp.bind(this))
+    @subscriptions.add @model.onDidConfirmSelection(@confirmSelection.bind(this))
+    @subscriptions.add @model.onDidDispose(@dispose.bind(this))
+
+    @subscriptions.add atom.config.observe 'autocomplete-plus.suggestionListFollows', (@suggestionListFollows) =>
+    @subscriptions.add atom.config.observe 'autocomplete-plus.maxVisibleSuggestions', (@maxVisibleSuggestions) =>
     this
 
   # This should be unnecessary but the events we need to override
@@ -38,18 +74,43 @@ class SuggestionListElement extends HTMLElement
   registerMouseHandling: ->
     @onmousewheel = (event) -> event.stopPropagation()
     @onmousedown = (event) ->
-      item = event.target
-      item = item.parentNode while not (item.dataset?.index) and item isnt this
-      @selectedIndex = item.dataset?.index
-      event.stopPropagation()
+      item = @findItem(event)
+      if item?.dataset.index?
+        @selectedIndex = item.dataset.index
+        event.stopPropagation()
 
     @onmouseup = (event) ->
-      event.stopPropagation()
-      @confirmSelection()
+      item = @findItem(event)
+      if item?.dataset.index?
+        event.stopPropagation()
+        @confirmSelection()
 
-  itemsChanged: ->
+  findItem: (event) ->
+    item = event.target
+    item = item.parentNode while item.tagName isnt 'LI' and item isnt this
+    item if item.tagName is 'LI'
+
+  updateDescription: ->
+    item = @visibleItems()[@selectedIndex]
+    if item.description? and item.description.length > 0
+      @descriptionContainer.style.display = 'block'
+      @descriptionContent.textContent = item.description
+      if item.descriptionMoreURL? and item.descriptionMoreURL.length?
+        @descriptionMoreLink.style.display = 'inline'
+        @descriptionMoreLink.setAttribute('href', item.descriptionMoreURL)
+      else
+        @descriptionMoreLink.style.display = 'none'
+        @descriptionMoreLink.setAttribute('href', '#')
+    else
+      @descriptionContainer.style.display = 'none'
+
+  itemsChanged: -> @render()
+
+  render: ->
     @selectedIndex = 0
-    @renderItems()
+    atom.views.pollAfterNextUpdate?()
+    atom.views.updateDocument @renderItems.bind(this)
+    atom.views.readDocument @readUIPropsFromDOM.bind(this)
 
   addActiveClassToEditor: ->
     editorElement = atom.views.getView(atom.workspace.getActiveTextEditor())
@@ -73,7 +134,8 @@ class SuggestionListElement extends HTMLElement
 
   setSelectedIndex: (index) ->
     @selectedIndex = index
-    @renderItems()
+    atom.views.updateDocument @renderSelectedItem.bind(this)
+    atom.views.readDocument @readUIPropsFromDOM.bind(this)
 
   visibleItems: ->
     @model?.items?.slice(0, @maxItems)
@@ -95,103 +157,186 @@ class SuggestionListElement extends HTMLElement
       @model.cancel()
 
   renderList: ->
-    @ol = document.createElement('ol')
-    @appendChild(@ol)
-    @ol.className = 'list-group'
-
-  calculateMaxListHeight: ->
-    maxVisibleItems = atom.config.get('autocomplete-plus.maxVisibleSuggestions')
-    li = document.createElement('li')
-    li.textContent = 'test'
-    @ol.appendChild(li)
-    itemHeight = li.offsetHeight
-    @ol.style['max-height'] = "#{maxVisibleItems * itemHeight}px"
-    li.remove()
+    @innerHTML = ListTemplate
+    @ol = @querySelector('.list-group')
+    @scroller = @querySelector('.suggestion-list-scroller')
+    @descriptionContainer = @querySelector('.suggestion-description')
+    @descriptionContent = @querySelector('.suggestion-description-content')
+    @descriptionMoreLink = @querySelector('.suggestion-description-more-link')
 
   renderItems: ->
     items = @visibleItems() ? []
     @renderItem(item, index) for item, index in items
     li.remove() while li = @ol.childNodes[items.length]
-    @selectedLi?.scrollIntoView(false)
+    @updateDescription()
 
-  renderItem: ({snippet, text, rightLabel, rightLabelHTML, className, replacementPrefix}, index) ->
+  renderSelectedItem: ->
+    @selectedLi.classList.remove('selected')
+    @selectedLi = @ol.childNodes[@selectedIndex]
+    @selectedLi.classList.add('selected')
+    @scrollSelectedItemIntoView()
+    @updateDescription()
+
+  # This is reading the DOM in the updateDOM cycle. If we dont, there is a flicker :/
+  scrollSelectedItemIntoView: ->
+    scrollTop = @scroller.scrollTop
+    selectedItemTop = @selectedLi.offsetTop
+    itemHeight = @uiProps.itemHeight
+    scrollerHeight = @maxVisibleSuggestions * itemHeight + @uiProps.paddingHeight
+    if selectedItemTop < scrollTop or selectedItemTop + itemHeight > scrollTop + scrollerHeight
+      @selectedLi.scrollIntoView(false)
+
+  readUIPropsFromDOM: ->
+    wordContainer = @selectedLi?.querySelector('.word-container')
+
+    @uiProps ?= {}
+    @uiProps.marginLeft = -(wordContainer?.offsetLeft ? 0)
+    @uiProps.itemHeight ?= @selectedLi.offsetHeight
+    @uiProps.paddingHeight ?= (parseInt(getComputedStyle(this)['padding-top']) + parseInt(getComputedStyle(this)['padding-bottom'])) ? 0
+
+    #TODO: use a new core API for batching sync writes after a read.
+    @updateUIForChangedProps()
+
+  updateUIForChangedProps: ->
+    @scroller.style['max-height'] = "#{@maxVisibleSuggestions * @uiProps.itemHeight + @uiProps.paddingHeight}px"
+    if @suggestionListFollows is 'Word'
+      @style['margin-left'] = "#{@uiProps.marginLeft}px"
+
+  renderItem: ({iconHTML, type, snippet, text, displayText, className, replacementPrefix, leftLabel, leftLabelHTML, rightLabel, rightLabelHTML}, index) ->
     li = @ol.childNodes[index]
     unless li
       li = document.createElement('li')
-      @ol.appendChild(li)
+      li.innerHTML = ItemTemplate
       li.dataset.index = index
+      @ol.appendChild(li)
 
     li.className = ''
     li.classList.add(className) if className
     li.classList.add('selected') if index is @selectedIndex
     @selectedLi = li if index is @selectedIndex
 
-    wordSpan = li.childNodes[0]
-    unless wordSpan
-      wordSpan = document.createElement('span')
-      li.appendChild(wordSpan)
-      wordSpan.className = 'word'
+    typeIconContainer = li.querySelector('.icon-container')
+    typeIconContainer.innerHTML = ''
 
-    wordSpan.innerHTML = @getHighlightedHTML(text, snippet, replacementPrefix)
+    sanitizedType = if _.isString(type) then type else ''
+    sanitizedIconHTML = if _.isString(iconHTML) then iconHTML else undefined
+    defaultLetterIconHTML = if sanitizedType then "<span class=\"icon-letter\">#{sanitizedType[0]}</span>" else ''
+    defaultIconHTML = DefaultSuggestionTypeIconHTML[sanitizedType] ? defaultLetterIconHTML
+    if (sanitizedIconHTML or defaultIconHTML) and iconHTML isnt false
+      typeIconContainer.innerHTML = IconTemplate
+      typeIcon = typeIconContainer.childNodes[0]
+      typeIcon.innerHTML = sanitizedIconHTML ? defaultIconHTML
+      typeIcon.classList.add(type) if type
 
-    labelSpan = li.childNodes[1]
-    hasRightLabel = rightLabel or rightLabelHTML
-    if hasRightLabel
-      unless labelSpan
-        labelSpan = document.createElement('span')
-        li.appendChild(labelSpan) if hasRightLabel
-        labelSpan.className = 'completion-label text-smaller text-subtle'
+    wordSpan = li.querySelector('.word')
+    wordSpan.innerHTML = @getDisplayHTML(text, snippet, displayText, replacementPrefix)
 
-      if rightLabelHTML?
-        labelSpan.innerHTML = rightLabelHTML
-      else
-        labelSpan.textContent = rightLabel
+    leftLabelSpan = li.querySelector('.left-label')
+    if leftLabelHTML?
+      leftLabelSpan.innerHTML = leftLabelHTML
+    else if leftLabel?
+      leftLabelSpan.textContent = leftLabel
     else
-      labelSpan?.remove()
+      leftLabelSpan.textContent = ''
 
-  getHighlightedHTML: (text, snippet, replacementPrefix) ->
-    # 1. Pull the snippets out, replacing with placeholder
-    # 2. Highlight relevant characters
-    # 3. Place snippet HTML back at the placeholders
+    rightLabelSpan = li.querySelector('.right-label')
+    if rightLabelHTML?
+      rightLabelSpan.innerHTML = rightLabelHTML
+    else if rightLabel?
+      rightLabelSpan.textContent = rightLabel
+    else
+      rightLabelSpan.textContent = ''
 
-    # Pull out snippet
-    # e.g. replacementPrefix: 'a', snippet: 'abc(${d}, ${e})f'
-    # ->   replacement: 'abc(|, |)f'
-    replacement = text
-    snippetCompletions = []
-    if _.isString(snippet)
-      replacement = snippet.replace @snippetRegex, (match, snippetText) =>
-        snippetCompletions.push "<span class=\"snippet-completion\">#{snippetText}</span>"
-        @snippetMarkerChar
+  getDisplayHTML: (text, snippet, displayText, replacementPrefix) ->
+    replacementText = text
+    if typeof displayText is 'string'
+      replacementText = displayText
+    else if typeof snippet is 'string'
+      replacementText = @removeEmptySnippets(snippet)
+      snippets = @snippetParser.findSnippets(replacementText)
+      replacementText = @removeSnippetsFromText(snippets, replacementText)
+      snippetIndices = @findSnippetIndices(snippets)
+    characterMatchIndices = @findCharacterMatchIndices(replacementText, replacementPrefix)
 
-    # Add spans for replacement prefix
-    # e.g. replacement: 'abc(|, |)f'
-    # ->   highlightedHTML: '<span class="character-match">a</span>bc(|, |)f'
-    highlightedHTML = ''
+    displayHTML = ''
+    for character, index in replacementText
+      if snippetIndices?[index] in [SnippetStart, SnippetStartAndEnd]
+        displayHTML += '<span class="snippet-completion">'
+      if characterMatchIndices?[index]
+        displayHTML += '<span class="character-match">' + replacementText[index] + '</span>'
+      else
+        displayHTML += replacementText[index]
+      if snippetIndices?[index] in [SnippetEnd, SnippetStartAndEnd]
+        displayHTML += '</span>'
+    displayHTML
+
+  removeEmptySnippets: (text) ->
+    return text unless text?.length and text.indexOf('$') isnt -1 # No snippets
+    text.replace(@emptySnippetGroupRegex, '') # Remove all occurrences of $0 or ${0} or ${0:}
+
+  # Will convert 'abc(${1:d}, ${2:e})f' => 'abc(d, e)f'
+  #
+  # * `snippets` {Array} from `SnippetParser.findSnippets`
+  # * `text` {String} to remove snippets from
+  #
+  # Returns {String}
+  removeSnippetsFromText: (snippets, text) ->
+    return text unless text.length and snippets?.length
+    index = 0
+    result = ''
+    for {snippetStart, snippetEnd, body} in snippets
+      result += text.slice(index, snippetStart) + body
+      index = snippetEnd + 1
+    result += text.slice(index, text.length) if index isnt text.length
+    result
+
+
+  # Computes the indices of snippets in the resulting string from
+  # `removeSnippetsFromText`.
+  #
+  # * `snippets` {Array} from `SnippetParser.findSnippets`
+  #
+  # e.g. A replacement of 'abc(${1:d})e' is replaced to 'abc(d)e' will result in
+  #
+  # `{4: SnippetStartAndEnd}`
+  #
+  # Returns {Object} of {index: SnippetStart|End|StartAndEnd}
+  findSnippetIndices: (snippets) ->
+    return unless snippets?
+    indices = {}
+    offsetAccumulator = 0
+    for {snippetStart, snippetEnd, body} in snippets
+      bodyLength = body.length
+      snippetLength = snippetEnd - snippetStart + 1
+      startIndex = snippetStart - offsetAccumulator
+      endIndex = startIndex + bodyLength - 1
+      offsetAccumulator += snippetLength - bodyLength
+
+      if startIndex is endIndex
+        indices[startIndex] = SnippetStartAndEnd
+      else
+        indices[startIndex] = SnippetStart
+        indices[endIndex] = SnippetEnd
+    indices
+
+  # Finds the indices of the chars in text that are matched by replacementPrefix
+  #
+  # e.g. text = 'abcde', replacementPrefix = 'acd' Will result in
+  #
+  # {0: true, 2: true, 3: true}
+  #
+  # Returns an {Object}
+  findCharacterMatchIndices: (text, replacementPrefix) ->
+    return unless text?.length and replacementPrefix?.length
+    matches = {}
     wordIndex = 0
-    lastWordIndex = 0
     for ch, i in replacementPrefix
-      while wordIndex < replacement.length and replacement[wordIndex].toLowerCase() isnt ch.toLowerCase()
+      while wordIndex < text.length and text[wordIndex].toLowerCase() isnt ch.toLowerCase()
         wordIndex += 1
-
-      break if wordIndex >= replacement.length
-      preChar = replacement.substring(lastWordIndex, wordIndex)
-      highlightedChar = "<span class=\"character-match\">#{replacement[wordIndex]}</span>"
-      highlightedHTML = "#{highlightedHTML}#{preChar}#{highlightedChar}"
+      break if wordIndex >= text.length
+      matches[wordIndex] = true
       wordIndex += 1
-      lastWordIndex = wordIndex
-
-    highlightedHTML += replacement.substring(lastWordIndex)
-
-    # Place the snippets back at the placeholders
-    # e.g. highlightedHTML: '<span class="character-match">a</span>bc(|, |)f'
-    # ->   highlightedHTML: '<span class="character-match">a</span>bc(<span class="snippet-completion">d</span>, <span class="snippet-completion">e</span>)f'
-    if snippetCompletions.length
-      completionIndex = 0
-      highlightedHTML = highlightedHTML.replace @snippetMarkerRegex, (match, snippetText) ->
-        snippetCompletions[completionIndex++]
-
-    highlightedHTML
+    matches
 
   dispose: ->
     @subscriptions.dispose()
