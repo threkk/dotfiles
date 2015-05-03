@@ -18,7 +18,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'gorodinskiy/vim-coloresque'                       " RGB Colors
   Plug 'raimondi/delimitmate'                             " Close parenthesis
   Plug 'majutsushi/tagbar'                                " Outline tags.
-
+  Plug 'oplatek/Conque-Shell'                             " Terminal
   " Themes
   Plug 'altercation/vim-colors-solarized'
   Plug 'jpo/vim-railscasts-theme'
@@ -139,3 +139,11 @@ set laststatus=2
 
 " Tagbar - Requires CTags.
 nmap <F6> :TagbarToggle<CR>
+
+" Conque-Shell
+let g:ConqueTerm_PyVersion = 2
+let g:ConqueTerm_FastMode = 0
+let g:ConqueTerm_Color = 2
+let g:ConqueTerm_ReadUnfocused = 1
+let g:ConqueTerm_PromptRegex = '^\w\+@[0-9A-Za-z_.-]\+:[0-9A-Za-z_./\~,:-]\+\$'
+let g:ConqueTerm_InsertOnEnter = 1
