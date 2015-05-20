@@ -62,12 +62,16 @@ set cmdheight=2
 set columns=80
 set colorcolumn=80
 set textwidth=80
+set t_Co=256
+set fillchars+=stl:\ ,stlnc:\
+set term=xterm-256color
+set termencoding=utf-8
 
 " Theme selector
 syntax enable
 set background=dark
 colorscheme seti
-set guifont=Monaco:h16
+set guifont=Inconsolata\ for\ Powerline:h15
 
 if has("gui_macvim")
   " Press Ctrl-Tab to switch between open tabs (like browser tabs) to 
@@ -120,22 +124,17 @@ let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_symbols.space = "\ua0"
 
 let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
+
+if has("gui_running")
+  let s:uname = system("uname")
+  if s:uname == "Darwin\n"
+    set guifont=Inconsolata\ for\ Powerline:h15
+  endif
+endif
 
 " Tagbar - Requires CTags.
 nmap <F6> :TagbarToggle<CR>
