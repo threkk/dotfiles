@@ -1,3 +1,63 @@
+<a name="v4.10.0"></a>
+# v4.10.0 (2015-06-10)
+
+## :sparkles: Features
+
+- Add control over absolute mode in the quick settings popup ([1ae73d91](https://github.com/atom-minimap/minimap/commit/1ae73d910cfb88ee01f02019816029eaf2cd2738))
+- Add an absolute mode setting allowing the text editor content to flow below the minimap ([2fa132f8](https://github.com/atom-minimap/minimap/commit/2fa132f8dec320759292f4cb69296d931497648a), [#337](https://github.com/atom-minimap/minimap/issues/337))
+
+## :bug: Bug Fixes
+
+- Fix reading tokens from undefined lines ([a5bcc7a2](https://github.com/atom-minimap/minimap/commit/a5bcc7a24bb07f96a8899b4d15f7eb724c0b4d4c), [#341](https://github.com/atom-minimap/minimap/issues/341))
+
+<a name="v4.9.4"></a>
+# v4.9.4 (2015-06-05)
+
+## :bug: Bug Fixes
+
+- Fix error raised when creating a decoration ([6992530d](https://github.com/atom-minimap/minimap/commit/6992530d23fb84525808c1a02e1911dea93a4d52), [#335](https://github.com/atom-minimap/minimap/issues/335))
+
+<a name="v4.9.3"></a>
+# v4.9.3 (2015-06-04)
+
+## :bug: Bug Fixes
+
+- Fix duplicated lines at the end of the minimap ([e048e168](https://github.com/atom-minimap/minimap/commit/e048e1682b71d95e5c40ffb9250f1e0aedd1b36b), [#292](https://github.com/atom-minimap/minimap/issues/292))
+
+<a name="v0.9.2"></a>
+# v0.9.2 (2015-06-01)
+
+## :bug: Bug Fixes
+
+- Fix typo in method name ([da9dec45](https://github.com/atom-minimap/minimap/commit/da9dec4513d30ed4187fb1944c5abeb403b30b4b))
+
+<a name="v4.9.1"></a>
+# v4.9.1 (2015-06-01)
+
+## :bug: Bug Fixes
+
+- Fix hue-rotate filter not accounted when computing a token color ([53fa7062](https://github.com/atom-minimap/minimap/commit/53fa70628478f04e2e72aaa8bfa6627863114f9c), [#330](https://github.com/atom-minimap/minimap/issues/330))
+
+<a name="v4.9.0"></a>
+# v4.9.0 (2015-05-18)
+
+## :sparkles: Features
+
+- Add context menu to toggle the minimap ([edcb74bc](https://github.com/atom-minimap/minimap/commit/edcb74bcbe4fd6cabcddbe279b2c982acb556cb8), [#326](https://github.com/atom-minimap/minimap/issues/326))
+- Add minimap-autohide to the list of plugins ([e17588ac](https://github.com/atom-minimap/minimap/commit/e17588acd93a8fd9471e0640db0be2b01b6de325))
+
+<a name="v4.8.0"></a>
+# v4.8.0 (2015-04-30)
+
+## :sparkles: Features
+
+- Implemented middle click click-and-drag behavior. Resolves #290 ([86c155b7](https://github.com/atom-minimap/minimap/commit/86c155b7996193b52c263f155921b3cb76ac13e0))
+- Implemented middle click to jump-to-location ([175d058e](https://github.com/atom-minimap/minimap/commit/175d058ee39e8383c42cbf243f78511f5bd8dbc7))
+
+## :bug: Bug Fixes
+
+- Fix typo ([daeb0834](https://github.com/atom-minimap/minimap/commit/daeb083452bc0267082a5c11e8552369dd3ccc19))
+
 <a name="v4.7.6"></a>
 # v4.7.6 (2015-04-08)
 
@@ -276,7 +336,7 @@ The following changes mostly concerns the implementation of the new minimap.
 - Implement minimap creation observer method for v4 ([e583763a](https://github.com/atom-minimap/minimap/commit/e583763a8f166f42f177dcb7df9379827ee0ce28))
 - Implement basic minimap scroll through dragging ([769fb815](https://github.com/atom-minimap/minimap/commit/769fb8153960baac29b4f1bc4ace419db852a14d))
 - Implement scroll on mouse pressed over canvas ([eb927855](https://github.com/atom-minimap/minimap/commit/eb9278552561539ce9d1ac87f45b738f12d6f573))
-- Implement sublime-like minimap scroll with scroll past end ([5d5185b7](https://github.com/atom-minimap/minimap/commit/5d5185b725ba399345cfba363b44b59825782e02))  
+- Implement sublime-like minimap scroll with scroll past end ([5d5185b7](https://github.com/atom-minimap/minimap/commit/5d5185b725ba399345cfba363b44b59825782e02))
   <br>It prevents the minimap from going past the end while the editor is.
 - Implement code highlight toggle from quick settings in element ([c779f6fd](https://github.com/atom-minimap/minimap/commit/c779f6fd0eb3c7dac950d423fe95480f4b765a8c))
 - Implement proper quick settings view life cycle ([9af0bd12](https://github.com/atom-minimap/minimap/commit/9af0bd12f6b9c6820c8b649f71517c4e6de79558))

@@ -2,6 +2,7 @@
   editor:
     softWrap: true
     invisibles: {}
+    tabLength: 4
   core:
     followSymlinks: true
     themes: [
@@ -13,7 +14,13 @@
     userId: "4a138ac0-e767-65b6-447b-2bf73caf9391"
   welcome:
     showOnStartup: false
-  linter: {}
+  linter:
+    subtleLinterErrors: [
+      "jsxhint"
+    ]
   "autocomplete-plus":
     confirmCompletion: "enter"
   react: {}
+  "linter-jshint": {}
+  jshint:
+    supportLintingJsx: true

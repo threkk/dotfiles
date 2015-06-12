@@ -48,15 +48,33 @@ class Linter
   # TODO: what does this mean?
   errorStream: 'stdout'
 
+  # Base options
+  baseOptions: ['executionTimeout']
+
+  # Child options
+  options: []
+
   # Public: Construct a linter passing it's base editor
   constructor: (@editor) ->
     @cwd = path.dirname(@editor.getPath())
 
     @subscriptions = new CompositeDisposable
-    @subscriptions.add atom.config.observe 'linter.executionTimeout', (x) =>
-      @executionTimeout = x
+
+    # Load options from `linter`
+    @observeOption('linter', option) for option in @baseOptions
+
+    # Load options from `linter-child`
+    @observeOption("linter-#{@linterName}", option) for option in @options
 
     @_statCache = new Map()
+
+  observeOption: (prefix, option) ->
+    callback = @updateOption.bind(this, prefix, option)
+    @subscriptions.add atom.config.observe "#{prefix}.#{option}", callback
+
+  updateOption: (prefix, option) =>
+    @[option] = atom.config.get "#{prefix}.#{option}"
+    log "Updating `#{prefix}` #{option} to #{@[option]}"
 
   destroy: ->
     @subscriptions.dispose()
@@ -242,7 +260,7 @@ class Linter
     else if match.info
       level = 'info'
     else
-      level = @defaultLevel
+      level = match.level or 'error'
 
     # If no line/col is found, assume a full file error
     # TODO: This conflicts with the docs above that say line is required :(

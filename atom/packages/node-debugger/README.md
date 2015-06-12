@@ -1,21 +1,29 @@
-node-debugger package [![Build Status](https://travis-ci.org/kiddkai/atom-node-debugger.svg)](https://travis-ci.org/kiddkai/atom-node-debugger) [![Build status](https://ci.appveyor.com/api/projects/status/5b3pwtpbt3k9pdwg)](https://ci.appveyor.com/project/kiddkai/atom-node-debugger)
+node-debugger package
 ==============================
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/kiddkai/atom-node-debugger?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-This is a Node.js debugger for atom. Still working on progress. It still buggy now. I still using my spare time to work on it. Please provide me some feedback to make it better.
-
-
-![](https://raw.githubusercontent.com/kiddkai/atom-node-debugger/master/screenshot.gif)
-
+> A simple Node.js/io.js debugger for daily use.
 
 Usage
 ------
 
-### Show panel
+### Commands - CMD/Ctrl - p
 
+Finished Functionals
+
+```js
+'node-debugger:debug-current-file'
+'node-debugger:stop'
+'node-debugger:add-breakpoint'
 ```
-ctrl + shift + p -> Node Debugger: Toggle
+
+Todo Functionals
+
+```js
+CoffeeScript support
+Remove Breakpoint
+Error Handling
 ```
+
 
 ### After you start your app
 
@@ -28,28 +36,10 @@ ctrl + shift + p -> breakpoint add
 Please click [here](https://github.com/kiddkai/atom-node-debugger/issues/new)
 to provide me more suggestions to improve this debugger, thanks :D
 
-Done
-------
+### Known issues
 
-1. Main Control
-2. Run a node process (.js) files
-3. Connect to debugger
-4. Show [stderr/stdout] log
-5. Jump to source when `break`
-6. Breakpoint Control
-    + add breakpoint
-    + show breakpoint in the gutter
-    + List breakpoints
-7. Script Control[load]
-8. Continue Control[next/step...]
-9. Frame Info[argument/locals]
-10. Evaluate Expression
-11. Show variables
+In `Node.js>=0.12` and `io.js`. The process doesn't stop when your process finished.
+So it will have no response from debugger server and will not keep going debugging.
+When you face that issue, just use the `x` button to stop the process by yourself.
 
-
-
-Still working in progress
-
-TODO
-------
-- Adapting the latest api for adding the mark to Gutter
+Issue report is here: https://github.com/nodejs/io.js/issues/1788

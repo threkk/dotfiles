@@ -167,7 +167,7 @@ function processSrc(src){
 }
 
 function getOutputPath(){
-  var markdownPath = atom.workspace.activePaneItem.getPath();
+  var markdownPath = atom.workspace.getActivePaneItem().getPath();
   if (!isMd(markdownPath)){
     //file is saved as something other than markdown-type file
     throw 'Please save the file as a markdown (.markdown, .md, .mkd, .mkdown or .ron)';
@@ -188,7 +188,7 @@ function getOutputPath(){
   }
   else{
     //file is saved as markdown type
-    var out = markdownPath.replace(getExtension(markdownPath), atom.config.get('markdown-pdf.type'));
+    var out = markdownPath.replace(markdownPath.split(path.sep).slice(-1)[0], markdownPath.split(path.sep).slice(-1)[0].replace(getExtension(markdownPath), atom.config.get('markdown-pdf.type')));
     return out;
   }
 }

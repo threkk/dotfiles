@@ -2,8 +2,7 @@
   "name": "linter-jshint",
   "main": "./lib/init",
   "linter-package": true,
-  "activationEvents": [],
-  "version": "0.1.2",
+  "version": "0.1.6",
   "description": "Linter plugin for JavaScript, using jshint",
   "repository": {
     "type": "git",
@@ -14,24 +13,24 @@
     "atom": ">0.50.0"
   },
   "dependencies": {
-    "jshint": "^2.6.3"
+    "jshint": "^2.8"
   },
-  "readme": "linter-jshint\n=========================\n\nThis linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides an interface to [jshint](http://www.jshint.com/docs/). It will be used with files that have the “JS” or “HTML” syntax.\n\n## Installation\nLinter package must be installed in order to use this plugin. If Linter is not installed, please follow the instructions [here](https://github.com/AtomLinter/Linter).\n\n### Plugin installation\n```\n$ apm install linter-jshint\n```\n\n## Settings\nYou can configure linter-jshint by editing ~/.atom/config.cson (choose Open Your Config in Atom menu):\n```\n'linter-jshint':\n  'jshintExecutablePath': null #jshint path. run 'which jshint' to find the path\n```\n\n## Contributing\nIf you would like to contribute enhancements or fixes, please do the following:\n\n1. Fork the plugin repository.\n1. Hack on a separate topic branch created from the latest `master`.\n1. Commit and push the topic branch.\n1. Make a pull request.\n1. welcome to the club\n\nPlease note that modifications should follow these coding guidelines:\n\n- Indent is 2 spaces.\n- Code should pass coffeelint linter.\n- Vertical whitespace helps readability, don’t be afraid to use it.\n\nThank you for helping out!\n\n## Donation\n[![Share the love!](https://chewbacco-stuff.s3.amazonaws.com/donate.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXUYS4ARNHCN8)\n",
+  "readme": "linter-jshint\n=========================\n\nThis linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides an interface to [jshint](http://www.jshint.com/docs/). It will be used with files that have the `.js` file extension.\n\n## Installation\nLinter package must be installed in order to use this plugin. If Linter is not installed, please follow the instructions [here](https://github.com/AtomLinter/Linter).\n\n### Plugin installation\n```\n$ apm install linter-jshint\n```\n\n## Settings\nYou can configure linter-jshint by editing ~/.atom/config.cson (choose Open Your Config in Atom menu):\n```\n'linter-jshint':\n  'jshintExecutablePath': null #jshint path. run 'which jshint' to find the path\n```\n\n## Contributing\nIf you would like to contribute enhancements or fixes, please do the following:\n\n1. Fork the plugin repository.\n1. Hack on a separate topic branch created from the latest `master`.\n1. Commit and push the topic branch.\n1. Make a pull request.\n1. welcome to the club\n\nPlease note that modifications should follow these coding guidelines:\n\n- Indent is 2 spaces.\n- Code should pass coffeelint linter.\n- Vertical whitespace helps readability, don’t be afraid to use it.\n\nThank you for helping out!\n\n## Donation\n[![Share the love!](https://chewbacco-stuff.s3.amazonaws.com/donate.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KXUYS4ARNHCN8)\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/AtomLinter/linter-jshint/issues"
   },
   "homepage": "https://github.com/AtomLinter/linter-jshint",
-  "_id": "linter-jshint@0.1.2",
-  "_shasum": "f5be67be9bbcee47939c6313cadd984ff869bb4f",
-  "_resolved": "file:../d-115328-2243-ftajpe/package.tgz",
-  "_from": "../d-115328-2243-ftajpe/package.tgz",
+  "_id": "linter-jshint@0.1.6",
+  "_shasum": "565c4172161548735a2944b7a47118cc58588fe8",
+  "_resolved": "file:../d-11554-524-fzye5c/package.tgz",
+  "_from": "../d-11554-524-fzye5c/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
       {
         "name": "jshint",
-        "version": "2.7.0",
+        "version": "2.8.0",
         "path": "node_modules/jshint/src/jshint.js"
       },
       {
@@ -56,12 +55,12 @@
       },
       {
         "name": "lru-cache",
-        "version": "2.6.2",
+        "version": "2.6.4",
         "path": "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js"
       },
       {
         "name": "sigmund",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "path": "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/sigmund/sigmund.js"
       },
       {
@@ -146,12 +145,12 @@
       },
       {
         "name": "lodash",
-        "version": "3.6.0",
+        "version": "3.7.0",
         "path": "node_modules/jshint/node_modules/lodash/index.js"
       },
       {
         "name": "minimatch",
-        "version": "2.0.4",
+        "version": "2.0.8",
         "path": "node_modules/jshint/node_modules/minimatch/minimatch.js"
       },
       {
@@ -210,8 +209,6 @@
         "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/inherits/inherits_browser.js",
         "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/inherits/test.js",
         "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/minimatch.js",
-        "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/bar.js",
-        "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/foo.js",
         "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/lru-cache/lib/lru-cache.js",
         "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/sigmund/bench.js",
         "node_modules/jshint/node_modules/cli/node_modules/glob/node_modules/minimatch/node_modules/sigmund/sigmund.js",
@@ -419,6 +416,7 @@
         "node_modules/jshint/node_modules/lodash/internal/arraySum.js",
         "node_modules/jshint/node_modules/lodash/internal/assignDefaults.js",
         "node_modules/jshint/node_modules/lodash/internal/assignOwnDefaults.js",
+        "node_modules/jshint/node_modules/lodash/internal/assignWith.js",
         "node_modules/jshint/node_modules/lodash/internal/baseAssign.js",
         "node_modules/jshint/node_modules/lodash/internal/baseAt.js",
         "node_modules/jshint/node_modules/lodash/internal/baseCallback.js",
@@ -442,6 +440,7 @@
         "node_modules/jshint/node_modules/lodash/internal/baseForOwnRight.js",
         "node_modules/jshint/node_modules/lodash/internal/baseForRight.js",
         "node_modules/jshint/node_modules/lodash/internal/baseFunctions.js",
+        "node_modules/jshint/node_modules/lodash/internal/baseGet.js",
         "node_modules/jshint/node_modules/lodash/internal/baseIndexOf.js",
         "node_modules/jshint/node_modules/lodash/internal/baseIsEqual.js",
         "node_modules/jshint/node_modules/lodash/internal/baseIsEqualDeep.js",
@@ -454,6 +453,8 @@
         "node_modules/jshint/node_modules/lodash/internal/baseMerge.js",
         "node_modules/jshint/node_modules/lodash/internal/baseMergeDeep.js",
         "node_modules/jshint/node_modules/lodash/internal/baseProperty.js",
+        "node_modules/jshint/node_modules/lodash/internal/basePropertyDeep.js",
+        "node_modules/jshint/node_modules/lodash/internal/basePullAt.js",
         "node_modules/jshint/node_modules/lodash/internal/baseRandom.js",
         "node_modules/jshint/node_modules/lodash/internal/baseReduce.js",
         "node_modules/jshint/node_modules/lodash/internal/baseSetData.js",
@@ -514,13 +515,17 @@
         "node_modules/jshint/node_modules/lodash/internal/extremumBy.js",
         "node_modules/jshint/node_modules/lodash/internal/getData.js",
         "node_modules/jshint/node_modules/lodash/internal/getFuncName.js",
+        "node_modules/jshint/node_modules/lodash/internal/getLength.js",
+        "node_modules/jshint/node_modules/lodash/internal/getSymbols.js",
         "node_modules/jshint/node_modules/lodash/internal/getView.js",
         "node_modules/jshint/node_modules/lodash/internal/indexOfNaN.js",
         "node_modules/jshint/node_modules/lodash/internal/initCloneArray.js",
         "node_modules/jshint/node_modules/lodash/internal/initCloneByTag.js",
         "node_modules/jshint/node_modules/lodash/internal/initCloneObject.js",
+        "node_modules/jshint/node_modules/lodash/internal/invokePath.js",
         "node_modules/jshint/node_modules/lodash/internal/isIndex.js",
         "node_modules/jshint/node_modules/lodash/internal/isIterateeCall.js",
+        "node_modules/jshint/node_modules/lodash/internal/isKey.js",
         "node_modules/jshint/node_modules/lodash/internal/isLaziable.js",
         "node_modules/jshint/node_modules/lodash/internal/isLength.js",
         "node_modules/jshint/node_modules/lodash/internal/isObjectLike.js",
@@ -549,6 +554,7 @@
         "node_modules/jshint/node_modules/lodash/internal/sortedUniq.js",
         "node_modules/jshint/node_modules/lodash/internal/toIterable.js",
         "node_modules/jshint/node_modules/lodash/internal/toObject.js",
+        "node_modules/jshint/node_modules/lodash/internal/toPath.js",
         "node_modules/jshint/node_modules/lodash/internal/trimmedLeftIndex.js",
         "node_modules/jshint/node_modules/lodash/internal/trimmedRightIndex.js",
         "node_modules/jshint/node_modules/lodash/internal/unescapeHtmlChar.js",
@@ -598,6 +604,7 @@
         "node_modules/jshint/node_modules/lodash/object/forOwn.js",
         "node_modules/jshint/node_modules/lodash/object/forOwnRight.js",
         "node_modules/jshint/node_modules/lodash/object/functions.js",
+        "node_modules/jshint/node_modules/lodash/object/get.js",
         "node_modules/jshint/node_modules/lodash/object/has.js",
         "node_modules/jshint/node_modules/lodash/object/invert.js",
         "node_modules/jshint/node_modules/lodash/object/keys.js",
@@ -609,6 +616,7 @@
         "node_modules/jshint/node_modules/lodash/object/pairs.js",
         "node_modules/jshint/node_modules/lodash/object/pick.js",
         "node_modules/jshint/node_modules/lodash/object/result.js",
+        "node_modules/jshint/node_modules/lodash/object/set.js",
         "node_modules/jshint/node_modules/lodash/object/transform.js",
         "node_modules/jshint/node_modules/lodash/object/values.js",
         "node_modules/jshint/node_modules/lodash/object/valuesIn.js",
@@ -645,6 +653,8 @@
         "node_modules/jshint/node_modules/lodash/utility/iteratee.js",
         "node_modules/jshint/node_modules/lodash/utility/matches.js",
         "node_modules/jshint/node_modules/lodash/utility/matchesProperty.js",
+        "node_modules/jshint/node_modules/lodash/utility/method.js",
+        "node_modules/jshint/node_modules/lodash/utility/methodOf.js",
         "node_modules/jshint/node_modules/lodash/utility/mixin.js",
         "node_modules/jshint/node_modules/lodash/utility/noop.js",
         "node_modules/jshint/node_modules/lodash/utility/property.js",
@@ -763,7 +773,7 @@
           ""
         ],
         "dependencies": {
-          "jshint": "^2.6.3"
+          "jshint": "^2.8"
         }
       },
       {
@@ -783,7 +793,7 @@
           "minimatch": "2.0.x",
           "shelljs": "0.3.x",
           "strip-json-comments": "1.0.x",
-          "lodash": "3.6.x"
+          "lodash": "3.7.x"
         }
       },
       {

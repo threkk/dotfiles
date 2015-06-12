@@ -23,9 +23,8 @@ class LinterJsxhint extends Linter
   constructor: (editor) ->
     super(editor)
 
-    atom.config.observe 'linter-jsxhint.jsxhintExecutablePath', @formatShellCmd
-    atom.config.observe 'linter-jsxhint.harmony', @formatShellCmd
-
+    @executateConfigSubscription = atom.config.observe 'linter-jsxhint.jsxhintExecutablePath', @formatShellCmd
+    @harmonySubscription = atom.config.observe 'linter-jsxhint.harmony', @formatShellCmd
 
     @formatShellCmd()
 
@@ -51,6 +50,8 @@ class LinterJsxhint extends Linter
     "#{match.message} (#{type}#{match.code})"
 
   destroy: ->
-    atom.config.unobserve 'linter-jsxhint.jsxhintExecutablePath'
+    super
+    @executateConfigSubscription.dispose()
+    @harmonySubscription.dispose()
 
 module.exports = LinterJsxhint

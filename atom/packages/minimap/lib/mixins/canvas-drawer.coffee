@@ -25,6 +25,7 @@ class CanvasDrawer extends Mixin
   updateCanvas: ->
     firstRow = @minimap.getFirstVisibleScreenRow()
     lastRow = @minimap.getLastVisibleScreenRow()
+
     intactRanges = @computeIntactRanges(firstRow, lastRow)
 
     @context.clearRect(0,0,@canvas.width, @canvas.height)
@@ -171,22 +172,23 @@ class CanvasDrawer extends Mixin
           @drawHighlightDecoration(context, decoration, y, screenRow, lineHeight, charWidth, canvasWidth)
 
       # Then the line tokens are drawn
-      for token in line.tokens
-        w = token.screenDelta
-        unless token.isOnlyWhitespace()
-          color = if displayCodeHighlights
-            @getTokenColor(token)
+      if line?.tokens?
+        for token in line.tokens
+          w = token.screenDelta
+          unless token.isOnlyWhitespace()
+            color = if displayCodeHighlights
+              @getTokenColor(token)
+            else
+              @getDefaultColor()
+
+            value = token.value
+            value = value.replace(invisibleRegExp, ' ') if invisibleRegExp?
+
+            x = @drawToken(context, value, color, x, y0, charWidth, charHeight)
           else
-            @getDefaultColor()
+            x += w * charWidth
 
-          value = token.value
-          value = value.replace(invisibleRegExp, ' ') if invisibleRegExp?
-
-          x = @drawToken(context, value, color, x, y0, charWidth, charHeight)
-        else
-          x += w * charWidth
-
-        break if x > canvasWidth
+          break if x > canvasWidth
 
       # Finally the highlight over decorations are drawn.
       highlightDecorations = decorations['highlight-over']?[firstRow + row]
@@ -443,15 +445,16 @@ class CanvasDrawer extends Mixin
               end: change.start - 1
               domStart: range.domStart)
           if change.end < range.end
-            newIntactRanges.push(
-              start: change.end + change.screenDelta + 1
-              end: range.end + change.screenDelta
-              domStart: range.domStart + change.end + 1 - range.start
-            )
+            # If the bufferDelta is 0 then it's a change in the screen lines
+            # due to soft wrapping, we don't need to touch to the intact ranges
+            unless change.bufferDelta is 0
+              newIntactRanges.push(
+                start: change.end + change.screenDelta + 1
+                end: range.end + change.screenDelta
+                domStart: range.domStart + change.end + 1 - range.start
+              )
 
         intactRange = newIntactRanges[newIntactRanges.length - 1]
-        if intactRange? and (isNaN(intactRange.end) or isNaN(intactRange.start))
-          debugger
 
       intactRanges = newIntactRanges
 

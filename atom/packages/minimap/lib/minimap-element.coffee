@@ -44,6 +44,7 @@ class MinimapElement extends HTMLElement
       'minimap.displayMinimapOnLeft': (displayMinimapOnLeft) =>
         swapPosition = @minimap? and displayMinimapOnLeft isnt @displayMinimapOnLeft
         @displayMinimapOnLeft = displayMinimapOnLeft
+        @classList.toggle('left', displayMinimapOnLeft and @absoluteMode)
 
         @swapMinimapPosition() if swapPosition
 
@@ -72,6 +73,10 @@ class MinimapElement extends HTMLElement
 
       'minimap.useHardwareAcceleration': (@useHardwareAcceleration) =>
         @requestUpdate() if @attached
+
+      'minimap.absoluteMode': (@absoluteMode) =>
+        @classList.toggle('absolute', @absoluteMode)
+        @classList.toggle('left', @displayMinimapOnLeft and @absoluteMode)
 
   # Internal: DOM callback invoked when a new {MinimapElement} is attached
   # to the DOM.
@@ -450,9 +455,17 @@ class MinimapElement extends HTMLElement
   # {MinimapElement} canvas.
   #
   # event - The {Event} object.
-  mousePressedOverCanvas: ({which, pageY, target}) ->
-    return if which isnt 1
+  mousePressedOverCanvas: (e) ->
+    if e.which is 1
+      @leftMousePressedOverCanvas(e)
+    else if e.which is 2
+      @middleMousePressedOverCanvas(e)
+      # @requestForcedUpdate()
+      {top, height} = @visibleArea.getBoundingClientRect()
+      @startDrag({which: 2, pageY: top + height/2}) # ugly hack
+    else return
 
+  leftMousePressedOverCanvas: ({pageY, target}) ->
     y = pageY - target.getBoundingClientRect().top
     row = Math.floor(y / @minimap.getLineHeight()) + @minimap.getFirstVisibleScreenRow()
 
@@ -468,6 +481,16 @@ class MinimapElement extends HTMLElement
       @animate(from: from, to: to, duration: duration, step: step)
     else
       textEditor.setScrollTop(scrollTop)
+
+  middleMousePressedOverCanvas: ({pageY}) ->
+    {top: offsetTop} = @getBoundingClientRect()
+    y = pageY - offsetTop - @minimap.getTextEditorScaledHeight()/2
+
+    ratio = y /
+      (@minimap.getVisibleHeight() - @minimap.getTextEditorScaledHeight())
+
+    @minimap.textEditor.setScrollTop(
+      ratio * @minimap.getTextEditorMaxScrollTop())
 
   # Internal: A method that relays the `mousewheel` events received by
   # the {MinimapElement} to the {TextEditorElement}.
@@ -491,7 +514,10 @@ class MinimapElement extends HTMLElement
   #
   # event - The {Event} object.
   startDrag: ({which, pageY}) ->
-    return if which isnt 1
+    # if which is 2
+    #   @middleMousePressedOverCanvas({pageY})
+    return if @minimap.isDestroyed()
+    return if which isnt 1 and which isnt 2
     {top} = @visibleArea.getBoundingClientRect()
     {top: offsetTop} = @getBoundingClientRect()
 
@@ -520,7 +546,8 @@ class MinimapElement extends HTMLElement
   #           offsetTop - The {MinimapElement} offset at the moment of the
   #                       drag start.
   drag: (e, initial) ->
-    return if e.which isnt 1
+    return if @minimap.isDestroyed()
+    return if e.which isnt 1 and e.which isnt 2
     y = e.pageY - initial.offsetTop - initial.dragOffset
 
     ratio = y / (@minimap.getVisibleHeight() - @minimap.getTextEditorScaledHeight())
@@ -536,6 +563,7 @@ class MinimapElement extends HTMLElement
   #           offsetTop - The {MinimapElement} offset at the moment of the
   #                       drag start.
   endDrag: (e, initial) ->
+    return if @minimap.isDestroyed()
     @dragSubscription.dispose()
 
   #     ######   ######   ######

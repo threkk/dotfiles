@@ -27,12 +27,15 @@ Below is the list of available plugins so far:
   * [Highlight Selected](https://atom.io/packages/minimap-highlight-selected)
   * [Selection](https://atom.io/packages/minimap-selection)
   * [Bookmarks](https://atom.io/packages/minimap-bookmarks)
+  * [Auto-Hide](https://atom.io/packages/minimap-autohide)
+  * [Pigments](https://atom.io/packages/minimap-pigments)
+
 
 ### Settings
 
 * `Auto Toggle`: If checked the Minimap is toggled on at startup. (default=true)
 * `Display Code Highlights`: If checked the code will be highlighted using the grammar tokens. (default=true)
-* `Display Minimap On Left`: If checked the Minimap appears on the left side of editors, otherwise it appears on the ride side. (default=false)
+* `Display Minimap On Left`: If checked the Minimap appears on the left side of editors, otherwise it appears on the right side. (default=false)
 * `Char Height`: The height of a character in the Minimap in pixels. (default=2)
 * `Char Width`: The width of a character in the Minimap in pixels. (default=1)
 * `Interline`: The space between lines in the Minimap in pixels. (default=1)
@@ -43,6 +46,8 @@ Below is the list of available plugins so far:
 * `Scroll Animation`: Enable animations when scrolling the editor by clicking on the Minimap.
 * `Scroll Animation Duration`: Duration of the scroll animation when clicking on the Minimap.
 * `Use Hardware Acceleration`: If checked the Minimap scroll is done using a `translate3d` transform, otherwise the `translate` transform is used. (default=true)
+* `Absolute Mode`: When enabled the minimap uses an absolute positioning, letting the editor's content flow below the minimap.
+  Note that this setting will do nothing if `Display Minimap On Left` is also enabled.
 
 For instance the following result is obtained by setting a `Char Height` of `1px`:
 
