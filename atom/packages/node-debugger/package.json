@@ -1,7 +1,7 @@
 {
   "name": "node-debugger",
   "main": "./lib/node-debugger",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Debugger For Nodejs",
   "repository": {
     "type": "git",
@@ -29,16 +29,16 @@
   "devDependencies": {
     "from": "^0.1.3"
   },
-  "readme": "node-debugger package\n==============================\n\n> A simple Node.js/io.js debugger for daily use.\n\nUsage\n------\n\n### Commands - CMD/Ctrl - p\n\nFinished Functionals\n\n```js\n'node-debugger:debug-current-file'\n'node-debugger:stop'\n'node-debugger:add-breakpoint'\n```\n\nTodo Functionals\n\n```js\nCoffeeScript support\nRemove Breakpoint\nError Handling\n```\n\n\n### After you start your app\n\n\nAdd a breakpoint\n```\nctrl + shift + p -> breakpoint add\n```\n\nPlease click [here](https://github.com/kiddkai/atom-node-debugger/issues/new)\nto provide me more suggestions to improve this debugger, thanks :D\n\n### Known issues\n\nIn `Node.js>=0.12` and `io.js`. The process doesn't stop when your process finished.\nSo it will have no response from debugger server and will not keep going debugging.\nWhen you face that issue, just use the `x` button to stop the process by yourself.\n\nIssue report is here: https://github.com/nodejs/io.js/issues/1788\n",
+  "readme": "node-debugger package\n==============================\n\n> A simple Node.js/io.js debugger for daily use.\n\n## Usage\n\nOpen a javascript (.js) file and execute the start-resume command (F5) to launch the debugger.\n\nDebug panels will show up as shown in the image below.\n\n![Screenshot of node-debugger in action](/screenshot.jpg)\n\nThe '>' symbol in the gutter marks the current line of execution.\n\nExecute the toggle-breakpoint (F9) command to set a breakpoint. The breakpoint will be displayed in the gutter using a red marker.\n\nExecute start-resume (F5) again to resume debugging or use the step-next (F10), step-in (F11) or step-out (shift-F11) commands.\n\n## Commands\n\nYou may access the commands using CMD/Ctrl+p or by using the shortcut key specified within the brackets.\n\n```js\n'node-debugger:start-resume' (F5)\n'node-debugger:stop' (shift-F5)\n'node-debugger:toggle-breakpoint' (F9)\n'node-debugger:step-next' (F10)\n'node-debugger:step-in' (F11)\n'node-debugger:step-out' (shift-F11)\n```\n\n## Configuration\n\nThe following attributes can be set to control the node-debugger.\n\n* nodePath - path to node.js executable\n* appArgs - arguments sent to the application during launch\n* debugPort - the port used to communicate to the launched process\n \n```js\n\"atom-node-debugger\":\n  nodePath: \"C:/program/nodejs/node.exe\"\n  appArgs: \"\"\n  debugPort: 5860\n```\n\n## Feedback\n\nPlease click [here](https://github.com/kiddkai/atom-node-debugger/issues/new)\nto provide me more suggestions to improve this debugger, thanks :D\n\n## Todo\n\n```js\nCoffeeScript support\nError Handling\n```\n\n## Known issues\n\nIn `Node.js>=0.12` and `io.js`. The process doesn't stop when your process finished.\nSo it will have no response from debugger server and will not keep going debugging.\nWhen you face that issue, just use the `x` button to stop the process by yourself.\n\nIssue report is here: https://github.com/nodejs/io.js/issues/1788\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/kiddkai/atom-node-debugger/issues"
   },
   "homepage": "https://github.com/kiddkai/atom-node-debugger",
-  "_id": "node-debugger@1.0.5",
-  "_shasum": "64add5f10b52e515b86e6d4e6ccf46ccc2b190c4",
-  "_resolved": "file:../d-11552-567-bahi7b/package.tgz",
-  "_from": "../d-11552-567-bahi7b/package.tgz",
+  "_id": "node-debugger@1.1.0",
+  "_shasum": "95f1de8ab4232fed53b18872a9dba8de495fb5f4",
+  "_resolved": "file:../d-115523-754-ln8eqs/package.tgz",
+  "_from": "../d-115523-754-ln8eqs/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -104,7 +104,7 @@
       },
       {
         "name": "amdefine",
-        "version": "0.1.0",
+        "version": "0.1.1",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js"
       },
       {
@@ -124,27 +124,27 @@
       },
       {
         "name": "bluebird",
-        "version": "2.9.27",
+        "version": "2.9.30",
         "path": "node_modules/bluebird/js/main/bluebird.js"
       },
       {
         "name": "bunyan",
-        "version": "1.3.6",
+        "version": "1.4.0",
         "path": "node_modules/bunyan/lib/bunyan.js"
       },
       {
         "name": "dtrace-provider",
-        "version": "0.4.0",
+        "version": "0.5.0",
         "path": "node_modules/bunyan/node_modules/dtrace-provider/dtrace-provider.js"
       },
       {
         "name": "nan",
-        "version": "1.5.3",
+        "version": "1.8.4",
         "path": "node_modules/bunyan/node_modules/dtrace-provider/node_modules/nan/include_dirs.js"
       },
       {
         "name": "mv",
-        "version": "2.0.3",
+        "version": "2.1.1",
         "path": "node_modules/bunyan/node_modules/mv/index.js"
       },
       {
@@ -159,13 +159,63 @@
       },
       {
         "name": "ncp",
-        "version": "0.6.0",
+        "version": "2.0.0",
         "path": "node_modules/bunyan/node_modules/mv/node_modules/ncp/lib/ncp.js"
       },
       {
         "name": "rimraf",
-        "version": "2.2.8",
+        "version": "2.4.0",
         "path": "node_modules/bunyan/node_modules/mv/node_modules/rimraf/rimraf.js"
+      },
+      {
+        "name": "glob",
+        "version": "4.5.3",
+        "path": "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/glob.js"
+      },
+      {
+        "name": "inflight",
+        "version": "1.0.4",
+        "path": "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/inflight/inflight.js"
+      },
+      {
+        "name": "wrappy",
+        "version": "1.0.1",
+        "path": "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/inflight/node_modules/wrappy/wrappy.js"
+      },
+      {
+        "name": "inherits",
+        "version": "2.0.1",
+        "path": "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/inherits/inherits.js"
+      },
+      {
+        "name": "minimatch",
+        "version": "2.0.8",
+        "path": "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/minimatch.js"
+      },
+      {
+        "name": "brace-expansion",
+        "version": "1.1.0",
+        "path": "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/index.js"
+      },
+      {
+        "name": "balanced-match",
+        "version": "0.2.0",
+        "path": "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js"
+      },
+      {
+        "name": "concat-map",
+        "version": "0.0.1",
+        "path": "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/index.js"
+      },
+      {
+        "name": "once",
+        "version": "1.3.2",
+        "path": "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/once/once.js"
+      },
+      {
+        "name": "wrappy",
+        "version": "1.0.1",
+        "path": "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/once/node_modules/wrappy/wrappy.js"
       },
       {
         "name": "safe-json-stringify",
@@ -294,7 +344,7 @@
       },
       {
         "name": "min-document",
-        "version": "2.14.2",
+        "version": "2.16.0",
         "path": "node_modules/mercury/node_modules/dom-delegator/node_modules/global/node_modules/min-document/index.js"
       },
       {
@@ -409,7 +459,7 @@
       },
       {
         "name": "min-document",
-        "version": "2.14.2",
+        "version": "2.16.0",
         "path": "node_modules/mercury/node_modules/value-event/node_modules/global/node_modules/min-document/index.js"
       },
       {
@@ -464,7 +514,7 @@
       },
       {
         "name": "min-document",
-        "version": "2.14.2",
+        "version": "2.16.0",
         "path": "node_modules/mercury/node_modules/virtual-dom/node_modules/global/node_modules/min-document/index.js"
       },
       {
@@ -786,6 +836,25 @@
         "node_modules/bunyan/node_modules/mv/node_modules/mkdirp/node_modules/minimist/index.js",
         "node_modules/bunyan/node_modules/mv/node_modules/ncp/lib/ncp.js",
         "node_modules/bunyan/node_modules/mv/node_modules/rimraf/bin.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/common.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/glob.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/inflight/inflight.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/inflight/node_modules/wrappy/wrappy.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/inflight/test.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/inherits/inherits.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/inherits/inherits_browser.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/inherits/test.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/browser.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/minimatch.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/example.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/index.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/example.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/example/map.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/index.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/once/node_modules/wrappy/wrappy.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/once/once.js",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/sync.js",
         "node_modules/bunyan/node_modules/mv/node_modules/rimraf/rimraf.js",
         "node_modules/bunyan/node_modules/safe-json-stringify/index.js",
         "node_modules/emissary/lib/behavior.js",
@@ -1280,6 +1349,7 @@
         "node_modules/mercury/node_modules/dom-delegator/node_modules/global/console.js",
         "node_modules/mercury/node_modules/dom-delegator/node_modules/global/document.js",
         "node_modules/mercury/node_modules/dom-delegator/node_modules/global/node_modules/min-document/document.js",
+        "node_modules/mercury/node_modules/dom-delegator/node_modules/global/node_modules/min-document/dom-comment.js",
         "node_modules/mercury/node_modules/dom-delegator/node_modules/global/node_modules/min-document/dom-element.js",
         "node_modules/mercury/node_modules/dom-delegator/node_modules/global/node_modules/min-document/dom-fragment.js",
         "node_modules/mercury/node_modules/dom-delegator/node_modules/global/node_modules/min-document/dom-text.js",
@@ -1364,6 +1434,7 @@
         "node_modules/mercury/node_modules/value-event/node_modules/global/console.js",
         "node_modules/mercury/node_modules/value-event/node_modules/global/document.js",
         "node_modules/mercury/node_modules/value-event/node_modules/global/node_modules/min-document/document.js",
+        "node_modules/mercury/node_modules/value-event/node_modules/global/node_modules/min-document/dom-comment.js",
         "node_modules/mercury/node_modules/value-event/node_modules/global/node_modules/min-document/dom-element.js",
         "node_modules/mercury/node_modules/value-event/node_modules/global/node_modules/min-document/dom-fragment.js",
         "node_modules/mercury/node_modules/value-event/node_modules/global/node_modules/min-document/dom-text.js",
@@ -1409,6 +1480,7 @@
         "node_modules/mercury/node_modules/virtual-dom/node_modules/global/console.js",
         "node_modules/mercury/node_modules/virtual-dom/node_modules/global/document.js",
         "node_modules/mercury/node_modules/virtual-dom/node_modules/global/node_modules/min-document/document.js",
+        "node_modules/mercury/node_modules/virtual-dom/node_modules/global/node_modules/min-document/dom-comment.js",
         "node_modules/mercury/node_modules/virtual-dom/node_modules/global/node_modules/min-document/dom-element.js",
         "node_modules/mercury/node_modules/virtual-dom/node_modules/global/node_modules/min-document/dom-fragment.js",
         "node_modules/mercury/node_modules/virtual-dom/node_modules/global/node_modules/min-document/dom-text.js",
@@ -1812,6 +1884,16 @@
         "node_modules/bunyan/node_modules/mv/node_modules/mkdirp/node_modules/minimist/package.json",
         "node_modules/bunyan/node_modules/mv/node_modules/mkdirp/package.json",
         "node_modules/bunyan/node_modules/mv/node_modules/ncp/package.json",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/inflight/node_modules/wrappy/package.json",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/inflight/package.json",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/inherits/package.json",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/package.json",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/package.json",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/package.json",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/package.json",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/once/node_modules/wrappy/package.json",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/once/package.json",
+        "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/package.json",
         "node_modules/bunyan/node_modules/mv/node_modules/rimraf/package.json",
         "node_modules/bunyan/node_modules/mv/package.json",
         "node_modules/bunyan/node_modules/safe-json-stringify/package.json",
@@ -2029,7 +2111,7 @@
           "node_modules/bunyan"
         ],
         "dependencies": {
-          "dtrace-provider": "~0.4",
+          "dtrace-provider": "~0.5",
           "mv": "~2",
           "safe-json-stringify": "~1"
         }
@@ -2042,7 +2124,7 @@
           "node_modules/bunyan/node_modules/dtrace-provider/test"
         ],
         "dependencies": {
-          "nan": "~1.5.1"
+          "nan": "~1.8.4"
         }
       },
       {
@@ -2051,9 +2133,9 @@
           "node_modules/bunyan/node_modules/mv/test"
         ],
         "dependencies": {
-          "mkdirp": "~0.5.0",
-          "ncp": "~0.6.0",
-          "rimraf": "~2.2.8"
+          "mkdirp": "~0.5.1",
+          "ncp": "~2.0.0",
+          "rimraf": "~2.4.0"
         }
       },
       {
@@ -2065,6 +2147,61 @@
         ],
         "dependencies": {
           "minimist": "0.0.8"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/bunyan/node_modules/mv/node_modules/rimraf"
+        ],
+        "dependencies": {
+          "glob": "^4.4.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob"
+        ],
+        "dependencies": {
+          "inflight": "^1.0.4",
+          "inherits": "2",
+          "minimatch": "^2.0.1",
+          "once": "^1.3.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/inflight"
+        ],
+        "dependencies": {
+          "once": "^1.3.0",
+          "wrappy": "1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch"
+        ],
+        "dependencies": {
+          "brace-expansion": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion",
+          "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/test"
+        ],
+        "dependencies": {
+          "balanced-match": "^0.2.0",
+          "concat-map": "0.0.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/once",
+          "node_modules/bunyan/node_modules/mv/node_modules/rimraf/node_modules/glob/node_modules/once/test"
+        ],
+        "dependencies": {
+          "wrappy": "1"
         }
       },
       {
