@@ -11,7 +11,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'rstacruz/sparkup'                                 " HTML expander
   Plug 'kien/rainbow_parentheses.vim'                     " Brackets color
   Plug 'shemerey/vim-peepopen'                            " Path search
-  Plug 'kien/ctrlp.vim'                                   " Ctrl-P
+  Plug 'ctrlpvim/ctrlp.vim'                               " Ctrl-P
   Plug 'fisadev/vim-ctrlp-cmdpalette'                     " Ctrl-Palete
   Plug 'bling/vim-airline'                                " Better statusline.
   Plug 'airblade/vim-gitgutter'                           " Git Diff
@@ -19,6 +19,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'raimondi/delimitmate'                             " Close parenthesis
   Plug 'majutsushi/tagbar'                                " Outline tags.
   Plug 'oplatek/Conque-Shell'                             " Terminal
+  Plug 'hhvm/vim-hack'                                    " HackLang
   " Themes
   Plug 'altercation/vim-colors-solarized'
   Plug 'jpo/vim-railscasts-theme'
