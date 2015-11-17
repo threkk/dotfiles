@@ -1,6 +1,7 @@
 call plug#begin('~/.vim/plugged')
-  
+
   " Plugins
+  Plug 'tpope/vim-sensible'                               " Basic conf.
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }  " File tree
   Plug 'jistr/vim-nerdtree-tabs'                          " Interact with tabs
   Plug 'junegunn/goyo.vim'                                " Centers text
@@ -59,6 +60,7 @@ set noerrorbells
 set nocompatible
 filetype plugin indent on
 filetype plugin on
+set omnifunc=syntaxcomplete#Complete
 set wrap
 set linebreak
 set nolist
