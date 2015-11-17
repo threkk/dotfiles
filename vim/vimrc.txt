@@ -1,9 +1,8 @@
 call plug#begin('~/.vim/plugged')
   
   " Plugins
-  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " File tree
-  Plug 'jistr/vim-nerdtree-tabs'                          " 
-  Plug 'vim-scripts/AutoComplPop'                         " Autocomplete
+  Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }  " File tree
+  Plug 'jistr/vim-nerdtree-tabs'                          " Interact with tabs
   Plug 'junegunn/goyo.vim'                                " Centers text
   Plug 'scrooloose/syntastic'                             " Syntax checker
   Plug 'scrooloose/nerdcommenter'                         " Comments 
@@ -30,6 +29,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'endel/vim-github-colorscheme'
   Plug 'trusktr/seti.vim'
   Plug 'blueshirts/darcula'
+  " Install a different autocomplete depending on the operative system.  
+  Plug system('uname') =~ 'Darwin' ? 'Valloric/YouCompleteMe': 'vim-scripts/AutoComplPop'
 call plug#end()
 
 set history=700
@@ -46,8 +47,8 @@ set magic
 set encoding=utf8
 set modifiable
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set smarttab
 set ai
 set si
