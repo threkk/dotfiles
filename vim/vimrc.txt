@@ -43,6 +43,7 @@ set smartcase
 set hlsearch
 set magic
 set encoding=utf8
+set modifiable
 set expandtab
 set tabstop=2
 set shiftwidth=2
