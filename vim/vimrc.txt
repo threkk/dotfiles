@@ -20,6 +20,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'majutsushi/tagbar'                                " Outline tags.
   Plug 'oplatek/Conque-Shell'                             " Terminal
   Plug 'hhvm/vim-hack'                                    " HackLang
+  Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors
+  Plug 'elzr/vim-json'                                    " JSON
   " Themes
   Plug 'altercation/vim-colors-solarized'
   Plug 'jpo/vim-railscasts-theme'
@@ -95,7 +97,7 @@ if has("gui_macvim")
 endif
 
 " NerdTree config.
-map <C-n> :NERDTreeToggle<CR>
+map <C-t> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " Syntastic config - Requires validators. Read the docs.
@@ -107,6 +109,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint','jshint']
 
 " Rainbow parenthesis
 autocmd VimEnter * RainbowParenthesesToggle
@@ -139,6 +142,8 @@ endif
 
 " Tagbar - Requires CTags.
 nmap <F6> :TagbarToggle<CR>
+
+" Multiple cursors
 
 " Conque-Shell
 let g:ConqueTerm_PyVersion = 2
