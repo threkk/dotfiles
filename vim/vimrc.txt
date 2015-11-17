@@ -2,6 +2,7 @@ call plug#begin('~/.vim/plugged')
   
   " Plugins
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " File tree
+  Plug 'jistr/vim-nerdtree-tabs'                          " 
   Plug 'vim-scripts/AutoComplPop'                         " Autocomplete
   Plug 'junegunn/goyo.vim'                                " Centers text
   Plug 'scrooloose/syntastic'                             " Syntax checker
@@ -97,8 +98,15 @@ if has("gui_macvim")
   noremap <D-0> :tablast<CR>
 endif
 
+" Pane navigation
+map <C-M-Left> <C-w>h
+map <C-M-Up> <C-w>j
+map <C-M-Down> <C-w>k
+map <C-M--Right> <C-w>l
+
 " NerdTree config.
 map <C-t> :NERDTreeToggle<CR>
+map <C-M-t> :NERDTreeTabsToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " Syntastic config - Requires validators. Read the docs.
