@@ -7,8 +7,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/syntastic'                             " Syntax checker
   Plug 'scrooloose/nerdcommenter'                         " Comments 
   Plug 'tpope/vim-surround'                               " Brackets
-  Plug 'msanders/snipmate.vim'                            " Snippets
-  Plug 'rstacruz/sparkup'                                 " HTML expander
   Plug 'kien/rainbow_parentheses.vim'                     " Brackets color
   Plug 'shemerey/vim-peepopen'                            " Path search
   Plug 'ctrlpvim/ctrlp.vim'                               " Ctrl-P
@@ -19,7 +17,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'raimondi/delimitmate'                             " Close parenthesis
   Plug 'majutsushi/tagbar'                                " Outline tags.
   Plug 'oplatek/Conque-Shell'                             " Terminal
-  Plug 'hhvm/vim-hack'                                    " HackLang
   Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors
   Plug 'elzr/vim-json'                                    " JSON
   " Themes
@@ -29,7 +26,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'endel/vim-github-colorscheme'
   Plug 'trusktr/seti.vim'
   Plug 'blueshirts/darcula'
-  " Install a different autocomplete depending on the operative system.  
+  " Filetype wise
+  Plug 'rstacruz/sparkup', {'for': 'html'}                " HTML expander
+  Plug 'hhvm/vim-hack', {'for': 'php'}                    " HackLang
+  Plug 'shawncplus/phpcomplete.vim', { 'for': 'php'}      " PHP autocomplete
+  " System wise autocomplete  
   Plug system('uname') =~ 'Darwin' ? 'Valloric/YouCompleteMe': 'vim-scripts/AutoComplPop'
 call plug#end()
 
