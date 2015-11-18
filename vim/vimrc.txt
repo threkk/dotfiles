@@ -165,3 +165,7 @@ let g:ConqueTerm_Color = 2
 let g:ConqueTerm_ReadUnfocused = 1
 let g:ConqueTerm_PromptRegex = '^\w\+@[0-9A-Za-z_.-]\+:[0-9A-Za-z_./\~,:-]\+\$'
 let g:ConqueTerm_InsertOnEnter = 1
+
+" Omnifunc
+map <C-x><C-o> <C-Space>
+set completeopt-=preview
