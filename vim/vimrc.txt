@@ -2,24 +2,25 @@ call plug#begin('~/.vim/plugged')
 
   " Plugins
   Plug 'tpope/vim-sensible'                               " Basic conf.
-  Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }  " File tree
-  Plug 'jistr/vim-nerdtree-tabs'                          " Interact with tabs
-  Plug 'junegunn/goyo.vim'                                " Centers text
-  Plug 'scrooloose/syntastic'                             " Syntax checker
-  Plug 'scrooloose/nerdcommenter'                         " Comments 
-  Plug 'tpope/vim-surround'                               " Brackets
-  Plug 'kien/rainbow_parentheses.vim'                     " Brackets color
-  Plug 'shemerey/vim-peepopen'                            " Path search
-  Plug 'ctrlpvim/ctrlp.vim'                               " Ctrl-P
-  Plug 'fisadev/vim-ctrlp-cmdpalette'                     " Ctrl-Palete
+  Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }  " File tree.
+  Plug 'jistr/vim-nerdtree-tabs'                          " Interact with tabs.
+  Plug 'junegunn/goyo.vim'                                " Centers text.
+  Plug 'scrooloose/syntastic'                             " Syntax checker.
+  Plug 'tpope/vim-fugitive'                               " Git.
+  Plug 'scrooloose/nerdcommenter'                         " Comments.
+  Plug 'tpope/vim-surround'                               " Brackets.
+  Plug 'luochen1990/rainbow'                              " Brackets color.
+  Plug 'shemerey/vim-peepopen'                            " Path search.
+  Plug 'ctrlpvim/ctrlp.vim'                               " Ctrl-P.
+  Plug 'fisadev/vim-ctrlp-cmdpalette'                     " Ctrl-Palete.
   Plug 'bling/vim-airline'                                " Better statusline.
-  Plug 'airblade/vim-gitgutter'                           " Git Diff
-  Plug 'gorodinskiy/vim-coloresque'                       " RGB Colors
-  Plug 'raimondi/delimitmate'                             " Close parenthesis
+  Plug 'airblade/vim-gitgutter'                           " Git Diff.
+  Plug 'gorodinskiy/vim-coloresque'                       " RGB Colors.
+  Plug 'raimondi/delimitmate'                             " Close parenthesis.
   Plug 'majutsushi/tagbar'                                " Outline tags.
-  Plug 'oplatek/Conque-Shell'                             " Terminal
-  Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors
-  Plug 'elzr/vim-json'                                    " JSON
+  Plug 'oplatek/Conque-Shell'                             " Terminal.
+  Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
+  Plug 'elzr/vim-json'                                    " JSON.
   " Themes
   Plug 'altercation/vim-colors-solarized'
   Plug 'jpo/vim-railscasts-theme'
@@ -29,8 +30,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'blueshirts/darcula'
   " Filetype wise
   Plug 'rstacruz/sparkup', {'for': 'html'}                " HTML expander
-  Plug 'hhvm/vim-hack', {'for': 'php'}                    " HackLang
-  Plug 'shawncplus/phpcomplete.vim', { 'for': 'php'}      " PHP autocomplete
+  Plug 'hhvm/vim-hack', {'for': 'php'}                    " HackLangi
+  "Plug 'shawncplus/phpcomplete.vim', { 'for': 'php'}     " PHP autocomplete
+  Plug 'reedes/vim-pencil', {'for': ['markdown','mkd','text']} " Writing
   " System wise autocomplete  
   Plug system('uname') =~ 'Darwin' ? 'Valloric/YouCompleteMe': 'vim-scripts/AutoComplPop'
 call plug#end()
@@ -83,29 +85,49 @@ colorscheme seti
 set guifont=Inconsolata\ for\ Powerline:h15
 
 if has("gui_macvim")
+  " Disables the scrollbars.
+  set guioptions-=r
+  set guioptions-=L
+  set guioptions-=T
+  set guioptions-=m
   " Press Ctrl-Tab to switch between open tabs (like browser tabs) to 
   " the right side. Ctrl-Shift-Tab goes the other way.
-  noremap <C-Tab> :tabnext<CR>
-  noremap <C-S-Tab> :tabprev<CR>
+  map <C-Tab> :tabnext<CR>
+  map <C-S-Tab> :tabprev<CR>
+  
+  map! <C-Tab> <C-O>:tabnext<CR>
+  map! <C-S-Tab> <C-O>:tabprev<CR>
 
   " Switch to specific tab numbers with Command-number
-  noremap <D-1> :tabn 1<CR>
-  noremap <D-2> :tabn 2<CR>
-  noremap <D-3> :tabn 3<CR>
-  noremap <D-4> :tabn 4<CR>
-  noremap <D-5> :tabn 5<CR>
-  noremap <D-6> :tabn 6<CR>
-  noremap <D-7> :tabn 7<CR>
-  noremap <D-8> :tabn 8<CR>
-  noremap <D-9> :tabn 9<CR>
+  map <D-1> :tabn 1<CR>
+  map <D-2> :tabn 2<CR>
+  map <D-3> :tabn 3<CR>
+  map <D-4> :tabn 4<CR>
+  map <D-5> :tabn 5<CR>
+  map <D-6> :tabn 6<CR>
+  map <D-7> :tabn 7<CR>
+  map <D-8> :tabn 8<CR>
+  map <D-9> :tabn 9<CR>
+
+  map! <D-1> <C-O>:tabn 1<CR>
+  map! <D-2> <C-O>:tabn 2<CR>
+  map! <D-3> <C-O>:tabn 3<CR>
+  map! <D-4> <C-O>:tabn 4<CR>
+  map! <D-5> <C-O>:tabn 5<CR>
+  map! <D-6> <C-O>:tabn 6<CR>
+  map! <D-7> <C-O>:tabn 7<CR>
+  map! <D-8> <C-O>:tabn 8<CR>
+  map! <D-9> <C-O>:tabn 9<CR>
+
   " Command-0 goes to the last tab
-  noremap <D-0> :tablast<CR>
+  map <D-0> :tablast<CR>
+  map! <D-0> <C-O>:tablast<CR>  
 endif
 
 " Pane navigation
 map <C-M-Left> <C-w>h
-map <C-M-Up> <C-w>j
-map <C-M-Down> <C-w>k
+map <C-M-Up> <C-w>k
+map <C-M-Down> <C-w>j
 map <C-M--Right> <C-w>l
 
 " NerdTree config.
@@ -122,13 +144,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint','jshint']
+let g:syntastic_javascript_checkers = ['eslint']
 
 " Rainbow parenthesis
-autocmd VimEnter * RainbowParenthesesToggle
-autocmd Syntax * RainbowParenthesesLoadRound
-autocmd Syntax * RainbowParenthesesLoadSquare
-autocmd Syntax * RainbowParenthesesLoadBraces
+let g:rainbow_active = 1
 
 " CmdPCommandPalette
 let g:ctrlp_map = '<c-l>'
@@ -169,3 +188,12 @@ let g:ConqueTerm_InsertOnEnter = 1
 " Omnifunc
 map <C-x><C-o> <C-Space>
 set completeopt-=preview
+
+" Pencil
+let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+
+augroup pencil
+    autocmd!
+    autocmd FileType markdown,mkd call pencil#init()
+    autocmd FileType text         call pencil#init({'wrap': 'hard'})
+augroup END"
