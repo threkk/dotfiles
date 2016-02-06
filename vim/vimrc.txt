@@ -1,9 +1,10 @@
 call plug#begin('~/.vim/plugged')
+  " Requirements: ACK, Git, autocompleteme, checkers
   " Plugins
   Plug 'tpope/vim-sensible'                               " Basic conf.
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }  " File tree.
   Plug 'jistr/vim-nerdtree-tabs'                          " Interact with tabs.
-  Plug 'junegunn/goyo.vim'                                " Centers text.
+  Plug 'junegunn/goyo.vim'                                " Dark room.
   Plug 'scrooloose/syntastic'                             " Syntax checker.
   Plug 'tpope/vim-fugitive'                               " Git.
   Plug 'scrooloose/nerdcommenter'                         " Comments.
@@ -12,15 +13,18 @@ call plug#begin('~/.vim/plugged')
   Plug 'shemerey/vim-peepopen'                            " Path search.
   Plug 'ctrlpvim/ctrlp.vim'                               " Ctrl-P.
   Plug 'fisadev/vim-ctrlp-cmdpalette'                     " Ctrl-Palete.
-  Plug 'bling/vim-airline'                                " Better statusline.
+  Plug 'vim-airline/vim-airline'                          " Better statusline.
+  Plug 'vim-airline/vim-airline-themes'                   " Themes for statusline
   Plug 'airblade/vim-gitgutter'                           " Git Diff.
   Plug 'gorodinskiy/vim-coloresque'                       " RGB Colors.
   Plug 'raimondi/delimitmate'                             " Close parenthesis.
   Plug 'majutsushi/tagbar'                                " Outline tags.
   Plug 'oplatek/Conque-Shell'                             " Terminal.
   Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
-  Plug 'elzr/vim-json'                                    " JSON.
   Plug 'mileszs/ack.vim'                                  " ACK
+  Plug 'tpope/vim-abolish'                                " Substitutions
+  Plug 'beloglazov/vim-online-thesaurus'                  " Dictionary
+  
   " Themes
   Plug 'altercation/vim-colors-solarized'
   Plug 'jpo/vim-railscasts-theme'
@@ -28,12 +32,33 @@ call plug#begin('~/.vim/plugged')
   Plug 'endel/vim-github-colorscheme'
   Plug 'trusktr/seti.vim'
   Plug 'blueshirts/darcula'
+  Plug 'reedes/vim-colors-pencil'
+ 
   " Filetype wise
-  Plug 'rstacruz/sparkup', {'for': 'html'}                " HTML expander
-  Plug 'hhvm/vim-hack', {'for': 'php'}                    " HackLang
-  Plug 'reedes/vim-pencil', {'for': ['markdown','mkd','text']} " Writing 
-  " Disabled due to errors.
-  " Plug 'shawncplus/phpcomplete.vim', { 'for': 'php'}     " PHP autocomplete
+  " HTML
+  " Expander
+  Plug 'rstacruz/sparkup', {'for': 'html'}  
+
+  " PHP
+  " HackLang
+  Plug 'hhvm/vim-hack', {'for': ['php','hacklang']}  
+
+  " Javascript
+  " JSON.
+  Plug 'elzr/vim-json', {'for':['json','javascript']}      
+  
+  " CSV
+  " CSV support
+  Plug 'chrisbra/csv.vim', {'for': 'csv'}
+
+  " Markdown
+  " Folding
+  Plug 'reedes/vim-pencil', {'for': ['markdown','mkd','text']}
+  Plug 'nelstrom/vim-markdown-folding', {'for':['markdown', 'mkd', 'text']}
+  " Grammar problems.
+  Plug 'reedes/vim-wordy', {'for':['markdown', 'mkd', 'text']}
+  " Autocorrect
+  Plug 'reedes/vim-litecorrect', {'for':['markdown', 'mkd', 'text']}
 
   " System wise autocomplete  
   Plug system('uname') =~ 'Darwin' ? 'Valloric/YouCompleteMe' : 'vim-scripts/AutoComplPop'
@@ -83,12 +108,16 @@ set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
 set term=xterm-256color
 set termencoding=utf-8
+set autowriteall
+
+" Filetype configuration
+autocmd FileType markdown,mkd,text set spell spelllang=en_gb
 
 " Theme selector
 syntax enable
 set background=dark
 colorscheme seti
-set guifont=Inconsolata\ for\ Powerline:h15
+"set guifont=Inconsolata\ for\ Powerline:h15
 
 if has("gui_macvim")
   " Disables the scrollbars.
@@ -162,6 +191,8 @@ map <C-p> :CtrlPCmdPalette<CR>
 
 " Vim Airline
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -181,10 +212,6 @@ endif
 " Tagbar - Requires CTags.
 nmap <F6> :TagbarToggle<CR>
 
-" Multiple cursors
-
-" ACK - Requires ACK
-
 " Conque-Shell
 let g:ConqueTerm_PyVersion = 2
 let g:ConqueTerm_FastMode = 0
@@ -197,6 +224,9 @@ let g:ConqueTerm_InsertOnEnter = 1
 map <C-x><C-o> <C-Space>
 set completeopt-=preview
 
+" OnlineThesaurus
+let g:online_thesaurus_map_keys = 0
+
 " Pencil
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 
@@ -205,3 +235,10 @@ augroup pencil
     autocmd FileType markdown,mkd call pencil#init()
     autocmd FileType text         call pencil#init({'wrap': 'hard'})
 augroup END"
+
+" Lite correct
+augroup litecorrect
+    autocmd!
+    autocmd FileType markdown,mkd call litecorrect#init()
+    autocmd FileType textile call litecorrect#init()
+augroup END
