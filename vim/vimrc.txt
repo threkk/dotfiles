@@ -2,7 +2,8 @@ call plug#begin('~/.vim/plugged')
   " Requirements: ACK, Git, autocompleteme, checkers
   " Plugins
   Plug 'tpope/vim-sensible'                               " Basic conf.
-  Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }  " File tree.
+  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " File tree.
+  Plug 'Xuyuanp/nerdtree-git-plugin'                      " Git support.
   Plug 'jistr/vim-nerdtree-tabs'                          " Interact with tabs.
   Plug 'junegunn/goyo.vim'                                " Dark room.
   Plug 'scrooloose/syntastic'                             " Syntax checker.
@@ -52,6 +53,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'chrisbra/csv.vim', {'for': 'csv'}
 
   " Markdown
+  Plug 'tpope/vim-markdown'
   " Folding
   Plug 'reedes/vim-pencil', {'for': ['markdown','mkd','text']}
   Plug 'nelstrom/vim-markdown-folding', {'for':['markdown', 'mkd', 'text']}
@@ -61,7 +63,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'reedes/vim-litecorrect', {'for':['markdown', 'mkd', 'text']}
 
   " System wise autocomplete  
-  Plug system('uname') =~ 'Darwin' ? 'Valloric/YouCompleteMe' : 'vim-scripts/AutoComplPop'
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
+  Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
   " ./install.py --clang-completer --gocode-completer --tern-completer
 call plug#end()
 
@@ -87,7 +90,7 @@ set shiftwidth=4
 set smarttab
 set ai
 set si
-set autochdir
+" set autochdir
 set mouse=a
 set noerrorbells
 set nocompatible
@@ -106,18 +109,23 @@ set colorcolumn=80
 set textwidth=79
 set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
-set term=xterm-256color
+" set term=xterm-256color
 set termencoding=utf-8
-set autowriteall
+" set autowriteall
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/vendor/*,*/node_modules/*,*.swo
+
+" Disable .swp .swo etc.
+set nobackup
+set nowb
+set noswapfile
 
 " Filetype configuration
-autocmd FileType markdown,mkd,text set spell spelllang=en_gb
+" autocmd FileType markdown,mkd,text set spell spelllang=en_gb
 
 " Theme selector
 syntax enable
 set background=dark
 colorscheme seti
-"set guifont=Inconsolata\ for\ Powerline:h15
 
 if has("gui_macvim")
   " Disables the scrollbars.
@@ -163,12 +171,33 @@ endif
 map <C-M-Left> <C-w>h
 map <C-M-Up> <C-w>k
 map <C-M-Down> <C-w>j
-map <C-M--Right> <C-w>l
+map <C-M-Right> <C-w>l
+
+" Lane swapping
+nnoremap <A-Down> :m .+1<CR>==
+nnoremap <A-Up> :m .-2<CR>==
+inoremap <A-Down> <Esc>:m .+1<CR>==gi
+inoremap <A-Up> <Esc>:m .-2<CR>==gi
+vnoremap <A-Down> :m '>+1<CR>gv=gv
+vnoremap <A-Up> :m '<-2<CR>gv=gv
 
 " NerdTree config.
 map <C-t> :NERDTreeToggle<CR>
 map <C-M-t> :NERDTreeTabsToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" NerdTree git
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
 
 " Syntastic config - Requires validators. Read the docs.
 set statusline+=%#warningmsg#
@@ -185,9 +214,13 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:rainbow_active = 1
 
 " CmdPCommandPalette
-let g:ctrlp_map = '<c-l>'
-let g:ctrlp_cmdpalette_execute = 1
-map <C-p> :CtrlPCmdPalette<CR>
+let g:ctrlp_map = '<c-p>'
+let g:ctrl_cmd = 'CtrlP'
+let g:ctrlp_user_command = 'find %s -type f | grep -v "`cat ~/.vim/ctrlpignore.txt`"'
+let g:ctrlp_cmdpalette_execute = 0
+let g:ctrlp_show_hidden = 0
+let g:ctrlp_dotfiles = 0
+map <C-l> :CtrlPCmdPalette<CR>
 
 " Vim Airline
 let g:airline_powerline_fonts = 1
@@ -197,7 +230,8 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_symbols.space = "\ua0"
+let g:airline_symbols.whitespace = 'Ξ'
+
 
 let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
@@ -221,7 +255,8 @@ let g:ConqueTerm_PromptRegex = '^\w\+@[0-9A-Za-z_.-]\+:[0-9A-Za-z_./\~,:-]\+\$'
 let g:ConqueTerm_InsertOnEnter = 1
 
 " Omnifunc
-map <C-x><C-o> <C-Space>
+inoremap <C-Space> <C-x><C-o>
+inoremap <C-@> <C-Space>
 set completeopt-=preview
 
 " OnlineThesaurus
@@ -232,8 +267,7 @@ let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 
 augroup pencil
     autocmd!
-    autocmd FileType markdown,mkd call pencil#init()
-    autocmd FileType text         call pencil#init({'wrap': 'hard'})
+    autocmd FileType textile, markdown, mkd call pencil#init({'wrap': 'hard'})
 augroup END"
 
 " Lite correct
@@ -242,3 +276,10 @@ augroup litecorrect
     autocmd FileType markdown,mkd call litecorrect#init()
     autocmd FileType textile call litecorrect#init()
 augroup END
+
+" YouCompleteMe
+autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
+let g:ycm_min_num_of_chars_for_completion = 0
+let g:ycm_auto_trigger = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_seed_identifiers_with_syntax = 1
