@@ -1,9 +1,12 @@
 # dotfiles
 
-A collection with all the dotfiles and plugins I use. The branch of this repository contains the configuration for:
+A collection with all the dotfiles and plugins I use. The branch of this
+repository contains the configuration for:
+
 - Vim
 
-If you want to use the same configuration, execute the following commands on your root directory:
+If you want to use the same configuration, execute the following commands on
+your root directory:
 
 ```
 mv .vim .vim.old
@@ -12,6 +15,7 @@ git clone https://github.com/threkk/dotfiles.git
 mv dotfiles .dotfiles
 ln -s .dotfiles/vim   .vim
 ln -s .dotfiles/vim/vimrc.txt .vimrc
+vim +PlugInstall
 ```
 
 ## Vim
