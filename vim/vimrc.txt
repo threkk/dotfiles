@@ -25,6 +25,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'mileszs/ack.vim'                                  " ACK
   Plug 'tpope/vim-abolish'                                " Substitutions
   Plug 'beloglazov/vim-online-thesaurus'                  " Dictionary
+  Plug 'tpope/vim-eunuch'                                 " File explorer
   
   " Themes
   Plug 'altercation/vim-colors-solarized'
@@ -35,37 +36,37 @@ call plug#begin('~/.vim/plugged')
   Plug 'blueshirts/darcula'
   Plug 'reedes/vim-colors-pencil'
  
+  " Autcomplete
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
+  Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+  " ./install.py --clang-completer --gocode-completer --tern-completer
+
   " Filetype wise
-  " HTML
-  " Expander
+  " HTML Expander
   Plug 'rstacruz/sparkup', {'for': 'html'}  
 
-  " PHP
-  " HackLang
+  " PHP &  HackLang
   Plug 'hhvm/vim-hack', {'for': ['php','hacklang']}  
 
-  " Javascript
-  " JSON.
+  " Javascript & JSON.
   Plug 'elzr/vim-json', {'for':['json','javascript']}      
   
   " CSV
-  " CSV support
   Plug 'chrisbra/csv.vim', {'for': 'csv'}
 
   " Markdown
   Plug 'tpope/vim-markdown'
+  
   " Folding
   Plug 'reedes/vim-pencil', {'for': ['markdown','mkd','text']}
   Plug 'nelstrom/vim-markdown-folding', {'for':['markdown', 'mkd', 'text']}
+  
   " Grammar problems.
   Plug 'reedes/vim-wordy', {'for':['markdown', 'mkd', 'text']}
+  
   " Autocorrect
   Plug 'reedes/vim-litecorrect', {'for':['markdown', 'mkd', 'text']}
-
-  " System wise autocomplete  
-  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
-  Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-  " ./install.py --clang-completer --gocode-completer --tern-completer
+  
 call plug#end()
 
 set history=700
