@@ -22,10 +22,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'majutsushi/tagbar'                                " Outline tags.
   Plug 'oplatek/Conque-Shell'                             " Terminal.
   Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
-  Plug 'mileszs/ack.vim'                                  " ACK
-  Plug 'tpope/vim-abolish'                                " Substitutions
-  Plug 'beloglazov/vim-online-thesaurus'                  " Dictionary
-  Plug 'tpope/vim-eunuch'                                 " File explorer
+  Plug 'mileszs/ack.vim'                                  " ACK.
+  Plug 'tpope/vim-abolish'                                " Substitutions.
+  Plug 'beloglazov/vim-online-thesaurus'                  " Dictionary.
+  Plug 'tpope/vim-eunuch'                                 " File explorer.
   
   " Themes
   Plug 'altercation/vim-colors-solarized'
@@ -91,7 +91,6 @@ set shiftwidth=4
 set smarttab
 set ai
 set si
-" set autochdir
 set mouse=a
 set noerrorbells
 set nocompatible
@@ -110,18 +109,13 @@ set colorcolumn=80
 set textwidth=79
 set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
-" set term=xterm-256color
 set termencoding=utf-8
-" set autowriteall
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/vendor/*,*/node_modules/*,*.swo
 
 " Disable .swp .swo etc.
 set nobackup
 set nowb
 set noswapfile
-
-" Filetype configuration
-" autocmd FileType markdown,mkd,text set spell spelllang=en_gb
 
 " Theme selector
 syntax enable
@@ -168,11 +162,24 @@ if has("gui_macvim")
   map! <D-0> <C-O>:tablast<CR>  
 endif
 
+" Reload .vimrc
+map <F5> :source $MYVIMRC<CR>
+map! <F5> <C-O>:source $MYVIMRC<CR>
+
+" Spellcheck
+map <S-F7> :setlocal spell! spelllang=en_gb<CR>
+map! <S-F7> <C-O>:setlocal spell! spelllang=en_gb<CR>i
+
 " Pane navigation
 map <C-M-Left> <C-w>h
 map <C-M-Up> <C-w>k
 map <C-M-Down> <C-w>j
 map <C-M-Right> <C-w>l
+
+map! <C-M-Left> <C-O><C-w>hi
+map! <C-M-Up> <C-O><C-w>ki
+map! <C-M-Down> <C-O><C-w>ji
+map! <C-M-Right> <C-O><C-w>li
 
 " Lane swapping
 nnoremap <A-Down> :m .+1<CR>==
@@ -184,8 +191,10 @@ vnoremap <A-Up> :m '<-2<CR>gv=gv
 
 " NerdTree config.
 map <C-t> :NERDTreeToggle<CR>
+map! <C-t> <C-O>:NERDTreeToggle<CR>i 
+
 map <C-M-t> :NERDTreeTabsToggle<CR>
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+map <C-M-t> <C-O>:NERDTreeTabsToggle<CR>i
 
 " NerdTree git
 let g:NERDTreeIndicatorMapCustom = {
@@ -209,10 +218,15 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_python_python_exec = '/usr/local/bin/python3'
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_python_checkers = ['flake8', 'pep8','pylint', 'python']
 
 " Rainbow parenthesis
 let g:rainbow_active = 1
+map <F4> :RainbowToggle<CR>
+map! <F4> <C-O>:RainbowToggle<CR>i
+autocmd BufNewFile,BufRead :normal RainbowToggle<CR>
 
 " CmdPCommandPalette
 let g:ctrlp_map = '<c-p>'
@@ -220,8 +234,11 @@ let g:ctrl_cmd = 'CtrlP'
 let g:ctrlp_user_command = 'find %s -type f | grep -v "`cat ~/.vim/ctrlpignore.txt`"'
 let g:ctrlp_cmdpalette_execute = 0
 let g:ctrlp_show_hidden = 0
-let g:ctrlp_dotfiles = 0
+let g:ctrlp_dotfiles = -1
+
+map! <C-p> <C-O>:CtrlP<CR>
 map <C-l> :CtrlPCmdPalette<CR>
+map! <C-l> <C-O>:CtrlPCmdPalette<CR>
 
 " Vim Airline
 let g:airline_powerline_fonts = 1
@@ -245,7 +262,8 @@ if has("gui_running")
 endif
 
 " Tagbar - Requires CTags.
-nmap <F6> :TagbarToggle<CR>
+map <F6> :TagbarToggle<CR>
+map! <F6> <C-O>:TagbarToggle<CR>i
 
 " Conque-Shell
 let g:ConqueTerm_PyVersion = 2
