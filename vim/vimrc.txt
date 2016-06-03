@@ -26,7 +26,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-abolish'                                " Substitutions.
   Plug 'beloglazov/vim-online-thesaurus'                  " Dictionary.
   Plug 'tpope/vim-eunuch'                                 " File explorer.
-  
+  Plug 'tpope/vim-surround'                               " Surround stuff.
+  Plug 'sheerun/vim-polyglot'                             " Improves syntax.
+  Plug 'jeetsukumaran/vim-buffergator'                    " Buffer management.
+  Plug 'wincent/terminus'                                 " Improves term sup.
+
   " Themes
   Plug 'altercation/vim-colors-solarized'
   Plug 'jpo/vim-railscasts-theme'
@@ -40,6 +44,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
   Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
   " ./install.py --clang-completer --gocode-completer --tern-completer
+ 
 
   " Filetype wise
   " HTML Expander
@@ -50,12 +55,12 @@ call plug#begin('~/.vim/plugged')
 
   " Javascript & JSON.
   Plug 'elzr/vim-json', {'for':['json','javascript']}      
-  
+   
   " CSV
   Plug 'chrisbra/csv.vim', {'for': 'csv'}
 
   " Markdown
-  Plug 'tpope/vim-markdown'
+  " Plug 'tpope/vim-markdown'
   
   " Folding
   Plug 'reedes/vim-pencil', {'for': ['markdown','mkd','text']}
@@ -111,6 +116,7 @@ set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/vendor/*,*/node_modules/*,*.swo
+let mapleader='\'
 
 " Disable .swp .swo etc.
 set nobackup
@@ -237,6 +243,7 @@ let g:ctrlp_show_hidden = 0
 let g:ctrlp_dotfiles = -1
 
 map! <C-p> <C-O>:CtrlP<CR>
+
 map <C-l> :CtrlPCmdPalette<CR>
 map! <C-l> <C-O>:CtrlPCmdPalette<CR>
 
