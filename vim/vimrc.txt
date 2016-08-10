@@ -30,7 +30,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'sheerun/vim-polyglot'                             " Improves syntax.
   Plug 'jeetsukumaran/vim-buffergator'                    " Buffer management.
   Plug 'wincent/terminus'                                 " Improves term sup.
-
+  Plug 'godlygeek/tabular'                                " Aligns stuff.
   " Themes
   Plug 'altercation/vim-colors-solarized'
   Plug 'jpo/vim-railscasts-theme'
@@ -39,39 +39,39 @@ call plug#begin('~/.vim/plugged')
   Plug 'trusktr/seti.vim'
   Plug 'blueshirts/darcula'
   Plug 'reedes/vim-colors-pencil'
- 
+
   " Autcomplete
   Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
   Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
   " ./install.py --clang-completer --gocode-completer --tern-completer
- 
+
 
   " Filetype wise
   " HTML Expander
-  Plug 'rstacruz/sparkup', {'for': 'html'}  
+  Plug 'rstacruz/sparkup', {'for': 'html'}
 
   " PHP &  HackLang
-  Plug 'hhvm/vim-hack', {'for': ['php','hacklang']}  
+  Plug 'hhvm/vim-hack', {'for': ['php','hacklang']}
 
   " Javascript & JSON.
-  Plug 'elzr/vim-json', {'for':['json','javascript']}      
-   
+  Plug 'elzr/vim-json', {'for':['json','javascript']}
+
   " CSV
   Plug 'chrisbra/csv.vim', {'for': 'csv'}
 
   " Markdown
-  " Plug 'tpope/vim-markdown'
-  
+  Plug 'tpope/vim-markdown'
+
   " Folding
   Plug 'reedes/vim-pencil', {'for': ['markdown','mkd','text']}
   Plug 'nelstrom/vim-markdown-folding', {'for':['markdown', 'mkd', 'text']}
-  
+
   " Grammar problems.
   Plug 'reedes/vim-wordy', {'for':['markdown', 'mkd', 'text']}
-  
+
   " Autocorrect
   Plug 'reedes/vim-litecorrect', {'for':['markdown', 'mkd', 'text']}
-  
+
 call plug#end()
 
 set history=700
@@ -134,11 +134,11 @@ if has("gui_macvim")
   set guioptions-=L
   set guioptions-=T
   set guioptions-=m
-  " Press Ctrl-Tab to switch between open tabs (like browser tabs) to 
+  " Press Ctrl-Tab to switch between open tabs (like browser tabs) to
   " the right side. Ctrl-Shift-Tab goes the other way.
   map <C-Tab> :tabnext<CR>
   map <C-S-Tab> :tabprev<CR>
-  
+
   map! <C-Tab> <C-O>:tabnext<CR>
   map! <C-S-Tab> <C-O>:tabprev<CR>
 
@@ -165,7 +165,7 @@ if has("gui_macvim")
 
   " Command-0 goes to the last tab
   map <D-0> :tablast<CR>
-  map! <D-0> <C-O>:tablast<CR>  
+  map! <D-0> <C-O>:tablast<CR>
 endif
 
 " Reload .vimrc
@@ -176,7 +176,10 @@ map! <F5> <C-O>:source $MYVIMRC<CR>
 map <S-F7> :setlocal spell! spelllang=en_gb<CR>
 map! <S-F7> <C-O>:setlocal spell! spelllang=en_gb<CR>i
 
-" Pane navigation
+" Tim white spaces
+map <silent> <Leader>tt :%s/\s\+$//g<CR>
+
+"tPane navigation
 map <C-M-Left> <C-w>h
 map <C-M-Up> <C-w>k
 map <C-M-Down> <C-w>j
@@ -197,7 +200,7 @@ vnoremap <A-Up> :m '<-2<CR>gv=gv
 
 " NerdTree config.
 map <C-t> :NERDTreeToggle<CR>
-map! <C-t> <C-O>:NERDTreeToggle<CR>i 
+map! <C-t> <C-O>:NERDTreeToggle<CR>i
 
 map <C-M-t> :NERDTreeTabsToggle<CR>
 map <C-M-t> <C-O>:NERDTreeTabsToggle<CR>i
@@ -224,6 +227,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_error_symbol = '✘'
+let g:syntastic_warning_symbol = "▲"
 let g:syntastic_python_python_exec = '/usr/local/bin/python3'
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers = ['flake8', 'pep8','pylint', 'python']
@@ -271,6 +276,8 @@ endif
 " Tagbar - Requires CTags.
 map <F6> :TagbarToggle<CR>
 map! <F6> <C-O>:TagbarToggle<CR>i
+" Uncomment to open tagbar automatically whenever possible
+" autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 " Conque-Shell
 let g:ConqueTerm_PyVersion = 2
@@ -283,7 +290,15 @@ let g:ConqueTerm_InsertOnEnter = 1
 " Omnifunc
 inoremap <C-Space> <C-x><C-o>
 inoremap <C-@> <C-Space>
-set completeopt-=preview
+
+" http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
+set completeopt=longest,menuone
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " OnlineThesaurus
 let g:online_thesaurus_map_keys = 0
@@ -309,3 +324,6 @@ let g:ycm_min_num_of_chars_for_completion = 0
 let g:ycm_auto_trigger = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_seed_identifiers_with_syntax = 1
+
+" DelimitMate
+let delimitMate_expand_cr = 1
