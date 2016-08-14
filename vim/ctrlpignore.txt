@@ -3,3 +3,5 @@
 .svn/
 .idea/
 .hhconfig
+vendor/
+node_modules/
