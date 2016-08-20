@@ -41,9 +41,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'reedes/vim-colors-pencil'
 
   " Autcomplete
-  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --gocode-completer --tern-completer' }
   Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-  " ./install.py --clang-completer --gocode-completer --tern-completer
+  " ./install.py --gocode-completer --tern-completer
 
 
   " Filetype wise
@@ -166,6 +166,44 @@ if has("gui_macvim")
   " Command-0 goes to the last tab
   map <D-0> :tablast<CR>
   map! <D-0> <C-O>:tablast<CR>
+
+  " Movement keys
+  let macvim_skip_cmd_opt_movement = 1
+  no   <D-Left>       <Home>
+  no!  <D-Left>       <Home>
+  no   <M-Left>       <C-Left>
+  no!  <M-Left>       <C-Left>
+  no   <D-Right>      <End>
+  no!  <D-Right>      <End>
+  no   <M-Right>      <C-Right>
+  no!  <M-Right>      <C-Right>
+  ino  <M-BS>         <C-w>
+  ino  <D-BS>         <C-u>
+  no   <D-Down>       <C-End>
+  ino  <D-Down>       <C-End>
+  no   <D-Up>         <C-Home>
+  ino  <D-Up>         <C-Home>
+
+  " Lane swapping on MacVim
+  map <M-Down> :m .+1<CR>==
+  map <M-Up> :m .-2<CR>==
+  map! <M-Down> <Esc>:m .+1<CR>==gi
+  map! <M-Up> <Esc>:m .-2<CR>==gi
+
+else
+
+  " Lane swapping (console)
+  map [B :m .+1<CR>==
+  map [A :m .-2<CR>==
+  map! [B <Esc>:m .+1<CR>==gi
+  map! [A <Esc>:m .-2<CR>==gi
+  
+  " Word movement
+  " map ^[f w
+  map ^[b b
+  " map! ^[f <Esc>wi
+  map! ^[b <Esc>bi
+
 endif
 
 " Reload .vimrc
@@ -176,10 +214,10 @@ map! <F5> <C-O>:source $MYVIMRC<CR>
 map <S-F7> :setlocal spell! spelllang=en_gb<CR>
 map! <S-F7> <C-O>:setlocal spell! spelllang=en_gb<CR>i
 
-" Tim white spaces
+" Trim white spaces
 map <silent> <Leader>tt :%s/\s\+$//g<CR>
 
-"tPane navigation
+"Pane navigation
 map <C-M-Left> <C-w>h
 map <C-M-Up> <C-w>k
 map <C-M-Down> <C-w>j
@@ -190,20 +228,12 @@ map! <C-M-Up> <C-O><C-w>ki
 map! <C-M-Down> <C-O><C-w>ji
 map! <C-M-Right> <C-O><C-w>li
 
-" Lane swapping
-nnoremap <A-Down> :m .+1<CR>==
-nnoremap <A-Up> :m .-2<CR>==
-inoremap <A-Down> <Esc>:m .+1<CR>==gi
-inoremap <A-Up> <Esc>:m .-2<CR>==gi
-vnoremap <A-Down> :m '>+1<CR>gv=gv
-vnoremap <A-Up> :m '<-2<CR>gv=gv
-
 " NerdTree config.
 map <C-t> :NERDTreeToggle<CR>
 map! <C-t> <C-O>:NERDTreeToggle<CR>i
 
-map <C-M-t> :NERDTreeTabsToggle<CR>
-map <C-M-t> <C-O>:NERDTreeTabsToggle<CR>i
+" map <C-M-t> :NERDTreeTabsToggle<CR>
+" map! <C-M-t> <C-O>:NERDTreeTabsToggle<CR>i
 
 " NerdTree git
 let g:NERDTreeIndicatorMapCustom = {
