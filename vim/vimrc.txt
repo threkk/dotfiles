@@ -14,6 +14,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'shemerey/vim-peepopen'                            " Path search.
   Plug 'ctrlpvim/ctrlp.vim'                               " Ctrl-P.
   Plug 'fisadev/vim-ctrlp-cmdpalette'                     " Ctrl-Palete.
+  Plug 'ervandew/supertab'                                " Autcompl with TAB
   Plug 'vim-airline/vim-airline'                          " Better statusline.
   Plug 'vim-airline/vim-airline-themes'                   " Themes for statusline
   Plug 'airblade/vim-gitgutter'                           " Git Diff.
@@ -27,10 +28,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'beloglazov/vim-online-thesaurus'                  " Dictionary.
   Plug 'tpope/vim-eunuch'                                 " File explorer.
   Plug 'tpope/vim-surround'                               " Surround stuff.
-  Plug 'sheerun/vim-polyglot'                             " Improves syntax.
   Plug 'jeetsukumaran/vim-buffergator'                    " Buffer management.
   Plug 'wincent/terminus'                                 " Improves term sup.
   Plug 'godlygeek/tabular'                                " Aligns stuff.
+
   " Themes
   Plug 'altercation/vim-colors-solarized'
   Plug 'jpo/vim-railscasts-theme'
@@ -42,24 +43,17 @@ call plug#begin('~/.vim/plugged')
 
   " Autcomplete
   Plug 'Valloric/YouCompleteMe', { 'do': './install.py --gocode-completer --tern-completer' }
-  Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
   " ./install.py --gocode-completer --tern-completer
 
-
-  " Filetype wise
-  " HTML Expander
-  Plug 'rstacruz/sparkup', {'for': 'html'}
-
-  " PHP &  HackLang
-  Plug 'hhvm/vim-hack', {'for': ['php','hacklang']}
-
-  " Javascript & JSON.
-  Plug 'elzr/vim-json', {'for':['json','javascript']}
-
-  " CSV
-  Plug 'chrisbra/csv.vim', {'for': 'csv'}
-
-  " Markdown
+  " Languages
+  Plug 'hhvm/vim-hack'                        , {'for': ['php','hacklang']}
+  Plug 'elzr/vim-json'                        , {'for': ['json','javascript']}
+  Plug 'pangloss/vim-javascript'              , {'for': 'javascript'}
+  Plug 'mxw/vim-jsx'                          , {'for': 'javascript'}
+  Plug 'klen/python-mode'                     , {'for' : 'python'}
+  Plug 'fatih/vim-go'                         , {'for': 'go'}
+  Plug 'rstacruz/sparkup'                     , {'for': 'html'}
+  Plug 'chrisbra/csv.vim'                     , {'for': 'csv'}
   Plug 'tpope/vim-markdown'
 
   " Folding
@@ -116,6 +110,7 @@ set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/vendor/*,*/node_modules/*,*.swo
+set foldmethod=syntax
 let mapleader='\'
 
 " Disable .swp .swo etc.
@@ -171,18 +166,18 @@ if has("gui_macvim")
   let macvim_skip_cmd_opt_movement = 1
   no   <D-Left>       <Home>
   no!  <D-Left>       <Home>
-  no   <M-Left>       <C-Left>
-  no!  <M-Left>       <C-Left>
   no   <D-Right>      <End>
   no!  <D-Right>      <End>
+  no   <M-Left>       <C-Left>
+  no!  <M-Left>       <C-Left>
   no   <M-Right>      <C-Right>
   no!  <M-Right>      <C-Right>
   ino  <M-BS>         <C-w>
   ino  <D-BS>         <C-u>
-  no   <D-Down>       <C-End>
-  ino  <D-Down>       <C-End>
   no   <D-Up>         <C-Home>
   ino  <D-Up>         <C-Home>
+  no   <D-Down>       <C-End>
+  ino  <D-Down>       <C-End>
 
   " Lane swapping on MacVim
   map <M-Down> :m .+1<CR>==
@@ -199,9 +194,9 @@ else
   map! [A <Esc>:m .-2<CR>==gi
   
   " Word movement
-  " map ^[f w
+  map ^[f e
   map ^[b b
-  " map! ^[f <Esc>wi
+  map! ^[f <Esc>ea
   map! ^[b <Esc>bi
 
 endif
@@ -212,7 +207,7 @@ map! <F5> <C-O>:source $MYVIMRC<CR>
 
 " Spellcheck
 map <S-F7> :setlocal spell! spelllang=en_gb<CR>
-map! <S-F7> <C-O>:setlocal spell! spelllang=en_gb<CR>i
+map! <S-F7> <C-O>:setlocal spell! spelllang=en_gb<CR>
 
 " Trim white spaces
 map <silent> <Leader>tt :%s/\s\+$//g<CR>
@@ -232,6 +227,7 @@ map! <C-M-Right> <C-O><C-w>li
 map <C-t> :NERDTreeToggle<CR>
 map! <C-t> <C-O>:NERDTreeToggle<CR>i
 
+" Not needed?
 " map <C-M-t> :NERDTreeTabsToggle<CR>
 " map! <C-M-t> <C-O>:NERDTreeTabsToggle<CR>i
 
@@ -268,6 +264,7 @@ let g:rainbow_active = 1
 map <F4> :RainbowToggle<CR>
 map! <F4> <C-O>:RainbowToggle<CR>i
 autocmd BufNewFile,BufRead :normal RainbowToggle<CR>
+autocmd BufNewFile,BufRead :insert <C-O>:RainbowToggle<CR>i
 
 " CmdPCommandPalette
 let g:ctrlp_map = '<c-p>'
@@ -357,3 +354,28 @@ let g:ycm_seed_identifiers_with_syntax = 1
 
 " DelimitMate
 let delimitMate_expand_cr = 1
+
+" vim-javascript
+let g:javascript_plugin_jsdoc = 1
+
+" vim-jsx
+let g:jsx_ext_required = 0
+
+" vim-go
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:go_list_type = "quickfix"
