@@ -21,7 +21,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'gorodinskiy/vim-coloresque'                       " RGB Colors.
   Plug 'raimondi/delimitmate'                             " Close parenthesis.
   Plug 'majutsushi/tagbar'                                " Outline tags.
-  Plug 'oplatek/Conque-Shell'                             " Terminal.
   Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
   Plug 'mileszs/ack.vim'                                  " ACK.
   Plug 'tpope/vim-abolish'                                " Substitutions.
@@ -31,6 +30,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'jeetsukumaran/vim-buffergator'                    " Buffer management.
   Plug 'wincent/terminus'                                 " Improves term sup.
   Plug 'godlygeek/tabular'                                " Aligns stuff.
+  Plug 'tweekmonster/braceless.vim'                       " Improves indent.
 
   " Themes
   Plug 'altercation/vim-colors-solarized'
@@ -51,7 +51,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'elzr/vim-json'                        , {'for': ['json','javascript']}
   Plug 'pangloss/vim-javascript'              , {'for': 'javascript'}
   Plug 'mxw/vim-jsx'                          , {'for': 'javascript'}
-  Plug 'klen/python-mode'                     , {'for' : 'python'}
+  Plug 'davidhalter/jedi-vim'                 , {'for': 'python'}
   Plug 'fatih/vim-go'                         , {'for': 'go'}
   Plug 'rstacruz/sparkup'                     , {'for': 'html'}
   Plug 'chrisbra/csv.vim'                     , {'for': 'csv'}
@@ -280,6 +280,9 @@ map! <C-p> <C-O>:CtrlP<CR>
 map <C-l> :CtrlPCmdPalette<CR>
 map! <C-l> <C-O>:CtrlPCmdPalette<CR>
 
+" Enable folding with the spacebar
+nnoremap <space> za
+
 " Vim Airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#left_sep = ' '
@@ -307,17 +310,10 @@ map! <F6> <C-O>:TagbarToggle<CR>i
 " Uncomment to open tagbar automatically whenever possible
 " autocmd BufEnter * nested :call tagbar#autoopen(0)
 
-" Conque-Shell
-let g:ConqueTerm_PyVersion = 2
-let g:ConqueTerm_FastMode = 0
-let g:ConqueTerm_Color = 2
-let g:ConqueTerm_ReadUnfocused = 1
-let g:ConqueTerm_PromptRegex = '^\w\+@[0-9A-Za-z_.-]\+:[0-9A-Za-z_./\~,:-]\+\$'
-let g:ConqueTerm_InsertOnEnter = 1
-
 " Omnifunc
-inoremap <C-Space> <C-x><C-o>
-inoremap <C-@> <C-Space>
+map! <C-Space> <C-x><C-o>
+" inoremap <C-Space> <C-x><C-o>
+" inoremap <C-@> <C-Space>
 
 " http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
 set completeopt=longest,menuone
@@ -353,6 +349,9 @@ let g:ycm_auto_trigger = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 
+" Braceless.vim
+autocmd FileType python,yaml BracelessEnable +indent +fold +highlight
+
 " DelimitMate
 let delimitMate_expand_cr = 1
 
@@ -380,6 +379,10 @@ let g:go_highlight_build_constraints = 1
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 let g:go_list_type = "quickfix"
+
+" jedi-vim
+let g:jedi#use_splits_not_buffers = 'right'
+let g:jedi#show_call_signatures = '2'
 
 " Tender theme
 if (has("termguicolors"))
