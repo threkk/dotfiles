@@ -59,6 +59,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'elzr/vim-json'                        , {'for': ['json','javascript']}
   Plug 'hhvm/vim-hack'                        , {'for': ['php','hacklang']}
   Plug 'joonty/vdebug'                        , {'for': ['php', 'python', 'javascript', 'perl', 'ruby']}
+  Plug 'lervag/vimtex'                        , {'for': 'tex'}
 
   " Folding
   Plug 'reedes/vim-pencil', {'for': ['markdown','mkd','text']}
