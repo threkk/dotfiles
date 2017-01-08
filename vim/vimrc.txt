@@ -24,7 +24,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
   Plug 'mileszs/ack.vim'                                  " ACK.
   Plug 'tpope/vim-abolish'                                " Substitutions.
-  Plug 'beloglazov/vim-online-thesaurus'                  " Dictionary.
   Plug 'tpope/vim-eunuch'                                 " File explorer.
   Plug 'tpope/vim-surround'                               " Surround stuff.
   Plug 'jeetsukumaran/vim-buffergator'                    " Buffer management.
@@ -222,7 +221,6 @@ function! <SID>StripTrailingWS()
     call cursor(l, c)
 endfunction
 map <Leader>tt :call <SID>StripTrailingWS()<CR>
-":%s/\s\+$//g<CR>
 
 "Pane navigation
 map <C-M-Left> <C-w>h
@@ -330,8 +328,6 @@ map! <F6> <C-O>:TagbarToggle<CR>i
 
 " Omnifunc
 map! <C-Space> <C-x><C-o>
-" inoremap <C-Space> <C-x><C-o>
-" inoremap <C-@> <C-Space>
 
 " http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
 set completeopt=longest,menuone
@@ -341,9 +337,6 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-" OnlineThesaurus
-let g:online_thesaurus_map_keys = 0
 
 " Pencil
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
