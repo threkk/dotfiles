@@ -1,38 +1,115 @@
+" .vimrc - Alberto Martinez de Murga <alberto@threkk.com>
+"
+" Requirements: 
+" - FZF
+" - Ack/AG
+" - CTags
+" - Git
+" - GPG
+" - Checkers: eslint, PEP8, Go, hh_client
+" - Autocomplete: Tern.js, Jedi, GoCode, hh_client
+
+" System variables {{{
+let g:is_nvim = has('nvim')
+let g:is_gui = has('gui_macvim') || has('gui_vimr')
+
+let g:has_ack = executable('ack')
+let g:has_ag = executable('ag')
+let g:has_ctags = executable('ctags')
+let g:has_fzf = executable('fzf')
+let g:has_git = executable('git')
+
+if !g:has_ack || !g:has_ag
+    echom 'Neither AG or ACK are installed in the system.'
+endif
+
+if !g:has_fzf
+    echom 'FZF is not installed in the system.'
+endif
+
+if !g:has_git
+    echom 'Git is not installed in the system.'
+endif
+
+if !g:has_ctags
+    echom 'CTags is not installed in the system.'
+endif
+" }}}
+
+" Plugin installation {{{
+
+" Conditional function {{{
+" From https://github.com/junegunn/vim-plug/wiki/faq#conditional-activation
+function! Cond(cond, ...)
+  let opts = get(a:000, 0, {})
+  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
+" }}}
+
 call plug#begin('~/.vim/plugged')
-  " Requirements: ACK, Git, autocompleteme, checkers, GPG
-  " Plugins
-  Plug 'tpope/vim-sensible'                               " Basic conf.
+  " Basic configuration, only necessary for Vim and MacVim {{{
+  Plug 'tpope/vim-sensible', Cond(!g:is_nvim)             " Basic conf.
+  Plug 'wincent/terminus',   Cond(!g:is_gui)              " Improves term sup.
+  " }}}
+
+  " File tree menu {{{
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " File tree.
   Plug 'Xuyuanp/nerdtree-git-plugin'                      " Git support.
-  Plug 'jistr/vim-nerdtree-tabs'                          " Interact with tabs.
-  Plug 'junegunn/goyo.vim'                                " Dark room.
-  Plug 'scrooloose/syntastic'                             " Syntax checker.
-  Plug 'tpope/vim-fugitive'                               " Git.
-  Plug 'scrooloose/nerdcommenter'                         " Comments.
-  Plug 'tpope/vim-surround'                               " Brackets.
-  Plug 'luochen1990/rainbow'                              " Brackets color.
-  Plug 'shemerey/vim-peepopen'                            " Path search.
-  Plug 'ctrlpvim/ctrlp.vim'                               " Ctrl-P.
-  Plug 'fisadev/vim-ctrlp-cmdpalette'                     " Ctrl-Palete.
-  Plug 'ervandew/supertab'                                " Autcompl with TAB
+  " }}}
+ 
+  " Airline {{{
   Plug 'vim-airline/vim-airline'                          " Better statusline.
   Plug 'vim-airline/vim-airline-themes'                   " Themes for statusline
-  Plug 'airblade/vim-gitgutter'                           " Git Diff.
-  Plug 'gorodinskiy/vim-coloresque'                       " RGB Colors.
-  Plug 'raimondi/delimitmate'                             " Close parenthesis.
-  Plug 'majutsushi/tagbar'                                " Outline tags.
-  Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
-  Plug 'mileszs/ack.vim'                                  " ACK.
-  Plug 'tpope/vim-abolish'                                " Substitutions.
-  Plug 'tpope/vim-eunuch'                                 " File explorer.
-  Plug 'tpope/vim-surround'                               " Surround stuff.
-  Plug 'jeetsukumaran/vim-buffergator'                    " Buffer management.
-  Plug 'wincent/terminus'                                 " Improves term sup.
-  Plug 'godlygeek/tabular'                                " Aligns stuff.
-  Plug 'tweekmonster/braceless.vim'                       " Improves indent.
-  Plug 'tpope/vim-markdown'                               " Markdown.
+  " }}}
 
-  " Themes
+  " Brackets {{{
+  Plug 'tpope/vim-surround'                               " Brackets operations.
+  Plug 'raimondi/delimitmate'                             " Close parenthesis.
+  Plug 'luochen1990/rainbow'                              " Brackets color.
+  " }}}
+  
+  " Git {{{
+  Plug 'tpope/vim-fugitive',     Cond(g:has_git)          " Git basic commands.
+  Plug 'airblade/vim-gitgutter', Cond(g:has_git)          " Git Diff.
+  " }}}
+
+  " Syntax checker {{{
+  " NOTE: It requires to have syntax checkers installed.
+  Plug 'scrooloose/syntastic'                             " Syntax checker.
+  " }}}
+
+  " Autocomplete {{{
+  " 
+  " TODO: Make sure that the binary has loaded.
+  " NOTE: Maybe substitute for invidual completers. Check on the vim-plug
+  " repository for references.
+  " 
+  " - Tern.js --> 'marijnh/tern_for_vim'
+  " - GoCode  --> 'nsf/gocode'
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --gocode-completer --tern-completer' }
+  Plug 'ervandew/supertab'                                " Autcompl with TAB
+  " }}}
+  
+  " Outline {{{
+  Plug 'majutsushi/tagbar', Cond(g:has_ctags)             " Outline tags.
+  " }}}
+  
+  " FZF {{{
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim', Cond(g:has_fzf)
+  " }}}
+
+  " ACK {{{
+  Plug 'mileszs/ack.vim', Cond(g:has_ack || g:has_ag)     " ACK.
+  " }}}
+
+  " Other {{{
+  Plug 'godlygeek/tabular'                                " Aligns stuff.
+  Plug 'skywind3000/asyncrun.vim'                         " Async requests.
+  Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
+  " }}}
+                            
+  " Themes {{{
   Plug 'altercation/vim-colors-solarized'
   Plug 'jpo/vim-railscasts-theme'
   Plug '29decibel/codeschool-vim-theme'
@@ -41,36 +118,48 @@ call plug#begin('~/.vim/plugged')
   Plug 'blueshirts/darcula'
   Plug 'reedes/vim-colors-pencil'
   Plug 'jacoborus/tender'
-
-  " Autcomplete
-  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --gocode-completer --tern-completer' }
-  " ./install.py --gocode-completer --tern-completer
+  " }}}
 
   " Languages
-  Plug 'chrisbra/csv.vim'                     , {'for': 'csv'}
-  Plug 'fatih/vim-go'                         , {'for': 'go'}
-  Plug 'pangloss/vim-javascript'              , {'for': 'javascript'}
-  Plug 'mxw/vim-jsx'                          , {'for': 'javascript'}
-  Plug 'shawncplus/phpcomplete.vim'           , {'for': 'php'}
-  Plug 'davidhalter/jedi-vim'                 , {'for': 'python'}
-  Plug 'rstacruz/sparkup'                     , {'for': 'html'}
-  Plug 'othree/html5.vim'                     , {'for': 'html'}
-  Plug 'elzr/vim-json'                        , {'for': ['json','javascript']}
-  Plug 'hhvm/vim-hack'                        , {'for': ['php','hacklang']}
-  Plug 'joonty/vdebug'                        , {'for': ['php', 'python', 'javascript', 'perl', 'ruby']}
-  Plug 'lervag/vimtex'                        , {'for': 'tex'}
+  " Python {{{
+  Plug 'davidhalter/jedi-vim',          {'for': 'python'}
+  Plug 'tweekmonster/braceless.vim',    { 'for': ['python', 'yaml'] } 
+  " }}}
+  
+  " JavaScript {{{
+  Plug 'pangloss/vim-javascript',       {'for': 'javascript'}
+  Plug 'mxw/vim-jsx',                   {'for': 'javascript'}
+  Plug 'elzr/vim-json',                 {'for': ['json','javascript']}
+  " }}}
 
-  " Folding
-  Plug 'reedes/vim-pencil', {'for': ['markdown','mkd','text']}
-  Plug 'nelstrom/vim-markdown-folding', {'for':['markdown', 'mkd', 'text']}
+  " Go {{{
+  Plug 'fatih/vim-go',                  {'for': 'go'}
+  " }}}
+  
+  " PHP {{{
+  Plug 'shawncplus/phpcomplete.vim',    {'for': 'php'}
+  Plug 'hhvm/vim-hack',                 {'for': ['php','hacklang']}
+  " }}}
 
-  " Grammar problems.
-  Plug 'reedes/vim-wordy', {'for':['markdown', 'mkd', 'text']}
+  " Web design {{{
+  Plug 'gorodinskiy/vim-coloresque'     " Colours preview.
+  Plug 'othree/html5.vim',              {'for': 'html'}
+  " }}}
 
-  " Autocorrect
-  Plug 'reedes/vim-litecorrect', {'for':['markdown', 'mkd', 'text']}
+  " Markdown {{{
+  Plug 'tpope/vim-markdown',            { 'for': 'markdown' }
+  Plug 'junegunn/goyo.vim',             { 'for': 'markdown' }        
+  Plug 'nelstrom/vim-markdown-folding', { 'for':['markdown', 'text']}
+  " }}}
+  
+  " Others {{{
+  Plug 'chrisbra/csv.vim',              {'for': 'csv'}
+  Plug 'joonty/vdebug',                 {'for': ['php', 'python', 'javascript', 'perl', 'ruby']}
+  Plug 'lervag/vimtex',                 {'for': 'tex'}
+  " }}}
 
 call plug#end()
+" }}}
 
 set history=700
 set wildmenu
@@ -130,7 +219,7 @@ syntax enable
 set background=dark
 colorscheme tender
 
-if has("gui_macvim")
+if g:is_gui
   " Disables the scrollbars.
   set guioptions-=r
   set guioptions-=L
@@ -237,9 +326,9 @@ map! <C-M-Right> <C-O><C-w>li
 augroup aencrypted
     au!
     autocmd BufReadPre,FileReadPre *.asc set viminfo=
-    au BufReadPost *.asc :%!gpg -q -d 2> /dev/null
+    au BufReadPost *.asc :%!gpg1 -q -d 2> /dev/null
     au BufReadPost *.asc |redraw
-    au BufWritePre *.asc :%!gpg -q -e -a --default-recipient-self 2> /dev/null
+    au BufWritePre *.asc :%!gpg1 -q -e -a --default-recipient-self 2> /dev/null
     au BufWritePost *.asc u
     au VimLeave *.asc :!clear
 augroup END
@@ -296,6 +385,11 @@ map! <C-p> <C-O>:CtrlP<CR>
 map <C-l> :CtrlPCmdPalette<CR>
 map! <C-l> <C-O>:CtrlPCmdPalette<CR>
 
+" ACK.vim
+if g:has_ag
+  let g:ackprg = 'ag --vimgrep --silent'
+endif
+
 " Enable folding with the spacebar
 nnoremap <space> za
 
@@ -316,7 +410,7 @@ set laststatus=2
 if has("gui_running")
   let s:uname = system("uname")
   if s:uname == "Darwin\n"
-    set guifont=Inconsolata\ for\ Powerline:h15
+    set guifont=Hack:h14
   endif
 endif
 
