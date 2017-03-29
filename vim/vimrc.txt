@@ -1,11 +1,10 @@
 " .vimrc - Alberto Martinez de Murga <alberto@threkk.com>
 "
-" Requirements: 
+" Requirements:
 " - FZF
 " - Ack/AG
 " - CTags
 " - Git
-" - GPG
 " - Checkers: eslint, PEP8, Go, hh_client
 " - Autocomplete: Tern.js, Jedi, GoCode, hh_client
 
@@ -38,7 +37,7 @@ endif
 
 " Plugin installation {{{
 
-" Conditional function {{{
+" Conditions for plugin loading {{{
 " From https://github.com/junegunn/vim-plug/wiki/faq#conditional-activation
 function! Cond(cond, ...)
   let opts = get(a:000, 0, {})
@@ -47,6 +46,7 @@ endfunction
 " }}}
 
 call plug#begin('~/.vim/plugged')
+
   " Basic configuration, only necessary for Vim and MacVim {{{
   Plug 'tpope/vim-sensible', Cond(!g:is_nvim)             " Basic conf.
   Plug 'wincent/terminus',   Cond(!g:is_gui)              " Improves term sup.
@@ -59,7 +59,7 @@ call plug#begin('~/.vim/plugged')
  
   " Airline {{{
   Plug 'vim-airline/vim-airline'                          " Better statusline.
-  Plug 'vim-airline/vim-airline-themes'                   " Themes for statusline
+  Plug 'vim-airline/vim-airline-themes'                   " Themes for statusline.
   " }}}
 
   " Brackets {{{
@@ -87,7 +87,7 @@ call plug#begin('~/.vim/plugged')
   " - Tern.js --> 'marijnh/tern_for_vim'
   " - GoCode  --> 'nsf/gocode'
   Plug 'Valloric/YouCompleteMe', { 'do': './install.py --gocode-completer --tern-completer' }
-  Plug 'ervandew/supertab'                                " Autcompl with TAB
+  Plug 'ervandew/supertab'                                " Autcompl with TAB.
   " }}}
   
   " Outline {{{
@@ -100,13 +100,15 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " ACK {{{
-  Plug 'mileszs/ack.vim', Cond(g:has_ack || g:has_ag)     " ACK.
+  let no_ack = g:has_ack || g:has_ag
+  Plug 'mileszs/ack.vim', Cond(no_ack)                    " ACK.
   " }}}
 
   " Other {{{
   Plug 'godlygeek/tabular'                                " Aligns stuff.
   Plug 'skywind3000/asyncrun.vim'                         " Async requests.
   Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
+  Plug 'tpope/vim-sleuth'                                 " Detects the indent.
   " }}}
                             
   " Themes {{{
@@ -149,7 +151,7 @@ call plug#begin('~/.vim/plugged')
   " Markdown {{{
   Plug 'tpope/vim-markdown',            { 'for': 'markdown' }
   Plug 'junegunn/goyo.vim',             { 'for': 'markdown' }        
-  Plug 'nelstrom/vim-markdown-folding', { 'for':['markdown', 'text']}
+  Plug 'nelstrom/vim-markdown-folding', { 'for': ['markdown', 'text']}
   " }}}
   
   " Others {{{
@@ -159,6 +161,15 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
 call plug#end()
+" }}}
+
+" Vim variables {{{
+syntax enable                   " Enables syntax processing.
+set title                       " Sets the title of the window.
+
+" Themes
+colorscheme tender              " Chooses the colour scheme.
+set background=dark             " Chooses the dark version of the colourscheme.
 " }}}
 
 set history=700
@@ -193,7 +204,6 @@ set wrap
 set linebreak
 set nolist
 set showmode
-set title
 set ttyfast
 set cmdheight=2
 set columns=80
@@ -214,10 +224,6 @@ set nobackup
 set nowb
 set noswapfile
 
-" Theme selector
-syntax enable
-set background=dark
-colorscheme tender
 
 if g:is_gui
   " Disables the scrollbars.
@@ -282,7 +288,6 @@ if g:is_gui
   map! <M-Up> <Esc>:m .-2<CR>==gi
 
 else
-  set term=$TERM
   " Lane swapping (console)
   map [B :m .+1<CR>==
   map [A :m .-2<CR>==
@@ -321,17 +326,6 @@ map! <C-M-Left> <C-O><C-w>hi
 map! <C-M-Up> <C-O><C-w>ki
 map! <C-M-Down> <C-O><C-w>ji
 map! <C-M-Right> <C-O><C-w>li
-
-" GPG
-augroup aencrypted
-    au!
-    autocmd BufReadPre,FileReadPre *.asc set viminfo=
-    au BufReadPost *.asc :%!gpg1 -q -d 2> /dev/null
-    au BufReadPost *.asc |redraw
-    au BufWritePre *.asc :%!gpg1 -q -e -a --default-recipient-self 2> /dev/null
-    au BufWritePost *.asc u
-    au VimLeave *.asc :!clear
-augroup END
 
 " NerdTree config.
 map <C-t> :NERDTreeToggle<CR>
@@ -372,22 +366,15 @@ map! <F4> <C-O>:RainbowToggle<CR>i
 autocmd BufNewFile,BufRead :normal RainbowToggle<CR>
 autocmd BufNewFile,BufRead :insert <C-O>:RainbowToggle<CR>i
 
-" CmdPCommandPalette
-let g:ctrlp_map = '<c-p>'
-let g:ctrl_cmd = 'CtrlP'
-let g:ctrlp_user_command = 'find %s -type f | grep -v "`cat ~/.vim/ctrlpignore.txt`"'
-let g:ctrlp_cmdpalette_execute = 0
-let g:ctrlp_show_hidden = 0
-let g:ctrlp_dotfiles = -1
+map <C-p> <C-O>:Files<CR>
+map! <C-p> <C-O>:Files<CR>
 
-map! <C-p> <C-O>:CtrlP<CR>
-
-map <C-l> :CtrlPCmdPalette<CR>
-map! <C-l> <C-O>:CtrlPCmdPalette<CR>
+map <C-l> :Command<CR>
+map! <C-l> <C-O>:Command<CR>
 
 " ACK.vim
 if g:has_ag
-  let g:ackprg = 'ag --vimgrep --silent'
+  let g:ackprg = 'ag --vimgrep'
 endif
 
 " Enable folding with the spacebar
