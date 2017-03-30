@@ -195,17 +195,40 @@ set columns=80                  " Maximum amount of columns to display.
 set textwidth=80                " Maximum line width.
 set colorcolumn=81              " Draws a vertical line at the selected column.
 
+" Characters to fill the statuslines and vertical separators.
+set fillchars+=stl:\ ,stlnc:\ 
+
+" Display the errors in the statusline.
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+"}}}
+
+" Autocomplete {{{
 " Enables autocomplete.
 set omnifunc=syntaxcomplete#Complete
 
-" Characters to fill the statuslines and vertical separators.
-set fillchars+=stl:\ ,stlnc:\ 
-"}}}
+" Shows the longest autcomplete.
+" http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
+set completeopt=longest,menuone
+
+" Makes ENTER select the pop up menu.
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Selects the first options by default.
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" }}}
 
 " Themes and colours {{{
 set t_Co=256                    " Number of colours.
 set background=dark             " Chooses the dark version of the colourscheme.
 colorscheme tender              " Chooses the colour scheme.
+
+" Tender theme
+if (has("termguicolors"))
+    set termguicolors
+endif
 " }}}
 
 " Line wrap {{{
@@ -237,7 +260,7 @@ set smartcase                   " unless it contains an uppercase.
 
 " Folding {{{
 set foldenable                  " Enables folding.
-set foldlevelstart=10           " Sets the initial level of deepness.
+set foldlevelstart=4            " Sets the initial level of deepness.
 set foldnestmax=10              " Limits the level of deepness.
 set foldmethod=syntax           " Folding based on syntax.
 " }}}
@@ -278,7 +301,6 @@ endfunc
 " }}}
 " }}}
 
-
 " Mappings {{{
 " Escape
 imap § <ESC>
@@ -293,10 +315,10 @@ map <leader>/ :nohlsearch<CR>
 nnoremap <space> za
 
 " Trims whitespaces.
-map <Leader>tt :call <SID>StripTrailingWS()<CR>
+map <leader>tt :call <SID>StripTrailingWS()<CR>
 
 " Switches between absolute and relative numbers.
-map <Leader>n :call <SID>ToggleNumber()<CR>
+map <leader>n :call ToggleNumber()<CR>
 
 " Move vertically by visual line
 nnoremap j gj
@@ -306,7 +328,7 @@ nnoremap k gk
 nnoremap B ^
 nnoremap E $
 
-"Pane navigation
+"Pane navigation {{{
 map <C-M-Left> <C-w>h
 map <C-M-Up> <C-w>k
 map <C-M-Down> <C-w>j
@@ -318,15 +340,68 @@ map! <C-M-Down> <C-O><C-w>ji
 map! <C-M-Right> <C-O><C-w>li
 " }}}
 
-" toggle gundo
+" Plugins {{{
+" Toggle gundo.vim
 map <leader>u :GundoToggle<CR>
 
+" Toggles the bracket colouring.
+map <leader>b :RainbowToggle<CR>
+
+" Searches a file.
+map <leader>f :Files<CR>
+
+" Searches a command.
+map <leader>c :Commands<CR>
+
+" Searches a line.
+map <leader>l :Lines<CR>
+
+" Opens NERDTree.
+map <leader>t :NERDTreeToggle<CR>
+
+" Opens CTags.
+if has_ctags
+  map <leader>o :TagbarToggle<CR>
+endif
+
+" Omnifunc
+map <C-Space> <C-x><C-o>
+map! <C-Space> <C-x><C-o>
+" }}}
+
+" Legacy bindings {{{
+" NerdTree
+map <C-t> :NERDTreeToggle<CR>
+map! <C-t> <C-O>:NERDTreeToggle<CR>i
+
+" Ctrl-P
+map <C-p> <C-O>:Files<CR>
+map! <C-p> <C-O>:Files<CR>
+
+" Ctrl-P command
+map <C-l> :Command<CR>
+map! <C-l> <C-O>:Command<CR>
+" }}}
+
+" Tagbar
+if has_ctags
+  map <F6> :TagbarToggle<CR>
+  map! <F6> <C-O>:TagbarToggle<CR>i
+endif
+" }}}
+
+" GUI/TERM especific configuration {{{
+" GUI {{{
 if g:is_gui
-  " Disables the scrollbars.
+  " Disables the scrollbars {{{
   set guioptions-=r
   set guioptions-=L
   set guioptions-=T
   set guioptions-=m
+  " }}}
+  
+  " Tabs {{{
+  "
   " Press Ctrl-Tab to switch between open tabs (like browser tabs) to
   " the right side. Ctrl-Shift-Tab goes the other way.
   map <C-Tab> :tabnext<CR>
@@ -359,8 +434,9 @@ if g:is_gui
   " Command-0 goes to the last tab
   map <D-0> :tablast<CR>
   map! <D-0> <C-O>:tablast<CR>
+  "}}}
 
-  " Movement keys
+  " Movement keys {{{
   let macvim_skip_cmd_opt_movement = 1
   no   <D-Left>       <Home>
   no!  <D-Left>       <Home>
@@ -376,182 +452,154 @@ if g:is_gui
   ino  <D-Up>         <C-Home>
   no   <D-Down>       <C-End>
   ino  <D-Down>       <C-End>
-
-  " Lane swapping on GUI
+  " }}}
+  
+  " Lane swapping {{{
   map <M-Down> :m .+1<CR>==
   map <M-Up> :m .-2<CR>==
   map! <M-Down> <Esc>:m .+1<CR>==gi
   map! <M-Up> <Esc>:m .-2<CR>==gi
+  " }}}
 
+" Tries to set Hack as font if it is available {{{
+silent! set guifont=Hack:h14
+" }}}
+  
+" }}}
+  " TERM {{{
 else
-  " Lane swapping (console)
+  " Lane swapping {{{
   map [B :m .+1<CR>==
   map [A :m .-2<CR>==
   map! [B <Esc>:m .+1<CR>==gi
   map! [A <Esc>:m .-2<CR>==gi
+  " }}}
 
-  " Word movement
+  " Movement keys {{{
   map ^[f e
   map ^[b b
   map! ^[f <Esc>ea
   map! ^[b <Esc>bi
+  " }}}
 
 endif
+" }}}
+" }}}
 
-" NerdTree config.
-map <C-t> :NERDTreeToggle<CR>
-map! <C-t> <C-O>:NERDTreeToggle<CR>i
-
-" NerdTree git
+" Plugins {{{
+" NerdTree Git {{{
 let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
+      \ "Modified"  : "✹",
+      \ "Staged"    : "✚",
+      \ "Untracked" : "✭",
+      \ "Renamed"   : "➜",
+      \ "Unmerged"  : "═",
+      \ "Deleted"   : "✖",
+      \ "Dirty"     : "✗",
+      \ "Clean"     : "✔︎",
+      \ "Unknown"   : "?"
+      \ }
+" }}}
 
-" Syntastic config - Requires validators. Read the docs.
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
+" Syntastic {{{
+" Requires validators. Read the docs.
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_error_symbol = '✘'
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 let g:syntastic_warning_symbol = "▲"
-let g:syntastic_python_python_exec = '/usr/local/bin/python3'
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_python_checkers = ['flake8', 'pep8', 'python']
 
-" Rainbow parenthesis
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_python_python_exec = '/usr/local/bin/python3'
+let g:syntastic_python_checkers = ['flake8', 'pep8', 'python']
+" }}}
+
+" Rainbow parenthesis {{{
 let g:rainbow_active = 1
-map <F4> :RainbowToggle<CR>
-map! <F4> <C-O>:RainbowToggle<CR>i
+
 autocmd BufNewFile,BufRead :normal RainbowToggle<CR>
 autocmd BufNewFile,BufRead :insert <C-O>:RainbowToggle<CR>i
+" }}}
 
-map <C-p> <C-O>:Files<CR>
-map! <C-p> <C-O>:Files<CR>
-
-map <C-l> :Command<CR>
-map! <C-l> <C-O>:Command<CR>
-
-" ACK.vim
+" ACK.vim {{{
 if g:has_ag
   let g:ackprg = 'ag --vimgrep'
 endif
+" }}}
 
-" Vim Airline
+" Vim Airline {{{
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#enabled = 1
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
+  let g:airline_symbols.whitespace = 'Ξ'
 endif
-let g:airline_symbols.whitespace = 'Ξ'
+" }}}
 
-
-let g:airline#extensions#tabline#enabled = 1
-set laststatus=2
-
-if has("gui_running")
-  let s:uname = system("uname")
-  if s:uname == "Darwin\n"
-    set guifont=Hack:h14
-  endif
-endif
-
-" Tagbar - Requires CTags.
-map <F6> :TagbarToggle<CR>
-map! <F6> <C-O>:TagbarToggle<CR>i
-" Uncomment to open tagbar automatically whenever possible
-" autocmd BufEnter * nested :call tagbar#autoopen(0)
-
-" Omnifunc
-map! <C-Space> <C-x><C-o>
-
-" http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
-set completeopt=longest,menuone
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-" Pencil
-let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
-
-augroup pencil
-    autocmd!
-    autocmd FileType textile, markdown, mkd call pencil#init({'wrap': 'hard'})
-augroup END"
-
-" Lite correct
-augroup litecorrect
-    autocmd!
-    autocmd FileType markdown,mkd call litecorrect#init()
-    autocmd FileType textile call litecorrect#init()
-augroup END
-
-" YouCompleteMe
+" YouCompleteMe {{{
 autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
-let g:ycm_min_num_of_chars_for_completion = 0
 let g:ycm_auto_trigger = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_min_num_of_chars_for_completion = 0
 let g:ycm_seed_identifiers_with_syntax = 1
+" }}}
 
-" Braceless.vim
-autocmd FileType python,yaml BracelessEnable +indent +fold +highlight
-
-" DelimitMate
+" DelimitMate {{{
 let delimitMate_expand_cr = 1
+" }}}
 
-" vim-javascript
-let g:javascript_plugin_jsdoc = 1
-
-" vim-jsx
-let g:jsx_ext_required = 0
-
-" vim-go
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-
+" vim-go {{{
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 let g:go_list_type = "quickfix"
+" }}}
 
-" jedi-vim
+" jedi-vim {{{
 let g:jedi#use_splits_not_buffers = 'right'
 let g:jedi#show_call_signatures = '2'
+" }}}
 
-" Tender theme
-if (has("termguicolors"))
-    set termguicolors
-endif
+" vim-javascript {{{
+let g:javascript_plugin_jsdoc = 1
+" }}}
 
+" vim-jsx {{{
+let g:jsx_ext_required = 0
+" }}}
+
+" Airline {{{
 let g:airline_theme = 'tender'
 let macvim_skip_colorscheme=1
+" }}}
+"}}}
 
+" Configuration per filetype {{{
+" Cleans trailing whitespaces in python and javascript files before saving {{{
+autocmd BufWritePre *.py,*.js \:call <SID>StripTrailingWhitespaces()
+" }}}
 
+" Python {{{
+autocmd FileType python,yaml BracelessEnable +indent +fold +highlight
+" }}}
+
+" Go {{{
+autocmd FileType go nmap <leader>gr <Plug>(go-run)
+autocmd FileType go nmap <leader>gb <Plug>(go-build)
+autocmd FileType go nmap <leader>gt <Plug>(go-test)
+autocmd FileType go nmap <leader>gc <Plug>(go-coverage)
+autocmd FileType go nmap <leader>gd <Plug>(go-doc)
+autocmd FileType go nmap <leader>gv <Plug>(go-doc-vertical)
+" }}}
+" }}}
 
 " vim:foldmethod=marker:foldlevel=0
