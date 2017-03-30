@@ -8,7 +8,7 @@
 " - Checkers: eslint, PEP8, Go, hh_client
 " - Autocomplete: Tern.js, Jedi, GoCode, hh_client
 
-" System variables {{{
+" Global variables {{{
 let g:is_nvim = has('nvim')
 let g:is_gui = has('gui_macvim') || has('gui_vimr')
 
@@ -35,9 +35,9 @@ if !g:has_ctags
 endif
 " }}}
 
-" Plugin installation {{{
-
-" Conditions for plugin loading {{{
+" Plugin installation {{{:
+" Lazy loading {{{
+"
 " From https://github.com/junegunn/vim-plug/wiki/faq#conditional-activation
 function! Cond(cond, ...)
   let opts = get(a:000, 0, {})
@@ -74,6 +74,7 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " Syntax checker {{{
+  "
   " NOTE: It requires to have syntax checkers installed.
   Plug 'scrooloose/syntastic'                             " Syntax checker.
   " }}}
@@ -109,6 +110,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'skywind3000/asyncrun.vim'                         " Async requests.
   Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
   Plug 'tpope/vim-sleuth'                                 " Detects the indent.
+  Plug 'sjl/gundo.vim'                                    " Displays the undo tree.
   " }}}
                             
   " Themes {{{
@@ -122,7 +124,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'jacoborus/tender'
   " }}}
 
-  " Languages
+  " Languages {{{
   " Python {{{
   Plug 'davidhalter/jedi-vim',          {'for': 'python'}
   Plug 'tweekmonster/braceless.vim',    { 'for': ['python', 'yaml'] } 
@@ -159,71 +161,165 @@ call plug#begin('~/.vim/plugged')
   Plug 'joonty/vdebug',                 {'for': ['php', 'python', 'javascript', 'perl', 'ruby']}
   Plug 'lervag/vimtex',                 {'for': 'tex'}
   " }}}
-
+  " }}}
 call plug#end()
 " }}}
 
-" Vim variables {{{
-syntax enable                   " Enables syntax processing.
-set title                       " Sets the title of the window.
+" Vim configuration {{{
 
-" Themes
-colorscheme tender              " Chooses the colour scheme.
-set background=dark             " Chooses the dark version of the colourscheme.
+" General {{{
+syntax enable                   " Enables syntax processing.
+filetype plugin indent on       " Load filetype-specific indent files.
+set lazyredraw                  " Redraw only when we need to.
+set modelines=1                 " Enables custom configurations per file.
+set history=700                 " Size of the command history.
+set noerrorbells                " Doesn't display the error bells.
+set encoding=utf8               " Sets the encoding to UTF-8.
+set termencoding=utf-8          " Sets the terminal encoding to UTF-8.
+set mouse=a                     " Enables the mouse in old terminals.
+set backspace=eol,start,indent  " Makes backspace work as expected in old terminals.
+set nocompatible                " Disables vi compatibility.
+set ttyfast                     " Indicates a fast terminal.
 " }}}
 
-set history=700
-set wildmenu
-set wildmode=list:longest
-set ruler
-set number
-set hid
-set backspace=eol,start,indent
-set ignorecase
-set smartcase
-set hlsearch
-set magic
-set encoding=utf8
-set modifiable
-set expandtab
-set tabstop=4
-set softtabstop=4
-set autoindent
-set shiftround
-set shiftwidth=4
-set smarttab
-set ai
-set si
-set mouse=a
-set noerrorbells
-set nocompatible
-filetype plugin indent on
-filetype plugin on
-set omnifunc=syntaxcomplete#Complete
-set wrap
-set linebreak
-set nolist
-set showmode
-set ttyfast
-set cmdheight=2
-set columns=80
-set colorcolumn=80
-set textwidth=79
-set t_Co=256
-set fillchars+=stl:\ ,stlnc:\
-set termencoding=utf-8
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/vendor/*,*/node_modules/*,*.swo
-set foldmethod=syntax
+" UI {{{
+set title                       " Sets the title of the window.
+set number                      " Show line numbers.
+set showcmd                     " Show the executed command in the bottom bar.
+set wildmenu                    " Visual autocomplete for command menu
+set cursorline                  " Highlights the current line.
+set ruler                       " Shows the column and line of the cursor.
+set noshowmode                  " Hides the current mode.
+set cmdheight=2                 " Command line height.
+set columns=80                  " Maximum amount of columns to display.
+set textwidth=80                " Maximum line width.
+set colorcolumn=81              " Draws a vertical line at the selected column.
 
-" Leader and scape are remapped
+" Enables autocomplete.
+set omnifunc=syntaxcomplete#Complete
+
+" Characters to fill the statuslines and vertical separators.
+set fillchars+=stl:\ ,stlnc:\ 
+"}}}
+
+" Themes and colours {{{
+set t_Co=256                    " Number of colours.
+set background=dark             " Chooses the dark version of the colourscheme.
+colorscheme tender              " Chooses the colour scheme.
+" }}}
+
+" Line wrap {{{
+set wrap                        " Lines longer than the width will wrap and continue on the next line.
+set linebreak                   " Smart wrapping instead of the last character.
+" }}}
+
+" Tabs {{{
+set tabstop=4                   " Number of visual spaces per TAB.
+set softtabstop=4               " Number of spaces in tab when editing.
+set expandtab                   " Tabs are spaces.
+set smarttab                    " Inserts as many spaces as needed to tab.
+set nolist                      " Hides non visual chars (tabs, break lines...)
+" }}}
+
+" Indent {{{
+set ai                          " Copy the indent when starting a new line.
+set si                          " Enables smart indent.
+set shiftround                  " Round indent to multiple of (auto) indent.
+set shiftwidth=4                " Number of spaces to use for each step of (auto)indent.
+" }}}
+
+" Search {{{
+set hlsearch                    " Highlight matches.
+set incsearch                   " Search as characters are entered.
+set ignorecase                  " Makes the patterns no case-sensitive
+set smartcase                   " unless it contains an uppercase.
+" }}}
+
+" Folding {{{
+set foldenable                  " Enables folding.
+set foldlevelstart=10           " Sets the initial level of deepness.
+set foldnestmax=10              " Limits the level of deepness.
+set foldmethod=syntax           " Folding based on syntax.
+" }}}
+
+" Backup {{{
+set backup
+set writebackup
+set backupdir=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for backups.
+set backupskip=/tmp/*,/private/tmp/*                " Don't create backups for these folders.
+set directory=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for swapfiles.
+" }}}
+" }}}
+
+" Functions {{{
+" Trim white spaces {{{
+function! <SID>StripTrailingWS()
+    " save last search & cursor position
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Clear trailing whitespace
+    %s/\s\+$//e
+    "Restore saved cursor & search.
+    let @/=_s
+    call cursor(l, c)
+endfunction
+" }}}
+
+" Toggle between number and relativenumber {{{
+function! ToggleNumber()
+    if(&relativenumber == 1)
+        set norelativenumber
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+" }}}
+" }}}
+
+
+" Mappings {{{
+" Escape
 imap § <ESC>
+
+" Leader
 let mapleader='\'
 
-" Disable .swp .swo etc.
-set nobackup
-set nowb
-set noswapfile
+" Turns off the search highlight.
+map <leader>/ :nohlsearch<CR>  
 
+" Enable folding with the spacebar
+nnoremap <space> za
+
+" Trims whitespaces.
+map <Leader>tt :call <SID>StripTrailingWS()<CR>
+
+" Switches between absolute and relative numbers.
+map <Leader>n :call <SID>ToggleNumber()<CR>
+
+" Move vertically by visual line
+nnoremap j gj
+nnoremap k gk
+
+" Move to beginning/end of line
+nnoremap B ^
+nnoremap E $
+
+"Pane navigation
+map <C-M-Left> <C-w>h
+map <C-M-Up> <C-w>k
+map <C-M-Down> <C-w>j
+map <C-M-Right> <C-w>l
+
+map! <C-M-Left> <C-O><C-w>hi
+map! <C-M-Up> <C-O><C-w>ki
+map! <C-M-Down> <C-O><C-w>ji
+map! <C-M-Right> <C-O><C-w>li
+" }}}
+
+" toggle gundo
+map <leader>u :GundoToggle<CR>
 
 if g:is_gui
   " Disables the scrollbars.
@@ -281,7 +377,7 @@ if g:is_gui
   no   <D-Down>       <C-End>
   ino  <D-Down>       <C-End>
 
-  " Lane swapping on MacVim
+  " Lane swapping on GUI
   map <M-Down> :m .+1<CR>==
   map <M-Up> :m .-2<CR>==
   map! <M-Down> <Esc>:m .+1<CR>==gi
@@ -301,31 +397,6 @@ else
   map! ^[b <Esc>bi
 
 endif
-
-" Trim white spaces
-function! <SID>StripTrailingWS()
-    " save last search & cursor position
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Clear trailing whitespace
-    %s/\s\+$//e
-    "Restore saved cursor & search.
-    let @/=_s
-    call cursor(l, c)
-endfunction
-map <Leader>tt :call <SID>StripTrailingWS()<CR>
-
-"Pane navigation
-map <C-M-Left> <C-w>h
-map <C-M-Up> <C-w>k
-map <C-M-Down> <C-w>j
-map <C-M-Right> <C-w>l
-
-map! <C-M-Left> <C-O><C-w>hi
-map! <C-M-Up> <C-O><C-w>ki
-map! <C-M-Down> <C-O><C-w>ji
-map! <C-M-Right> <C-O><C-w>li
 
 " NerdTree config.
 map <C-t> :NERDTreeToggle<CR>
@@ -376,9 +447,6 @@ map! <C-l> <C-O>:Command<CR>
 if g:has_ag
   let g:ackprg = 'ag --vimgrep'
 endif
-
-" Enable folding with the spacebar
-nnoremap <space> za
 
 " Vim Airline
 let g:airline_powerline_fonts = 1
@@ -483,3 +551,7 @@ endif
 
 let g:airline_theme = 'tender'
 let macvim_skip_colorscheme=1
+
+
+
+" vim:foldmethod=marker:foldlevel=0
