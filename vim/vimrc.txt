@@ -170,7 +170,6 @@ call plug#end()
 " General {{{
 syntax enable                   " Enables syntax processing.
 filetype plugin indent on       " Load filetype-specific indent files.
-set lazyredraw                  " Redraw only when we need to.
 set modelines=1                 " Enables custom configurations per file.
 set history=700                 " Size of the command history.
 set noerrorbells                " Doesn't display the error bells.
