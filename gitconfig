@@ -1,0 +1,27 @@
+[core]
+	editor = nvim
+    pager = diff-so-fancy | less --tabs=1,5 -R
+[user]
+	name = Alberto Martinez de Murga Ramirez
+	email = alberto@threkk.com
+	signkey = 76A13417E645CFFE
+    signingkey = 76A13417E645CFFE
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[push]
+	default = simple
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg1
+
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
