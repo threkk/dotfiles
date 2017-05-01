@@ -4,6 +4,9 @@ A collection with all the dotfiles and plugins I use. The branch of this
 repository contains the configuration for:
 
 - Vim
+- iTerm2
+- Tern.js
+- Git
 
 If you want to use the same configuration, execute the following commands on
 your root directory:

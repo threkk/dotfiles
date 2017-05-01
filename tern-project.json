@@ -2,14 +2,17 @@
   "ecmaVersion": 6,
   "libs": [
 	"browser",
+    "chai",
 	"ecmascript",
-	"chai"
+    "jquery",
+    "underscore"
   ],
   "dontLoad": [
 	"node_modules/**"
   ],
   "plugins": {
 	"modules": {},
+    "requirejs": {},
 	"es_modules": {},
 	"node": {},
 	"doc_comment": {

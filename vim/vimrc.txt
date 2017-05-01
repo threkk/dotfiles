@@ -3,13 +3,14 @@
 " Requirements:
 " - FZF
 " - Ack/AG
-" - CTags
+" - CTags & jsctags.
 " - Git
 " - Checkers: eslint, PEP8, Go, hh_client
 " - Autocomplete: Tern.js, Jedi, GoCode, hh_client
 
 " Global variables {{{
 let g:is_nvim = has('nvim')
+let g:is_vim = !has('nvim')
 let g:is_gui = has('gui_macvim') || has('gui_vimr')
 
 let g:has_ack = executable('ack')
@@ -48,7 +49,7 @@ endfunction
 call plug#begin('~/.vim/plugged')
 
   " Basic configuration, only necessary for Vim and MacVim {{{
-  Plug 'tpope/vim-sensible', Cond(!g:is_nvim)             " Basic conf.
+  Plug 'tpope/vim-sensible', Cond(g:is_vim)               " Basic conf.
   Plug 'wincent/terminus',   Cond(!g:is_gui)              " Improves term sup.
   " }}}
 
@@ -56,7 +57,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " File tree.
   Plug 'Xuyuanp/nerdtree-git-plugin'                      " Git support.
   " }}}
- 
+
   " Airline {{{
   Plug 'vim-airline/vim-airline'                          " Better statusline.
   Plug 'vim-airline/vim-airline-themes'                   " Themes for statusline.
@@ -67,7 +68,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'raimondi/delimitmate'                             " Close parenthesis.
   Plug 'luochen1990/rainbow'                              " Brackets color.
   " }}}
-  
+
   " Git {{{
   Plug 'tpope/vim-fugitive',     Cond(g:has_git)          " Git basic commands.
   Plug 'airblade/vim-gitgutter', Cond(g:has_git)          " Git Diff.
@@ -76,25 +77,24 @@ call plug#begin('~/.vim/plugged')
   " Syntax checker {{{
   "
   " NOTE: It requires to have syntax checkers installed.
-  Plug 'scrooloose/syntastic'                             " Syntax checker.
+  Plug 'scrooloose/syntastic'                             " Syntax checker for vim.
   " }}}
 
   " Autocomplete {{{
-  " 
+  "
   " TODO: Make sure that the binary has loaded.
   " NOTE: Maybe substitute for invidual completers. Check on the vim-plug
   " repository for references.
-  " 
+  "
   " - Tern.js --> 'marijnh/tern_for_vim'
   " - GoCode  --> 'nsf/gocode'
   Plug 'Valloric/YouCompleteMe', { 'do': './install.py --gocode-completer --tern-completer' }
-  Plug 'ervandew/supertab'                                " Autcompl with TAB.
   " }}}
-  
+
   " Outline {{{
   Plug 'majutsushi/tagbar', Cond(g:has_ctags)             " Outline tags.
   " }}}
-  
+
   " FZF {{{
   Plug '/usr/local/opt/fzf'
   Plug 'junegunn/fzf.vim', Cond(g:has_fzf)
@@ -112,7 +112,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-sleuth'                                 " Detects the indent.
   Plug 'sjl/gundo.vim'                                    " Displays the undo tree.
   " }}}
-                            
+
   " Themes {{{
   Plug 'altercation/vim-colors-solarized'
   Plug 'jpo/vim-railscasts-theme'
@@ -127,19 +127,19 @@ call plug#begin('~/.vim/plugged')
   " Languages {{{
   " Python {{{
   Plug 'davidhalter/jedi-vim',          {'for': 'python'}
-  Plug 'tweekmonster/braceless.vim',    { 'for': ['python', 'yaml'] } 
+  Plug 'tweekmonster/braceless.vim',    {'for': ['python', 'yaml']}
   " }}}
-  
+
   " JavaScript {{{
-  Plug 'pangloss/vim-javascript',       {'for': 'javascript'}
-  Plug 'mxw/vim-jsx',                   {'for': 'javascript'}
-  Plug 'elzr/vim-json',                 {'for': ['json','javascript']}
+  Plug 'pangloss/vim-javascript',       {'for': ['javascript', 'javascript.jsx']}
+  Plug 'mxw/vim-jsx',                   {'for': ['jsx', 'javascript.jsx']}
+  Plug 'elzr/vim-json',                 {'for': ['javascript', 'json', 'jsx', 'javascript.jsx']}
   " }}}
 
   " Go {{{
   Plug 'fatih/vim-go',                  {'for': 'go'}
   " }}}
-  
+
   " PHP {{{
   Plug 'shawncplus/phpcomplete.vim',    {'for': 'php'}
   Plug 'hhvm/vim-hack',                 {'for': ['php','hacklang']}
@@ -151,14 +151,14 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " Markdown {{{
-  Plug 'tpope/vim-markdown',            { 'for': 'markdown' }
-  Plug 'junegunn/goyo.vim',             { 'for': 'markdown' }        
-  Plug 'nelstrom/vim-markdown-folding', { 'for': ['markdown', 'text']}
+  Plug 'tpope/vim-markdown',            {'for': 'markdown'}
+  Plug 'junegunn/goyo.vim',             {'for': 'markdown'}
+  Plug 'nelstrom/vim-markdown-folding', {'for': ['markdown', 'text']}
   " }}}
-  
+
   " Others {{{
   Plug 'chrisbra/csv.vim',              {'for': 'csv'}
-  Plug 'joonty/vdebug',                 {'for': ['php', 'python', 'javascript', 'perl', 'ruby']}
+  Plug 'joonty/vdebug',                 {'for': ['php', 'python', 'javascript', 'perl', 'ruby', 'javascript.jsx']}
   Plug 'lervag/vimtex',                 {'for': 'tex'}
   " }}}
   " }}}
@@ -195,7 +195,7 @@ set textwidth=80                " Maximum line width.
 set colorcolumn=81              " Draws a vertical line at the selected column.
 
 " Characters to fill the statuslines and vertical separators.
-set fillchars+=stl:\ ,stlnc:\ 
+set fillchars+=stl:\ ,stlnc:\
 
 " Display the errors in the statusline.
 set statusline+=%#warningmsg#
@@ -275,7 +275,7 @@ set directory=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for swapfiles.
 
 " Functions {{{
 " Trim white spaces {{{
-function! <SID>StripTrailingWS()
+function! StripTrailingWS()
     " save last search & cursor position
     let _s=@/
     let l = line(".")
@@ -308,13 +308,13 @@ imap § <ESC>
 let mapleader='\'
 
 " Turns off the search highlight.
-map <leader>/ :nohlsearch<CR>  
+map <leader>/ :nohlsearch<CR>
 
 " Enable folding with the spacebar
 nnoremap <space> za
 
 " Trims whitespaces.
-map <leader>tt :call <SID>StripTrailingWS()<CR>
+map <leader>tt :call StripTrailingWS()<CR>
 
 " Switches between absolute and relative numbers.
 map <leader>n :call ToggleNumber()<CR>
@@ -355,6 +355,12 @@ map <leader>c :Commands<CR>
 " Searches a line.
 map <leader>l :Lines<CR>
 
+" Searches on Git files.
+map <leader>gl :GFiles<CR>
+
+" Searches on the Git Status.
+map <leader>gs :GFiles?<CR>
+
 " Opens NERDTree.
 map <leader>t :NERDTreeToggle<CR>
 
@@ -374,7 +380,7 @@ map <C-t> :NERDTreeToggle<CR>
 map! <C-t> <C-O>:NERDTreeToggle<CR>i
 
 " Ctrl-P
-map <C-p> <C-O>:Files<CR>
+map <C-p> :Files<CR>
 map! <C-p> <C-O>:Files<CR>
 
 " Ctrl-P command
@@ -398,7 +404,7 @@ if g:is_gui
   set guioptions-=T
   set guioptions-=m
   " }}}
-  
+
   " Tabs {{{
   "
   " Press Ctrl-Tab to switch between open tabs (like browser tabs) to
@@ -452,7 +458,7 @@ if g:is_gui
   no   <D-Down>       <C-End>
   ino  <D-Down>       <C-End>
   " }}}
-  
+
   " Lane swapping {{{
   map <M-Down> :m .+1<CR>==
   map <M-Up> :m .-2<CR>==
@@ -463,7 +469,7 @@ if g:is_gui
 " Tries to set Hack as font if it is available {{{
 silent! set guifont=Hack:h14
 " }}}
-  
+
 " }}}
   " TERM {{{
 else
@@ -505,13 +511,13 @@ let g:NERDTreeIndicatorMapCustom = {
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_wq = 1
 let g:syntastic_error_symbol = '✘'
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 let g:syntastic_warning_symbol = "▲"
 
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['standard', 'eslint']
 let g:syntastic_python_python_exec = '/usr/local/bin/python3'
 let g:syntastic_python_checkers = ['flake8', 'pep8', 'python']
 " }}}
@@ -521,6 +527,10 @@ let g:rainbow_active = 1
 
 autocmd BufNewFile,BufRead :normal RainbowToggle<CR>
 autocmd BufNewFile,BufRead :insert <C-O>:RainbowToggle<CR>i
+" }}}
+
+" vim-sleuth {{{
+autocmd BufReadPre,FileReadPre * :Sleuth
 " }}}
 
 " ACK.vim {{{
@@ -584,7 +594,7 @@ let macvim_skip_colorscheme=1
 
 " Configuration per filetype {{{
 " Cleans trailing whitespaces in python and javascript files before saving {{{
-autocmd BufWritePre *.py,*.js \:call <SID>StripTrailingWhitespaces()
+autocmd BufWritePre *.{py,js,jsx} call StripTrailingWS()
 " }}}
 
 " Python {{{
