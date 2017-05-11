@@ -1,23 +1,26 @@
 {
   "ecmaVersion": 6,
   "libs": [
-	"browser",
+    "browser",
     "chai",
-	"ecmascript",
+    "ecmascript",
     "jquery",
     "underscore"
   ],
+  "loadEagerly": [
+    "node_modules/react/**/*.js"
+  ],
   "dontLoad": [
-	"node_modules/**"
+    "node_modules/**"
   ],
   "plugins": {
-	"modules": {},
+    "modules": {},
     "requirejs": {},
-	"es_modules": {},
-	"node": {},
-	"doc_comment": {
-	  "fullDocs": true,
-	  "strong": true
-	}  
+    "es_modules": {},
+    "node": {},
+    "doc_comment": {
+      "fullDocs": true,
+      "strong": true
+    }  
   }
 }
