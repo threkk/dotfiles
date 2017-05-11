@@ -104,6 +104,11 @@ call plug#begin('~/.vim/plugged')
   let no_ack = g:has_ack || g:has_ag
   Plug 'mileszs/ack.vim', Cond(no_ack)                    " ACK.
   " }}}
+  
+  " UltraSnips {{{
+  " Plug 'SirVer/ultisnips'
+  " Plug 'honza/vim-snippets'
+  " }}}
 
   " Other {{{
   Plug 'godlygeek/tabular'                                " Aligns stuff.
@@ -131,9 +136,10 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " JavaScript {{{
-  Plug 'pangloss/vim-javascript',       {'for': ['javascript', 'javascript.jsx']}
-  Plug 'mxw/vim-jsx',                   {'for': ['jsx', 'javascript.jsx']}
-  Plug 'elzr/vim-json',                 {'for': ['javascript', 'json', 'jsx', 'javascript.jsx']}
+  Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.jsx']}
+  Plug 'mxw/vim-jsx',                         {'for': ['jsx', 'javascript.jsx']}
+  Plug 'elzr/vim-json',                       {'for': ['javascript', 'json', 'jsx', 'javascript.jsx']}
+  Plug 'mtscout6/syntastic-local-eslint.vim', {'for': ['javascript', 'jsx', 'javascript.jsx']}
   " }}}
 
   " Go {{{
@@ -179,6 +185,12 @@ set mouse=a                     " Enables the mouse in old terminals.
 set backspace=eol,start,indent  " Makes backspace work as expected in old terminals.
 set nocompatible                " Disables vi compatibility.
 set ttyfast                     " Indicates a fast terminal.
+
+" Configures Python for NVIM
+if g:is_nvim
+  let g:python_host_prog = '/usr/local/bin/python'
+  let g:python3_host_prog = '/usr/local/bin/python3'
+endif
 " }}}
 
 " UI {{{
@@ -317,7 +329,7 @@ nnoremap <space> za
 map <leader>tt :call StripTrailingWS()<CR>
 
 " Switches between absolute and relative numbers.
-map <leader>n :call ToggleNumber()<CR>
+map <leader>tn :call ToggleNumber()<CR>
 
 " Move vertically by visual line
 nnoremap j gj
@@ -328,15 +340,10 @@ nnoremap B ^
 nnoremap E $
 
 "Pane navigation {{{
-map <C-M-Left> <C-w>h
-map <C-M-Up> <C-w>k
-map <C-M-Down> <C-w>j
-map <C-M-Right> <C-w>l
-
-map! <C-M-Left> <C-O><C-w>hi
-map! <C-M-Up> <C-O><C-w>ki
-map! <C-M-Down> <C-O><C-w>ji
-map! <C-M-Right> <C-O><C-w>li
+map <leader><Left> <C-w>h
+map <leader><Up> <C-w>k
+map <leader><Down> <C-w>j
+map <leader><Right> <C-w>l
 " }}}
 
 " Plugins {{{
@@ -372,27 +379,27 @@ endif
 " Omnifunc
 map <C-Space> <C-x><C-o>
 map! <C-Space> <C-x><C-o>
-" }}}
 
-" Legacy bindings {{{
-" NerdTree
-map <C-t> :NERDTreeToggle<CR>
-map! <C-t> <C-O>:NERDTreeToggle<CR>i
+" YouCompleteMe
+" Note: they are optimised for python/javascript.
 
-" Ctrl-P
-map <C-p> :Files<CR>
-map! <C-p> <C-O>:Files<CR>
+" Go to definition/declaration of the variable under the cursor.
+map <leader>rt :YcmCompleter GoTo<CR>
 
-" Ctrl-P command
-map <C-l> :Command<CR>
-map! <C-l> <C-O>:Command<CR>
-" }}}
+" Attemps to find all the references of the variable in the project.
+map <leader>rf :YcmCompleter GoToReferences<CR>
 
-" Tagbar
-if has_ctags
-  map <F6> :TagbarToggle<CR>
-  map! <F6> <C-O>:TagbarToggle<CR>i
-endif
+" Gets the type of the variable.
+map <leader>ry :YcmCompleter GetType<CR>
+
+" Display some documentation.
+map <leader>rd :YcmCompleter GetDoc<CR>
+
+" Renames the current variable.
+map <leader>rn :YcmCompleter RefactorRename
+
+" Restarts the third party semantic server in case of crash.
+map <leader>rr :YcmCompleter RestartServer<CR>
 " }}}
 
 " GUI/TERM especific configuration {{{
@@ -557,10 +564,28 @@ let g:ycm_auto_trigger = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_min_num_of_chars_for_completion = 0
 let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_python_binary_path = 'python'
 " }}}
 
 " DelimitMate {{{
 let delimitMate_expand_cr = 1
+" }}}
+
+" UltiSnips {{{
+" From https://github.com/SirVer/ultisnips/issues/376#issuecomment-69033351
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+let g:UltiSnipsExpandTrigger="<nop>"
+let g:ulti_expand_or_jump_res = 0
+function! <SID>ExpandSnippetOrReturn()
+  let snippet = UltiSnips#ExpandSnippetOrJump()
+  if g:ulti_expand_or_jump_res > 0
+    return snippet
+  else
+    return "\<CR>"
+  endif
+endfunction
+" inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 " }}}
 
 " vim-go {{{
@@ -574,6 +599,7 @@ let g:go_list_type = "quickfix"
 " }}}
 
 " jedi-vim {{{
+let g:jedi#completions_enabled = 0  " Use YCM completation
 let g:jedi#use_splits_not_buffers = 'right'
 let g:jedi#show_call_signatures = '2'
 " }}}
