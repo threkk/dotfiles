@@ -16,8 +16,9 @@ mv .vim .vim.old
 mv .vimrc .vimrc.old
 git clone https://github.com/threkk/dotfiles.git
 mv dotfiles .dotfiles
-ln -s .dotfiles/vim   .vim
-ln -s .dotfiles/vim/vimrc.txt .vimrc
+ln -s .dotfiles/vim .config/vim
+ln -s .dotfiles/vim .vim
+ln -s .dotfiles/vim/init.vim .vimrc
 vim +PlugInstall
 ```
 
