@@ -4,33 +4,64 @@ A collection with all the dotfiles and plugins I use. The branch of this
 repository contains the configuration for:
 
 - Vim
-- iTerm2
-- Tern.js
+- Oh-my-zshrc
 - Git
+- Tern.js
+- iTerm2
+
+... and many other tools.
 
 If you want to use the same configuration, execute the following commands on
 your root directory:
 
 ```
-mv .vim .vim.old
-mv .vimrc .vimrc.old
-git clone https://github.com/threkk/dotfiles.git
-mv dotfiles .dotfiles
-ln -s .dotfiles/vim .config/vim
-ln -s .dotfiles/vim .vim
-ln -s .dotfiles/vim/init.vim .vimrc
-vim +PlugInstall
+git clone https://github.com/threkk/dotfiles.git ~/.dotfiles
 ```
+## List of software required.
+These tools also require to have installed brew, Python, Golang and Node.js.
+- [Vim](https://github.com/vim/vim)/[NeoVim](https://github.com/neovim/neovim)
+- [Git](https://github.com/git/git)
+- [Hub](https://github.com/github/hub)
+- [Oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
+- [HTTPie](https://httpie.org/)
+- [FZF](https://github.com/junegunn/fzf)
+- [The silver searcher](https://github.com/ggreer/the_silver_searcher)
+- [Tern.js](https://github.com/ternjs/tern)
+- [CTags](http://ctags.sourceforge.net/)+[JSCTags](https://github.com/ramitos/jsctags)
+- [Standard](https://standardjs.com/)
+- [PEP8](https://pypi.python.org/pypi/pep8)
+- [Jedi](https://github.com/davidhalter/jedi)
 
-## Vim
-
+## Installation details.
+### Vim
 To install all the plugins and themes, you need to use Plug.
 
 Open vim (it will give an error, press ENTER) and type:
 ```
+ln -s ~/.dotfiles/vim ~/.config/vim
+ln -s ~/.dotfiles/vim ~/.vim
+ln -s ~/.dotfiles/vim/init.vim .~/vimrc
+mkdir ~/.config/vim-tmp
+vim +PlugInstall
 :PlugInstall
 ```
-
 To read the complete [Plug commands](https://github.com/junegunn/vim-plug).
+### Oh-my-zsh
+After intalling `oh-my-zsh`, run the following command:
+```
+mv ~/.zshrc ~/.zshrc.old
+ln -s ~/.dotfiles/zshrc ~/.zshrc
+```
+### Git
+```
+mv ~/.gitcofing ~/.gitconfig.old
+ln -s ~/.dotfiles/gitconfig ~/.gitconfig
+```
+### Tern.js
+After installing `tern.js`, run the following command:
+```
+ln -s ~/.dotfiles/tern-project.json ~/.tern-config
+ln -s ~/.dotfiles/tern-project.json ~/.tern-project
+```
 
 License: MIT

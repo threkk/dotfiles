@@ -86,6 +86,12 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
+# Extra config
+export HOMEBREW_NO_ANALYTICS=1
+export PYTHONDONTWRITEBYTECODE=1
+GPG_TTY=$(tty)
+export GPG_TTY
+
 # Exports
 [ -f ~/.dotfiles/exports.sh ] && source ~/.dotfiles/exports.sh
 
