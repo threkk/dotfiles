@@ -102,4 +102,5 @@ source ~/.dotfiles/tools.sh
 fpath=(/usr/local/share/zsh-completions $fpath)
 eval "$(hub alias -s)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
+[ -f /usr/local/share/zsh-syntax-highlighting.zsh ] && /usr/local/share/zsh-syntax-highlighting.zsh

@@ -376,6 +376,11 @@ if has_ctags
   map <leader>o :TagbarToggle<CR>
 endif
 
+" Opens the silver searcher.
+if has_ag
+  map <leader>a :Ag<CR>
+endif
+
 " Omnifunc
 map <C-Space> <C-x><C-o>
 map! <C-Space> <C-x><C-o>
