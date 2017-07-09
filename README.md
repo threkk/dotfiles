@@ -31,6 +31,7 @@ These tools also require to have installed brew, Python, Golang and Node.js.
 - [Standard](https://standardjs.com/)
 - [PEP8](https://pypi.python.org/pypi/pep8)
 - [Jedi](https://github.com/davidhalter/jedi)
+- [Diff-so-fancy](https://github.com/so-fancy/diff-so-fancy)
 
 ## Installation details.
 ### Vim
