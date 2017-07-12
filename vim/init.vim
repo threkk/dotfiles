@@ -643,6 +643,20 @@ autocmd FileType go nmap <leader>gt <Plug>(go-test)
 autocmd FileType go nmap <leader>gc <Plug>(go-coverage)
 autocmd FileType go nmap <leader>gd <Plug>(go-doc)
 autocmd FileType go nmap <leader>gv <Plug>(go-doc-vertical)
+" Go styleguide
+autocmd FileType go set noexpandtab
+autocmd FileType go set shiftwidth=4
+autocmd FileType go set softtabstop=4
+autocmd FileType go set tabstop=4
+" Extra higlights.
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
 " }}}
 " }}}
 

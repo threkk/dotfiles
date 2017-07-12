@@ -25,10 +25,10 @@ fi
 alias vimrc="${EDITOR} ${HOME}/.vimrc"
 
 fuck() {
-    if [ $1 = "--help" ] || [ $1 = "-h" ]; then
+    if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
         echo "usage: $0"
         echo "  Repeats the last command using sudo."
-    elif [ $1 = "--version"] || [ $1 = "-v" ]; then
+    elif [ "$1" = "--version"] || [ "$1" = "-v" ]; then
         echo "1.0.0"
     else
         sudo $(history -p \!\!)
