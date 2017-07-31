@@ -31,7 +31,6 @@ These tools also require to have installed brew, Python, Golang and Node.js.
 - [Standard](https://standardjs.com/)
 - [PEP8](https://pypi.python.org/pypi/pep8)
 - [Jedi](https://github.com/davidhalter/jedi)
-- [Diff-so-fancy](https://github.com/so-fancy/diff-so-fancy)
 
 ## Installation details.
 ### Vim
@@ -64,5 +63,11 @@ After installing `tern.js`, run the following command:
 ln -s ~/.dotfiles/tern-project.json ~/.tern-config
 ln -s ~/.dotfiles/tern-project.json ~/.tern-project
 ```
+
+## Recommended software
+Not really necessary, but useful:
+- [n](https://github.com/tj/n)
+- [node-inspector](https://github.com/node-inspector/node-inspector)
+- [Diff-so-fancy](https://github.com/so-fancy/diff-so-fancy)
 
 License: MIT
