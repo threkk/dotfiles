@@ -31,7 +31,7 @@ fuck() {
     elif [ "$1" = "--version"] || [ "$1" = "-v" ]; then
         echo "1.0.0"
     else
-        sudo $(history -p \!\!)
+        sudo $(fc -ln 0 | tail -n1)
     fi
 }
 
