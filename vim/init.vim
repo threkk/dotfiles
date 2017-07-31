@@ -479,7 +479,12 @@ if g:is_gui
   " }}}
 
 " Tries to set Hack as font if it is available {{{
-silent! set guifont=Hack:h14
+" silent! set guifont=Hack:h14
+" }}}
+
+" Tries to set FireCode as font if it is available {{{
+  silent! set macligatures
+  silent! set guifont=Fira\ Code:h15
 " }}}
 
 " }}}
