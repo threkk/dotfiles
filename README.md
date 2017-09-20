@@ -69,5 +69,6 @@ Not really necessary, but useful:
 - [n](https://github.com/tj/n)
 - [node-inspector](https://github.com/node-inspector/node-inspector)
 - [Diff-so-fancy](https://github.com/so-fancy/diff-so-fancy)
+- [mosh](https://mosh.org)
 
 License: MIT

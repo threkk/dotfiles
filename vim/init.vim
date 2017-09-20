@@ -116,6 +116,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
   Plug 'tpope/vim-sleuth'                                 " Detects the indent.
   Plug 'sjl/gundo.vim'                                    " Displays the undo tree.
+  Plug 'rizzatti/dash.vim'                                " Integration for Dash.app
   " }}}
 
   " Themes {{{
