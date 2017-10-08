@@ -139,6 +139,7 @@ call plug#begin('~/.vim/plugged')
   " JavaScript {{{
   Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.jsx']}
   Plug 'mxw/vim-jsx',                         {'for': ['jsx', 'javascript.jsx']}
+  Plug 'posva/vim-vue',                       {'for': ['javascript', 'vue']}
   Plug 'elzr/vim-json',                       {'for': ['javascript', 'json', 'jsx', 'javascript.jsx']}
   Plug 'mtscout6/syntastic-local-eslint.vim', {'for': ['javascript', 'jsx', 'javascript.jsx']}
   " }}}
@@ -623,6 +624,11 @@ let g:javascript_plugin_jsdoc = 1
 
 " vim-jsx {{{
 let g:jsx_ext_required = 0
+" }}}
+
+" vim-vue {{{
+autocmd FileType vue syntax sync fromstart
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 " }}}
 
 " Airline {{{
