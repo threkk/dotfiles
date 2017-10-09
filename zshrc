@@ -74,7 +74,7 @@ fi
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-export SSH_KEY_PATH="${HOME}/.ssh/rsa_id"
+export SSH_KEY_PATH="${HOME}/.ssh/id_rsa"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -99,7 +99,7 @@ export GPG_TTY
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/opt/python/libexec/bin:$PATH
-export PATH=$PATH:$HOME/.node/bin
+export PATH=$PATH:$HOME/.npm-packages/bin
 export PATH=$PATH:$GOPATH/bin
 
 # Tools
