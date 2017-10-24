@@ -412,9 +412,9 @@ map <leader>rn :YcmCompleter RefactorRename
 " Restarts the third party semantic server in case of crash.
 map <leader>rr :YcmCompleter RestartServer<CR>
 
-" In terminal mode, sets the normal mode key combination to ESC.
+" In terminal mode, sets the normal mode key combination to M-ESC.
 if is_nvim 
-  tnoremap <Esc> <C-\><C-n>
+  tnoremap <M-Esc> <C-\><C-n>
 endif
 
 " }}}
