@@ -8,6 +8,7 @@ repository contains the configuration for:
 - Git
 - Tern.js
 - iTerm2
+- TMUX
 
 ... and many other tools.
 
@@ -21,6 +22,7 @@ git clone https://github.com/threkk/dotfiles.git ~/.dotfiles
 These tools also require to have installed brew, Python, Golang and Node.js.
 - [Vim](https://github.com/vim/vim)/[NeoVim](https://github.com/neovim/neovim)
 - [Git](https://github.com/git/git)
+- [TMUX](https://github.com/tmux/tmux)
 - [Hub](https://github.com/github/hub)
 - [Oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 - [HTTPie](https://httpie.org/)
@@ -70,5 +72,6 @@ Not really necessary, but useful:
 - [node-inspector](https://github.com/node-inspector/node-inspector)
 - [Diff-so-fancy](https://github.com/so-fancy/diff-so-fancy)
 - [mosh](https://mosh.org)
+- [ccat](https://github.com/jingweno/ccat)
 
 License: MIT
