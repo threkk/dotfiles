@@ -74,6 +74,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-gitgutter', Cond(g:has_git)          " Git Diff.
   " }}}
 
+  " TMUX {{{
+  Plug 'benmills/vimux'
+  " }}}
+
   " Syntax checker {{{
   "
   " NOTE: It requires to have syntax checkers installed.
@@ -105,9 +109,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'mileszs/ack.vim', Cond(no_ack)                    " ACK.
   " }}}
   
-  " UltraSnips {{{
-  " Plug 'SirVer/ultisnips'
-  " Plug 'honza/vim-snippets'
+  " Text edition {{{
+  Plug 'junegunn/goyo.vim',             {'for': ['markdown', 'text']}
+  Plug 'junegunn/limelight.vim',        {'for': ['markdown', 'text']}
   " }}}
 
   " Other {{{
@@ -116,7 +120,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
   Plug 'tpope/vim-sleuth'                                 " Detects the indent.
   Plug 'sjl/gundo.vim'                                    " Displays the undo tree.
-  Plug 'rizzatti/dash.vim'                                " Integration for Dash.app
+  Plug 'waiting-for-dev/vim-www'                          " Searches from vim.
   " }}}
 
   " Themes {{{
@@ -137,11 +141,11 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " JavaScript {{{
-  Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.jsx']}
-  Plug 'mxw/vim-jsx',                         {'for': ['jsx', 'javascript.jsx']}
-  Plug 'posva/vim-vue',                       {'for': ['javascript', 'vue']}
-  Plug 'elzr/vim-json',                       {'for': ['javascript', 'json', 'jsx', 'javascript.jsx']}
-  Plug 'mtscout6/syntastic-local-eslint.vim', {'for': ['javascript', 'jsx', 'javascript.jsx']}
+  Plug 'pangloss/vim-javascript',             {'for': ['javascript']}
+  Plug 'mxw/vim-jsx',                         {'for': ['jsx', 'javascript']}
+  Plug 'posva/vim-vue',                       {'for': ['vue']}
+  Plug 'elzr/vim-json',                       {'for': ['javascript', 'json', 'jsx']}
+  " Plug 'mtscout6/syntastic-local-eslint.vim', {'for': ['javascript', 'jsx', 'vue']}
   " }}}
 
   " Go {{{
@@ -407,6 +411,12 @@ map <leader>rn :YcmCompleter RefactorRename
 
 " Restarts the third party semantic server in case of crash.
 map <leader>rr :YcmCompleter RestartServer<CR>
+
+" In terminal mode, sets the normal mode key combination to ESC.
+if is_nvim 
+  tnoremap <Esc> <C-\><C-n>
+endif
+
 " }}}
 
 " GUI/TERM especific configuration {{{
@@ -511,6 +521,31 @@ endif
 " }}}
 
 " Plugins {{{
+" fzf {{{
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+      \ { 'fg':    ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+" }}}
+
+" Vimux {{{
+" Prompt for a command to run
+map <Leader>vp :VimuxPromptCommand<CR>
+" Zoom the tmux runner pane
+map <Leader>vz :VimuxZoomRunner<CR>
+" }}}
+
 " NerdTree Git {{{
 let g:NERDTreeIndicatorMapCustom = {
       \ "Modified"  : "✹",
@@ -535,13 +570,20 @@ let g:syntastic_error_symbol = '✘'
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': [] }
 let g:syntastic_warning_symbol = "▲"
 
+let g:syntastic_css_checkers = ['csslint']
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'go']
 let g:syntastic_javascript_checkers = ['standard', 'eslint']
-let g:syntastic_python_python_exec = '/usr/local/bin/python3'
-let g:syntastic_python_checkers = ['flake8', 'pep8', 'python']
 let g:syntastic_php_checkers = ['phpmd', 'php']
-let g:syntastic_yaml_chckers = ['jsyaml', 'yamllint']
-" }}}
+let g:syntastic_python_checkers = ['flake8', 'pep8', 'python']
+let g:syntastic_vue_checkers = ['eslint']
+let g:syntastic_yaml_checkers = ['jsyaml', 'yamllint']
+
+" Finds brew's python.
+let g:syntastic_python_python_exec = '/usr/local/bin/python3'
+
+" Forces to use the local eslint.
+let g:syntastic_javascript_eslint_exec = '`npm bin`/eslint'
+let g:syntastic_vue_eslint_exec = '`npm bin`/eslint'
 
 " Rainbow parenthesis {{{
 let g:rainbow_active = 1
@@ -602,6 +644,16 @@ endfunction
 " inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 " }}}
 
+" GOYO {{{
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+" }}}
+
+" vim-www {{{
+let g:www_default_search_engine = 'duckduckgo'
+let g:www_shortcut_engines = { 'devdocs': ['Devdocs', '<leader>dd'] }
+" }}}
+
 " vim-go {{{
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -628,7 +680,7 @@ let g:jsx_ext_required = 0
 
 " vim-vue {{{
 autocmd FileType vue syntax sync fromstart
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+" autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 " }}}
 
 " Airline {{{
