@@ -24,6 +24,10 @@ fi
 
 alias vimrc="${EDITOR} ${HOME}/.vimrc"
 
+if command -v ccat >/dev/null 2>&1; then 
+    alias cat=ccat
+fi
+
 fuck() {
     if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
         echo "usage: $0"
