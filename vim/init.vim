@@ -121,6 +121,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-sleuth'                                 " Detects the indent.
   Plug 'sjl/gundo.vim'                                    " Displays the undo tree.
   Plug 'waiting-for-dev/vim-www'                          " Searches from vim.
+  Plug 'bagrat/vim-workspace'                             " Tab appeareance
   " }}}
 
   " Themes {{{
@@ -164,7 +165,7 @@ call plug#begin('~/.vim/plugged')
 
   " Markdown {{{
   Plug 'tpope/vim-markdown',            {'for': 'markdown'}
-  Plug 'junegunn/goyo.vim',             {'for': 'markdown'}
+  Plug 'junegunn/goyo.vim',             " {'for': 'markdown'}
   Plug 'nelstrom/vim-markdown-folding', {'for': ['markdown', 'text']}
   " }}}
 
@@ -618,7 +619,7 @@ endif
 autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
 let g:ycm_auto_trigger = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_min_num_of_chars_for_completion = 0
+let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_python_binary_path = 'python'
 " }}}
@@ -652,6 +653,13 @@ autocmd! User GoyoLeave Limelight!
 " vim-www {{{
 let g:www_default_search_engine = 'duckduckgo'
 let g:www_shortcut_engines = { 'devdocs': ['Devdocs', '<leader>dd'] }
+" }}}
+
+" vim-workspace {{{
+let g:workspace_powerline_separators = 1
+let g:workspace_tab_icon = "\uf00a"
+let g:workspace_left_trunc_icon = "\uf0a8"
+let g:workspace_right_trunc_icon = "\uf0a9"
 " }}}
 
 " vim-go {{{
