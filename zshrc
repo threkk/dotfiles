@@ -106,8 +106,10 @@ export PATH=$PATH:$GOPATH/bin
 source $HOME/.dotfiles/tools.sh
 
 # Auto completation
-fpath=(/usr/local/share/zsh-completions $fpath)
-eval "$(hub alias -s)"
+command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
+command -v pipenv > /dev/null 2>&1 && eval "$(pipenv --completion)"
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
 [ -f $HOME/.iterm2_shell_integration.zsh ] && source $HOME/.iterm2_shell_integration.zsh
-[ -f /usr/local/share/zsh-syntax-highlighting.zsh ] && /usr/local/share/zsh-syntax-highlighting.zsh
+[ -f /usr/local/share/zsh-syntax-highlighting.zsh ] && source /usr/local/share/zsh-syntax-highlighting.zsh
+[ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fpath=(/usr/local/share/zsh-completions $fpath)
