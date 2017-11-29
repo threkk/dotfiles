@@ -413,6 +413,10 @@ map <leader>rn :YcmCompleter RefactorRename
 " Restarts the third party semantic server in case of crash.
 map <leader>rr :YcmCompleter RestartServer<CR>
 
+" Go to next/previous error
+map nn :lnext<CR>
+map pp :lprevious<CR>
+
 " In terminal mode, sets the normal mode key combination to M-ESC.
 if is_nvim 
   tnoremap <M-Esc> <C-\><C-n>
