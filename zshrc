@@ -92,15 +92,31 @@ export PYTHONDONTWRITEBYTECODE=1
 GPG_TTY=$(tty)
 export GPG_TTY
 
+PLATFORM='unknown'
+if [[ `uname` == 'Linux' ]]; then
+  PLATFORM='linux'
+elif [[ `uname` == 'Darwin' ]]; then
+  PLATFORM='osx'
+fi
+export PLATFORM
+
+
+if [[ $PLATFORM == 'linux' ]]; then 
+  BREW_PATH='/home/linuxbrew/.linuxbrew'
+elif [[ $PLATFORM == 'osx' ]]; then
+  BREW_PATH='/usr/local'
+fi
+export BREW_PATH
+
 # Exports
 [ -f $HOME/.dotfiles/exports.sh ] && source $HOME/.dotfiles/exports.sh
 
 # Path
-export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
-export PATH=/usr/local/opt/python/libexec/bin:$PATH
-export PATH=$PATH:$HOME/.npm-packages/bin
-export PATH=$PATH:$GOPATH/bin
+export PATH=$BREW_PATH/bin:$PATH
+export PATH=$BREW_PATH/sbin:$PATH
+export PATH=$BREW_PATH/opt/python/libexec/bin:$PATH
+export PATH=$HOME/.npm-packages/bin:$PATH
+export PATH=$GOPATH/bin:$PATH
 
 # Tools
 source $HOME/.dotfiles/tools.sh
@@ -110,6 +126,6 @@ command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
 command -v pipenv > /dev/null 2>&1 && eval "$(pipenv --completion)"
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
 [ -f $HOME/.iterm2_shell_integration.zsh ] && source $HOME/.iterm2_shell_integration.zsh
-[ -f /usr/local/share/zsh-syntax-highlighting.zsh ] && source /usr/local/share/zsh-syntax-highlighting.zsh
-[ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fpath=(/usr/local/share/zsh-completions $fpath)
+[ -f $BREW_PATH/share/zsh-syntax-highlighting.zsh ] && source $BREW_PATH/share/zsh-syntax-highlighting.zsh
+[ -f $BREW_PATH/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $BREW_PATH/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fpath=($BREW_PATH/share/zsh-completions $fpath)

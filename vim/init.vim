@@ -19,7 +19,12 @@ let g:has_ctags = executable('ctags')
 let g:has_fzf = executable('fzf')
 let g:has_git = executable('git')
 
-if !g:has_ack || !g:has_ag
+let g:brew_path = '/usr/local' 
+if strlen($BREW_PATH) > 0
+  let g:brew_path = $BREW_PATH
+endif
+
+if !g:has_ack && !g:has_ag
     echom 'Neither AG or ACK are installed in the system.'
 endif
 
@@ -100,7 +105,7 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " FZF {{{
-  Plug '/usr/local/opt/fzf'
+  Plug g:brew_path.'/opt/fzf'
   Plug 'junegunn/fzf.vim', Cond(g:has_fzf)
   " }}}
 
@@ -195,8 +200,8 @@ set ttyfast                     " Indicates a fast terminal.
 
 " Configures Python for NVIM
 if g:is_nvim
-  let g:python_host_prog = '/usr/local/opt/python/libexec/bin/python'
-  let g:python3_host_prog = '/usr/local/bin/python3'
+  let g:python_host_prog = g:brew_path.'/opt/python/libexec/bin/python'
+  let g:python3_host_prog = g:brew_path.'/bin/python3'
 endif
 " }}}
 
@@ -584,7 +589,7 @@ let g:syntastic_vue_checkers = ['eslint']
 let g:syntastic_yaml_checkers = ['jsyaml', 'yamllint']
 
 " Finds brew's python.
-let g:syntastic_python_python_exec = '/usr/local/bin/python3'
+let g:syntastic_python_python_exec = $BREW_PATH.'/bin/python3'
 
 " Forces to use the local eslint.
 let g:syntastic_javascript_eslint_exec = '`npm bin`/eslint'
