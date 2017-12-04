@@ -87,6 +87,8 @@ export SSH_KEY_PATH="${HOME}/.ssh/id_rsa"
 #
 
 # Extra config
+export LC_ALL=en_GB.UTF-8
+export LANG=en_GB.UTF-8
 export HOMEBREW_NO_ANALYTICS=1
 export PYTHONDONTWRITEBYTECODE=1
 GPG_TTY=$(tty)
