@@ -356,6 +356,8 @@ map <leader><Left> <C-w>h
 map <leader><Up> <C-w>k
 map <leader><Down> <C-w>j
 map <leader><Right> <C-w>l
+map <leader>\| :vs<CR>
+map <leader>- :split<CR>
 " }}}
 
 " Plugins {{{
