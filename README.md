@@ -1,77 +1,108 @@
 # dotfiles
 
-A collection with all the dotfiles and plugins I use. The branch of this
-repository contains the configuration for:
+Personal configuration for several softwares. Described here to have an easy way
+to install and configure my developmed environment.
 
-- Vim
-- Oh-my-zshrc
+It includes the configuration for:
+
+- Vim/NeoVim.
+- zsh (Oh-my-zshrc)
 - Git
+- TMUX
+- Devdocs
+- NPM
+- Brew
+- Python
 - Tern.js
 - iTerm2
-- TMUX
+- ... and other tools and scripts.
 
-... and many other tools.
-
-If you want to use the same configuration, execute the following commands on
-your root directory:
-
+## Setup
+*Assuming that `vim`, `zsh`, `git`, `oh-my-zsh` and `brew` are installed.*   
+Clone the repository in `~/.dotfiles` and link the configuration files.
 ```
 git clone https://github.com/threkk/dotfiles.git ~/.dotfiles
 ```
-## List of software required.
-These tools also require to have installed brew, Python, Golang and Node.js.
-- [Vim](https://github.com/vim/vim)/[NeoVim](https://github.com/neovim/neovim)
-- [Git](https://github.com/git/git)
-- [TMUX](https://github.com/tmux/tmux)
-- [Hub](https://github.com/github/hub)
-- [Oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
-- [HTTPie](https://httpie.org/)
-- [FZF](https://github.com/junegunn/fzf)
-- [The silver searcher](https://github.com/ggreer/the_silver_searcher)
-- [Tern.js](https://github.com/ternjs/tern)
-- [CTags](http://ctags.sourceforge.net/)+[JSCTags](https://github.com/ramitos/jsctags)
-- [Standard](https://standardjs.com/)
-- [PEP8](https://pypi.python.org/pypi/pep8)
-- [Jedi](https://github.com/davidhalter/jedi)
 
-## Installation details.
 ### Vim
-To install all the plugins and themes, you need to use Plug.
-
-Open vim (it will give an error, press ENTER) and type:
+It will give an error, ignore and press `ENTER`.
 ```
 ln -s ~/.dotfiles/vim ~/.config/vim
 ln -s ~/.dotfiles/vim ~/.vim
-ln -s ~/.dotfiles/vim/init.vim .~/vimrc
-mkdir ~/.config/vim-tmp
+ln -s ~/.dotfiles/vim/init.vim ~/.vimrc
+mkdir -p ~/.config/vim-tmp
 vim +PlugInstall
 :PlugInstall
 ```
-To read the complete [Plug commands](https://github.com/junegunn/vim-plug).
+
 ### Oh-my-zsh
-After intalling `oh-my-zsh`, run the following command:
 ```
 mv ~/.zshrc ~/.zshrc.old
 ln -s ~/.dotfiles/zshrc ~/.zshrc
-```
+``` 
+
 ### Git
+Maybe you need to update your `gpg` binary. 
 ```
 mv ~/.gitcofing ~/.gitconfig.old
 ln -s ~/.dotfiles/gitconfig ~/.gitconfig
 ```
+
+### TMUX
+```
+mv ~/.tmux.conf ~/.tmux.conf.old
+ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
+```
+
+### NPM
+```
+mkdir ~/.npm-packages
+ln -s ~/.dotfiles/npmrc ~/.npmrc
+```
+
 ### Tern.js
-After installing `tern.js`, run the following command:
 ```
 ln -s ~/.dotfiles/tern-project.json ~/.tern-config
 ln -s ~/.dotfiles/tern-project.json ~/.tern-project
 ```
 
-## Recommended software
-Not really necessary, but useful:
-- [n](https://github.com/tj/n)
-- [node-inspector](https://github.com/node-inspector/node-inspector)
-- [Diff-so-fancy](https://github.com/so-fancy/diff-so-fancy)
-- [mosh](https://mosh.org)
-- [ccat](https://github.com/jingweno/ccat)
+### Devdocs
+Import devdocs configuration in the devdocs website.
 
-License: MIT
+### Scripts
+`scripts` is a [little project of mine](https://github.com/threkk/scripts).
+I compile useful scripts I find or create. There are several of them that I find
+useful to have them in my path, but it implies to keep it updated.
+
+To solve this issue, the configurations loads a folder `~/.scripts` in which I
+place or link my scripts.
+
+## Software
+This is a selection of the software I use daily wich configuration is also
+included in this repository. The following list provides an easy way to install
+them all.
+```
+brew tap neovim/neovim 
+brew tap beeftornado/rmtree
+brew tap karan/karan
+brew tap universal-ctags/homebrew-universal-ctags
+
+brew install node go python python3 ruby tmux ccat diff-so-fancy neovim vim \
+    git hub httpie fzf the_silver_searcher dep sqlite joe zsh-autosuggestions \ 
+    zsh-completions zsh-syntax-highlighting cmake exercism
+
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+
+npm install -g standard csslint js-yaml n node-debug typescript vue-cli gtop \
+    surge ternjs documentation neovim tldr
+
+npm install -g https://github.com/ramitos/jsctags.git
+
+
+pip2 install neovim
+pip3 install jedi pep8 pipenv requests neovim
+gem install neovim
+```
+
+## License
+BSD-3 (c) Alberto Martinez de Murga Ramirez

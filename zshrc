@@ -119,9 +119,11 @@ export PATH=$BREW_PATH/sbin:$PATH
 export PATH=$BREW_PATH/opt/python/libexec/bin:$PATH
 export PATH=$HOME/.npm-packages/bin:$PATH
 export PATH=$GOPATH/bin:$PATH
+export PATH=$HOME/.scripts:$PATH
 
 # Tools
 source $HOME/.dotfiles/tools.sh
+[ ! -d "$HOME/.scripts" ] && mkdir -p $HOME/.scripts
 
 # Auto completation
 command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
