@@ -27,7 +27,7 @@ git clone https://github.com/threkk/dotfiles.git ~/.dotfiles
 ### Vim
 It will give an error, ignore and press `ENTER`.
 ```
-ln -s ~/.dotfiles/vim ~/.config/vim
+ln -s ~/.dotfiles/vim ~/.config/nvim
 ln -s ~/.dotfiles/vim ~/.vim
 ln -s ~/.dotfiles/vim/init.vim ~/.vimrc
 mkdir -p ~/.config/vim-tmp
@@ -67,7 +67,8 @@ ln -s ~/.dotfiles/tern-project.json ~/.tern-project
 ```
 
 ### Devdocs
-Import devdocs configuration in the devdocs website.
+Import the configuration file (`devdocs.json`) in the
+[Devdocs](https://devdocs.io) website.
 
 ### Scripts
 `scripts` is a [little project of mine](https://github.com/threkk/scripts).
