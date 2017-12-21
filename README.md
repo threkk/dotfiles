@@ -99,7 +99,6 @@ npm install -g standard csslint js-yaml n node-debug typescript vue-cli gtop \
 
 npm install -g https://github.com/ramitos/jsctags.git
 
-
 pip2 install neovim
 pip3 install jedi pep8 pipenv requests neovim
 gem install neovim
