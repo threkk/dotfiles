@@ -10,14 +10,12 @@
   "loadEagerly": [
     "node_modules/react/**/*.js"
   ],
-  "dontLoad": [
-    "node_modules/**"
-  ],
   "plugins": {
     "modules": {},
     "requirejs": {},
     "es_modules": {},
     "node": {},
+   "complete_strings": {},
     "doc_comment": {
       "fullDocs": true,
       "strong": true

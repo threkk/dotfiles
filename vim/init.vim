@@ -5,8 +5,8 @@
 " - Ack/AG
 " - CTags & jsctags.
 " - Git
-" - Checkers: eslint, PEP8, Go, hh_client
-" - Autocomplete: Tern.js, Jedi, GoCode, hh_client
+" - Completion engines: jedi, ternjs, GoCode, phpcd.vim
+" - Syntax checkers.
 
 " Global variables {{{
 let g:is_nvim = has('nvim')
@@ -90,14 +90,10 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " Autocomplete {{{
-  "
-  " TODO: Make sure that the binary has loaded.
-  " NOTE: Maybe substitute for invidual completers. Check on the vim-plug
-  " repository for references.
-  "
-  " - Tern.js --> 'marijnh/tern_for_vim'
-  " - GoCode  --> 'nsf/gocode'
-  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --gocode-completer --tern-completer' }
+  Plug 'roxma/nvim-yarp', Cond(g:is_vim)                 " Package required for vim compatibility.
+  Plug 'roxma/vim-hug-neovim-rpc', Cond(g:is_vim)        " Package required for vim compatibility.
+  Plug 'Shougo/deoplete.nvim'                            " Completion engine. 
+  Plug 'Shougo/neco-syntax'                              " Adds the original omnifunc.
   " }}}
 
   " Outline {{{
@@ -125,8 +121,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
   Plug 'tpope/vim-sleuth'                                 " Detects the indent.
   Plug 'sjl/gundo.vim'                                    " Displays the undo tree.
-  Plug 'waiting-for-dev/vim-www'                          " Searches from vim.
   Plug 'bagrat/vim-workspace'                             " Tab appeareance
+  Plug 'roxma/vim-paste-easy'                             " Fixes pasting.
   " }}}
 
   " Themes {{{
@@ -143,15 +139,17 @@ call plug#begin('~/.vim/plugged')
   " Languages {{{
   " Python {{{
   Plug 'davidhalter/jedi-vim',          {'for': 'python'}
+  Plug 'zchee/deoplete-jedi',           {'for': 'python'}
   Plug 'tweekmonster/braceless.vim',    {'for': ['python', 'yaml']}
   " }}}
 
   " JavaScript {{{
-  Plug 'pangloss/vim-javascript',             {'for': ['javascript']}
-  Plug 'mxw/vim-jsx',                         {'for': ['jsx', 'javascript']}
-  Plug 'posva/vim-vue',                       {'for': ['vue']}
-  Plug 'elzr/vim-json',                       {'for': ['javascript', 'json', 'jsx']}
-  " Plug 'mtscout6/syntastic-local-eslint.vim', {'for': ['javascript', 'jsx', 'vue']}
+  Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.jsx']}
+  Plug 'mxw/vim-jsx',                         {'for': ['javascript.jsx', 'jsx']}
+  Plug 'posva/vim-vue',                       {'for': ['javascript.vue', 'vue']}
+  Plug 'elzr/vim-json',                       {'for': ['javascript', 'javascript.jsx', 'json']}
+  Plug 'ternjs/tern_for_vim',                 {'for': ['javascript', 'javascript.jsx', 'vue']}
+  Plug 'carlitux/deoplete-ternjs',            {'for': ['javascript', 'javascript.jsx', 'vue']}
   " }}}
 
   " Go {{{
@@ -159,7 +157,7 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " PHP {{{
-  Plug 'shawncplus/phpcomplete.vim',     {'for': 'php'} 
+  Plug 'lvht/phpcd.vim',                 {'for': 'php', 'do': 'composer install' }
   Plug 'stanangeloff/php.vim',           {'for': 'php'}
   Plug 'rayburgemeestre/phpfolding.vim', {'for': 'php'}
   Plug '2072/PHP-Indenting-for-VIm',     {'for': 'php'}
@@ -244,6 +242,14 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Selects the first options by default.
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+" Enables tab for selecting the options.
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
+" Closes the menu once an option has been selected.
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " }}}
 
 " Themes and colours {{{
@@ -402,30 +408,9 @@ endif
 map <C-Space> <C-x><C-o>
 map! <C-Space> <C-x><C-o>
 
-" YouCompleteMe
-" Note: they are optimised for python/javascript.
-
-" Go to definition/declaration of the variable under the cursor.
-map <leader>rt :YcmCompleter GoTo<CR>
-
-" Attemps to find all the references of the variable in the project.
-map <leader>rf :YcmCompleter GoToReferences<CR>
-
-" Gets the type of the variable.
-map <leader>ry :YcmCompleter GetType<CR>
-
-" Display some documentation.
-map <leader>rd :YcmCompleter GetDoc<CR>
-
-" Renames the current variable.
-map <leader>rn :YcmCompleter RefactorRename
-
-" Restarts the third party semantic server in case of crash.
-map <leader>rr :YcmCompleter RestartServer<CR>
-
 " Go to next/previous error
-map nn :lnext<CR>
-map pp :lprevious<CR>
+map en :lnext<CR>
+map ep :lprevious<CR>
 
 " In terminal mode, sets the normal mode key combination to M-ESC.
 if is_nvim 
@@ -629,13 +614,35 @@ if !exists('g:airline_symbols')
 endif
 " }}}
 
-" YouCompleteMe {{{
-autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
-let g:ycm_auto_trigger = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_python_binary_path = 'python'
+" deoplete.nvim {{{
+
+" deoplete-ternjs {{{
+" Starts automatically
+let g:deoplete#enable_at_startup = 1    
+" Adds the documentation for tern completions.
+let g:deoplete#sources#ternjs#docs = 1
+" Makes in ternjs the completions not case sensitive.
+let g:deoplete#sources#ternjs#case_insensitive = 1
+" If completions should be returned when inside a literal.
+let g:deoplete#sources#ternjs#in_literal = 0
+" Add extra filetypes for javascript.
+let g:deoplete#sources#ternjs#filetypes = [
+  \ 'javascript',
+  \ 'jsx',
+  \ 'javascript.jsx',
+  \ 'vue'
+  \ ]
+" }}} 
+
+" phpcd.vim {{{
+let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources.php = ['omni']
+" }}}
+
+" }}}
+
+" vim-paste-easy {{{
+let g:paste_easy_message=0
 " }}}
 
 " DelimitMate {{{
@@ -664,11 +671,6 @@ autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 " }}}
 
-" vim-www {{{
-let g:www_default_search_engine = 'duckduckgo'
-let g:www_shortcut_engines = { 'devdocs': ['Devdocs', '<leader>dd'] }
-" }}}
-
 " vim-workspace {{{
 let g:workspace_powerline_separators = 1
 let g:workspace_tab_icon = "\uf00a"
@@ -687,9 +689,9 @@ let g:go_list_type = "quickfix"
 " }}}
 
 " jedi-vim {{{
-let g:jedi#completions_enabled = 0  " Use YCM completation
-let g:jedi#use_splits_not_buffers = 'right'
-let g:jedi#show_call_signatures = '2'
+ let g:jedi#completions_enabled = 0 
+ let g:jedi#use_splits_not_buffers = 'right'
+ let g:jedi#show_call_signatures = '2'
 " }}}
 
 " vim-javascript {{{
@@ -716,8 +718,44 @@ let macvim_skip_colorscheme=1
 autocmd BufWritePre *.{py,js,jsx} call StripTrailingWS()
 " }}}
 
+" Language bindings {{{
+" All the languages should have the same bindings so it easy to memorise. 
+" - <leader>k = Documentation. 
+" - <leader>r = Rename. 
+" - <leader>da = Go to assignment. 
+" - <leader>di = Go to implementation.
+" - <leader>du = Go to usages.
+
+" Python bindings {{{
+let g:jedi#documentation_command = '<leader>k'
+let g:jedi#rename_command = '<leader>r'
+let g:jedi#goto_assignments_command = '<leader>da'
+let g:jedi#goto_command = '<leader>di'
+let g:jedi#usages_command = '<leader>du'
+" }}}
+
+" Go bindings {{{
+autocmd FileType go map <leader>k :GoDoc<CR>
+autocmd FileType go map <leader>r :GoRename<CR>
+autocmd FileType go map <leader>da :GoDef<CR>
+autocmd FileType go map <leader>du :GoSameIds<CR>
+" }}}
+
+" Javascript bindings {{{
+autocmd FileType javascript,javascript.jsx map <leader>k :TernDoc<CR>
+autocmd FileType javascript,javascript.jsx map <leader>r :TernRename<CR>
+autocmd FileType javascript,javascript.jsx map <leader>da :TernDef<CR>
+autocmd FileType javascript,javascript.jsx map <leader>du :TernRefs<CR>
+" }}}
+
+" PHP bindings {{{
+autocmd FileType php map <leader>da <C>]
+" }}}
+
+" }}}
+
 " Python {{{
-autocmd FileType python,yaml BracelessEnable +indent +fold +highlight
+autocmd FileType python,yaml BracelessEnable +indent +fold +highlight 
 " }}}
 
 " Bash {{{
@@ -746,6 +784,13 @@ let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 " }}}
+" }}}
+
+" tern_for_vim {{{
+" Use global tern
+let g:tern#command = ['tern']
+" Make it persistent so it can be reused by deoplete-ternjs.
+let g:tern#arguments = ['--persistent']
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
