@@ -134,6 +134,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'blueshirts/darcula'
   Plug 'reedes/vim-colors-pencil'
   Plug 'jacoborus/tender'
+  Plug 'arcticicestudio/nord-vim'
   " }}}
 
   " Languages {{{
@@ -150,6 +151,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'elzr/vim-json',                       {'for': ['javascript', 'javascript.jsx', 'json']}
   Plug 'ternjs/tern_for_vim',                 {'for': ['javascript', 'javascript.jsx', 'vue']}
   Plug 'carlitux/deoplete-ternjs',            {'for': ['javascript', 'javascript.jsx', 'vue']}
+  " }}}
+
+  " TypeScript {{{
+  Plug 'HerringtonDarkholme/yats.vim'
+  Plug 'mhartington/nvim-typescript'
   " }}}
 
   " Go {{{
@@ -255,12 +261,17 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Themes and colours {{{
 set t_Co=256                    " Number of colours.
 set background=dark             " Chooses the dark version of the colourscheme.
-colorscheme tender              " Chooses the colour scheme.
+colorscheme nord                " Chooses the colour scheme.
 
 " Tender theme
 if (has("termguicolors"))
     set termguicolors
 endif
+
+" Nord theme
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
+
 " }}}
 
 " Line wrap {{{
@@ -722,40 +733,51 @@ autocmd BufWritePre *.{py,js,jsx} call StripTrailingWS()
 " All the languages should have the same bindings so it easy to memorise. 
 " - <leader>k = Documentation. 
 " - <leader>r = Rename. 
-" - <leader>da = Go to assignment. 
-" - <leader>di = Go to implementation.
-" - <leader>du = Go to usages.
+" - <leader>ga = Go to assignment. 
+" - <leader>gi = Go to implementation.
+" - <leader>gu = Go to usages.
 
 " Python bindings {{{
 let g:jedi#documentation_command = '<leader>k'
 let g:jedi#rename_command = '<leader>r'
-let g:jedi#goto_assignments_command = '<leader>da'
-let g:jedi#goto_command = '<leader>di'
-let g:jedi#usages_command = '<leader>du'
+let g:jedi#goto_assignments_command = '<leader>ga'
+let g:jedi#goto_command = '<leader>gi'
+let g:jedi#usages_command = '<leader>gu'
 " }}}
 
 " Go bindings {{{
 autocmd FileType go map <leader>k :GoDoc<CR>
 autocmd FileType go map <leader>r :GoRename<CR>
-autocmd FileType go map <leader>da :GoDef<CR>
-autocmd FileType go map <leader>du :GoSameIds<CR>
+autocmd FileType go map <leader>ga :GoDef<CR>
+autocmd FileType go map <leader>gu :GoSameIds<CR>
 " }}}
 
 " Javascript bindings {{{
 autocmd FileType javascript,javascript.jsx map <leader>k :TernDoc<CR>
 autocmd FileType javascript,javascript.jsx map <leader>r :TernRename<CR>
-autocmd FileType javascript,javascript.jsx map <leader>da :TernDef<CR>
-autocmd FileType javascript,javascript.jsx map <leader>du :TernRefs<CR>
+autocmd FileType javascript,javascript.jsx map <leader>ga :TernDef<CR>
+autocmd FileType javascript,javascript.jsx map <leader>gu :TernRefs<CR>
+" }}}
+
+" TypeScript bindings {{{
+autocmd FileType typescript map <leader>k :TSDoc<CR>
+autocmd FileType typescript map <leader>r :TSRename<CR>
+autocmd FileType typescript map <leader>ga :TSDef<CR>
+autocmd FileType typescript map <leader>gu :TSRefs<CR>
 " }}}
 
 " PHP bindings {{{
-autocmd FileType php map <leader>da <C>]
+autocmd FileType php map <leader>ga <C>]
 " }}}
 
 " }}}
 
 " Python {{{
 autocmd FileType python,yaml BracelessEnable +indent +fold +highlight 
+" }}}
+
+" TypeScript {{{
+autocmd BufEnter *.tsx set filetype=typescript
 " }}}
 
 " Bash {{{
