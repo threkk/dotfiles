@@ -111,8 +111,14 @@ call plug#begin('~/.vim/plugged')
   " }}}
   
   " Text edition {{{
-  Plug 'junegunn/goyo.vim',             {'for': ['markdown', 'text']}
-  Plug 'junegunn/limelight.vim',        {'for': ['markdown', 'text']}
+  Plug 'junegunn/goyo.vim'
+  Plug 'junegunn/limelight.vim'
+  " }}}
+
+  " Vim-Wiki {{{
+  Plug 'vimwiki/vimwiki', { 'branch': 'dev' }             " Wiki
+  Plug 'mattn/calendar-vim'                               " Calendar
+  Plug 'vimwiki/utils'                                    " Utils 
   " }}}
 
   " Other {{{
@@ -176,9 +182,9 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " Markdown {{{
-  Plug 'tpope/vim-markdown',            {'for': 'markdown'}
-  Plug 'junegunn/goyo.vim',             " {'for': 'markdown'}
-  Plug 'nelstrom/vim-markdown-folding', {'for': ['markdown', 'text']}
+  Plug 'tpope/vim-markdown'
+  Plug 'junegunn/goyo.vim'
+  Plug 'nelstrom/vim-markdown-folding'
   " }}}
 
   " Others {{{
@@ -314,6 +320,22 @@ set writebackup
 set backupdir=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for backups.
 set backupskip=/tmp/*,/private/tmp/*                " Don't create backups for these folders.
 set directory=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for swapfiles.
+" }}}
+
+" Vim-Wiki {{{
+" Sets the path to the notes, exports and extension.
+let g:vimwiki_list = [{'path': '~/Dropbox/Documents/Notes/',
+  \ 'path_html': '~/Dropbox/Public/notes-export',
+  \ 'ext': '.md'
+  \ }]
+" Extension mapping.
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.mkd': 'markdown'}
+" Do not create tempory wiki (seems like a chaos).
+let g:vimwiki_global_ext = 0
+" Fancy icons.
+let g:vimwiki_listsyms = '✗○◐●✓'
+" Enables mouse.
+let g:vimwiki_use_mouse = 1
 " }}}
 " }}}
 
