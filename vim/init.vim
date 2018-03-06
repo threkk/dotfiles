@@ -200,6 +200,7 @@ call plug#end()
 
 " General {{{
 syntax enable                   " Enables syntax processing.
+filetype plugin on              " Enables plugin detection.
 filetype plugin indent on       " Load filetype-specific indent files.
 set modelines=1                 " Enables custom configurations per file.
 set history=700                 " Size of the command history.
@@ -326,7 +327,9 @@ set directory=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for swapfiles.
 " Sets the path to the notes, exports and extension.
 let g:vimwiki_list = [{'path': '~/Dropbox/Documents/Notes/',
   \ 'path_html': '~/Dropbox/Public/notes-export',
-  \ 'ext': '.md'
+  \ 'ext': '.md',
+  \ 'auto_toc': 1,
+  \ 'diary_rel_path': 'diary/'
   \ }]
 " Extension mapping.
 let g:vimwiki_ext2syntax = {'.md': 'markdown', '.mkd': 'markdown'}
@@ -336,6 +339,8 @@ let g:vimwiki_global_ext = 0
 let g:vimwiki_listsyms = '✗○◐●✓'
 " Enables mouse.
 let g:vimwiki_use_mouse = 1
+" Enables folding.
+let g:vimwiki_folding='expr'
 " }}}
 " }}}
 
