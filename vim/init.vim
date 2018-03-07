@@ -53,9 +53,10 @@ endfunction
 
 call plug#begin('~/.vim/plugged')
 
-  " Basic configuration, only necessary for Vim and MacVim {{{
+  " Basic configuration for client specifics {{{
   Plug 'tpope/vim-sensible', Cond(g:is_vim)               " Basic conf.
   Plug 'wincent/terminus',   Cond(!g:is_gui)              " Improves term sup.
+  Plug 'equalsraf/neovim-gui-shim', Cond(g:is_nvim)       " Shims for UI config.
   " }}}
 
   " File tree menu {{{
@@ -81,6 +82,10 @@ call plug#begin('~/.vim/plugged')
 
   " TMUX {{{
   Plug 'benmills/vimux'
+  " }}}
+  
+  " SLIME {{{
+  Plug 'jpalardy/vim-slime'
   " }}}
 
   " Syntax checker {{{
@@ -182,9 +187,10 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " Markdown {{{
+  Plug 'godlygeek/tabular'
   Plug 'tpope/vim-markdown'
+  " Plug 'nelstrom/vim-markdown-folding'
   Plug 'junegunn/goyo.vim'
-  Plug 'nelstrom/vim-markdown-folding'
   " }}}
 
   " Others {{{
@@ -214,7 +220,7 @@ set ttyfast                     " Indicates a fast terminal.
 
 " Configures Python for NVIM
 if g:is_nvim
-  let g:python_host_prog = g:brew_path.'/opt/python/libexec/bin/python'
+  " let g:python_host_prog = g:brew_path.'/opt/python/libexec/bin/python'
   let g:python3_host_prog = g:brew_path.'/bin/python3'
 endif
 " }}}
@@ -326,11 +332,15 @@ set directory=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for swapfiles.
 " Vim-Wiki {{{
 " Sets the path to the notes, exports and extension.
 let g:vimwiki_list = [{'path': '~/Dropbox/Documents/Notes/',
-  \ 'path_html': '~/Dropbox/Public/notes-export',
+  \ 'path_html': '~/Dropbox/Documents/notes/html/',
   \ 'ext': '.md',
+  \ 'syntax': 'markdown',
   \ 'auto_toc': 1,
-  \ 'diary_rel_path': 'diary/'
+  \ 'diary_rel_path': 'diary/',
+  \ 'nested_syntaxes': {'python':'python','javascript':'javascipt','go':'go','php':'php'}
   \ }]
+" Makes sure that it uses markdown. Also, enforce markdown in all markdown files.
+autocmd BufEnter,BufRead,BufNewFile *.md set filetype=markdown
 " Extension mapping.
 let g:vimwiki_ext2syntax = {'.md': 'markdown', '.mkd': 'markdown'}
 " Do not create tempory wiki (seems like a chaos).
@@ -341,6 +351,12 @@ let g:vimwiki_listsyms = '✗○◐●✓'
 let g:vimwiki_use_mouse = 1
 " Enables folding.
 let g:vimwiki_folding='expr'
+" }}}
+
+" Tries to set FireCode as font if it is available {{{
+silent! set macligatures
+silent! set guifont=Fira\ Code:h15
+silent! set GuiFont=Fira\ Code:h15
 " }}}
 " }}}
 
@@ -527,16 +543,6 @@ if g:is_gui
   map! <M-Down> <Esc>:m .+1<CR>==gi
   map! <M-Up> <Esc>:m .-2<CR>==gi
   " }}}
-
-" Tries to set Hack as font if it is available {{{
-" silent! set guifont=Hack:h14
-" }}}
-
-" Tries to set FireCode as font if it is available {{{
-  silent! set macligatures
-  silent! set guifont=Fira\ Code:h15
-" }}}
-
 " }}}
   " TERM {{{
 else
@@ -579,9 +585,17 @@ let g:fzf_colors =
 
 " Vimux {{{
 " Prompt for a command to run
-map <Leader>vp :VimuxPromptCommand<CR>
+map <Leader>vs :VimuxPromptCommand<CR>
 " Zoom the tmux runner pane
 map <Leader>vz :VimuxZoomRunner<CR>
+" }}}
+
+" SLIME {{{
+if g:is_nvim 
+  let g:slime_target = "neovim"
+else
+  let g:slime_target = "vimterminal"
+endif
 " }}}
 
 " NerdTree Git {{{
@@ -596,6 +610,20 @@ let g:NERDTreeIndicatorMapCustom = {
       \ "Clean"     : "✔︎",
       \ "Unknown"   : "?"
       \ }
+" }}}
+
+" vim-markdown {{{
+" Adds a TOC
+let g:vim_markdown_toc_autofit = 1
+" Add syntax highlight.
+let g:vim_markdown_fenced_languages = ['python=python', 'go=go', 'javascript=javascript', 'php=php']
+" follow anchors
+let g:vim_markdown_follow_anchor = 1
+" Latex math
+let g:vim_markdown_math = 1
+" Headers in YAML and JSON.
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_json_frontmatter = 1
 " }}}
 
 " Syntastic {{{
