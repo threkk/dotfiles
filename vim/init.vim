@@ -220,7 +220,7 @@ set ttyfast                     " Indicates a fast terminal.
 
 " Configures Python for NVIM
 if g:is_nvim
-  " let g:python_host_prog = g:brew_path.'/opt/python/libexec/bin/python'
+  let g:python_host_prog = g:brew_path.'/opt/python/bin/python2'
   let g:python3_host_prog = g:brew_path.'/bin/python3'
 endif
 " }}}

@@ -114,7 +114,7 @@ export BREW_PATH
 [ -f $HOME/.dotfiles/exports.sh ] && source $HOME/.dotfiles/exports.sh
 
 # Path
-export PATH=$BREW_PATH/opt/python@2/libexec/bin:$PATH
+export PATH=$BREW_PATH/opt/python@2/bin:$PATH
 export PATH=$HOME/.npm-packages/bin:$PATH
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.scripts:$PATH
