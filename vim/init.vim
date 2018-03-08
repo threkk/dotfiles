@@ -19,7 +19,7 @@ let g:has_ctags = executable('ctags')
 let g:has_fzf = executable('fzf')
 let g:has_git = executable('git')
 
-let g:brew_path = '/usr/local' 
+let g:brew_path = '/usr/local'
 if strlen($BREW_PATH) > 0
   let g:brew_path = $BREW_PATH
 endif
@@ -83,7 +83,7 @@ call plug#begin('~/.vim/plugged')
   " TMUX {{{
   Plug 'benmills/vimux'
   " }}}
-  
+
   " SLIME {{{
   Plug 'jpalardy/vim-slime'
   " }}}
@@ -97,7 +97,7 @@ call plug#begin('~/.vim/plugged')
   " Autocomplete {{{
   Plug 'roxma/nvim-yarp', Cond(g:is_vim)                 " Package required for vim compatibility.
   Plug 'roxma/vim-hug-neovim-rpc', Cond(g:is_vim)        " Package required for vim compatibility.
-  Plug 'Shougo/deoplete.nvim'                            " Completion engine. 
+  Plug 'Shougo/deoplete.nvim'                            " Completion engine.
   Plug 'Shougo/neco-syntax'                              " Adds the original omnifunc.
   " }}}
 
@@ -114,7 +114,7 @@ call plug#begin('~/.vim/plugged')
   let no_ack = g:has_ack || g:has_ag
   Plug 'mileszs/ack.vim', Cond(no_ack)                    " ACK.
   " }}}
-  
+
   " Text edition {{{
   Plug 'junegunn/goyo.vim'
   Plug 'junegunn/limelight.vim'
@@ -123,7 +123,7 @@ call plug#begin('~/.vim/plugged')
   " Vim-Wiki {{{
   Plug 'vimwiki/vimwiki', { 'branch': 'dev' }             " Wiki
   Plug 'mattn/calendar-vim'                               " Calendar
-  Plug 'vimwiki/utils'                                    " Utils 
+  Plug 'vimwiki/utils'                                    " Utils
   " }}}
 
   " Other {{{
@@ -385,6 +385,12 @@ function! ToggleNumber()
     endif
 endfunc
 " }}}
+
+" Print current date {{{
+function! Date()
+  put =strftime('%a %d %b %Y')
+endfunc
+" }}}
 " }}}
 
 " Mappings {{{
@@ -467,7 +473,7 @@ map en :lnext<CR>
 map ep :lprevious<CR>
 
 " In terminal mode, sets the normal mode key combination to M-ESC.
-if is_nvim 
+if is_nvim
   tnoremap <M-Esc> <C-\><C-n>
 endif
 
@@ -591,7 +597,7 @@ map <Leader>vz :VimuxZoomRunner<CR>
 " }}}
 
 " SLIME {{{
-if g:is_nvim 
+if g:is_nvim
   let g:slime_target = "neovim"
 else
   let g:slime_target = "vimterminal"
@@ -684,7 +690,7 @@ endif
 
 " deoplete-ternjs {{{
 " Starts automatically
-let g:deoplete#enable_at_startup = 1    
+let g:deoplete#enable_at_startup = 1
 " Adds the documentation for tern completions.
 let g:deoplete#sources#ternjs#docs = 1
 " Makes in ternjs the completions not case sensitive.
@@ -698,7 +704,7 @@ let g:deoplete#sources#ternjs#filetypes = [
   \ 'javascript.jsx',
   \ 'vue'
   \ ]
-" }}} 
+" }}}
 
 " phpcd.vim {{{
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
@@ -755,7 +761,7 @@ let g:go_list_type = "quickfix"
 " }}}
 
 " jedi-vim {{{
- let g:jedi#completions_enabled = 0 
+ let g:jedi#completions_enabled = 0
  let g:jedi#use_splits_not_buffers = 'right'
  let g:jedi#show_call_signatures = '2'
 " }}}
@@ -785,10 +791,10 @@ autocmd BufWritePre *.{py,js,jsx} call StripTrailingWS()
 " }}}
 
 " Language bindings {{{
-" All the languages should have the same bindings so it easy to memorise. 
-" - <leader>k = Documentation. 
-" - <leader>r = Rename. 
-" - <leader>ga = Go to assignment. 
+" All the languages should have the same bindings so it easy to memorise.
+" - <leader>k = Documentation.
+" - <leader>r = Rename.
+" - <leader>ga = Go to assignment.
 " - <leader>gi = Go to implementation.
 " - <leader>gu = Go to usages.
 
@@ -828,7 +834,7 @@ autocmd FileType php map <leader>ga <C>]
 " }}}
 
 " Python {{{
-autocmd FileType python,yaml BracelessEnable +indent +fold +highlight 
+autocmd FileType python,yaml BracelessEnable +indent +fold +highlight
 " }}}
 
 " TypeScript {{{
@@ -836,7 +842,7 @@ autocmd BufEnter *.tsx set filetype=typescript
 " }}}
 
 " Bash {{{
-autocmd FileType sh set textwidth=0  
+autocmd FileType sh set textwidth=0
 " }}}
 
 " Go {{{
