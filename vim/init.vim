@@ -105,6 +105,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'majutsushi/tagbar', Cond(g:has_ctags)             " Outline tags.
   " }}}
 
+  " Commentaries {{{
+  Plug 'tpope/vim-commentary'
+  " }}}
+
   " FZF {{{
   Plug g:brew_path.'/opt/fzf'
   Plug 'junegunn/fzf.vim', Cond(g:has_fzf)
