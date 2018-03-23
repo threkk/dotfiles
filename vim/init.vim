@@ -175,6 +175,7 @@ call plug#begin('~/.vim/plugged')
 
   " Go {{{
   Plug 'fatih/vim-go',                  {'for': 'go'}
+  Plug 'zchee/deoplete-go',             {'for': 'go', 'do': 'make'}
   " }}}
 
   " PHP {{{
@@ -224,7 +225,7 @@ set ttyfast                     " Indicates a fast terminal.
 
 " Configures Python for NVIM
 if g:is_nvim
-  let g:python_host_prog = g:brew_path.'/opt/python/bin/python2'
+  let g:python_host_prog = g:brew_path.'/opt/python@2/bin/python2'
   let g:python3_host_prog = g:brew_path.'/bin/python3'
 endif
 " }}}
@@ -331,6 +332,18 @@ set writebackup
 set backupdir=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for backups.
 set backupskip=/tmp/*,/private/tmp/*                " Don't create backups for these folders.
 set directory=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for swapfiles.
+" }}}
+
+" nvim terminal {{{
+if g:is_nvim 
+  autocmd BufEnter * if &buftype == "terminal" | startinsert | endif
+  tnoremap <Esc> <C-\><C-n>
+  command Tsplit split term://$SHELL
+  command Tvsplit vsplit term://$SHELL
+  command Ttabedit tabedit term://$SHELL
+  let &t_AB="\e[48;5;%dm"
+  let &t_AF="\e[38;5;%dm""	
+endif
 " }}}
 
 " Vim-Wiki {{{
@@ -470,7 +483,7 @@ endif
 
 " Omnifunc
 map <C-Space> <C-x><C-o>
-map! <C-Space> <C-x><C-o>
+map! <C-Space> <CR><C-x><C-o>
 
 " Go to next/previous error
 map en :lnext<CR>
@@ -708,6 +721,13 @@ let g:deoplete#sources#ternjs#filetypes = [
   \ 'javascript.jsx',
   \ 'vue'
   \ ]
+" }}}
+
+" deoplete go {{{
+" GoCode path
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+" Sorts the menu.
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 " }}}
 
 " phpcd.vim {{{
