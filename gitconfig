@@ -15,7 +15,7 @@
 [commit]
 	gpgsign = true
 [gpg]
-	program = gpg1
+	program = gpg
 
 [filter "hawser"]
 	clean = git hawser clean %f
@@ -39,3 +39,5 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[alias]
+	graph = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
