@@ -138,6 +138,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'sjl/gundo.vim'                                    " Displays the undo tree.
   Plug 'bagrat/vim-workspace'                             " Tab appeareance
   Plug 'roxma/vim-paste-easy'                             " Fixes pasting.
+  Plug 'ryanoasis/vim-devicons'                           " Dev icons.
   " }}}
 
   " Themes {{{
@@ -372,8 +373,7 @@ let g:vimwiki_folding='expr'
 
 " Tries to set FireCode as font if it is available {{{
 silent! set macligatures
-silent! set guifont=Fira\ Code:h15
-silent! set GuiFont=Fira\ Code:h15
+silent! set guifont=Fura\ Code:h15
 " }}}
 " }}}
 
