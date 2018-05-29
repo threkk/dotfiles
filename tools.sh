@@ -102,7 +102,7 @@ crypt() {
         exit 1
     }
 
-    if [ $# -eq 3 ] && [ -f $1 ]; then
+    if [ $# -eq 3 ]; then
         if [ "$1" =  "-e" ]; then
             openssl enc -e -aes256 -in $2 -out $3
             return 0
