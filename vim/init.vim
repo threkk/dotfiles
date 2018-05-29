@@ -437,6 +437,11 @@ nnoremap k gk
 nnoremap B ^
 nnoremap E $
 
+" U to redo. u stays for undo.
+nnoremap U <C-r>
+
+map <leader>d :call Date()<CR>
+
 "Pane navigation {{{
 map <leader><Left> <C-w>h
 map <leader><Up> <C-w>k
