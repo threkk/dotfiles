@@ -5,7 +5,7 @@
 " - Ack/AG
 " - CTags & jsctags.
 " - Git
-" - Completion engines: jedi, ternjs, GoCode, phpcd.vim
+" - Completion engines: jedi, ternjs, GoCode
 " - Syntax checkers.
 
 " Global variables {{{
@@ -154,10 +154,15 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " Languages {{{
+  " Language server {{{
+    Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+  " }}}
+
   " Python {{{
-  Plug 'davidhalter/jedi-vim',          {'for': 'python'}
-  Plug 'zchee/deoplete-jedi',           {'for': 'python'}
-  Plug 'tweekmonster/braceless.vim',    {'for': ['python', 'yaml']}
+  Plug 'tweekmonster/braceless.vim'
   " }}}
 
   " JavaScript {{{
@@ -165,26 +170,17 @@ call plug#begin('~/.vim/plugged')
   Plug 'mxw/vim-jsx',                         {'for': ['javascript.jsx', 'jsx']}
   Plug 'posva/vim-vue',                       {'for': ['javascript.vue', 'vue']}
   Plug 'elzr/vim-json',                       {'for': ['javascript', 'javascript.jsx', 'json']}
-  Plug 'ternjs/tern_for_vim',                 {'for': ['javascript', 'javascript.jsx', 'vue']}
-  Plug 'carlitux/deoplete-ternjs',            {'for': ['javascript', 'javascript.jsx', 'vue']}
+
+
   " }}}
 
   " TypeScript {{{
   Plug 'HerringtonDarkholme/yats.vim'
-  Plug 'mhartington/nvim-typescript'
   " }}}
 
   " Go {{{
   Plug 'fatih/vim-go',                  {'for': 'go'}
   Plug 'zchee/deoplete-go',             {'for': 'go', 'do': 'make'}
-  " }}}
-
-  " PHP {{{
-  Plug 'lvht/phpcd.vim',                 {'for': 'php', 'do': 'composer install' }
-  Plug 'stanangeloff/php.vim',           {'for': 'php'}
-  Plug 'rayburgemeestre/phpfolding.vim', {'for': 'php'}
-  Plug '2072/PHP-Indenting-for-VIm',     {'for': 'php'}
-  Plug 'hhvm/vim-hack',                  {'for': 'hacklang'}
   " }}}
 
   " Web design {{{
@@ -195,13 +191,11 @@ call plug#begin('~/.vim/plugged')
   " Markdown {{{
   Plug 'godlygeek/tabular'
   Plug 'tpope/vim-markdown'
-  " Plug 'nelstrom/vim-markdown-folding'
   Plug 'junegunn/goyo.vim'
   " }}}
 
   " Others {{{
   Plug 'chrisbra/csv.vim',              {'for': 'csv'}
-  Plug 'joonty/vdebug',                 {'for': ['php', 'python', 'javascript', 'perl', 'ruby', 'javascript.jsx']}
   Plug 'lervag/vimtex',                 {'for': 'tex'}
   " }}}
   " }}}
@@ -355,7 +349,7 @@ let g:vimwiki_list = [{'path': '~/Dropbox/Documents/Notes/',
   \ 'syntax': 'markdown',
   \ 'auto_toc': 1,
   \ 'diary_rel_path': 'diary/',
-  \ 'nested_syntaxes': {'python':'python','javascript':'javascipt','go':'go','php':'php'}
+  \ 'nested_syntaxes': {'python':'python','javascript':'javascipt','go':'go'}
   \ }]
 " Makes sure that it uses markdown. Also, enforce markdown in all markdown files.
 autocmd BufEnter,BufRead,BufNewFile *.md set filetype=markdown
@@ -485,10 +479,6 @@ endif
 if has_ag
   map <leader>a :Ag<CR>
 endif
-
-" Omnifunc
-map <C-Space> <C-x><C-o>
-map! <C-Space> <CR><C-x><C-o>
 
 " Go to next/previous error
 map en :lnext<CR>
@@ -644,7 +634,7 @@ let g:NERDTreeIndicatorMapCustom = {
 " Adds a TOC
 let g:vim_markdown_toc_autofit = 1
 " Add syntax highlight.
-let g:vim_markdown_fenced_languages = ['python=python', 'go=go', 'javascript=javascript', 'php=php']
+let g:vim_markdown_fenced_languages = ['python=python', 'go=go', 'javascript=javascript']
 " follow anchors
 let g:vim_markdown_follow_anchor = 1
 " Latex math
@@ -667,7 +657,6 @@ let g:syntastic_warning_symbol = "▲"
 let g:syntastic_css_checkers = ['csslint']
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'go']
 let g:syntastic_javascript_checkers = ['standard', 'eslint']
-let g:syntastic_php_checkers = ['phpmd', 'php']
 let g:syntastic_python_checkers = ['flake8', 'pep8', 'python']
 let g:syntastic_vue_checkers = ['eslint']
 let g:syntastic_yaml_checkers = ['jsyaml', 'yamllint']
@@ -709,37 +698,16 @@ endif
 " }}}
 
 " deoplete.nvim {{{
-
-" deoplete-ternjs {{{
-" Starts automatically
 let g:deoplete#enable_at_startup = 1
-" Adds the documentation for tern completions.
-let g:deoplete#sources#ternjs#docs = 1
-" Makes in ternjs the completions not case sensitive.
-let g:deoplete#sources#ternjs#case_insensitive = 1
-" If completions should be returned when inside a literal.
-let g:deoplete#sources#ternjs#in_literal = 0
-" Add extra filetypes for javascript.
-let g:deoplete#sources#ternjs#filetypes = [
-  \ 'javascript',
-  \ 'jsx',
-  \ 'javascript.jsx',
-  \ 'vue'
-  \ ]
-" }}}
-
+if !exists('g:deoplete#omni#input_patterns')
+  let g:deoplete#omni#input_patterns = {}
+endif
 " deoplete go {{{
 " GoCode path
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 " Sorts the menu.
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 " }}}
-
-" phpcd.vim {{{
-let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-let g:deoplete#ignore_sources.php = ['omni']
-" }}}
-
 " }}}
 
 " vim-paste-easy {{{
@@ -748,23 +716,6 @@ let g:paste_easy_message=0
 
 " DelimitMate {{{
 let delimitMate_expand_cr = 1
-" }}}
-
-" UltiSnips {{{
-" From https://github.com/SirVer/ultisnips/issues/376#issuecomment-69033351
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
-let g:UltiSnipsExpandTrigger="<nop>"
-let g:ulti_expand_or_jump_res = 0
-function! <SID>ExpandSnippetOrReturn()
-  let snippet = UltiSnips#ExpandSnippetOrJump()
-  if g:ulti_expand_or_jump_res > 0
-    return snippet
-  else
-    return "\<CR>"
-  endif
-endfunction
-" inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 " }}}
 
 " GOYO {{{
@@ -790,9 +741,10 @@ let g:go_list_type = "quickfix"
 " }}}
 
 " jedi-vim {{{
- let g:jedi#completions_enabled = 0
- let g:jedi#use_splits_not_buffers = 'right'
- let g:jedi#show_call_signatures = '2'
+ " let g:jedi#completions_enabled = 0
+ 
+ " let g:jedi#use_splits_not_buffers = 'right'
+ " let g:jedi#show_call_signatures = '2'
 " }}}
 
 " vim-javascript {{{
@@ -826,13 +778,35 @@ autocmd BufWritePre *.{py,js,jsx} call StripTrailingWS()
 " - <leader>ga = Go to assignment.
 " - <leader>gi = Go to implementation.
 " - <leader>gu = Go to usages.
+let g:LanguageClient_selectionUI='fzf'
+let g:LanguageClient_serverCommands = {
+    \ 'javascript.jsx': ['js-langserver', '--stdio'],
+    \ 'python': ['pyls'],
+    \ 'typescript': ['javascript-typescript-stdio']
+    \ }
+    " Let's stick to vim-go for now...
+    " \ 'golang': ['go-langserver', '-gocodecompletion'],
+
+map <C-Space> <C-x><C-o>
+map! <C-Space> <ESC><C-x><C-o>
+
+map <silent> <leader><space> :call LanguageClient_contextMenu()<CR>
+map! <silent> <leader><space> <ESC>:call LanguageClient_contextMenu()<CR>
+
+nnoremap <silent> <leader>k :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> <leader>ga :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <leader>gi :call LanguageClient#textDocument_typeDefinition()<CR>
+nnoremap <silent> <leader>gu :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> <leader>go :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <silent> <leader>gl :call LanguageClient#workspace_symbol()<CR>
 
 " Python bindings {{{
-let g:jedi#documentation_command = '<leader>k'
-let g:jedi#rename_command = '<leader>r'
-let g:jedi#goto_assignments_command = '<leader>ga'
-let g:jedi#goto_command = '<leader>gi'
-let g:jedi#usages_command = '<leader>gu'
+" let g:jedi#documentation_command = '<leader>k'
+" let g:jedi#rename_command = '<leader>r'
+" let g:jedi#goto_assignments_command = '<leader>ga'
+" let g:jedi#goto_command = '<leader>gi'
+" let g:jedi#usages_command = '<leader>gu'
 " }}}
 
 " Go bindings {{{
@@ -841,25 +815,6 @@ autocmd FileType go map <leader>r :GoRename<CR>
 autocmd FileType go map <leader>ga :GoDef<CR>
 autocmd FileType go map <leader>gu :GoSameIds<CR>
 " }}}
-
-" Javascript bindings {{{
-autocmd FileType javascript,javascript.jsx map <leader>k :TernDoc<CR>
-autocmd FileType javascript,javascript.jsx map <leader>r :TernRename<CR>
-autocmd FileType javascript,javascript.jsx map <leader>ga :TernDef<CR>
-autocmd FileType javascript,javascript.jsx map <leader>gu :TernRefs<CR>
-" }}}
-
-" TypeScript bindings {{{
-autocmd FileType typescript map <leader>k :TSDoc<CR>
-autocmd FileType typescript map <leader>r :TSRename<CR>
-autocmd FileType typescript map <leader>ga :TSDef<CR>
-autocmd FileType typescript map <leader>gu :TSRefs<CR>
-" }}}
-
-" PHP bindings {{{
-autocmd FileType php map <leader>ga <C>]
-" }}}
-
 " }}}
 
 " Python {{{
@@ -896,13 +851,6 @@ let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 " }}}
-" }}}
-
-" tern_for_vim {{{
-" Use global tern
-let g:tern#command = ['tern']
-" Make it persistent so it can be reused by deoplete-ternjs.
-let g:tern#arguments = ['--persistent']
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
