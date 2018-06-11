@@ -222,6 +222,8 @@ set ttyfast                     " Indicates a fast terminal.
 if g:is_nvim
   let g:python_host_prog = g:brew_path.'/opt/python@2/bin/python2'
   let g:python3_host_prog = g:brew_path.'/bin/python3'
+  set clipboard+=unnamedplus
+  set inccommand=nosplit
 endif
 " }}}
 
