@@ -151,6 +151,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'reedes/vim-colors-pencil'
   Plug 'jacoborus/tender'
   Plug 'arcticicestudio/nord-vim'
+  Plug 'cocopon/iceberg.vim'
   " }}}
 
   " Languages {{{
@@ -276,7 +277,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Themes and colours {{{
 set t_Co=256                    " Number of colours.
 set background=dark             " Chooses the dark version of the colourscheme.
-colorscheme nord                " Chooses the colour scheme.
+colorscheme iceberg         " Chooses the colour scheme.
 
 " Tender theme
 if (has("termguicolors"))
@@ -784,7 +785,8 @@ let g:LanguageClient_selectionUI='fzf'
 let g:LanguageClient_serverCommands = {
     \ 'javascript.jsx': ['js-langserver', '--stdio'],
     \ 'python': ['pyls'],
-    \ 'typescript': ['javascript-typescript-stdio']
+    \ 'typescript': ['javascript-typescript-stdio'],
+    \ 'sh': ['bash-language-server', 'start']
     \ }
     " Let's stick to vim-go for now...
     " \ 'golang': ['go-langserver', '-gocodecompletion'],

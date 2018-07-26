@@ -9,11 +9,10 @@ It includes the configuration for:
 - zsh (Oh-my-zshrc)
 - Git
 - TMUX
-- Devdocs
+- DevDocs
 - NPM
 - Brew
 - Python
-- Tern.js
 - iTerm2
 - ... and other tools and scripts.
 
@@ -88,19 +87,20 @@ brew tap beeftornado/rmtree
 brew tap karan/karan
 brew tap universal-ctags/homebrew-universal-ctags
 
-brew install node go python python3 ruby tmux ccat diff-so-fancy neovim vim \
-    git hub httpie fzf the_silver_searcher dep sqlite joe zsh-autosuggestions \ 
-    zsh-completions zsh-syntax-highlighting cmake exercism
+brew install node go python python2 ruby tmux ccat diff-so-fancy neovim vim \
+    git hub httpie fzf the_silver_searcher dep sqlite zsh-autosuggestions \ 
+    zsh-completions zsh-syntax-highlighting
 
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 npm install -g standard csslint js-yaml n node-debug typescript vue-cli gtop \
-    surge ternjs documentation neovim tldr
+    surge tern neovim tldr bash-language-serve fkill-cli javascript-typescript-langserver \
+    jsonlint typescript-language-server ndb js-langserver
 
 npm install -g https://github.com/ramitos/jsctags.git
 
 pip2 install neovim
-pip3 install jedi pep8 pipenv requests neovim
+pip3 install jedi pep8 pipenv requests neovim python-language-server
 gem install neovim
 ```
 
