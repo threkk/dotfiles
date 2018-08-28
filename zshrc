@@ -91,8 +91,8 @@ export LC_ALL=en_GB.UTF-8
 export LANG=en_GB.UTF-8
 export HOMEBREW_NO_ANALYTICS=1
 export PYTHONDONTWRITEBYTECODE=1
-GPG_TTY=$(tty)
-export GPG_TTY
+export XDG_CONFIG_HOME=$HOME/.config
+export GPG_TTY="$(tty)"
 
 PLATFORM='unknown'
 if [[ `uname` == 'Linux' ]]; then
@@ -120,6 +120,7 @@ export PATH=$BREW_PATH/opt/python@2/bin:$PATH
 export PATH=$BREW_PATH/opt/python/libexec/bin:$PATH
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.npm-packages/bin:$PATH
+export PATH="$HOME/.cargo/bin:$PATH"
 export PATH=$HOME/.scripts:$PATH
 
 # Tools
