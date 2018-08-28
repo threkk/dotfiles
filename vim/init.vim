@@ -494,26 +494,17 @@ endif
 
 " }}}
 
-" GUI/TERM especific configuration {{{
-" GUI {{{
+" Tabs {{{
+
+" Press Ctrl-Tab to switch between open tabs (like browser tabs) to
+" the right side. Ctrl-Shift-Tab goes the other way.
+map <C-Tab> :tabnext<CR>
+map <C-S-Tab> :tabprev<CR>
+
+map! <C-Tab> <C-O>:tabnext<CR>
+map! <C-S-Tab> <C-O>:tabprev<CR>
+
 if g:is_gui
-  " Disables the scrollbars {{{
-  set guioptions-=r
-  set guioptions-=L
-  set guioptions-=T
-  set guioptions-=m
-  " }}}
-
-  " Tabs {{{
-  "
-  " Press Ctrl-Tab to switch between open tabs (like browser tabs) to
-  " the right side. Ctrl-Shift-Tab goes the other way.
-  map <C-Tab> :tabnext<CR>
-  map <C-S-Tab> :tabprev<CR>
-
-  map! <C-Tab> <C-O>:tabnext<CR>
-  map! <C-S-Tab> <C-O>:tabprev<CR>
-
   " Switch to specific tab numbers with Command-number
   map <D-1> :tabn 1<CR>
   map <D-2> :tabn 2<CR>
@@ -538,7 +529,50 @@ if g:is_gui
   " Command-0 goes to the last tab
   map <D-0> :tablast<CR>
   map! <D-0> <C-O>:tablast<CR>
-  "}}}
+else
+  " Switch to specific tab numbers with Control-number
+  map <C-1> :tabn 1<CR>
+  map <C-2> :tabn 2<CR>
+  map <C-3> :tabn 3<CR>
+  map <C-4> :tabn 4<CR>
+  map <C-5> :tabn 5<CR>
+  map <C-6> :tabn 6<CR>
+  map <C-7> :tabn 7<CR>
+  map <C-8> :tabn 8<CR>
+  map <C-9> :tabn 9<CR>
+
+  map! <C-1> <C-O>:tabn 1<CR>
+  map! <C-2> <C-O>:tabn 2<CR>
+  map! <C-3> <C-O>:tabn 3<CR>
+  map! <C-4> <C-O>:tabn 4<CR>
+  map! <C-5> <C-O>:tabn 5<CR>
+  map! <C-6> <C-O>:tabn 6<CR>
+  map! <C-7> <C-O>:tabn 7<CR>
+  map! <C-8> <C-O>:tabn 8<CR>
+  map! <C-9> <C-O>:tabn 9<CR>
+
+  " Control-0 goes to the last tab
+  map <C-0> :tablast<CR>
+  map! <C-0> <C-O>:tablast<CR>
+
+  " Open and close tabs.
+  map <C-T> :tabnew<CR>
+  map! <C-T> <C-O>:tabnew<CR>
+
+  map <C-W> :tabc<CR>
+  map! <C-W> <C-O>:tabc<CR>
+endif
+"}}}
+
+" GUI/TERM especific configuration {{{
+" GUI {{{
+if g:is_gui
+  " Disables the scrollbars {{{
+  set guioptions-=r
+  set guioptions-=L
+  set guioptions-=T
+  set guioptions-=m
+  " }}}
 
   " Movement keys {{{
   let macvim_skip_cmd_opt_movement = 1
@@ -565,7 +599,7 @@ if g:is_gui
   map! <M-Up> <Esc>:m .-2<CR>==gi
   " }}}
 " }}}
-  " TERM {{{
+" TERM {{{
 else
   " Lane swapping {{{
   map [B :m .+1<CR>==
