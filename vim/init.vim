@@ -171,8 +171,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'mxw/vim-jsx',                         {'for': ['javascript.jsx', 'jsx']}
   Plug 'posva/vim-vue',                       {'for': ['javascript.vue', 'vue']}
   Plug 'elzr/vim-json',                       {'for': ['javascript', 'javascript.jsx', 'json']}
-
-
   " }}}
 
   " TypeScript {{{
@@ -198,6 +196,7 @@ call plug#begin('~/.vim/plugged')
   " Others {{{
   Plug 'chrisbra/csv.vim',              {'for': 'csv'}
   Plug 'lervag/vimtex',                 {'for': 'tex'}
+  Plug 'ekalinin/Dockerfile.vim',       {'for': 'Dockerfile'}
   " }}}
   " }}}
 call plug#end()
@@ -820,7 +819,8 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript.jsx': ['js-langserver', '--stdio'],
     \ 'python': ['pyls'],
     \ 'typescript': ['javascript-typescript-stdio'],
-    \ 'sh': ['bash-language-server', 'start']
+    \ 'sh': ['bash-language-server', 'start'],
+    \ 'Dockerfile': ['docker-langserver', '--stdio']
     \ }
     " Let's stick to vim-go for now...
     " \ 'golang': ['go-langserver', '-gocodecompletion'],
@@ -863,8 +863,8 @@ autocmd FileType python,yaml BracelessEnable +indent +fold +highlight
 autocmd BufEnter *.tsx set filetype=typescript
 " }}}
 
-" Bash {{{
-autocmd FileType sh set textwidth=0
+" Bash, Dockerfile {{{
+autocmd FileType sh,Dockerfile set textwidth=0
 " }}}
 
 " Go {{{
