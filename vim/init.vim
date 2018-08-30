@@ -124,12 +124,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/limelight.vim'
   " }}}
 
-  " Vim-Wiki {{{
-  Plug 'vimwiki/vimwiki', { 'branch': 'dev' }             " Wiki
-  Plug 'mattn/calendar-vim'                               " Calendar
-  Plug 'vimwiki/utils'                                    " Utils
-  " }}}
-
   " Other {{{
   Plug 'godlygeek/tabular'                                " Aligns stuff.
   Plug 'skywind3000/asyncrun.vim'                         " Async requests.
@@ -530,29 +524,18 @@ if g:is_gui
   map! <D-0> <C-O>:tablast<CR>
 else
   " Switch to specific tab numbers with Control-number
-  map <C-1> :tabn 1<CR>
-  map <C-2> :tabn 2<CR>
-  map <C-3> :tabn 3<CR>
-  map <C-4> :tabn 4<CR>
-  map <C-5> :tabn 5<CR>
-  map <C-6> :tabn 6<CR>
-  map <C-7> :tabn 7<CR>
-  map <C-8> :tabn 8<CR>
-  map <C-9> :tabn 9<CR>
-
-  map! <C-1> <C-O>:tabn 1<CR>
-  map! <C-2> <C-O>:tabn 2<CR>
-  map! <C-3> <C-O>:tabn 3<CR>
-  map! <C-4> <C-O>:tabn 4<CR>
-  map! <C-5> <C-O>:tabn 5<CR>
-  map! <C-6> <C-O>:tabn 6<CR>
-  map! <C-7> <C-O>:tabn 7<CR>
-  map! <C-8> <C-O>:tabn 8<CR>
-  map! <C-9> <C-O>:tabn 9<CR>
+  map t1 :tabn 1<CR>
+  map t2 :tabn 2<CR>
+  map t3 :tabn 3<CR>
+  map t4 :tabn 4<CR>
+  map t5 :tabn 5<CR>
+  map t6 :tabn 6<CR>
+  map t7 :tabn 7<CR>
+  map t8 :tabn 8<CR>
+  map t9 :tabn 9<CR>
 
   " Control-0 goes to the last tab
-  map <C-0> :tablast<CR>
-  map! <C-0> <C-O>:tablast<CR>
+  map t0 :tablast<CR>
 
   " Open and close tabs.
   map <C-T> :tabnew<CR>
