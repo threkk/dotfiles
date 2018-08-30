@@ -363,15 +363,15 @@ key_bindings:
   - { key: Down,     mods: Command, chars: "\x06\x1b\x5b\x42"            }
   - { key: Right,    mods: Command, chars: "\x06\x1b\x5b\x43"            }
   - { key: Left,     mods: Command, chars: "\x06\x1b\x5b\x44"            }
-  - { key: Key1,        mods: Command, chars: "\x06\x31"                 }
-  - { key: Key2,        mods: Command, chars: "\x06\x32"                 } 
-  - { key: Key3,        mods: Command, chars: "\x06\x33"                 }
-  - { key: Key4,        mods: Command, chars: "\x06\x34"                 }
-  - { key: Key5,        mods: Command, chars: "\x06\x35"                 }
-  - { key: Key6,        mods: Command, chars: "\x06\x36"                 }
-  - { key: Key7,        mods: Command, chars: "\x06\x37"                 }
-  - { key: Key8,        mods: Command, chars: "\x06\x38"                 }
-  - { key: Key9,        mods: Command, chars: "\x06\x39"                 }
-  - { key: Key0,        mods: Command, chars: "\x06\x30"                 }
+  - { key: Key1,     mods: Command, chars: "\x06\x31"                    }
+  - { key: Key2,     mods: Command, chars: "\x06\x32"                    } 
+  - { key: Key3,     mods: Command, chars: "\x06\x33"                    }
+  - { key: Key4,     mods: Command, chars: "\x06\x34"                    }
+  - { key: Key5,     mods: Command, chars: "\x06\x35"                    }
+  - { key: Key6,     mods: Command, chars: "\x06\x36"                    }
+  - { key: Key7,     mods: Command, chars: "\x06\x37"                    }
+  - { key: Key8,     mods: Command, chars: "\x06\x38"                    }
+  - { key: Key9,     mods: Command, chars: "\x06\x39"                    }
+  - { key: Key0,     mods: Command, chars: "\x06\x30"                    }
   - { key: D,        mods: Command, chars: "\x06\x7c"                    }
   - { key: D,        mods: Command|Shift, chars: "\x06\x2d"              }
