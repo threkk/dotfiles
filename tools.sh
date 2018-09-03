@@ -141,7 +141,7 @@ if [[ $(uname) == 'Darwin' ]] && fzf --version >/dev/null 2>&1 ; then
             echo "1.0.0"
             return 0
         else
-            find /Applications ${HOME}/Applications -iname "*$1*.app" -maxdepth 3 | fzf | sed 's/ /\\ /g' | xargs open
+            find /Applications ${HOME}/Applications -iname "*$1*.app" -maxdepth 3 | fzf | sed 's/ /\\ /g' | xargs -I % open -n %
         fi
     }
 fi
