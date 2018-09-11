@@ -803,7 +803,10 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'typescript': ['javascript-typescript-stdio'],
     \ 'sh': ['bash-language-server', 'start'],
-    \ 'Dockerfile': ['docker-langserver', '--stdio']
+    \ 'Dockerfile': ['docker-langserver', '--stdio'],
+    \ 'scss': ['css-languageserver', '--stdio'],
+    \ 'less': ['css-languageserver', '--stdio'],
+    \ 'css': ['css-languageserver', '--stdio']
     \ }
     " Let's stick to vim-go for now...
     " \ 'golang': ['go-langserver', '-gocodecompletion'],
