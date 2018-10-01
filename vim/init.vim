@@ -164,7 +164,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.jsx']}
   Plug 'mxw/vim-jsx',                         {'for': ['javascript.jsx', 'jsx']}
   Plug 'posva/vim-vue',                       {'for': ['javascript.vue', 'vue']}
-  Plug 'elzr/vim-json',                       {'for': ['javascript', 'javascript.jsx', 'json']}
+  Plug 'elzr/vim-json'
   " }}}
 
   " TypeScript {{{
@@ -191,6 +191,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'chrisbra/csv.vim',              {'for': 'csv'}
   Plug 'lervag/vimtex',                 {'for': 'tex'}
   Plug 'ekalinin/Dockerfile.vim',       {'for': 'Dockerfile'}
+  Plug 'm-kat/aws-vim'
   " }}}
   " }}}
 call plug#end()
