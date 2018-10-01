@@ -874,6 +874,8 @@ let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
+" Disable go-def
+let g:go_def_mapping_enabled = 0
 " }}}
 " }}}
 
