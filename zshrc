@@ -67,7 +67,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
 else
-  export EDITOR='vimr'
+  export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -121,11 +121,11 @@ export PATH=$BREW_PATH/opt/python/libexec/bin:$PATH
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.npm-packages/bin:$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH=$HOME/.scripts:$PATH
+export PATH=$HOME/.bin:$PATH
 
 # Tools
 source $HOME/.dotfiles/tools.sh
-[ ! -d "$HOME/.scripts" ] && mkdir -p $HOME/.scripts
+[ ! -d "$HOME/.bin" ] && mkdir -p $HOME/.bin
 
 # Auto completation
 command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
