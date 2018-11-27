@@ -146,6 +146,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'jacoborus/tender'
   Plug 'arcticicestudio/nord-vim'
   Plug 'cocopon/iceberg.vim'
+  Plug 'kkpmw/sacredforest-vim'
+  Plug 'ajh17/Spacegray.vim'
   " }}}
 
   " Languages {{{
@@ -272,7 +274,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Themes and colours {{{
 set t_Co=256                    " Number of colours.
 set background=dark             " Chooses the dark version of the colourscheme.
-colorscheme iceberg         " Chooses the colour scheme.
+colorscheme spacegray           " Chooses the colour scheme.
 
 " Tender theme
 if (has("termguicolors"))
