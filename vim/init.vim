@@ -481,8 +481,8 @@ if has_ag
 endif
 
 " Go to next/previous error
-map en :lnext<CR>
-map ep :lprevious<CR>
+map q :lnext<CR>
+map Q :lprevious<CR>
 
 " In terminal mode, sets the normal mode key combination to M-ESC.
 if is_nvim
