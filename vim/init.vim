@@ -437,15 +437,10 @@ nnoremap U <C-r>
 map <leader>d :call Date()<CR>
 
 "Pane navigation {{{
-" Arrows and hjkl
-map <leader>h <C-w>h
-map <leader>j <C-w>k
-map <leader>k <C-w>j
-map <leader>l <C-w>l
-map <leader><Left> <C-w>h
-map <leader><Up> <C-w>k
-map <leader><Down> <C-w>j
-map <leader><Right> <C-w>l
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
 map <leader>\| :vs<CR>
 map <leader>- :split<CR>
 " }}}
