@@ -5,8 +5,6 @@
 " - Ack/AG
 " - CTags & jsctags.
 " - Git
-" - Completion engines: jedi, ternjs, GoCode
-" - Syntax checkers.
 
 " Global variables {{{
 let g:is_nvim = has('nvim')
@@ -65,8 +63,7 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " Airline {{{
-  Plug 'vim-airline/vim-airline'                          " Better statusline.
-  Plug 'vim-airline/vim-airline-themes'                   " Themes for statusline.
+  Plug 'itchyny/lightline.vim'                              " Better statusline.
   " }}}
 
   " Brackets {{{
@@ -86,19 +83,6 @@ call plug#begin('~/.vim/plugged')
 
   " SLIME {{{
   Plug 'jpalardy/vim-slime'
-  " }}}
-
-  " Syntax checker {{{
-  "
-  " NOTE: It requires to have syntax checkers installed.
-  Plug 'scrooloose/syntastic'                             " Syntax checker for vim.
-  " }}}
-
-  " Autocomplete {{{
-  Plug 'roxma/nvim-yarp', Cond(g:is_vim)                 " Package required for vim compatibility.
-  Plug 'roxma/vim-hug-neovim-rpc', Cond(g:is_vim)        " Package required for vim compatibility.
-  Plug 'Shougo/deoplete.nvim'                            " Completion engine.
-  Plug 'Shougo/neco-syntax'                              " Adds the original omnifunc.
   " }}}
 
   " Outline {{{
@@ -152,10 +136,8 @@ call plug#begin('~/.vim/plugged')
 
   " Languages {{{
   " Language server {{{
-    Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+  " yarn global add vim-node-rpc if Vim. 
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
   " }}}
 
   " Python {{{
@@ -164,18 +146,14 @@ call plug#begin('~/.vim/plugged')
 
   " JavaScript {{{
   Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.jsx']}
+  Plug 'HerringtonDarkholme/yats.vim',        {'for': 'typescript'}
   Plug 'mxw/vim-jsx',                         {'for': ['javascript.jsx', 'jsx']}
   Plug 'posva/vim-vue',                       {'for': ['javascript.vue', 'vue']}
   Plug 'elzr/vim-json'
   " }}}
 
-  " TypeScript {{{
-  Plug 'HerringtonDarkholme/yats.vim'
-  " }}}
-
   " Go {{{
   Plug 'fatih/vim-go',                          {'for': 'go'}
-  Plug 'zchee/deoplete-go',                     {'for': 'go', 'do': 'make'},
   Plug 'jodosha/vim-godebug',                   {'for': 'go'}
   " }}}
 
@@ -196,6 +174,21 @@ call plug#begin('~/.vim/plugged')
   Plug 'ekalinin/Dockerfile.vim',       {'for': 'Dockerfile'}
   Plug 'm-kat/aws-vim'
   " }}}
+
+  " Disabled plugins {{{
+  " Plug 'scrooloose/syntastic'                             " Syntax checker for vim.
+  " Plug 'autozimu/LanguageClient-neovim', {
+  " \ 'branch': 'next',
+  " \ 'do': 'bash install.sh',
+  " \ }
+  " Plug 'roxma/nvim-yarp', Cond(g:is_vim)                 " Package required for vim compatibility.
+  " Plug 'roxma/vim-hug-neovim-rpc', Cond(g:is_vim)        " Package required for vim compatibility.
+  " Plug 'Shougo/deoplete.nvim'                            " Completion engine.
+  " Plug 'Shougo/neco-syntax'                              " Adds the original omnifunc.
+  " Plug 'zchee/deoplete-go',                     {'for': 'go', 'do': 'make'}, "
+  " Plug 'vim-airline/vim-airline'                          " Better statusline.
+  " Plug 'vim-airline/vim-airline-themes'                   " Themes for statusline.
+  " }}}
   " }}}
 call plug#end()
 " }}}
@@ -208,6 +201,7 @@ filetype plugin on              " Enables plugin detection.
 filetype plugin indent on       " Load filetype-specific indent files.
 set modelines=1                 " Enables custom configurations per file.
 set history=700                 " Size of the command history.
+set hidden                      " Hides not active buffers.
 set noerrorbells                " Doesn't display the error bells.
 set encoding=utf8               " Sets the encoding to UTF-8.
 set termencoding=utf-8          " Sets the terminal encoding to UTF-8.
@@ -215,6 +209,7 @@ set mouse=a                     " Enables the mouse in old terminals.
 set backspace=eol,start,indent  " Makes backspace work as expected in old terminals.
 set nocompatible                " Disables vi compatibility.
 set ttyfast                     " Indicates a fast terminal.
+set updatetime=300              " Smaller update times.
 
 " Configures Python for NVIM
 if g:is_nvim
@@ -234,6 +229,8 @@ set cursorline                  " Highlights the current line.
 set ruler                       " Shows the column and line of the cursor.
 set noshowmode                  " Hides the current mode.
 set cmdheight=2                 " Command line height.
+set shortmess+=c                " Don't give |ins-completion-menu| messages.
+set signcolumn=yes              " Always show signcolumns.
 set columns=80                  " Maximum amount of columns to display.
 set textwidth=80                " Maximum line width.
 set colorcolumn=81              " Draws a vertical line at the selected column.
@@ -242,14 +239,14 @@ set colorcolumn=81              " Draws a vertical line at the selected column.
 set fillchars+=stl:\ ,stlnc:\
 
 " Display the errors in the statusline.
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 "}}}
 
 " Autocomplete {{{
 " Enables autocomplete.
-set omnifunc=syntaxcomplete#Complete
+" set omnifunc=syntaxcomplete#Complete
 
 " Shows the longest autcomplete.
 " http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
@@ -265,7 +262,7 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvis
 " Enables tab for selecting the options.
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<cr>"
 
 " Closes the menu once an option has been selected.
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -282,9 +279,9 @@ if (has("termguicolors"))
 endif
 
 " Nord theme
-let g:nord_italic = 1
-let g:nord_italic_comments = 1
-let g:nord_comment_brightness = 20
+" let g:nord_italic = 1
+" let g:nord_italic_comments = 1
+" let g:nord_comment_brightness = 20
 " }}}
 
 " Line wrap {{{
@@ -339,30 +336,6 @@ if g:is_nvim
   let &t_AB="\e[48;5;%dm"
   let &t_AF="\e[38;5;%dm""	
 endif
-" }}}
-
-" Vim-Wiki {{{
-" Sets the path to the notes, exports and extension.
-let g:vimwiki_list = [{'path': '~/Dropbox/Documents/Notes/',
-  \ 'path_html': '~/Dropbox/Documents/notes/html/',
-  \ 'ext': '.md',
-  \ 'syntax': 'markdown',
-  \ 'auto_toc': 1,
-  \ 'diary_rel_path': 'diary/',
-  \ 'nested_syntaxes': {'python':'python','javascript':'javascipt','go':'go'}
-  \ }]
-" Makes sure that it uses markdown. Also, enforce markdown in all markdown files.
-autocmd BufEnter,BufRead,BufNewFile *.md set filetype=markdown
-" Extension mapping.
-let g:vimwiki_ext2syntax = {'.md': 'markdown', '.mkd': 'markdown'}
-" Do not create tempory wiki (seems like a chaos).
-let g:vimwiki_global_ext = 0
-" Fancy icons.
-let g:vimwiki_listsyms = '✗○◐●✓'
-" Enables mouse.
-let g:vimwiki_use_mouse = 1
-" Enables folding.
-let g:vimwiki_folding='expr'
 " }}}
 
 " Tries to set FireCode as font if it is available {{{
@@ -481,8 +454,8 @@ if has_ag
 endif
 
 " Go to next/previous error
-map q :lnext<CR>
-map Q :lprevious<CR>
+" map q :lnext<CR>
+" map Q :lprevious<CR>
 
 " In terminal mode, sets the normal mode key combination to M-ESC.
 if is_nvim
@@ -669,27 +642,29 @@ let g:vim_markdown_json_frontmatter = 1
 
 " Syntastic {{{
 " Requires validators. Read the docs.
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_error_symbol = '✘'
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': [] }
-let g:syntastic_warning_symbol = "▲"
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 1
+" let g:syntastic_error_symbol = '✘'
+" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': [] }
+" let g:syntastic_warning_symbol = "▲"
 
-let g:syntastic_css_checkers = ['csslint']
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'go']
-let g:syntastic_javascript_checkers = ['standard', 'eslint']
-let g:syntastic_python_checkers = ['flake8', 'pep8', 'python']
-let g:syntastic_vue_checkers = ['eslint']
-let g:syntastic_yaml_checkers = ['jsyaml', 'yamllint']
+" let g:syntastic_css_checkers = ['csslint']
+" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'go']
+" let g:syntastic_javascript_checkers = ['standard', 'eslint']
+" let g:syntastic_typescript_checkers = ['javascript/standard']
+" let g:syntastic_python_checkers = ['flake8', 'pep8', 'python']
+" let g:syntastic_vue_checkers = ['eslint']
+" let g:syntastic_yaml_checkers = ['jsyaml', 'yamllint']
 
-" Finds brew's python.
-let g:syntastic_python_python_exec = $BREW_PATH.'/bin/python3'
+" " Finds brew's python.
+" let g:syntastic_python_python_exec = $BREW_PATH.'/bin/python3'
 
-" Forces to use the local eslint.
-let g:syntastic_javascript_eslint_exec = '`npm bin`/eslint'
-let g:syntastic_vue_eslint_exec = '`npm bin`/eslint'
+" " Forces to use the local eslint.
+" let g:syntastic_javascript_eslint_exec = '`npm bin`/eslint'
+" let g:syntastic_javascript_standard_exec = '`npm bin`/standard'
+" let g:syntastic_vue_eslint_exec = '`npm bin`/eslint'
 
 " Rainbow parenthesis {{{
 let g:rainbow_active = 1
@@ -709,27 +684,29 @@ endif
 " }}}
 
 " Vim Airline {{{
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+" let g:airline#extensions#tabline#enabled = 1
 
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-  let g:airline_symbols.whitespace = 'Ξ'
-endif
+
+
+" if !exists('g:airline_symbols')
+"   let g:airline_symbols = {}
+"   let g:airline_symbols.whitespace = 'Ξ'
+" endif
 " }}}
 
 " deoplete.nvim {{{
-let g:deoplete#enable_at_startup = 1
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-" deoplete go {{{
-" GoCode path
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-" Sorts the menu.
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" let g:deoplete#enable_at_startup = 1
+" " if !exists('g:deoplete#omni#input_patterns')
+" "   let g:deoplete#omni#input_patterns = {}
+" " endif
+" " deoplete go {{{
+" " GoCode path
+" let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+" " Sorts the menu.
+" let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 " }}}
 " }}}
 
@@ -744,13 +721,6 @@ let delimitMate_expand_cr = 1
 " GOYO {{{
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
-" }}}
-
-" vim-workspace {{{
-let g:workspace_powerline_separators = 1
-let g:workspace_tab_icon = "\uf00a"
-let g:workspace_left_trunc_icon = "\uf0a8"
-let g:workspace_right_trunc_icon = "\uf0a9"
 " }}}
 
 " vim-go {{{
@@ -776,7 +746,10 @@ let g:javascript_plugin_flow = 1
 
 augroup javascript_folding
     au!
-    au FileType javascript setlocal foldmethod=syntax
+    au FileType javascript,typescript,javascript.jsx setlocal foldmethod=syntax
+    au FileType javascript,typescript,javascript.jsx set shiftwidth=2
+    au FileType javascript,typescript,javascript.jsx set softtabstop=2
+    au FileType javascript,typescript,javascript.jsx set tabstop=2
 augroup END
 
 let g:javascript_conceal_function             = "ƒ"
@@ -805,14 +778,14 @@ autocmd FileType vue syntax sync fromstart
 " }}}
 
 " Airline {{{
-let g:airline_theme = 'tender'
-let macvim_skip_colorscheme=1
+" let g:airline_theme = 'tender'
+" let macvim_skip_colorscheme=1
 " }}}
 "}}}
 
 " Configuration per filetype {{{
 " Cleans trailing whitespaces in python and javascript files before saving {{{
-autocmd BufWritePre *.{py,js,jsx} call StripTrailingWS()
+autocmd BufWritePre *.{py,js,jsx,ts,tsx} call StripTrailingWS()
 " }}}
 
 " Language bindings {{{
@@ -822,33 +795,61 @@ autocmd BufWritePre *.{py,js,jsx} call StripTrailingWS()
 " - <leader>ga = Go to assignment.
 " - <leader>gi = Go to implementation.
 " - <leader>gu = Go to usages.
-let g:LanguageClient_selectionUI='fzf'
-let g:LanguageClient_serverCommands = {
-    \ 'javascript.jsx': ['js-langserver', '--stdio'],
-    \ 'python': ['pyls'],
-    \ 'typescript': ['javascript-typescript-stdio'],
-    \ 'sh': ['bash-language-server', 'start'],
-    \ 'Dockerfile': ['docker-langserver', '--stdio'],
-    \ 'scss': ['css-languageserver', '--stdio'],
-    \ 'less': ['css-languageserver', '--stdio'],
-    \ 'css': ['css-languageserver', '--stdio']
-    \ }
+" let g:LanguageClient_selectionUI='fzf'
+" let g:LanguageClient_serverCommands = {
+"     \ 'javascript.jsx': ['js-langserver', '--stdio'],
+"     \ 'python': ['pyls'],
+"     \ 'typescript': ['javascript-typescript-stdio'],
+"     \ 'sh': ['bash-language-server', 'start'],
+"     \ 'Dockerfile': ['docker-langserver', '--stdio'],
+"     \ 'scss': ['css-languageserver', '--stdio'],
+"     \ 'less': ['css-languageserver', '--stdio'],
+"     \ 'css': ['css-languageserver', '--stdio']
+"     \ }
     " Let's stick to vim-go for now...
     " \ 'golang': ['go-langserver', '-gocodecompletion'],
 
-map <C-Space> <C-x><C-o>
-map! <C-Space> <ESC><C-x><C-o>
+" map  <silent> <C-Space> :call LanguageClient_contextMenu()<CR>
+" map! <silent> <C-Space> <ESC>:call LanguageClient_contextMenu()<CR>
+" nnoremap <silent> <leader>k :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<CR>
+" nnoremap <silent> <leader>ga :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> <leader>gi :call LanguageClient#textDocument_typeDefinition()<CR>
+" nnoremap <silent> <leader>gu :call LanguageClient#textDocument_references()<CR>
+" nnoremap <silent> <leader>go :call LanguageClient#textDocument_documentSymbol()<CR>
+" nnoremap <silent> <leader>gl :call LanguageClient#workspace_symbol()<CR>"
+inoremap <silent><expr> <c-space> coc#refresh()
 
-map <silent> <leader><space> :call LanguageClient_contextMenu()<CR>
-map! <silent> <leader><space> <ESC>:call LanguageClient_contextMenu()<CR>
+" Remap keys for gotos
+nmap <silent> <leader>gd <Plug>(coc-definition)
+nmap <silent> <leader>gy <Plug>(coc-type-definition)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> <leader>gr <Plug>(coc-references)
 
-nnoremap <silent> <leader>k :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> <leader>ga :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <leader>gi :call LanguageClient#textDocument_typeDefinition()<CR>
-nnoremap <silent> <leader>gu :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> <leader>go :call LanguageClient#textDocument_documentSymbol()<CR>
-nnoremap <silent> <leader>gl :call LanguageClient#workspace_symbol()<CR>
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Use K for show documentation in preview window
+nnoremap <silent> k :call <SID>show_documentation()<CR>
+
+" Remap for rename current word
+nmap <leader>r <Plug>(coc-rename)
+" Remap for format selected region
+vmap <leader>gf  <Plug>(coc-format-selected)
+nmap <leader>gf  <Plug>(coc-format-selected)
+
+" Remap for code actions
+nmap <leader>ga  <Plug>(coc-codeaction)
+nmap <leader>gq  <Plug>(coc-fix-current)
+
 
 " Python bindings {{{
 " let g:jedi#documentation_command = '<leader>k'
@@ -857,6 +858,8 @@ nnoremap <silent> <leader>gl :call LanguageClient#workspace_symbol()<CR>
 " let g:jedi#goto_command = '<leader>gi'
 " let g:jedi#usages_command = '<leader>gu'
 " }}}
+
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " Go bindings {{{
 autocmd FileType go map <leader>k :GoDoc<CR>
@@ -904,4 +907,21 @@ let g:go_def_mapping_enabled = 0
 " }}}
 " }}}
 
-" vim:foldmethod=marker:foldlevel=0
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype', 'cocstatus' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status',
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+"z vim:foldmethod=marker:foldlevel=0

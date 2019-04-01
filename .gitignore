@@ -3,3 +3,7 @@ plugged/
 exports.sh
 tmux
 iterm/
+coc/db.json
+coc/memos.json
+coc/extensions/node_modules
+*.log

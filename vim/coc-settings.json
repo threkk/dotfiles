@@ -1,0 +1,50 @@
+{
+    // coc-tsserver
+    "tsserver.enableJavascript": true,
+    "tsserver.npm": "/Users/threkk/.npm-packages/bin/npm",
+    "tsserver.orgnizeImportOnSave": true,
+    "typescript.preferences.noSemicolons": true,
+    "typescript.preferences.quoteStyle": "single",
+    "javascript.preferences.noSemicolons": true,
+    "javascript.preferences.quoteStyle": "single",
+
+    // coc-python
+    "python.jediEnabled": true,
+    "python.jediMemoryLimit": -1,
+    
+    // coc-prettier
+    "prettier.singleQuote": true,
+    "prettier.semi": false,
+
+    "languageserver": {
+        // go-langserver
+        "golang": {
+            "command": "go-langserver",
+            "filetypes": ["go"],
+            "initializationOptions": {
+                "gocodeCompletionEnabled": true,
+                "diagnosticsEnabled": true,
+                "lintTool": "golint"
+            }
+        },
+        // javascript
+        "js": {
+            "command": "js-langserver",
+            "args": ["--stdio"],
+            "filetypes": ["javascript.jsx", "javascript", "jsx"]
+        },
+        // docker-langserver
+        "dockerfile": {
+            "command": "docker-langserver",
+            "filetypes": ["dockerfile"],
+            "args": ["--stdio"]
+        },
+        // bash-language-server
+        "bash": {
+            "command": "bash-language-server",
+            "args": ["start"],
+            "filetypes": ["sh"],
+            "ignoredRootPaths": ["~"]
+        }
+    }
+}
