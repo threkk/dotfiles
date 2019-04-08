@@ -49,6 +49,8 @@ function! Cond(cond, ...)
 endfunction
 " }}}
 
+" let g:ale_completion_enabled = 1
+
 call plug#begin('~/.vim/plugged')
 
   " Basic configuration for client specifics {{{
@@ -138,6 +140,7 @@ call plug#begin('~/.vim/plugged')
   " Language server {{{
   " yarn global add vim-node-rpc if Vim. 
   Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+  " Plug 'w0rp/ale'
   " }}}
 
   " Python {{{
@@ -146,9 +149,10 @@ call plug#begin('~/.vim/plugged')
 
   " JavaScript {{{
   Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.jsx']}
-  Plug 'HerringtonDarkholme/yats.vim',        {'for': 'typescript'}
-  Plug 'mxw/vim-jsx',                         {'for': ['javascript.jsx', 'jsx']}
-  Plug 'posva/vim-vue',                       {'for': ['javascript.vue', 'vue']}
+  Plug 'HerringtonDarkholme/yats.vim',        {'for': ['typescript', 'typescript.tsx']}
+  Plug 'ianks/vim-tsx',                       {'for': 'typescript.tsx'}
+  Plug 'mxw/vim-jsx',                         {'for': 'javascript.jsx'}
+  Plug 'posva/vim-vue',                       {'for': 'javascript.vue'}
   Plug 'elzr/vim-json'
   " }}}
 
@@ -166,6 +170,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'godlygeek/tabular'
   Plug 'tpope/vim-markdown'
   Plug 'junegunn/goyo.vim'
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
   " }}}
 
   " Others {{{
@@ -638,6 +643,9 @@ let g:vim_markdown_math = 1
 " Headers in YAML and JSON.
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_json_frontmatter = 1
+
+" Do not autoclose the preview window.
+let g:mkdp_auto_close = 1
 " }}}
 
 " Syntastic {{{
@@ -744,12 +752,14 @@ let g:go_list_type = "quickfix"
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 
+autocmd BufEnter *.jsx set filetype=javascript.jsx
+
 augroup javascript_folding
     au!
-    au FileType javascript,typescript,javascript.jsx setlocal foldmethod=syntax
-    au FileType javascript,typescript,javascript.jsx set shiftwidth=2
-    au FileType javascript,typescript,javascript.jsx set softtabstop=2
-    au FileType javascript,typescript,javascript.jsx set tabstop=2
+    au FileType javascript,typescript,javascript.jsx,typescript.tsx setlocal foldmethod=syntax
+    au FileType javascript,typescript,javascript.jsx,typescript.tsx set shiftwidth=2
+    au FileType javascript,typescript,javascript.jsx,typescript.tsx set softtabstop=2
+    au FileType javascript,typescript,javascript.jsx,typescript.tsx set tabstop=2
 augroup END
 
 let g:javascript_conceal_function             = "ƒ"
@@ -874,7 +884,7 @@ autocmd FileType python,yaml BracelessEnable +indent +fold +highlight
 " }}}
 
 " TypeScript {{{
-autocmd BufEnter *.tsx set filetype=typescript
+autocmd BufEnter *.tsx set filetype=typescript.tsx
 " }}}
 
 " Bash, Dockerfile {{{
@@ -924,4 +934,22 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
+
+
+" let g:ale_sign_column_always = 1
+" let g:ale_echo_msg_error_str = 'E'
+" let g:ale_echo_msg_warning_str = 'W'
+" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" let g:ale_linters = {
+"       \ 'javascript.jsx': ['prettier-standard'],
+"       \ 'python': ['flake8', 'pylint', 'pyls'],
+"       \ 'go': ['golangserver', 'golint', 'go vet']
+"       \ }
+" let g:ale_fixers = {
+"       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+"       \ 'javascript.jsx': ['prettier-standard'],
+"       \ 'python': ['autopep8', 'yapf', 'pyls'],
+"       \ 'go': ['golangserver', 'gofmt']
+"       \ }
+
 "z vim:foldmethod=marker:foldlevel=0

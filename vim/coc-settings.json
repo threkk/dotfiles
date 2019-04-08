@@ -1,4 +1,8 @@
 {
+    // geneneral
+    "coc.preferences.previewAutoClose": false,
+    "coc.preferences.formatOnSaveFiletypes": ["typescript", "python", "go", "javascript.jsx"],
+
     // coc-tsserver
     "tsserver.enableJavascript": true,
     "tsserver.npm": "/Users/threkk/.npm-packages/bin/npm",
@@ -28,11 +32,12 @@
             }
         },
         // javascript
-        "js": {
-            "command": "js-langserver",
-            "args": ["--stdio"],
-            "filetypes": ["javascript.jsx", "javascript", "jsx"]
-        },
+        // "js": {
+        //     "command": "js-langserver",
+        //     "args": ["--stdio"],
+        //     "filetypes": ["javascript.jsx", "javascript", "jsx"]
+        //     "filetypes": ["javascript.jsx"]
+        // },
         // docker-langserver
         "dockerfile": {
             "command": "docker-langserver",

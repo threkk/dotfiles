@@ -7,3 +7,4 @@ coc/db.json
 coc/memos.json
 coc/extensions/node_modules
 *.log
+coc/history.json
