@@ -276,7 +276,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Themes and colours {{{
 set t_Co=256                    " Number of colours.
 set background=dark             " Chooses the dark version of the colourscheme.
-colorscheme spacegray           " Chooses the colour scheme.
+colorscheme nord                " Chooses the colour scheme.
 
 " Tender theme
 if (has("termguicolors"))
@@ -284,9 +284,10 @@ if (has("termguicolors"))
 endif
 
 " Nord theme
-" let g:nord_italic = 1
-" let g:nord_italic_comments = 1
-" let g:nord_comment_brightness = 20
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
+let g:nord_comment_brightness = 20
+let g:nord_cursor_line_number_background = 1
 " }}}
 
 " Line wrap {{{
