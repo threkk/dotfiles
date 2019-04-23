@@ -1,23 +1,23 @@
 # dotfiles
 
 Personal configuration for several softwares. Described here to have an easy way
-to install and configure my developmed environment.
 
+to install and configure my developmed environment.
 It includes the configuration for:
 
 - Vim/NeoVim.
-- zsh (Oh-my-zshrc)
-- Git
-- TMUX
-- DevDocs
-- NPM
 - Brew
+- TMUX
+- zsh 
+- Git
+- JavaScript
 - Python
-- iTerm2
+- Golang
+- Alacritty
 - ... and other tools and scripts.
-
 ## Setup
-*Assuming that `vim`, `zsh`, `git`, `oh-my-zsh` and `brew` are installed.*   
+### Pre requisites
+> `brew` and `oh-my-zsh` must be installed beforehand.
 Clone the repository in `~/.dotfiles` and link the configuration files.
 ```
 git clone https://github.com/threkk/dotfiles.git ~/.dotfiles
@@ -29,16 +29,16 @@ It will give an error, ignore and press `ENTER`.
 ln -s ~/.dotfiles/vim ~/.config/nvim
 ln -s ~/.dotfiles/vim ~/.vim
 ln -s ~/.dotfiles/vim/init.vim ~/.vimrc
+ln -s ~/.dotfiles/coc ~/.config/coc
 mkdir -p ~/.config/vim-tmp
 vim +PlugInstall
-:PlugInstall
 ```
 
 ### Oh-my-zsh
 ```
 mv ~/.zshrc ~/.zshrc.old
-ln -s ~/.dotfiles/zshrc ~/.zshrc
 ``` 
+ln -s ~/.dotfiles/zshrc ~/.zshrc
 
 ### Git
 Maybe you need to update your `gpg` binary. 
@@ -49,15 +49,15 @@ ln -s ~/.dotfiles/gitconfig ~/.gitconfig
 
 ### TMUX
 ```
-mv ~/.tmux.conf ~/.tmux.conf.old
 ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
+mv ~/.tmux.conf ~/.tmux.conf.old
 ```
 
-### NPM
+### Prettier
 ```
-mkdir ~/.npm-packages
-ln -s ~/.dotfiles/npmrc ~/.npmrc
+ln -s ~/.dotfiles/prettierrc.json .prettierrc
 ```
+
 
 ### Tern.js
 ```
@@ -84,23 +84,18 @@ them all.
 ```
 brew tap neovim/neovim 
 brew tap beeftornado/rmtree
-brew tap karan/karan
-brew tap universal-ctags/homebrew-universal-ctags
 
 brew install node go python python2 ruby tmux ccat diff-so-fancy neovim vim \
     git hub httpie fzf the_silver_searcher dep sqlite zsh-autosuggestions \ 
-    zsh-completions zsh-syntax-highlighting
+    zsh-completions zsh-syntax-highlighting yarn pipenv
 
-brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-
-npm install -g standard csslint js-yaml n node-debug typescript vue-cli gtop \
-    surge tern neovim tldr bash-language-serve fkill-cli javascript-typescript-langserver \
-    jsonlint typescript-language-server ndb js-langserver
+yarn global add prettier sslint js-yaml typescript vue-cli gtop \
+    surge neovim tldr bash-language-server fkill-cli jsonlint 
 
 npm install -g https://github.com/ramitos/jsctags.git
 
-pip2 install neovim
-pip3 install jedi pep8 pipenv requests neovim python-language-server
+pip2 install pynvim
+pip3 install jedi flake8 requests pynvim python-language-server
 gem install neovim
 ```
 
