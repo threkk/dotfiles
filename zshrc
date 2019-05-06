@@ -5,7 +5,7 @@
 export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
+
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="gallifrey"
 
@@ -70,10 +70,13 @@ else
   export EDITOR='nvim'
 fi
 
+# Ensure correct SHELL version
+[ -z "$ZSH_VERSION" ] || export SHELL="/bin/zsh"
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
+# SSH
 export SSH_KEY_PATH="${HOME}/.ssh/id_rsa"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -126,6 +129,9 @@ export PATH=$HOME/.bin:$PATH
 # Tools
 source $HOME/.dotfiles/tools.sh
 [ ! -d "$HOME/.bin" ] && mkdir -p $HOME/.bin
+
+# Dircolors
+[ -f $HOME/.dir_colors ] && eval `dircolors $HOME/.dir_colors`
 
 # Auto completation
 command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
