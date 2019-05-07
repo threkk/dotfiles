@@ -34,10 +34,14 @@
     // coc-python
     "python.jediEnabled": true,
     "python.jediMemoryLimit": -1,
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.mypyEnabled": true,
     
     // coc-prettier
     "prettier.singleQuote": true,
     "prettier.semi": false,
+    
 
     "languageserver": {
         // go-langserver
