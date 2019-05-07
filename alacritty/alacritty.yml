@@ -17,9 +17,9 @@ window:
     x: 2
     y: 2
 
-  # Window decorations
+  # Window decoration
   # Setting this to false will result in window without borders and title bar.
-  decorations: buttonless
+  decorations: full
 
 # Display tabs using this many cells (changes require restart)
 tabspaces: 4
@@ -31,23 +31,23 @@ draw_bold_text_with_bright_colors: true
 font:
   # The normal (roman) font face to use.
   normal:
-    family: FuraCode Nerd Font
+    famaly: "FiraCode"
     style: Regular
 
   # The bold font face
   bold:
-    family: FuraCode Nerd Font
+    family: "FiraCode"
     # Style can be specified to pick a specific face.
     style: Bold
 
   # The italic font face
   italic:
-    family: FuraCode Nerd Font
+    family: "FiraCode" 
     # Style can be specified to pick a specific face.
     # style: Italic
 
   # Point size of the font
-  size: 16.0
+  size: 14.0
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
@@ -78,51 +78,32 @@ render_timer: false
 # and cursor.background colors, otherwise invert the colors of the cursor.
 # custom_cursor_colors: true
 
-# Colors (Tomorrow Night Bright)
+# Nord colour pallete - https://github.com/arcticicestudio/nord-alacritty
 colors:
-  # Colors from Clrs (https://clrs.cc/)
   primary:
-    background: '0x111111' # Black
-    foreground: '0x2ecc40' # Green
-
-    # (Optional) Bright and Dim foreground colors
-    #
-    # The dimmed foreground color is calculated automatically if it is not present.
-    # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-    # is `false`, the normal foreground color will be used.
-    #
-    # dim_foreground: '0x9a9a9a'
-    # bright_foreground: '0xffffff'
-
-  # Colors the cursor will use if `custom_cursor_colors` is true
+    background: '0x2E3440'
+    foreground: '0xD8DEE9'
   cursor:
-    text:   '0x111111' # Black
-    cursor: '0xff4136' # Red
-    style: Block
-    unfocused_hollow: true
-
-  # Normal colors
+    text: '0x2E3440'
+    cursor: '0xD8DEE9'
   normal:
-    black:   '0x111111' # Black
-    red:     '0xff4136' # Red
-    green:   '0x3d9970' # Olive
-    yellow:  '0xffdc00' # Yellow
-    blue:    '0x7fdbff' # Aqua
-    magenta: '0x85144b' # Maroon
-    cyan:    '0x0074d9' # Blue
-    white:   '0xffffff' # White
-
-  # Bright colors
+    black: '0x3B4252'
+    red: '0xBF616A'
+    green: '0xA3BE8C'
+    yellow: '0xEBCB8B'
+    blue: '0x81A1C1'
+    magenta: '0xB48EAD'
+    cyan: '0x88C0D0'
+    white: '0xE5E9F0'
   bright:
-    black:   '0xAAAAAA' # Gray
-    red:     '0xff851B' # Orange
-    green:   '0x2ecc40' # Green
-    yellow:  '0xffdc00' # Yellow
-    blue:    '0x39cccc' # Teal
-    magenta: '0xb10dc9' # Purple
-    cyan:    '0x7fdbff' # Aqua
-    white:   '0xffffff' # White
-
+    black: '0x4C566A'
+    red: '0xBF616A'
+    green: '0xA3BE8C'
+    yellow: '0xEBCB8B'
+    blue: '0x81A1C1'
+    magenta: '0xB48EAD'
+    cyan: '0x8FBCBB'
+    white: '0xECEFF4'
 # Visual Bell
 #
 # Any time the BEL code is received, Alacritty "rings" the visual bell. Once
@@ -196,7 +177,7 @@ selection:
 
 dynamic_title: true
 
-# hide_cursor_when_typing: false
+hide_cursor_when_typing: false
 
 # Style of the cursor
 #
@@ -214,9 +195,11 @@ live_config_reload: true
 
 # Shell
 shell:
-  program: /usr/local/bin/zsh
-  args:
-    - --login
+  program: "wsl.exe"
+
+# YOLO!
+enable_experimental_conpty_backend: true
+
 
 # Scrolling
 scrolling:
@@ -284,7 +267,15 @@ key_bindings:
   - { key: Copy,                    action: Copy                         }
   - { key: H,        mods: Command, action: Hide                         }
   - { key: Q,        mods: Command, action: Quit                         }
-  # - { key: W,        mods: Command, action: Quit                         }
+  - { key: V,        mods: Control|Shift, action: Paste                  }
+  - { key: C,        mods: Control|Shift, action: Copy                   }
+  - { key: Insert,   mods: Shift,         action: PasteSelection         }
+  - { key: Key0,     mods: Control,       action: ResetFontSize          }
+  - { key: Equals,   mods: Control,       action: IncreaseFontSize       }
+  - { key: Add,      mods: Control,       action: IncreaseFontSize       }
+  - { key: Subtract, mods: Control,       action: DecreaseFontSize       }
+  - { key: Minus,    mods: Control,       action: DecreaseFontSize       }
+  # - { key: W,        mods: Command, action: Quit                       }
   - { key: Home,                    chars: "\x1bOH",   mode: AppCursor   }
   - { key: Home,                    chars: "\x1b[H",   mode: ~AppCursor  }
   - { key: End,                     chars: "\x1bOF",   mode: AppCursor   }
@@ -403,6 +394,24 @@ key_bindings:
   - { key: Key0,     mods: Command, chars: "\x06\x30"                    }
   - { key: D,        mods: Command, chars: "\x06\x7c"                    }
   - { key: D,        mods: Command|Shift, chars: "\x06\x2d"              }
+  - { key: W,        mods: Control|Shift, chars: "\x06\x77"              }
+  - { key: T,        mods: Control|Shift, chars: "\x06\x74"              }
+  - { key: Up,       mods: Control|Shift, chars: "\x06\x1b\x5b\x41"      }
+  - { key: Down,     mods: Control|Shift, chars: "\x06\x1b\x5b\x42"      }
+  - { key: Right,    mods: Control|Shift, chars: "\x06\x1b\x5b\x43"      }
+  - { key: Left,     mods: Control|Shift, chars: "\x06\x1b\x5b\x44"      }
+  - { key: Key1,     mods: Control|Shift, chars: "\x06\x31"              }
+  - { key: Key2,     mods: Control|Shift, chars: "\x06\x32"              } 
+  - { key: Key3,     mods: Control|Shift, chars: "\x06\x33"              }
+  - { key: Key4,     mods: Control|Shift, chars: "\x06\x34"              }
+  - { key: Key5,     mods: Control|Shift, chars: "\x06\x35"              }
+  - { key: Key6,     mods: Control|Shift, chars: "\x06\x36"              }
+  - { key: Key7,     mods: Control|Shift, chars: "\x06\x37"              }
+  - { key: Key8,     mods: Control|Shift, chars: "\x06\x38"              }
+  - { key: Key9,     mods: Control|Shift, chars: "\x06\x39"              }
+  - { key: Key0,     mods: Control|Shift, chars: "\x06\x30"              }
+  - { key: D,        mods: Control|Shift, chars: "\x06\x7c"              }
+  - { key: D,        mods: Control|Shift|Alt, chars: "\x06\x2d"          }
   # Cmd + Up/Down is PageUp/PageDown
   - { key: Up,       mods: Command, chars: "\x1b[5~"                     }
   - { key: Down,     mods: Command, chars: "\x1b[6~"                     }
@@ -413,3 +422,5 @@ key_bindings:
   - { key: Home,     mods: Shift,   action: ScrollToTop                  }
   - { key: K,        mods: Command, action: ClearHistory                 }
   - { key: K,        mods: Command, chars: "\x0c"                        }
+  - { key: K,        mods: Control|Shift, action: ClearHistory           }
+  - { key: K,        mods: Control|Shift, chars: "\x0c"                  }
