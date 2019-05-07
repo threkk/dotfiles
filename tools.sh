@@ -145,3 +145,22 @@ if [[ $(uname) == 'Darwin' ]] && fzf --version >/dev/null 2>&1 ; then
         fi
     }
 fi
+
+# Windows specifics
+if [[ $(uname -r) =~ Microsoft$ ]]; then
+    open() {
+        for file in "$@"
+        do
+            if [ -f $file ]; then
+                cmd.exe /C "$file"
+            else
+                explorer.exe $file
+            fi
+        done
+    }
+    
+    if command -v "win32yank.exe" >/dev/null 2>&1; then 
+        alias pbcopy="win32yank.exe -i"
+        alias pbpaste="win32yank.exe -o"
+    fi
+fi
