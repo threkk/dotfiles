@@ -133,7 +133,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'arcticicestudio/nord-vim'
   Plug 'cocopon/iceberg.vim'
   Plug 'kkpmw/sacredforest-vim'
-  Plug 'ajh17/Spacegray.vim'
+  Plug 'ajh17/spacegray.vim'
   " }}}
 
   " Languages {{{
@@ -157,8 +157,8 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " Go {{{
-  Plug 'fatih/vim-go',                          {'for': 'go'}
-  Plug 'jodosha/vim-godebug',                   {'for': 'go'}
+  " Plug 'fatih/vim-go',                          {'for': 'go'}
+  " Plug 'jodosha/vim-godebug',                   {'for': 'go'}
   " }}}
 
   " Web design {{{
@@ -276,7 +276,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Themes and colours {{{
 set t_Co=256                    " Number of colours.
 set background=dark             " Chooses the dark version of the colourscheme.
-colorscheme nord                " Chooses the colour scheme.
+colorscheme iceberg                " Chooses the colour scheme.
 
 " Tender theme
 if (has("termguicolors"))
