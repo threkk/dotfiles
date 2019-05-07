@@ -4,13 +4,32 @@
     "coc.preferences.formatOnSaveFiletypes": ["typescript", "python", "go", "javascript.jsx"],
 
     // coc-tsserver
-    "tsserver.enableJavascript": true,
-    "tsserver.npm": "/Users/threkk/.npm-packages/bin/npm",
-    "tsserver.orgnizeImportOnSave": true,
-    "typescript.preferences.noSemicolons": true,
-    "typescript.preferences.quoteStyle": "single",
+    "javascript.format.insertSpaceAfterCommaDelimiter": true,
+    "javascript.format.insertSpaceAfterConstructor": true,
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+    "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+    "javascript.format.insertSpaceAfterSemicolonInForStatements": true,
+    "javascript.format.insertSpaceAfterTypeAssertion": true,
+    "javascript.format.insertSpaceBeforeAndAfterBinaryOperators": true,
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
     "javascript.preferences.noSemicolons": true,
     "javascript.preferences.quoteStyle": "single",
+    "tsserver.enableJavascript": true,
+    "tsserver.orgnizeImportOnSave": true,
+    "typescript.format.insertSpaceAfterCommaDelimiter": true,
+    "typescript.format.insertSpaceAfterConstructor": true,
+    "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+    "typescript.format.insertSpaceAfterKeywordsInControlFlowStatements": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+    "typescript.format.insertSpaceAfterSemicolonInForStatements": true,
+    "typescript.format.insertSpaceAfterTypeAssertion": true,
+    "typescript.format.insertSpaceBeforeAndAfterBinaryOperators": true,
+    "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+    "typescript.preferences.noSemicolons": true,
+    "typescript.preferences.quoteStyle": "single",
+
+
 
     // coc-python
     "python.jediEnabled": true,
