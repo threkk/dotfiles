@@ -424,3 +424,10 @@ key_bindings:
   - { key: K,        mods: Command, chars: "\x0c"                        }
   - { key: K,        mods: Control|Shift, action: ClearHistory           }
   - { key: K,        mods: Control|Shift, chars: "\x0c"                  }
+  # Quality of life
+  - { key: N,        mods: Command, action: SpawnNewInstance             }
+  - { key: N,        mods: Control|Shift, action: SpawnNewInstance             }
+  - { key: L,        mods: Control, action: ClearLogNotice               }
+  - { key: L,        mods: Control, chars: "\x0c"                        }
+  - { key: Comma,    mods: Command, command: {program: "nvim", args: ["~/.config/alacritty/alacritty.yml"]}}
+  - { key: Comma,    mods: Control|Shift, command: {program: "nvim", args: ["~/.config/alacritty/alacritty.yml"]}}

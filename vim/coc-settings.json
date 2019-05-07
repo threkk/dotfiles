@@ -1,7 +1,11 @@
 {
     // geneneral
-    "coc.preferences.previewAutoClose": false,
     "coc.preferences.formatOnSaveFiletypes": ["typescript", "python", "go", "javascript.jsx"],
+    "coc.preferences.bracketEnterImprove": false,
+    "coc.preferences.hoverTarget": "echo",
+    "coc.preferences.previewAutoClose": false,
+    "diagnostic.messageTarget": "echo",
+    "signature.target": "echo",
 
     // coc-tsserver
     "javascript.format.insertSpaceAfterCommaDelimiter": true,
