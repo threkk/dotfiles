@@ -7,7 +7,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="gallifrey"
+ZSH_THEME="norm"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -96,6 +96,7 @@ export HOMEBREW_NO_ANALYTICS=1
 export PYTHONDONTWRITEBYTECODE=1
 export XDG_CONFIG_HOME=$HOME/.config
 export GPG_TTY="$(tty)"
+export PIPENV_VENV_IN_PROJECT=1
 
 PLATFORM='unknown'
 if [[ `uname` == 'Linux' ]]; then
