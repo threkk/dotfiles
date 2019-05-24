@@ -23,6 +23,7 @@ fi
 
 
 alias vimrc="${EDITOR} ${HOME}/.vimrc"
+alias myip-local="myip -local | cut -d ' ' -f2"
 
 if command -v ccat >/dev/null 2>&1; then 
     alias cat=ccat
