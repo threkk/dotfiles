@@ -140,6 +140,7 @@ call plug#begin('~/.vim/plugged')
   " Language server {{{
   " yarn global add vim-node-rpc if Vim. 
   Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+  Plug 'sheerun/vim-polyglot'
   " Plug 'w0rp/ale'
   " }}}
 
@@ -148,12 +149,12 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " JavaScript {{{
-  Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.jsx']}
-  Plug 'HerringtonDarkholme/yats.vim',        {'for': ['typescript', 'typescript.tsx']}
-  Plug 'ianks/vim-tsx',                       {'for': 'typescript.tsx'}
-  Plug 'mxw/vim-jsx',                         {'for': 'javascript.jsx'}
-  Plug 'posva/vim-vue',                       {'for': 'javascript.vue'}
-  Plug 'elzr/vim-json'
+  " Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.jsx']}
+  " Plug 'HerringtonDarkholme/yats.vim',        {'for': ['typescript', 'typescript.tsx']}
+  " Plug 'ianks/vim-tsx',                       {'for': 'typescript.tsx'}
+  " Plug 'mxw/vim-jsx',                         {'for': 'javascript.jsx'}
+  " Plug 'posva/vim-vue',                       {'for': 'javascript.vue'}
+  " Plug 'elzr/vim-json'
   " }}}
 
   " Go {{{
@@ -163,20 +164,20 @@ call plug#begin('~/.vim/plugged')
 
   " Web design {{{
   Plug 'gorodinskiy/vim-coloresque'     " Colours preview.
-  Plug 'othree/html5.vim',              {'for': 'html'}
+  " Plug 'othree/html5.vim',              {'for': 'html'}
   " }}}
 
   " Markdown {{{
   Plug 'godlygeek/tabular'
-  Plug 'tpope/vim-markdown'
+  " Plug 'tpope/vim-markdown'
   Plug 'junegunn/goyo.vim'
-  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+  " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
   " }}}
 
   " Others {{{
   Plug 'chrisbra/csv.vim',              {'for': 'csv'}
   Plug 'lervag/vimtex',                 {'for': 'tex'}
-  Plug 'ekalinin/Dockerfile.vim',       {'for': 'Dockerfile'}
+  " Plug 'ekalinin/Dockerfile.vim',       {'for': 'Dockerfile'}
   Plug 'm-kat/aws-vim'
   " }}}
 
@@ -335,13 +336,13 @@ set directory=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for swapfiles.
 " nvim terminal {{{
 if g:is_nvim 
   autocmd BufEnter * if &buftype == "terminal" | startinsert | endif
+  autocmd BufEnter * if &buftype == "terminal" | set nonumber | endif
   tnoremap <Esc> <C-\><C-n>
   command Tsplit split term://$SHELL
   command Tvsplit vsplit term://$SHELL
   command Ttabedit tabedit term://$SHELL
   let &t_AB="\e[48;5;%dm"
   let &t_AF="\e[38;5;%dm""	
-  set nonumber
 endif
 " }}}
 
@@ -954,4 +955,4 @@ let g:lightline = {
 "       \ 'go': ['golangserver', 'gofmt']
 "       \ }
 
-"z vim:foldmethod=marker:foldlevel=0
+"vim:foldmethod=marker:foldlevel=0
