@@ -6,6 +6,8 @@ coc/extensions/db.json
 coc/history.json
 coc/lists
 coc/memos.json
+coc/go
+coc/sh
 exports.sh
 iterm/
 plugged/
