@@ -114,7 +114,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'godlygeek/tabular'                                " Aligns stuff.
   Plug 'skywind3000/asyncrun.vim'                         " Async requests.
   Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
-  Plug 'tpope/vim-sleuth'                                 " Detects the indent.
+  " Plug 'tpope/vim-sleuth'                                 " Detects the indent.
   Plug 'sjl/gundo.vim'                                    " Displays the undo tree.
   Plug 'bagrat/vim-workspace'                             " Tab appeareance
   Plug 'roxma/vim-paste-easy'                             " Fixes pasting.
@@ -133,7 +133,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'arcticicestudio/nord-vim'
   Plug 'cocopon/iceberg.vim'
   Plug 'kkpmw/sacredforest-vim'
-  Plug 'ajh17/spacegray.vim'
+  Plug 'ajh17/Spacegray.vim'
   " }}}
 
   " Languages {{{
@@ -651,32 +651,6 @@ let g:vim_markdown_json_frontmatter = 1
 let g:mkdp_auto_close = 1
 " }}}
 
-" Syntastic {{{
-" Requires validators. Read the docs.
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 1
-" let g:syntastic_error_symbol = '✘'
-" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': [] }
-" let g:syntastic_warning_symbol = "▲"
-
-" let g:syntastic_css_checkers = ['csslint']
-" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'go']
-" let g:syntastic_javascript_checkers = ['standard', 'eslint']
-" let g:syntastic_typescript_checkers = ['javascript/standard']
-" let g:syntastic_python_checkers = ['flake8', 'pep8', 'python']
-" let g:syntastic_vue_checkers = ['eslint']
-" let g:syntastic_yaml_checkers = ['jsyaml', 'yamllint']
-
-" " Finds brew's python.
-" let g:syntastic_python_python_exec = $BREW_PATH.'/bin/python3'
-
-" " Forces to use the local eslint.
-" let g:syntastic_javascript_eslint_exec = '`npm bin`/eslint'
-" let g:syntastic_javascript_standard_exec = '`npm bin`/standard'
-" let g:syntastic_vue_eslint_exec = '`npm bin`/eslint'
-
 " Rainbow parenthesis {{{
 let g:rainbow_active = 1
 
@@ -685,40 +659,13 @@ autocmd BufNewFile,BufRead :insert <C-O>:RainbowToggle<CR>i
 " }}}
 
 " vim-sleuth {{{
-autocmd BufReadPre,FileReadPre * :Sleuth
+" autocmd BufReadPre,FileReadPre * :Sleuth
 " }}}
 
 " ACK.vim {{{
 if g:has_ag
   let g:ackprg = 'ag --vimgrep'
 endif
-" }}}
-
-" Vim Airline {{{
-" let g:airline_powerline_fonts = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-" let g:airline#extensions#tabline#enabled = 1
-
-
-
-" if !exists('g:airline_symbols')
-"   let g:airline_symbols = {}
-"   let g:airline_symbols.whitespace = 'Ξ'
-" endif
-" }}}
-
-" deoplete.nvim {{{
-" let g:deoplete#enable_at_startup = 1
-" " if !exists('g:deoplete#omni#input_patterns')
-" "   let g:deoplete#omni#input_patterns = {}
-" " endif
-" " deoplete go {{{
-" " GoCode path
-" let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-" " Sorts the menu.
-" let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-" }}}
 " }}}
 
 " vim-paste-easy {{{
@@ -735,13 +682,13 @@ autocmd! User GoyoLeave Limelight!
 " }}}
 
 " vim-go {{{
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_list_type = "quickfix"
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_build_constraints = 1
+" let g:go_list_type = "quickfix"
 " }}}
 
 " jedi-vim {{{
@@ -754,16 +701,6 @@ let g:go_list_type = "quickfix"
 " vim-javascript {{{
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
-
-autocmd BufEnter *.jsx set filetype=javascript.jsx
-
-augroup javascript_folding
-    au!
-    au FileType javascript,typescript,javascript.jsx,typescript.tsx setlocal foldmethod=syntax
-    au FileType javascript,typescript,javascript.jsx,typescript.tsx set shiftwidth=2
-    au FileType javascript,typescript,javascript.jsx,typescript.tsx set softtabstop=2
-    au FileType javascript,typescript,javascript.jsx,typescript.tsx set tabstop=2
-augroup END
 
 let g:javascript_conceal_function             = "ƒ"
 let g:javascript_conceal_null                 = "ø"
@@ -787,12 +724,6 @@ let g:jsx_ext_required = 0
 
 " vim-vue {{{
 autocmd FileType vue syntax sync fromstart
-" autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-" }}}
-
-" Airline {{{
-" let g:airline_theme = 'tender'
-" let macvim_skip_colorscheme=1
 " }}}
 "}}}
 
@@ -802,35 +733,6 @@ autocmd BufWritePre *.{py,js,jsx,ts,tsx} call StripTrailingWS()
 " }}}
 
 " Language bindings {{{
-" All the languages should have the same bindings so it easy to memorise.
-" - <leader>k = Documentation.
-" - <leader>r = Rename.
-" - <leader>ga = Go to assignment.
-" - <leader>gi = Go to implementation.
-" - <leader>gu = Go to usages.
-" let g:LanguageClient_selectionUI='fzf'
-" let g:LanguageClient_serverCommands = {
-"     \ 'javascript.jsx': ['js-langserver', '--stdio'],
-"     \ 'python': ['pyls'],
-"     \ 'typescript': ['javascript-typescript-stdio'],
-"     \ 'sh': ['bash-language-server', 'start'],
-"     \ 'Dockerfile': ['docker-langserver', '--stdio'],
-"     \ 'scss': ['css-languageserver', '--stdio'],
-"     \ 'less': ['css-languageserver', '--stdio'],
-"     \ 'css': ['css-languageserver', '--stdio']
-"     \ }
-    " Let's stick to vim-go for now...
-    " \ 'golang': ['go-langserver', '-gocodecompletion'],
-
-" map  <silent> <C-Space> :call LanguageClient_contextMenu()<CR>
-" map! <silent> <C-Space> <ESC>:call LanguageClient_contextMenu()<CR>
-" nnoremap <silent> <leader>k :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<CR>
-" nnoremap <silent> <leader>ga :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <leader>gi :call LanguageClient#textDocument_typeDefinition()<CR>
-" nnoremap <silent> <leader>gu :call LanguageClient#textDocument_references()<CR>
-" nnoremap <silent> <leader>go :call LanguageClient#textDocument_documentSymbol()<CR>
-" nnoremap <silent> <leader>gl :call LanguageClient#workspace_symbol()<CR>"
 inoremap <silent><expr> <c-space> coc#refresh()
 
 " Remap keys for gotos
@@ -870,24 +772,32 @@ nmap <leader>gq  <Plug>(coc-fix-current)
 " let g:jedi#goto_assignments_command = '<leader>ga'
 " let g:jedi#goto_command = '<leader>gi'
 " let g:jedi#usages_command = '<leader>gu'
+
 " }}}
 
-autocmd FileType json syntax match Comment +\/\/.\+$+
-
-" Go bindings {{{
-autocmd FileType go map <leader>k :GoDoc<CR>
-autocmd FileType go map <leader>r :GoRename<CR>
-autocmd FileType go map <leader>ga :GoDef<CR>
-autocmd FileType go map <leader>gu :GoSameIds<CR>
-" }}}
-" }}}
 
 " Python {{{
 autocmd FileType python,yaml BracelessEnable +indent +fold +highlight
+augroup python_folding
+    au!
+    au FileType python setlocal foldmethod=syntax
+    au FileType python set shiftwidth=4
+    au FileType python set softtabstop=4
+    au FileType python set tabstop=4
+augroup END
 " }}}
 
-" TypeScript {{{
+" JavaScript/TypeScript {{{
 autocmd BufEnter *.tsx set filetype=typescript.tsx
+autocmd BufEnter *.jsx set filetype=javascript.jsx
+autocmd FileType json syntax match Comment +\/\/.\+$+
+augroup javascript_folding
+    au!
+    au FileType javascript,typescript,javascript.jsx,typescript.tsx setlocal foldmethod=syntax
+    au FileType javascript,typescript,javascript.jsx,typescript.tsx set shiftwidth=2
+    au FileType javascript,typescript,javascript.jsx,typescript.tsx set softtabstop=2
+    au FileType javascript,typescript,javascript.jsx,typescript.tsx set tabstop=2
+augroup END
 " }}}
 
 " Bash, Dockerfile {{{
@@ -895,12 +805,17 @@ autocmd FileType sh,Dockerfile set textwidth=0
 " }}}
 
 " Go {{{
-autocmd FileType go nmap <leader>gr <Plug>(go-run)
-autocmd FileType go nmap <leader>gb <Plug>(go-build)
-autocmd FileType go nmap <leader>gt <Plug>(go-test)
-autocmd FileType go nmap <leader>gc <Plug>(go-coverage)
-autocmd FileType go nmap <leader>gd <Plug>(go-doc)
-autocmd FileType go nmap <leader>gv <Plug>(go-doc-vertical)
+" autocmd FileType go nmap <leader>gr <Plug>(go-run)
+" autocmd FileType go nmap <leader>gb <Plug>(go-build)
+" autocmd FileType go nmap <leader>gt <Plug>(go-test)
+" autocmd FileType go nmap <leader>gc <Plug>(go-coverage)
+" autocmd FileType go nmap <leader>gd <Plug>(go-doc)
+" autocmd FileType go nmap <leader>gv <Plug>(go-doc-vertical)
+" Go bindings
+" autocmd FileType go map <leader>k :GoDoc<CR>
+" autocmd FileType go map <leader>r :GoRename<CR>
+" autocmd FileType go map <leader>ga :GoDef<CR>
+" autocmd FileType go map <leader>gu :GoSameIds<CR>
 " Go styleguide
 autocmd FileType go set noexpandtab
 autocmd FileType go set shiftwidth=4
@@ -937,22 +852,5 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
-
-
-" let g:ale_sign_column_always = 1
-" let g:ale_echo_msg_error_str = 'E'
-" let g:ale_echo_msg_warning_str = 'W'
-" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" let g:ale_linters = {
-"       \ 'javascript.jsx': ['prettier-standard'],
-"       \ 'python': ['flake8', 'pylint', 'pyls'],
-"       \ 'go': ['golangserver', 'golint', 'go vet']
-"       \ }
-" let g:ale_fixers = {
-"       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-"       \ 'javascript.jsx': ['prettier-standard'],
-"       \ 'python': ['autopep8', 'yapf', 'pyls'],
-"       \ 'go': ['golangserver', 'gofmt']
-"       \ }
 
 "vim:foldmethod=marker:foldlevel=0
