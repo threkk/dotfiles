@@ -1,13 +1,13 @@
 {
     // geneneral
-    "coc.preferences.formatOnSaveFiletypes": ["typescript", "python", "go", "javascript.jsx"],
+    "coc.preferences.formatOnSaveFiletypes": ["typescript", "python", "go", "javascript.jsx", "rust"],
     "coc.preferences.bracketEnterImprove": false,
     "coc.preferences.hoverTarget": "echo",
     "coc.preferences.previewAutoClose": false,
     "diagnostic.messageTarget": "echo",
     "signature.target": "echo",
     "suggest.autoTrigger": "trigger",
-    "suggest.enablePreview": true,
+    "suggest.enablePreview": false,
 
     // coc-tsserver
     "javascript.format.insertSpaceAfterCommaDelimiter": true,
@@ -48,18 +48,7 @@
     "prettier.singleQuote": true,
     "prettier.semi": false,
     
-
     "languageserver": {
-        // go-langserver
-        "golang": {
-            "command": "go-langserver",
-            "filetypes": ["go"],
-            "initializationOptions": {
-                "gocodeCompletionEnabled": true,
-                "diagnosticsEnabled": true,
-                "lintTool": "golint"
-            }
-        },
         "dockerfile": {
             "command": "docker-langserver",
             "filetypes": ["dockerfile"],
