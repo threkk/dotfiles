@@ -97,6 +97,10 @@ export PYTHONDONTWRITEBYTECODE=1
 export XDG_CONFIG_HOME=$HOME/.config
 export GPG_TTY="$(tty)"
 export PIPENV_VENV_IN_PROJECT=1
+export GO111MODULE=on
+export GOPATH=$HOME/.go
+export DISPLAY=:0
+export DOCKER_HOST="tcp://localhost:2375"
 
 PLATFORM='unknown'
 if [[ `uname` == 'Linux' ]]; then
@@ -142,4 +146,7 @@ command -v pipenv > /dev/null 2>&1 && eval "$(pipenv --completion)"
 [ -f $BREW_PATH/share/zsh-syntax-highlighting.zsh ] && source $BREW_PATH/share/zsh-syntax-highlighting.zsh
 [ -f $BREW_PATH/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $BREW_PATH/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fpath=($BREW_PATH/share/zsh-completions $fpath)
-umask 002
+
+if [ "$(umask)" = "0000" ]; then
+  umask 0022
+fi
