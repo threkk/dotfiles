@@ -935,10 +935,10 @@ coc-prettier@^1.1.1:
     vscode-languageserver-protocol "^3.15.0-next.5"
     vscode-uri "^1.0.6"
 
-coc-python@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/coc-python/-/coc-python-1.1.7.tgz#e8fb05314c9a9c332fe20d24d9902de5732f803f"
-  integrity sha512-1tzOXMJtchVjuDpFmv8AGWMu6s7weIjbIY3mH6mdCYNC/YVjIUM7ydn2Ncl8adLSW8K84irBaqHOB6WnOP92XA==
+coc-python@^1.1.10:
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/coc-python/-/coc-python-1.1.10.tgz#0cc2379d7adebc5be72e1e7c9725aba2c9e3bb1a"
+  integrity sha512-QamMncPo+JkLzhsexIemlRYRqnmRbchSnuaq93DLAgEeooKaDN75ztVpBXXaGZo1TpfCG8lV8RuXsoJvytVOVg==
   dependencies:
     arch "^2.1.1"
     azure-storage "^2.10.3"
@@ -997,10 +997,10 @@ coc-tag@^1.2.2:
   resolved "https://registry.yarnpkg.com/coc-tag/-/coc-tag-1.2.2.tgz#bd8d05cf98d18fd4a7551c26f1c2f871cea7cea0"
   integrity sha512-pYIL/go1Ad9odbZtHeQWEWKzIUjUgYGAFT5aNSKh3k2FQlkvlbaQJ/6KLOD8C10Cl+p6+3tDJNU/Br44sCSIkg==
 
-coc-tsserver@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/coc-tsserver/-/coc-tsserver-1.2.1.tgz#7dc1f777e61582e2f389cce289f986f60019012e"
-  integrity sha512-4MRaiCQJiz7/vVgLJ9BxSpwCbwCZRJmk8O3usbyfki3YXVUzh5UrO+bz3cZpZqT2e3r5WIRz6ty3l4jOestLTw==
+coc-tsserver@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/coc-tsserver/-/coc-tsserver-1.2.2.tgz#ae5b3ae15801c2e8cfc818c42b1755e37cc17fe2"
+  integrity sha512-Dh2Qs9plNEjYI1yQo1WbKHx3SX7rGPi0VUfNbmgOiOevpHRM4bFOM7OUwyv2kCSPI/tyEPsKmWdS2Jy6KEczxA==
   dependencies:
     fast-diff "^1.2.0"
     find-up "^3.0.0"
