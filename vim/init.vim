@@ -17,10 +17,8 @@ let g:has_ctags = executable('ctags')
 let g:has_fzf = executable('fzf')
 let g:has_git = executable('git')
 
-let g:brew_path = '/usr/local'
-if strlen($BREW_PATH) > 0
-  let g:brew_path = $BREW_PATH
-endif
+let g:python3_path = has('python3') ? exepath('python3') : exepath('python')
+let g:python2_path = exepath('python2')
 
 if !g:has_ack && !g:has_ag
     echom 'Neither AG or ACK are installed in the system.'
@@ -48,8 +46,6 @@ function! Cond(cond, ...)
   return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
 endfunction
 " }}}
-
-" let g:ale_completion_enabled = 1
 
 call plug#begin('~/.vim/plugged')
 
@@ -96,7 +92,7 @@ call plug#begin('~/.vim/plugged')
   " }}}
 
   " FZF {{{
-  Plug g:brew_path.'/opt/fzf'
+  Plug 'junegunn/fzf', { 'do': './install --bin' }
   Plug 'junegunn/fzf.vim', Cond(g:has_fzf)
   " }}}
 
@@ -114,7 +110,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'godlygeek/tabular'                                " Aligns stuff.
   Plug 'skywind3000/asyncrun.vim'                         " Async requests.
   Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
-  " Plug 'tpope/vim-sleuth'                                 " Detects the indent.
   Plug 'sjl/gundo.vim'                                    " Displays the undo tree.
   Plug 'bagrat/vim-workspace'                             " Tab appeareance
   Plug 'roxma/vim-paste-easy'                             " Fixes pasting.
@@ -141,20 +136,10 @@ call plug#begin('~/.vim/plugged')
   " yarn global add vim-node-rpc if Vim. 
   Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
   Plug 'sheerun/vim-polyglot'
-  " Plug 'w0rp/ale'
   " }}}
 
   " Python {{{
   Plug 'tweekmonster/braceless.vim'
-  " }}}
-
-  " JavaScript {{{
-  " Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.jsx']}
-  " Plug 'HerringtonDarkholme/yats.vim',        {'for': ['typescript', 'typescript.tsx']}
-  " Plug 'ianks/vim-tsx',                       {'for': 'typescript.tsx'}
-  " Plug 'mxw/vim-jsx',                         {'for': 'javascript.jsx'}
-  " Plug 'posva/vim-vue',                       {'for': 'javascript.vue'}
-  " Plug 'elzr/vim-json'
   " }}}
 
   " Go {{{
@@ -164,36 +149,16 @@ call plug#begin('~/.vim/plugged')
 
   " Web design {{{
   Plug 'gorodinskiy/vim-coloresque'     " Colours preview.
-  " Plug 'othree/html5.vim',              {'for': 'html'}
   " }}}
 
   " Markdown {{{
   Plug 'godlygeek/tabular'
-  " Plug 'tpope/vim-markdown'
   Plug 'junegunn/goyo.vim'
-  " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
   " }}}
 
   " Others {{{
   Plug 'chrisbra/csv.vim',              {'for': 'csv'}
-  Plug 'lervag/vimtex',                 {'for': 'tex'}
-  " Plug 'ekalinin/Dockerfile.vim',       {'for': 'Dockerfile'}
   Plug 'm-kat/aws-vim'
-  " }}}
-
-  " Disabled plugins {{{
-  " Plug 'scrooloose/syntastic'                             " Syntax checker for vim.
-  " Plug 'autozimu/LanguageClient-neovim', {
-  " \ 'branch': 'next',
-  " \ 'do': 'bash install.sh',
-  " \ }
-  " Plug 'roxma/nvim-yarp', Cond(g:is_vim)                 " Package required for vim compatibility.
-  " Plug 'roxma/vim-hug-neovim-rpc', Cond(g:is_vim)        " Package required for vim compatibility.
-  " Plug 'Shougo/deoplete.nvim'                            " Completion engine.
-  " Plug 'Shougo/neco-syntax'                              " Adds the original omnifunc.
-  " Plug 'zchee/deoplete-go',                     {'for': 'go', 'do': 'make'}, "
-  " Plug 'vim-airline/vim-airline'                          " Better statusline.
-  " Plug 'vim-airline/vim-airline-themes'                   " Themes for statusline.
   " }}}
   " }}}
 call plug#end()
@@ -219,8 +184,8 @@ set updatetime=300              " Smaller update times.
 
 " Configures Python for NVIM
 if g:is_nvim
-  let g:python_host_prog = g:brew_path.'/opt/python@2/bin/python2'
-  let g:python3_host_prog = g:brew_path.'/bin/python3'
+  let g:python_host_prog = g:python2_path
+  let g:python3_host_prog = g:python3_path 
   set clipboard+=unnamedplus
   set inccommand=nosplit
 endif
@@ -244,15 +209,8 @@ set colorcolumn=81              " Draws a vertical line at the selected column.
 " Characters to fill the statuslines and vertical separators.
 set fillchars+=stl:\ ,stlnc:\
 
-" Display the errors in the statusline.
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-"}}}
-
 " Autocomplete {{{
 " Enables autocomplete.
-" set omnifunc=syntaxcomplete#Complete
 
 " Shows the longest autcomplete.
 " http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
@@ -335,8 +293,8 @@ set directory=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for swapfiles.
 
 " nvim terminal {{{
 if g:is_nvim 
-  autocmd BufEnter * if &buftype == "terminal" | startinsert | endif
-  autocmd BufEnter * if &buftype == "terminal" | set nonumber | endif
+  autocmd TermOpen * startinsert
+  autocmd TermOpen * set nonumber
   tnoremap <Esc> <C-\><C-n>
   command Tsplit split term://$SHELL
   command Tvsplit vsplit term://$SHELL
@@ -415,15 +373,15 @@ nnoremap E $
 " U to redo. u stays for undo.
 nnoremap U <C-r>
 
-map <leader>d :call Date()<CR>
+map <leader>n :call Date()<CR>
 
 "Pane navigation {{{
 nmap <silent> <leader><Up> :wincmd k<CR>
 nmap <silent> <leader><Down> :wincmd j<CR>
 nmap <silent> <leader><Left> :wincmd h<CR>
 nmap <silent> <leader><Right> :wincmd l<CR>
-map <leader>\| :vs<CR>
-map <leader>- :split<CR>
+map <leader>d :vs<CR>
+map <leader>D :split<CR>
 " }}}
 
 " Plugins {{{
@@ -460,16 +418,6 @@ endif
 if has_ag
   map <leader>a :Ag<CR>
 endif
-
-" Go to next/previous error
-" map q :lnext<CR>
-" map Q :lprevious<CR>
-
-" In terminal mode, sets the normal mode key combination to M-ESC.
-if is_nvim
-  tnoremap <M-Esc> <C-\><C-n>
-endif
-
 " }}}
 
 " Tabs {{{
@@ -508,19 +456,19 @@ if g:is_gui
   map <D-0> :tablast<CR>
   map! <D-0> <C-O>:tablast<CR>
 else
-  " Switch to specific tab numbers with Control-number
-  map t1 :tabn 1<CR>
-  map t2 :tabn 2<CR>
-  map t3 :tabn 3<CR>
-  map t4 :tabn 4<CR>
-  map t5 :tabn 5<CR>
-  map t6 :tabn 6<CR>
-  map t7 :tabn 7<CR>
-  map t8 :tabn 8<CR>
-  map t9 :tabn 9<CR>
+  " Switch to specific tab numbers with number
+  nmap 1 :tabn 1<CR>
+  nmap 2 :tabn 2<CR>
+  nmap 3 :tabn 3<CR>
+  nmap 4 :tabn 4<CR>
+  nmap 5 :tabn 5<CR>
+  nmap 6 :tabn 6<CR>
+  nmap 7 :tabn 7<CR>
+  nmap 8 :tabn 8<CR>
+  nmap 9 :tabn 9<CR>
 
   " Control-0 goes to the last tab
-  map t0 :tablast<CR>
+  map 0 :tablast<CR>
 
   " Open and close tabs.
   map <C-T> :tabnew<CR>
@@ -588,7 +536,17 @@ endif
 
 " Plugins {{{
 " fzf {{{
-" Customize fzf colors to match your color scheme
+" Customize fzf colors to match the color scheme.
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" Adds preview to the Files and Ag commands.
+command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+
 let g:fzf_colors =
       \ { 'fg':    ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
