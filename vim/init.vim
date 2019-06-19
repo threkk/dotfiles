@@ -20,6 +20,18 @@ let g:has_git = executable('git')
 let g:python3_path = has('python3') ? exepath('python3') : exepath('python')
 let g:python2_path = exepath('python2')
 
+" let g:is_win = has('win32') || has('win64')
+" if g:is_win
+"   let g:bash_path = exepath('bash.exe')
+"   let $PATH.=";".g:bash_path
+"   let $CHERE_INVOKING=1
+"   let $TERM="cygwin"
+"   let $SHELL="bash.exe"
+"   set shellcmdflag="--login -c"
+"   set shellxquote="\""
+"   set shellslash
+" endif
+
 if !g:has_ack && !g:has_ag
     echom 'Neither AG or ACK are installed in the system.'
 endif
@@ -305,8 +317,8 @@ endif
 " }}}
 
 " Tries to set FireCode as font if it is available {{{
-silent! set macligatures
-silent! set guifont=Fura\ Code:h15
+" silent! set macligatures
+" silent! set guifont=Fura\ Code:h15
 " }}}
 " }}}
 
@@ -395,7 +407,7 @@ map <leader>b :RainbowToggle<CR>
 map <leader>f :Files<CR>
 
 " Searches a command.
-map <leader>c :Commands<CR>
+map <leader>c :<C-u>CocList commands<CR> 
 
 " Searches a line.
 map <leader>l :Lines<CR>
@@ -410,14 +422,19 @@ map <leader>gs :GFiles?<CR>
 map <leader>t :NERDTreeToggle<CR>
 
 " Opens CTags.
-if has_ctags
-  map <leader>o :TagbarToggle<CR>
-endif
+" if has_ctags
+"   map <leader>o :TagbarToggle<CR>
+" endif
+map <leader>o :<C-u>CocList outline<CR>
 
 " Opens the silver searcher.
 if has_ag
   map <leader>a :Ag<CR>
 endif
+
+" Checks the errors
+map <leader>e :<C-u>CocList diagnostics<CR>
+
 " }}}
 
 " Tabs {{{
@@ -711,7 +728,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Use K for show documentation in preview window
-nnoremap <silent> k :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Remap for rename current word
 nmap <leader>r <Plug>(coc-rename)
