@@ -20,18 +20,6 @@ let g:has_git = executable('git')
 let g:python3_path = has('python3') ? exepath('python3') : exepath('python')
 let g:python2_path = exepath('python2')
 
-" let g:is_win = has('win32') || has('win64')
-" if g:is_win
-"   let g:bash_path = exepath('bash.exe')
-"   let $PATH.=";".g:bash_path
-"   let $CHERE_INVOKING=1
-"   let $TERM="cygwin"
-"   let $SHELL="bash.exe"
-"   set shellcmdflag="--login -c"
-"   set shellxquote="\""
-"   set shellslash
-" endif
-
 if !g:has_ack && !g:has_ag
     echom 'Neither AG or ACK are installed in the system.'
 endif
@@ -356,11 +344,8 @@ endfunc
 " }}}
 
 " Mappings {{{
-" Escape
-imap § <ESC>
-
 " Leader
-let mapleader='\'
+let mapleader=';'
 
 " Turns off the search highlight.
 map <leader>/ :nohlsearch<CR>
@@ -379,8 +364,8 @@ nnoremap j gj
 nnoremap k gk
 
 " Move to beginning/end of line
-nnoremap B ^
-nnoremap E $
+nnoremap <C-a> ^
+nnoremap <C-e> $
 
 " U to redo. u stays for undo.
 nnoremap U <C-r>
@@ -392,6 +377,12 @@ nmap <silent> <leader><Up> :wincmd k<CR>
 nmap <silent> <leader><Down> :wincmd j<CR>
 nmap <silent> <leader><Left> :wincmd h<CR>
 nmap <silent> <leader><Right> :wincmd l<CR>
+
+nmap <silent> <lleader>k :wincmd k<CR>
+nmap <silent> <leader>j :wincmd j<CR>
+nmap <silent> <leader>h :wincmd h<CR>
+nmap <silent> <leader>l :wincmd l<CR>
+
 map <leader>d :vs<CR>
 map <leader>D :split<CR>
 " }}}
@@ -410,7 +401,7 @@ map <leader>f :Files<CR>
 map <leader>c :<C-u>CocList commands<CR> 
 
 " Searches a line.
-map <leader>l :Lines<CR>
+map <leader>p :Lines<CR>
 
 " Searches on Git files.
 map <leader>gl :GFiles<CR>
@@ -431,10 +422,6 @@ map <leader>o :<C-u>CocList outline<CR>
 if has_ag
   map <leader>a :Ag<CR>
 endif
-
-" Checks the errors
-map <leader>e :<C-u>CocList diagnostics<CR>
-
 " }}}
 
 " Tabs {{{
@@ -716,6 +703,9 @@ nmap <silent> <leader>gy <Plug>(coc-type-definition)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
 nmap <silent> <leader>gr <Plug>(coc-references)
 
+" Checks the errors
+map <leader>ge :<C-u>CocList diagnostics<CR>
+
 function! s:show_documentation()
   if &filetype == 'vim'
     execute 'h '.expand('<cword>')
@@ -739,17 +729,6 @@ nmap <leader>gf  <Plug>(coc-format-selected)
 " Remap for code actions
 nmap <leader>ga  <Plug>(coc-codeaction)
 nmap <leader>gq  <Plug>(coc-fix-current)
-
-
-" Python bindings {{{
-" let g:jedi#documentation_command = '<leader>k'
-" let g:jedi#rename_command = '<leader>r'
-" let g:jedi#goto_assignments_command = '<leader>ga'
-" let g:jedi#goto_command = '<leader>gi'
-" let g:jedi#usages_command = '<leader>gu'
-
-" }}}
-
 
 " Python {{{
 autocmd FileType python,yaml BracelessEnable +indent +fold +highlight
