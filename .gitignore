@@ -12,3 +12,4 @@ exports.sh
 iterm/
 plugged/
 tmux
+coc/extensions/yarn.lock
