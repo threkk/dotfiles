@@ -295,6 +295,7 @@ set directory=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for swapfiles.
 if g:is_nvim 
   autocmd TermOpen * startinsert
   autocmd TermOpen * set nonumber
+  autocmd TermClose * set number
   tnoremap <Esc> <C-\><C-n>
   command Tsplit split term://$SHELL
   command Tvsplit vsplit term://$SHELL
@@ -378,7 +379,7 @@ nmap <silent> <leader><Down> :wincmd j<CR>
 nmap <silent> <leader><Left> :wincmd h<CR>
 nmap <silent> <leader><Right> :wincmd l<CR>
 
-nmap <silent> <lleader>k :wincmd k<CR>
+nmap <silent> <leader>k :wincmd k<CR>
 nmap <silent> <leader>j :wincmd j<CR>
 nmap <silent> <leader>h :wincmd h<CR>
 nmap <silent> <leader>l :wincmd l<CR>
@@ -521,19 +522,13 @@ if g:is_gui
 " TERM {{{
 else
   " Lane swapping {{{
-  map [B :m .+1<CR>==
-  map [A :m .-2<CR>==
-  map! [B <Esc>:m .+1<CR>==gi
-  map! [A <Esc>:m .-2<CR>==gi
+  map <C-j> :m .+1<CR>==
+  map <C-k> :m .-2<CR>==
+  inoremap <C-j> <Esc>:m .+1<CR>==gi
+  inoremap <C-k> <Esc>:m .-2<CR>==gi
+  vnoremap <C-j> :m '>+1<CR>gv=gv
+  vnoremap <C-k> :m '<-2<CR>gv=gv
   " }}}
-
-  " Movement keys {{{
-  map ^[f e
-  map ^[b b
-  map! ^[f <Esc>ea
-  map! ^[b <Esc>bi
-  " }}}
-
 endif
 " }}}
 " }}}
