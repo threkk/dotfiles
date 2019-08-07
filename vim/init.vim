@@ -66,7 +66,7 @@ call plug#begin('~/.vim/plugged')
 
   " Brackets {{{
   Plug 'tpope/vim-surround'                               " Brackets operations.
-  Plug 'raimondi/delimitmate'                             " Close parenthesis.
+  " Plug 'raimondi/delimitmate'                             " Close parenthesis.
   Plug 'luochen1990/rainbow'                              " Brackets color.
   " }}}
 
@@ -404,8 +404,8 @@ map <leader>c :<C-u>CocList commands<CR>
 " Searches a line.
 map <leader>p :Lines<CR>
 
-" Searches on Git files.
-map <leader>gl :GFiles<CR>
+" Searches on the Git files.
+map <leader>g :GFiles<CR>
 
 " Searches on the Git Status.
 map <leader>gs :GFiles?<CR>
@@ -698,8 +698,11 @@ nmap <silent> <leader>gy <Plug>(coc-type-definition)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
 nmap <silent> <leader>gr <Plug>(coc-references)
 
+" List of actions.
+map <silent> <leader>gl :<C-u>CocList<CR> 
+
 " Checks the errors
-map <leader>ge :<C-u>CocList diagnostics<CR>
+map <silent> <leader>ge :<C-u>CocList diagnostics<CR>
 
 function! s:show_documentation()
   if &filetype == 'vim'
