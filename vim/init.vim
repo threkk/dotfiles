@@ -58,6 +58,8 @@ call plug#begin('~/.vim/plugged')
   " File tree menu {{{
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " File tree.
   Plug 'Xuyuanp/nerdtree-git-plugin'                      " Git support.
+  Plug 'ptzz/lf.vim'                                      " LF integration.
+  Plug 'rbgrouleff/bclose.vim', Cond(g:is_nvim)           " Shim for nvim.
   " }}}
 
   " Airline {{{
@@ -804,5 +806,16 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
+
+" NVR: Support for nvim multiprocess support.
+if has('nvim') && has('nvr')
+  let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+  autocmd FileType gitcommit set bufhidden=delete
+endif
+
+" LF Configuration.
+let g:lf_map_keys = 0               " I still like fzf.
+let g:NERDTreeHijackNetrw = 0       " NERDTree compat.
+let g:lf_replace_netrw = 1          " Open lf when vim open a directory
 
 "vim:foldmethod=marker:foldlevel=0
