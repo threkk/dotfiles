@@ -807,12 +807,6 @@ let g:lightline = {
       \ },
       \ }
 
-" NVR: Support for nvim multiprocess support.
-if has('nvim') && has('nvr')
-  let $GIT_EDITOR = 'nvr -cc split --remote-wait'
-  autocmd FileType gitcommit set bufhidden=delete
-endif
-
 " LF Configuration.
 let g:lf_map_keys = 0               " I still like fzf.
 let g:NERDTreeHijackNetrw = 0       " NERDTree compat.

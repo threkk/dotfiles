@@ -1,5 +1,5 @@
 [core]
-    editor = nvr --remote-wait-silent
+    editor = nvim
     pager = diff-so-fancy | less --tabs=1,5 -R
     eol = lf
     autocrlf = input
@@ -17,13 +17,11 @@
 [gpg]
     program = gpg
 [merge]
-    tool = nvrdiff
+    tool = vimdiff
 [mergetool]
     prompt = true
 [mergetool "vimdiff"]
     cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-[mergetool "nvrdiff"]
-    cmd = nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='
 [filter "hawser"]
     clean = git hawser clean %f
     smudge = git hawser smudge %f
