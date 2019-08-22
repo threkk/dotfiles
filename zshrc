@@ -65,9 +65,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvr'
+  export EDITOR='nvim'
 else
-  export EDITOR='nvr'
+  export EDITOR='nvim'
 fi
 
 # Ensure correct SHELL version
@@ -101,6 +101,7 @@ export GO111MODULE=on
 export GOPATH=$HOME/.go
 export DISPLAY=:0
 export DOCKER_HOST="tcp://localhost:2375"
+export NVM_DIR="$HOME/.nvm"
 
 PLATFORM='unknown'
 if [[ `uname` == 'Linux' ]]; then
@@ -130,6 +131,7 @@ export PATH=$GOPATH/bin:$PATH
 export PATH=`yarn global bin`:$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH=$HOME/.bin:$PATH
+[ -s $BREW_PATH/opt/nvm/nvm.sh ] && . $BREW_PATH/opt/nvm/nvm.sh 
 
 # Tools
 source $HOME/.dotfiles/tools.sh
@@ -141,6 +143,7 @@ source $HOME/.dotfiles/tools.sh
 # Auto completation
 command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
 command -v pipenv > /dev/null 2>&1 && eval "$(pipenv --completion)"
+[ -s $BREW_PATH/opt/nvm/etc/bash_completion ] && . $BREW_PATH/opt/nvm/etc/bash_completion  
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
 [ -f $HOME/.iterm2_shell_integration.zsh ] && source $HOME/.iterm2_shell_integration.zsh
 [ -f $BREW_PATH/share/zsh-syntax-highlighting.zsh ] && source $BREW_PATH/share/zsh-syntax-highlighting.zsh

@@ -23,6 +23,7 @@ fi
 
 
 alias vimrc="${EDITOR} ${HOME}/.vimrc"
+alias nvim='if jobs | grep -q nvim; then fg; else command nvim; fi'
 alias myip-local="myip -local | cut -d ' ' -f2"
 
 if command -v bat >/dev/null 2>&1; then
