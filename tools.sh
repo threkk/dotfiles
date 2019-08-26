@@ -23,8 +23,16 @@ fi
 
 
 alias vimrc="${EDITOR} ${HOME}/.vimrc"
-alias nvim='if jobs | grep -q nvim; then fg; else command nvim; fi'
 alias myip-local="myip -local | cut -d ' ' -f2"
+alias run="docker run -it --rm  -v `pwd`:`pwd` $1 $2"
+
+nvim() {
+    if jobs | grep -q nvim; then
+        fg; 
+    else 
+        command nvim $@
+    fi
+}
 
 if command -v bat >/dev/null 2>&1; then
     alias cat=bat
