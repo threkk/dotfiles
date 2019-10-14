@@ -8,31 +8,29 @@
     "signature.target": "echo",
     "suggest.autoTrigger": "trigger",
     "suggest.enablePreview": false,
+    "npm.binPath": "npm",
 
     // coc-tsserver
     "javascript.format.insertSpaceAfterCommaDelimiter": true,
-    "javascript.format.insertSpaceAfterConstructor": true,
+    "javascript.format.insertSpaceAfterConstructor": false,
     "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
     "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": true,
-    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
     "javascript.format.insertSpaceAfterSemicolonInForStatements": true,
     "javascript.format.insertSpaceAfterTypeAssertion": true,
     "javascript.format.insertSpaceBeforeAndAfterBinaryOperators": true,
-    "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-    "javascript.preferences.noSemicolons": true,
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
     "javascript.preferences.quoteStyle": "single",
     "tsserver.enableJavascript": true,
-    "tsserver.orgnizeImportOnSave": true,
     "typescript.format.insertSpaceAfterCommaDelimiter": true,
-    "typescript.format.insertSpaceAfterConstructor": true,
+    "typescript.format.insertSpaceAfterConstructor": false,
     "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
     "typescript.format.insertSpaceAfterKeywordsInControlFlowStatements": true,
-    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
     "typescript.format.insertSpaceAfterSemicolonInForStatements": true,
     "typescript.format.insertSpaceAfterTypeAssertion": true,
     "typescript.format.insertSpaceBeforeAndAfterBinaryOperators": true,
-    "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
-    "typescript.preferences.noSemicolons": true,
+    "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
     "typescript.preferences.quoteStyle": "single",
 
 
@@ -47,19 +45,13 @@
     // coc-prettier
     "prettier.singleQuote": true,
     "prettier.semi": false,
-    
+    "prettier.disableSuccessMessage": true,
+
     "languageserver": {
         "dockerfile": {
             "command": "docker-langserver",
             "filetypes": ["dockerfile"],
             "args": ["--stdio"]
         },
-        // bash-language-server
-        "bash": {
-            "command": "bash-language-server",
-            "args": ["start"],
-            "filetypes": ["sh"],
-            "ignoredRootPaths": ["~"]
-        }
     }
 }

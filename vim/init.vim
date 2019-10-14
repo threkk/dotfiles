@@ -791,6 +791,7 @@ let g:go_def_mapping_enabled = 0
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
 
 let g:lightline = {
       \ 'colorscheme': 'wombat',

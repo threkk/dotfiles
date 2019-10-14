@@ -101,6 +101,7 @@ export GO111MODULE=on
 export GOPATH=$HOME/.go
 export DISPLAY=:0
 export DOCKER_HOST="tcp://localhost:2375"
+export BYOBU_PREFIX=$BREW_PATH
 
 PLATFORM='unknown'
 if [[ `uname` == 'Linux' ]]; then
