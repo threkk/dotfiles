@@ -90,6 +90,7 @@ export SSH_KEY_PATH="${HOME}/.ssh/id_rsa"
 #
 
 # Extra config
+export HOME
 export LC_ALL=en_GB.UTF-8
 export LANG=en_GB.UTF-8
 export HOMEBREW_NO_ANALYTICS=1
@@ -101,7 +102,6 @@ export GO111MODULE=on
 export GOPATH=$HOME/.go
 export DISPLAY=:0
 export DOCKER_HOST="tcp://localhost:2375"
-export BYOBU_PREFIX=$BREW_PATH
 
 PLATFORM='unknown'
 if [[ `uname` == 'Linux' ]]; then
