@@ -160,6 +160,8 @@ if [[ $(uname) == 'Darwin' ]] && fzf --version >/dev/null 2>&1 ; then
     }
 fi
 
+alias run="docker run -it --rm  -v `pwd`:`pwd` $@"
+
 # Windows specifics
 if [[ $(uname -r) =~ Microsoft$ ]]; then
     open() {
