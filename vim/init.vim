@@ -131,6 +131,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'cocopon/iceberg.vim'
   Plug 'kkpmw/sacredforest-vim'
   Plug 'ajh17/Spacegray.vim'
+  Plug '~/.vim/unmanaged/night-sky-themer'
   " }}}
 
   " Languages {{{
@@ -237,7 +238,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Themes and colours {{{
 set t_Co=256                    " Number of colours.
 set background=dark             " Chooses the dark version of the colourscheme.
-colorscheme iceberg                " Chooses the colour scheme.
+colorscheme nightsky                " Chooses the colour scheme.
 
 " Tender theme
 if (has("termguicolors"))
@@ -794,7 +795,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
 
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'nightsky',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
