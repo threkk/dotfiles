@@ -19,7 +19,7 @@ window:
 
   # Window decoration
   # Setting this to false will result in window without borders and title bar.
-  decorations: full
+  decorations: buttonless
 
 # Display tabs using this many cells (changes require restart)
 tabspaces: 4
@@ -31,23 +31,23 @@ draw_bold_text_with_bright_colors: true
 font:
   # The normal (roman) font face to use.
   normal:
-    famaly: "FiraCode"
+    family: FuraCode Nerd Font
     style: Regular
 
   # The bold font face
   bold:
-    family: "FiraCode"
+    family: FuraCode Nerd Font
     # Style can be specified to pick a specific face.
     style: Bold
 
   # The italic font face
   italic:
-    family: "FiraCode" 
+    family: FuraCode Nerd Font
     # Style can be specified to pick a specific face.
-    # style: Italic
+    style: Italic
 
   # Point size of the font
-  size: 14.0
+  size: 18.0
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
@@ -195,7 +195,9 @@ live_config_reload: true
 
 # Shell
 shell:
-  program: "wsl.exe"
+  program: "/usr/local/bin/zsh"
+  args: 
+    - --login
 
 # YOLO!
 enable_experimental_conpty_backend: true
@@ -275,7 +277,7 @@ key_bindings:
   - { key: Add,      mods: Control,       action: IncreaseFontSize       }
   - { key: Subtract, mods: Control,       action: DecreaseFontSize       }
   - { key: Minus,    mods: Control,       action: DecreaseFontSize       }
-  # - { key: W,        mods: Command, action: Quit                       }
+  - { key: W,        mods: Command, action: Quit                       }
   - { key: Home,                    chars: "\x1bOH",   mode: AppCursor   }
   - { key: Home,                    chars: "\x1b[H",   mode: ~AppCursor  }
   - { key: End,                     chars: "\x1bOF",   mode: AppCursor   }
@@ -426,8 +428,7 @@ key_bindings:
   - { key: K,        mods: Control|Shift, chars: "\x0c"                  }
   # Quality of life
   - { key: N,        mods: Command, action: SpawnNewInstance             }
-  - { key: N,        mods: Control|Shift, action: SpawnNewInstance             }
-  - { key: L,        mods: Control, action: ClearLogNotice               }
   - { key: L,        mods: Control, chars: "\x0c"                        }
+  - { key: L,        mods: Command, action: ClearLogNotice               }
   - { key: Comma,    mods: Command, command: {program: "nvim", args: ["~/.config/alacritty/alacritty.yml"]}}
   - { key: Comma,    mods: Control|Shift, command: {program: "nvim", args: ["~/.config/alacritty/alacritty.yml"]}}
