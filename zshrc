@@ -90,6 +90,7 @@ export SSH_KEY_PATH="${HOME}/.ssh/id_rsa"
 #
 
 # Extra config
+export HOME
 export LC_ALL=en_GB.UTF-8
 export LANG=en_GB.UTF-8
 export HOMEBREW_NO_ANALYTICS=1
