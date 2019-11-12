@@ -17,8 +17,7 @@ let g:has_ctags = executable('ctags')
 let g:has_fzf = executable('fzf')
 let g:has_git = executable('git')
 
-let g:python3_path = has('python3') ? exepath('python3') : exepath('python')
-let g:python2_path = exepath('python2')
+let g:python_path = has('python3') ? exepath('python3') : exepath('python')
 
 if !g:has_ack && !g:has_ag
     echom 'Neither AG or ACK are installed in the system.'
@@ -47,7 +46,13 @@ function! Cond(cond, ...)
 endfunction
 " }}}
 
-call plug#begin('~/.vim/plugged')
+if g:is_vim
+    let $BASE = '~/.vim'
+else
+    let $BASE = stdpath('config')
+endif
+
+call plug#begin($BASE.'/plugged')
 
   " Basic configuration for client specifics {{{
   Plug 'tpope/vim-sensible', Cond(g:is_vim)               " Basic conf.
@@ -131,7 +136,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'cocopon/iceberg.vim'
   Plug 'kkpmw/sacredforest-vim'
   Plug 'ajh17/Spacegray.vim'
-  Plug '~/.vim/unmanaged/night-sky-themer'
+  Plug $BASE.'/unmanaged/night-sky-themer'
   " }}}
 
   " Languages {{{
@@ -187,8 +192,8 @@ set updatetime=300              " Smaller update times.
 
 " Configures Python for NVIM
 if g:is_nvim
-  let g:python_host_prog = g:python2_path
-  let g:python3_host_prog = g:python3_path 
+  let g:loaded_python2_provider = 0
+  let g:python3_host_prog = g:python_path 
   set clipboard+=unnamedplus
   set inccommand=nosplit
 endif
@@ -795,7 +800,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
 
 let g:lightline = {
-      \ 'colorscheme': 'nightsky',
+      \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
