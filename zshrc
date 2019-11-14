@@ -129,7 +129,8 @@ export PATH=$BREW_PATH/opt/python@2/bin:$PATH
 export PATH=$BREW_PATH/opt/python/libexec/bin:$PATH
 export PATH=$GOPATH/bin:$PATH
 export PATH=`npm bin --global`:$PATH
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.bin:$PATH
 
 # Tools
@@ -147,6 +148,10 @@ command -v pipenv > /dev/null 2>&1 && eval "$(pipenv --completion)"
 [ -f $BREW_PATH/share/zsh-syntax-highlighting.zsh ] && source $BREW_PATH/share/zsh-syntax-highlighting.zsh
 [ -f $BREW_PATH/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $BREW_PATH/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fpath=($BREW_PATH/share/zsh-completions $fpath)
+
+autoload -U bashcompinit
+bashcompinit
+eval "$(register-python-argcomplete pipx)"
 
 if [ "$(umask)" = "0000" ]; then
   umask 0022
