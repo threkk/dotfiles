@@ -3,7 +3,6 @@
 " Requirements:
 " - FZF
 " - Ack/AG
-" - CTags & jsctags.
 " - Git
 
 " Global variables {{{
@@ -13,7 +12,6 @@ let g:is_gui = has('gui_macvim') || has('gui_vimr')
 
 let g:has_ack = executable('ack')
 let g:has_ag = executable('ag')
-let g:has_ctags = executable('ctags')
 let g:has_fzf = executable('fzf')
 let g:has_git = executable('git')
 
@@ -29,10 +27,6 @@ endif
 
 if !g:has_git
     echom 'Git is not installed in the system.'
-endif
-
-if !g:has_ctags
-    echom 'CTags is not installed in the system.'
 endif
 " }}}
 
@@ -91,7 +85,7 @@ call plug#begin($BASE.'/plugged')
   " }}}
 
   " Outline {{{
-  Plug 'majutsushi/tagbar', Cond(g:has_ctags)             " Outline tags.
+  " Plug 'majutsushi/tagbar', Cond(g:has_ctags)             " Outline tags.
   " }}}
 
   " Commentaries {{{

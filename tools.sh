@@ -22,7 +22,7 @@ else
 fi
 
 
-alias vimrc="${EDITOR} ${HOME}/.vimrc"
+alias vimrc="${EDITOR} ${HOME}/.config/nvim/init.vim"
 alias myip-local="myip -local | cut -d ' ' -f2"
 alias run="docker run -it --rm  -v `pwd`:`pwd` $1 $2"
 
