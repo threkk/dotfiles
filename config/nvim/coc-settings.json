@@ -5,6 +5,7 @@
     "coc.preferences.hoverTarget": "echo",
     "coc.preferences.previewAutoClose": false,
     "diagnostic.messageTarget": "echo",
+    "diagnostic.checkCurrentLine": true,
     "signature.target": "echo",
     "suggest.autoTrigger": "trigger",
     "suggest.enablePreview": false,
