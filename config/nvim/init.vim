@@ -747,10 +747,10 @@ autocmd BufEnter *.jsx set filetype=javascript.jsx
 autocmd FileType json syntax match Comment +\/\/.\+$+
 augroup javascript_folding
     au!
-    au FileType javascript,typescript,javascript.jsx,typescript.tsx setlocal foldmethod=syntax
-    au FileType javascript,typescript,javascript.jsx,typescript.tsx set shiftwidth=2
-    au FileType javascript,typescript,javascript.jsx,typescript.tsx set softtabstop=2
-    au FileType javascript,typescript,javascript.jsx,typescript.tsx set tabstop=2
+    au FileType javascript,typescript,javascript.jsx,typescript.tsx,json setlocal foldmethod=syntax
+    au FileType javascript,typescript,javascript.jsx,typescript.tsx,json set shiftwidth=2
+    au FileType javascript,typescript,javascript.jsx,typescript.tsx,json set softtabstop=2
+    au FileType javascript,typescript,javascript.jsx,typescript.tsx,json set tabstop=2
 augroup END
 " }}}
 
