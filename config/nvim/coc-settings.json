@@ -1,15 +1,24 @@
 {
     // geneneral
-    "coc.preferences.formatOnSaveFiletypes": ["typescript", "python", "go", "javascript.jsx", "rust"],
     "coc.preferences.bracketEnterImprove": false,
-    "coc.preferences.hoverTarget": "echo",
+    "coc.preferences.hoverTarget": "float",
     "coc.preferences.previewAutoClose": false,
     "diagnostic.messageTarget": "echo",
     "diagnostic.checkCurrentLine": true,
-    "signature.target": "echo",
+    "signature.target": "float",
     "suggest.autoTrigger": "trigger",
     "suggest.enablePreview": false,
     "npm.binPath": "npm",
+    "coc.preferences.formatOnSaveFiletypes": [
+      "go", 
+      "javascript",
+      "javascript.jsx", 
+      "json", 
+      "markdown",
+      "python", 
+      "typescript", 
+      "typescript.tsx"
+    ],
 
     // coc-tsserver
     "javascript.format.insertSpaceAfterCommaDelimiter": true,
@@ -41,12 +50,18 @@
     "python.jediMemoryLimit": -1,
     "python.linting.flake8Enabled": true,
     "python.linting.pylintEnabled": false,
-    "python.linting.mypyEnabled": true,
+    "python.linting.mypyEnabled": false,
+
+    // coc-pyright
+    "pyright.openFilesOnly": true,
     
     // coc-prettier
     "prettier.singleQuote": true,
     "prettier.semi": false,
-    "prettier.disableSuccessMessage": true,
+    "prettier.disableSuccessMessage": false,
+    "prettier.printWidth": 80,
+    "prettier.useTabs": false,
+    "prettier.proseWrap": "preserve",
 
     "languageserver": {
         "dockerfile": {
