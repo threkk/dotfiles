@@ -57,8 +57,6 @@ call plug#begin($BASE.'/plugged')
   " File tree menu {{{
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " File tree.
   Plug 'Xuyuanp/nerdtree-git-plugin'                      " Git support.
-  Plug 'ptzz/lf.vim'                                      " LF integration.
-  Plug 'rbgrouleff/bclose.vim', Cond(g:is_nvim)           " Shim for nvim.
   " }}}
 
   " Airline {{{
@@ -67,7 +65,6 @@ call plug#begin($BASE.'/plugged')
 
   " Brackets {{{
   Plug 'tpope/vim-surround'                               " Brackets operations.
-  " Plug 'raimondi/delimitmate'                             " Close parenthesis.
   Plug 'luochen1990/rainbow'                              " Brackets color.
   " }}}
 
@@ -77,11 +74,11 @@ call plug#begin($BASE.'/plugged')
   " }}}
 
   " TMUX {{{
-  Plug 'benmills/vimux'
+  " Plug 'benmills/vimux'
   " }}}
 
   " SLIME {{{
-  Plug 'jpalardy/vim-slime'
+  " Plug 'jpalardy/vim-slime'
   " }}}
 
   " Outline {{{
