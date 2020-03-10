@@ -112,6 +112,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'bagrat/vim-workspace'                             " Tab appeareance
   Plug 'roxma/vim-paste-easy'                             " Fixes pasting.
   Plug 'ryanoasis/vim-devicons'                           " Dev icons.
+  Plug 'tpope/vim-sleuth'                                 " Set tabs and spaces.
   " }}}
 
   " Themes {{{
@@ -134,6 +135,7 @@ call plug#begin($BASE.'/plugged')
   " Language server {{{
   " yarn global add vim-node-rpc if Vim. 
   Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+  Plug 'antoinemadec/coc-fzf'
   Plug 'sheerun/vim-polyglot'
   " }}}
 
@@ -216,16 +218,16 @@ set fillchars+=stl:\ ,stlnc:\
 set completeopt=longest,menuone
 
 " Makes ENTER select the pop up menu.
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Selects the first options by default.
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+inoremap <silent> <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+inoremap <silent> <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " Enables tab for selecting the options.
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<cr>"
+inoremap <silent> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>" 
+inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<cr>"
 
 " Closes the menu once an option has been selected.
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -300,7 +302,7 @@ if g:is_nvim
   command Tvsplit vsplit term://$SHELL
   command Ttabedit tabedit term://$SHELL
   let &t_AB="\e[48;5;%dm"
-  let &t_AF="\e[38;5;%dm""	
+  let &t_AF="\e[38;5;%dm"
 endif
 " }}}
 
@@ -398,7 +400,7 @@ map <leader>b :RainbowToggle<CR>
 map <leader>f :Files<CR>
 
 " Searches a command.
-map <leader>c :<C-u>CocList commands<CR> 
+map <leader>c :<C-u>CocFzfList commands<CR> 
 
 " Searches a line.
 map <leader>p :Lines<CR>
@@ -416,7 +418,7 @@ map <leader>t :NERDTreeToggle<CR>
 " if has_ctags
 "   map <leader>o :TagbarToggle<CR>
 " endif
-map <leader>o :<C-u>CocList outline<CR>
+map <leader>o :<C-u>CocFzfList outline<CR>
 
 " Opens the silver searcher.
 if has_ag
@@ -434,102 +436,35 @@ map <C-S-Tab> :tabprev<CR>
 map! <C-Tab> <C-O>:tabnext<CR>
 map! <C-S-Tab> <C-O>:tabprev<CR>
 
-if g:is_gui
-  " Switch to specific tab numbers with Command-number
-  map <D-1> :tabn 1<CR>
-  map <D-2> :tabn 2<CR>
-  map <D-3> :tabn 3<CR>
-  map <D-4> :tabn 4<CR>
-  map <D-5> :tabn 5<CR>
-  map <D-6> :tabn 6<CR>
-  map <D-7> :tabn 7<CR>
-  map <D-8> :tabn 8<CR>
-  map <D-9> :tabn 9<CR>
+" Switch to specific tab numbers with number
+nmap 1 :tabn 1<CR>
+nmap 2 :tabn 2<CR>
+nmap 3 :tabn 3<CR>
+nmap 4 :tabn 4<CR>
+nmap 5 :tabn 5<CR>
+nmap 6 :tabn 6<CR>
+nmap 7 :tabn 7<CR>
+nmap 8 :tabn 8<CR>
+nmap 9 :tabn 9<CR>
 
-  map! <D-1> <C-O>:tabn 1<CR>
-  map! <D-2> <C-O>:tabn 2<CR>
-  map! <D-3> <C-O>:tabn 3<CR>
-  map! <D-4> <C-O>:tabn 4<CR>
-  map! <D-5> <C-O>:tabn 5<CR>
-  map! <D-6> <C-O>:tabn 6<CR>
-  map! <D-7> <C-O>:tabn 7<CR>
-  map! <D-8> <C-O>:tabn 8<CR>
-  map! <D-9> <C-O>:tabn 9<CR>
+" Control-0 goes to the last tab
+map 0 :tablast<CR>
 
-  " Command-0 goes to the last tab
-  map <D-0> :tablast<CR>
-  map! <D-0> <C-O>:tablast<CR>
-else
-  " Switch to specific tab numbers with number
-  nmap 1 :tabn 1<CR>
-  nmap 2 :tabn 2<CR>
-  nmap 3 :tabn 3<CR>
-  nmap 4 :tabn 4<CR>
-  nmap 5 :tabn 5<CR>
-  nmap 6 :tabn 6<CR>
-  nmap 7 :tabn 7<CR>
-  nmap 8 :tabn 8<CR>
-  nmap 9 :tabn 9<CR>
+" Open and close tabs.
+map <C-T> :tabnew<CR>
+map! <C-T> <C-O>:tabnew<CR>
 
-  " Control-0 goes to the last tab
-  map 0 :tablast<CR>
-
-  " Open and close tabs.
-  map <C-T> :tabnew<CR>
-  map! <C-T> <C-O>:tabnew<CR>
-
-  map <C-W> :tabc<CR>
-  map! <C-W> <C-O>:tabc<CR>
-endif
+map <C-W> :tabc<CR>
+map! <C-W> <C-O>:tabc<CR>
 "}}}
 
-" GUI/TERM especific configuration {{{
-" GUI {{{
-if g:is_gui
-  " Disables the scrollbars {{{
-  set guioptions-=r
-  set guioptions-=L
-  set guioptions-=T
-  set guioptions-=m
-  " }}}
-
-  " Movement keys {{{
-  let macvim_skip_cmd_opt_movement = 1
-  no   <D-Left>       <Home>
-  no!  <D-Left>       <Home>
-  no   <D-Right>      <End>
-  no!  <D-Right>      <End>
-  no   <M-Left>       <C-Left>
-  no!  <M-Left>       <C-Left>
-  no   <M-Right>      <C-Right>
-  no!  <M-Right>      <C-Right>
-  ino  <M-BS>         <C-w>
-  ino  <D-BS>         <C-u>
-  no   <D-Up>         <C-Home>
-  ino  <D-Up>         <C-Home>
-  no   <D-Down>       <C-End>
-  ino  <D-Down>       <C-End>
-  " }}}
-
-  " Lane swapping {{{
-  map <M-Down> :m .+1<CR>==
-  map <M-Up> :m .-2<CR>==
-  map! <M-Down> <Esc>:m .+1<CR>==gi
-  map! <M-Up> <Esc>:m .-2<CR>==gi
-  " }}}
-" }}}
-" TERM {{{
-else
-  " Lane swapping {{{
-  map <C-j> :m .+1<CR>==
-  map <C-k> :m .-2<CR>==
-  inoremap <C-j> <Esc>:m .+1<CR>==gi
-  inoremap <C-k> <Esc>:m .-2<CR>==gi
-  vnoremap <C-j> :m '>+1<CR>gv=gv
-  vnoremap <C-k> :m '<-2<CR>gv=gv
-  " }}}
-endif
-" }}}
+" Lane swapping {{{
+map <C-j> :m .+1<CR>==
+map <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
 " }}}
 
 " Plugins {{{
@@ -563,9 +498,9 @@ let g:fzf_colors =
 
 " Vimux {{{
 " Prompt for a command to run
-map <Leader>vs :VimuxPromptCommand<CR>
+" map <Leader>vs :VimuxPromptCommand<CR>
 " Zoom the tmux runner pane
-map <Leader>vz :VimuxZoomRunner<CR>
+" map <Leader>vz :VimuxZoomRunner<CR>
 " }}}
 
 " SLIME {{{
@@ -615,7 +550,7 @@ autocmd BufNewFile,BufRead :insert <C-O>:RainbowToggle<CR>i
 " }}}
 
 " vim-sleuth {{{
-" autocmd BufReadPre,FileReadPre * :Sleuth
+autocmd BufReadPre,FileReadPre * :Sleuth
 " }}}
 
 " ACK.vim {{{
@@ -685,11 +620,11 @@ autocmd FileType vue syntax sync fromstart
 
 " Configuration per filetype {{{
 " Cleans trailing whitespaces in python and javascript files before saving {{{
-autocmd BufWritePre *.{py,js,jsx,ts,tsx} call StripTrailingWS()
+autocmd BufWritePre *.{py,js,jsx,ts,tsx,go} call StripTrailingWS()
 " }}}
 
 " Language bindings {{{
-inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent> <expr> <c-space> coc#refresh()
 
 " Remap keys for gotos
 nmap <silent> <leader>gd <Plug>(coc-definition)
@@ -698,10 +633,13 @@ nmap <silent> <leader>gi <Plug>(coc-implementation)
 nmap <silent> <leader>gr <Plug>(coc-references)
 
 " List of actions.
-map <silent> <leader>gl :<C-u>CocList<CR> 
+map <silent> <leader>gl :<C-u>CocFzfList<CR> 
 
 " Checks the errors
-map <silent> <leader>ge :<C-u>CocList diagnostics<CR>
+map <silent> <leader>ge :<C-u>CocFzfList diagnostics<CR>
+
+" List available commands
+map <silent> <leader>gc :<C-u>CocFzfList commands<CR>
 
 function! s:show_documentation()
   if &filetype == 'vim'
@@ -711,6 +649,11 @@ function! s:show_documentation()
   endif
 endfunction
 
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Organise :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -719,16 +662,21 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Remap for rename current word
 nmap <leader>r <Plug>(coc-rename)
+
 " Remap for format selected region
-vmap <leader>gf  <Plug>(coc-format-selected)
+xmap <leader>gf  <Plug>(coc-format-selected)
 nmap <leader>gf  <Plug>(coc-format-selected)
 
 " Remap for code actions
 nmap <leader>ga  <Plug>(coc-codeaction)
+xmap <leader>gA  <Plug>(coc-codeaction-selected)
+nmap <leader>gA  <Plug>(coc-codeaction-selected)
+
 nmap <leader>gq  <Plug>(coc-fix-current)
 
 " Python {{{
 autocmd FileType python,yaml BracelessEnable +indent +fold +highlight
+
 augroup python_folding
     au!
     au FileType python setlocal foldmethod=syntax
@@ -742,7 +690,8 @@ augroup END
 autocmd BufEnter *.tsx set filetype=typescript.tsx
 autocmd BufEnter *.jsx set filetype=javascript.jsx
 autocmd FileType json syntax match Comment +\/\/.\+$+
-augroup javascript_folding
+
+augroup js_folding
     au!
     au FileType javascript,typescript,javascript.jsx,typescript.tsx,json setlocal foldmethod=syntax
     au FileType javascript,typescript,javascript.jsx,typescript.tsx,json set shiftwidth=2
@@ -756,22 +705,17 @@ autocmd FileType sh,Dockerfile set textwidth=0
 " }}}
 
 " Go {{{
-" autocmd FileType go nmap <leader>gr <Plug>(go-run)
-" autocmd FileType go nmap <leader>gb <Plug>(go-build)
-" autocmd FileType go nmap <leader>gt <Plug>(go-test)
-" autocmd FileType go nmap <leader>gc <Plug>(go-coverage)
-" autocmd FileType go nmap <leader>gd <Plug>(go-doc)
-" autocmd FileType go nmap <leader>gv <Plug>(go-doc-vertical)
-" Go bindings
-" autocmd FileType go map <leader>k :GoDoc<CR>
-" autocmd FileType go map <leader>r :GoRename<CR>
-" autocmd FileType go map <leader>ga :GoDef<CR>
-" autocmd FileType go map <leader>gu :GoSameIds<CR>
-" Go styleguide
-autocmd FileType go set noexpandtab
-autocmd FileType go set shiftwidth=4
-autocmd FileType go set softtabstop=4
-autocmd FileType go set tabstop=4
+
+autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
+augroup go_folding
+    au!
+    " Go styleguide
+    autocmd FileType go set noexpandtab
+    autocmd FileType go set shiftwidth=4
+    autocmd FileType go set softtabstop=4
+    autocmd FileType go set tabstop=4
+augroup END
+
 " Extra higlights.
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
@@ -781,14 +725,11 @@ let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
+
 " Disable go-def
 let g:go_def_mapping_enabled = 0
 " }}}
 " }}}
-
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-autocmd CursorHold * silent call CocActionAsync('highlight')
-autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
 
 let g:lightline = {
       \ 'colorscheme': 'wombat',
@@ -804,10 +745,5 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
-
-" LF Configuration.
-let g:lf_map_keys = 0               " I still like fzf.
-let g:NERDTreeHijackNetrw = 0       " NERDTree compat.
-let g:lf_replace_netrw = 1          " Open lf when vim open a directory
 
 "vim:foldmethod=marker:foldlevel=0
