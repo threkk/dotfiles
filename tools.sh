@@ -154,6 +154,8 @@ fi
 
 alias run="docker run -it --rm  -v `pwd`:`pwd` $@"
 
+alias tmux="tmux new-session -ADs main"
+
 # Windows specifics
 if [[ $(uname -r) =~ Microsoft$ ]]; then
     open() {
