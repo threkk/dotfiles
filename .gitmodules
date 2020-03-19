@@ -1,3 +1,6 @@
 [submodule "tmux.d/tmux-yank"]
 	path = tmux.d/tmux-yank
 	url = git@github.com:tmux-plugins/tmux-yank.git
+[submodule "zsh_custom/themes/powerlevel10k"]
+	path = zsh_custom/themes/powerlevel10k
+	url = git@github.com:romkatv/powerlevel10k.git
