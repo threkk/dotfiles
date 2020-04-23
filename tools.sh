@@ -153,7 +153,6 @@ if [[ $(uname) == 'Darwin' ]] && fzf --version >/dev/null 2>&1 ; then
 fi
 
 alias run="docker run -it --rm  -v `pwd`:`pwd` $@"
-
 alias tmux="tmux new-session -ADs main"
 
 # Windows specifics

@@ -47,3 +47,7 @@
     whitespace = red reverse
 [alias]
     graph = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    sb = "!git switch `git branch | fzf`"
+[http]
+	sslVerify = true
+	sslCAInfo = /etc/ssl/certs/ca-certificates.crt

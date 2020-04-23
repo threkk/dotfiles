@@ -1,33 +1,13 @@
 " .vimrc - Alberto Martinez de Murga <alberto@threkk.com>
-"
-" Requirements:
-" - FZF
-" - Ack/AG
-" - Git
 
 " Global variables {{{
 let g:is_nvim = has('nvim')
 let g:is_vim = !has('nvim')
-let g:is_gui = has('gui_macvim') || has('gui_vimr')
 
-let g:has_ack = executable('ack')
-let g:has_ag = executable('ag')
-let g:has_fzf = executable('fzf')
+let g:has_ack = executable('ack') || executable('ag')
 let g:has_git = executable('git')
 
 let g:python_path = has('python3') ? exepath('python3') : exepath('python')
-
-if !g:has_ack && !g:has_ag
-    echom 'Neither AG or ACK are installed in the system.'
-endif
-
-if !g:has_fzf
-    echom 'FZF is not installed in the system.'
-endif
-
-if !g:has_git
-    echom 'Git is not installed in the system.'
-endif
 " }}}
 
 " Plugin installation {{{:
@@ -50,7 +30,7 @@ call plug#begin($BASE.'/plugged')
 
   " Basic configuration for client specifics {{{
   Plug 'tpope/vim-sensible', Cond(g:is_vim)               " Basic conf.
-  Plug 'wincent/terminus',   Cond(!g:is_gui)              " Improves term sup.
+  Plug 'wincent/terminus'                                 " Improves term sup.
   Plug 'equalsraf/neovim-gui-shim', Cond(g:is_nvim)       " Shims for UI config.
   " }}}
 
@@ -59,13 +39,15 @@ call plug#begin($BASE.'/plugged')
   Plug 'Xuyuanp/nerdtree-git-plugin'                      " Git support.
   " }}}
 
-  " Airline {{{
-  Plug 'itchyny/lightline.vim'                              " Better statusline.
+  " Lightline {{{
+  Plug 'itchyny/lightline.vim'                            " Better statusline.
+  " Plug 'maximbaz/lightline-ale'                           " ALE integration
   " }}}
 
   " Brackets {{{
   Plug 'tpope/vim-surround'                               " Brackets operations.
   Plug 'luochen1990/rainbow'                              " Brackets color.
+  Plug 'cohama/lexima.vim'                                " Moving around.
   " }}}
 
   " Git {{{
@@ -73,30 +55,14 @@ call plug#begin($BASE.'/plugged')
   Plug 'airblade/vim-gitgutter', Cond(g:has_git)          " Git Diff.
   " }}}
 
-  " TMUX {{{
-  " Plug 'benmills/vimux'
-  " }}}
-
-  " SLIME {{{
-  " Plug 'jpalardy/vim-slime'
-  " }}}
-
-  " Outline {{{
-  " Plug 'majutsushi/tagbar', Cond(g:has_ctags)             " Outline tags.
-  " }}}
-
-  " Commentaries {{{
+  " Comments {{{
   Plug 'tpope/vim-commentary'
   " }}}
 
-  " FZF {{{
+  " Search {{{
   Plug 'junegunn/fzf', { 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim', Cond(g:has_fzf)
-  " }}}
-
-  " ACK {{{
-  let no_ack = g:has_ack || g:has_ag
-  Plug 'mileszs/ack.vim', Cond(no_ack)                    " ACK.
+  Plug 'junegunn/fzf.vim'
+  Plug 'mileszs/ack.vim', Cond(g:has_ack)                    " ACK.
   " }}}
 
   " Text edition {{{
@@ -106,13 +72,25 @@ call plug#begin($BASE.'/plugged')
 
   " Other {{{
   Plug 'godlygeek/tabular'                                " Aligns stuff.
-  Plug 'skywind3000/asyncrun.vim'                         " Async requests.
   Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
   Plug 'sjl/gundo.vim'                                    " Displays the undo tree.
   Plug 'bagrat/vim-workspace'                             " Tab appeareance
   Plug 'roxma/vim-paste-easy'                             " Fixes pasting.
   Plug 'ryanoasis/vim-devicons'                           " Dev icons.
   Plug 'tpope/vim-sleuth'                                 " Set tabs and spaces.
+  Plug 'gorodinskiy/vim-coloresque'                       " Colours preview.
+  " }}}
+
+  " Languages {{{
+  Plug 'sheerun/vim-polyglot'                           " Syntax colouring
+  Plug 'tweekmonster/braceless.vim'                     " Indicates the block line.
+  Plug 'prabirshrestha/asyncomplete.vim'                " Autocomplete engine.
+  Plug 'prabirshrestha/async.vim'                       " Shim for the LSP.
+  Plug 'prabirshrestha/vim-lsp'                         " LSP.
+  Plug 'prabirshrestha/asyncomplete-lsp.vim'            " LSP integration.
+  Plug 'mattn/vim-lsp-settings'                         " LSP configuration.
+  Plug 'prabirshrestha/asyncomplete-file.vim'           " File completion
+  Plug 'prettier/vim-prettier', { 'do': 'npm install' } " Prettier plugin.
   " }}}
 
   " Themes {{{
@@ -131,37 +109,6 @@ call plug#begin($BASE.'/plugged')
   Plug $BASE.'/unmanaged/night-sky-themer'
   " }}}
 
-  " Languages {{{
-  " Language server {{{
-  " yarn global add vim-node-rpc if Vim. 
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-  Plug 'antoinemadec/coc-fzf'
-  Plug 'sheerun/vim-polyglot'
-  " }}}
-
-  " Python {{{
-  Plug 'tweekmonster/braceless.vim'
-  " }}}
-
-  " Go {{{
-  " Plug 'fatih/vim-go',                          {'for': 'go'}
-  " Plug 'jodosha/vim-godebug',                   {'for': 'go'}
-  " }}}
-
-  " Web design {{{
-  Plug 'gorodinskiy/vim-coloresque'     " Colours preview.
-  " }}}
-
-  " Markdown {{{
-  Plug 'godlygeek/tabular'
-  Plug 'junegunn/goyo.vim'
-  " }}}
-
-  " Others {{{
-  Plug 'chrisbra/csv.vim',              {'for': 'csv'}
-  Plug 'm-kat/aws-vim'
-  " }}}
-  " }}}
 call plug#end()
 " }}}
 
@@ -186,7 +133,7 @@ set updatetime=300              " Smaller update times.
 " Configures Python for NVIM
 if g:is_nvim
   let g:loaded_python2_provider = 0
-  let g:python3_host_prog = g:python_path 
+  let g:python3_host_prog = g:python_path
   set clipboard+=unnamedplus
   set inccommand=nosplit
 endif
@@ -206,49 +153,6 @@ set signcolumn=yes              " Always show signcolumns.
 set columns=80                  " Maximum amount of columns to display.
 set textwidth=80                " Maximum line width.
 set colorcolumn=81              " Draws a vertical line at the selected column.
-
-" Characters to fill the statuslines and vertical separators.
-set fillchars+=stl:\ ,stlnc:\
-
-" Autocomplete {{{
-" Enables autocomplete.
-
-" Shows the longest autcomplete.
-" http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
-set completeopt=longest,menuone
-
-" Makes ENTER select the pop up menu.
-inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Selects the first options by default.
-inoremap <silent> <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <silent> <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-" Enables tab for selecting the options.
-inoremap <silent> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>" 
-inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<cr>"
-
-" Closes the menu once an option has been selected.
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-" }}}
-
-" Themes and colours {{{
-set t_Co=256                    " Number of colours.
-set background=dark             " Chooses the dark version of the colourscheme.
-colorscheme nightsky                " Chooses the colour scheme.
-
-" Tender theme
-if (has("termguicolors"))
-    set termguicolors
-endif
-
-" Nord theme
-let g:nord_italic = 1
-let g:nord_italic_comments = 1
-let g:nord_comment_brightness = 20
-let g:nord_cursor_line_number_background = 1
-" }}}
 
 " Line wrap {{{
 set wrap                        " Lines longer than the width will wrap and continue on the next line.
@@ -284,6 +188,8 @@ set foldnestmax=10              " Limits the level of deepness.
 set foldmethod=syntax           " Folding based on syntax.
 " }}}
 
+set fillchars+=stl:\ ,stlnc:\   " Characters to fill the statuslines and vertical separators.
+
 " Backup {{{
 set backup
 set writebackup
@@ -292,8 +198,32 @@ set backupskip=/tmp/*,/private/tmp/*                " Don't create backups for t
 set directory=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for swapfiles.
 " }}}
 
+" Autocomplete {{{
+" Enables autocomplete.
+
+" Shows the longest autcomplete.
+" http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
+set completeopt=longest,menuone
+set completeopt+=preview
+
+" Makes ENTER select the pop up menu.
+inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Selects the first options by default.
+inoremap <silent> <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+inoremap <silent> <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+" Enables tab for selecting the options.
+inoremap <silent> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<cr>"
+
+" Closes the menu once an option has been selected.
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+" }}}
+
 " nvim terminal {{{
-if g:is_nvim 
+if g:is_nvim
   autocmd TermOpen * startinsert
   autocmd TermOpen * set nonumber
   autocmd TermClose * set number
@@ -306,42 +236,37 @@ if g:is_nvim
 endif
 " }}}
 
-" Tries to set FireCode as font if it is available {{{
-" silent! set macligatures
-" silent! set guifont=Fura\ Code:h15
+" Themes and colours {{{
+set t_Co=256                    " Number of colours.
+set background=dark             " Chooses the dark version of the colourscheme.
+colorscheme nightsky            " Chooses the colour scheme.
+
+" Tender theme
+if (has("termguicolors"))
+    set termguicolors
+endif
+
+" Nord theme
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
+let g:nord_comment_brightness = 20
+let g:nord_cursor_line_number_background = 1
 " }}}
 " }}}
 
 " Functions {{{
 " Trim white spaces {{{
-function! StripTrailingWS()
-    " save last search & cursor position
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Clear trailing whitespace
-    %s/\s\+$//e
-    "Restore saved cursor & search.
-    let @/=_s
-    call cursor(l, c)
-endfunction
-" }}}
-
-" Toggle between number and relativenumber {{{
-function! ToggleNumber()
-    if(&relativenumber == 1)
-        set norelativenumber
-        set number
-    else
-        set relativenumber
-    endif
-endfunc
-" }}}
-
-" Print current date {{{
-function! Date()
-  put =strftime('%a %d %b %Y')
-endfunc
+"function! StripTrailingWS()
+"    " save last search & cursor position
+"    let _s=@/
+"    let l = line(".")
+"    let c = col(".")
+"    " Clear trailing whitespace
+"    %s/\s\+$//e
+"    "Restore saved cursor & search.
+"    let @/=_s
+"    call cursor(l, c)
+"endfunction
 " }}}
 " }}}
 
@@ -355,12 +280,6 @@ map <leader>/ :nohlsearch<CR>
 " Enable folding with the spacebar
 nnoremap <space> za
 
-" Trims whitespaces.
-map <leader>tt :call StripTrailingWS()<CR>
-
-" Switches between absolute and relative numbers.
-map <leader>tn :call ToggleNumber()<CR>
-
 " Move vertically by visual line
 nnoremap j gj
 nnoremap k gk
@@ -372,7 +291,42 @@ nnoremap <C-e> $
 " U to redo. u stays for undo.
 nnoremap U <C-r>
 
-map <leader>n :call Date()<CR>
+" Tabs {{{
+map <C-Tab> :tabnext<CR>
+map <C-S-Tab> :tabprev<CR>
+
+map! <C-Tab> <C-O>:tabnext<CR>
+map! <C-S-Tab> <C-O>:tabprev<CR>
+
+" Switch to specific tab numbers with number
+nmap 1 :tabn 1<CR>
+nmap 2 :tabn 2<CR>
+nmap 3 :tabn 3<CR>
+nmap 4 :tabn 4<CR>
+nmap 5 :tabn 5<CR>
+nmap 6 :tabn 6<CR>
+nmap 7 :tabn 7<CR>
+nmap 8 :tabn 8<CR>
+nmap 9 :tabn 9<CR>
+" Control-0 goes to the last tab
+map 0 :tablast<CR>
+
+" Open and close tabs.
+map <C-T> :tabnew<CR>
+map! <C-T> <C-O>:tabnew<CR>
+
+map <C-W> :tabc<CR>
+map! <C-W> <C-O>:tabc<CR>
+"}}}
+
+" Lane swapping {{{
+map <C-j> :m .+1<CR>==
+map <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+" }}}
 
 "Pane navigation {{{
 nmap <silent> <leader><Up> :wincmd k<CR>
@@ -399,9 +353,6 @@ map <leader>b :RainbowToggle<CR>
 " Searches a file.
 map <leader>f :Files<CR>
 
-" Searches a command.
-map <leader>c :<C-u>CocFzfList commands<CR> 
-
 " Searches a line.
 map <leader>p :Lines<CR>
 
@@ -414,57 +365,11 @@ map <leader>gs :GFiles?<CR>
 " Opens NERDTree.
 map <leader>t :NERDTreeToggle<CR>
 
-" Opens CTags.
-" if has_ctags
-"   map <leader>o :TagbarToggle<CR>
-" endif
-map <leader>o :<C-u>CocFzfList outline<CR>
+" Outline
+map <leader>o <Plug>(lsp-document-symbol)
 
 " Opens the silver searcher.
-if has_ag
-  map <leader>a :Ag<CR>
-endif
-" }}}
-
-" Tabs {{{
-
-" Press Ctrl-Tab to switch between open tabs (like browser tabs) to
-" the right side. Ctrl-Shift-Tab goes the other way.
-map <C-Tab> :tabnext<CR>
-map <C-S-Tab> :tabprev<CR>
-
-map! <C-Tab> <C-O>:tabnext<CR>
-map! <C-S-Tab> <C-O>:tabprev<CR>
-
-" Switch to specific tab numbers with number
-nmap 1 :tabn 1<CR>
-nmap 2 :tabn 2<CR>
-nmap 3 :tabn 3<CR>
-nmap 4 :tabn 4<CR>
-nmap 5 :tabn 5<CR>
-nmap 6 :tabn 6<CR>
-nmap 7 :tabn 7<CR>
-nmap 8 :tabn 8<CR>
-nmap 9 :tabn 9<CR>
-
-" Control-0 goes to the last tab
-map 0 :tablast<CR>
-
-" Open and close tabs.
-map <C-T> :tabnew<CR>
-map! <C-T> <C-O>:tabnew<CR>
-
-map <C-W> :tabc<CR>
-map! <C-W> <C-O>:tabc<CR>
-"}}}
-
-" Lane swapping {{{
-map <C-j> :m .+1<CR>==
-map <C-k> :m .-2<CR>==
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
+map <leader>a :Ag<CR>
 " }}}
 
 " Plugins {{{
@@ -494,21 +399,6 @@ let g:fzf_colors =
       \ 'marker':  ['fg', 'Keyword'],
       \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-" }}}
-
-" Vimux {{{
-" Prompt for a command to run
-" map <Leader>vs :VimuxPromptCommand<CR>
-" Zoom the tmux runner pane
-" map <Leader>vz :VimuxZoomRunner<CR>
-" }}}
-
-" SLIME {{{
-if g:is_nvim
-  let g:slime_target = "neovim"
-else
-  let g:slime_target = "vimterminal"
-endif
 " }}}
 
 " NerdTree Git {{{
@@ -554,7 +444,7 @@ autocmd BufReadPre,FileReadPre * :Sleuth
 " }}}
 
 " ACK.vim {{{
-if g:has_ag
+if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 " }}}
@@ -563,141 +453,160 @@ endif
 let g:paste_easy_message=0
 " }}}
 
-" DelimitMate {{{
-let delimitMate_expand_cr = 1
-" }}}
-
 " GOYO {{{
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 " }}}
-
-" vim-go {{{
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_types = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_build_constraints = 1
-" let g:go_list_type = "quickfix"
-" }}}
-
-" jedi-vim {{{
- " let g:jedi#completions_enabled = 0
- 
- " let g:jedi#use_splits_not_buffers = 'right'
- " let g:jedi#show_call_signatures = '2'
-" }}}
-
-" vim-javascript {{{
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
-
-let g:javascript_conceal_function             = "ƒ"
-let g:javascript_conceal_null                 = "ø"
-let g:javascript_conceal_this                 = "@"
-let g:javascript_conceal_return               = "⇚"
-let g:javascript_conceal_undefined            = "¿"
-let g:javascript_conceal_NaN                  = "ℕ"
-let g:javascript_conceal_prototype            = "¶"
-let g:javascript_conceal_static               = "•"
-let g:javascript_conceal_super                = "Ω"
-let g:javascript_conceal_arrow_function       = "⇒"
-let g:javascript_conceal_noarg_arrow_function = "🞅"
-let g:javascript_conceal_underscore_arrow_function = "🞅"
-
-set conceallevel=0
-" }}}
-
-" vim-jsx {{{
-let g:jsx_ext_required = 0
-" }}}
-
-" vim-vue {{{
-autocmd FileType vue syntax sync fromstart
-" }}}
 "}}}
 
-" Configuration per filetype {{{
-" Cleans trailing whitespaces in python and javascript files before saving {{{
-autocmd BufWritePre *.{py,js,jsx,ts,tsx,go} call StripTrailingWS()
+" Lightline {{{
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ],
+      \              ['lsp_errors', 'lsp_warnings', 'lsp_ok']]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \   'component_expand': {
+      \     'lsp_warnings': 'LightlineLSPWarnings',
+      \     'lsp_errors':   'LightlineLSPErrors',
+      \     'lsp_ok':       'LightlineLSPOk',
+      \   },
+      \   'component_type': {
+      \     'lsp_warnings': 'warning',
+      \     'lsp_errors':   'error',
+      \     'lsp_ok':       'right',
+      \   },
+      \ }
+
+" From https://github.com/prabirshrestha/vim-lsp/pull/783
+  function! LightlineLSPWarnings() abort
+    let l:counts = lsp#ui#vim#diagnostics#get_buffer_diagnostics_counts()
+    return l:counts.warning == 0 ? '' : printf('W:%d', l:counts.warning)
+  endfunction
+
+  function! LightlineLSPErrors() abort
+    let l:counts = lsp#ui#vim#diagnostics#get_buffer_diagnostics_counts()
+    return l:counts.error == 0 ? '' : printf('E:%d', l:counts.error)
+  endfunction
+
+  function! LightlineLSPOk() abort
+    let l:counts =  lsp#ui#vim#diagnostics#get_buffer_diagnostics_counts()
+    let l:total = l:counts.error + l:counts.warning
+    return l:total == 0 ? 'OK' : ''
+  endfunction
+
+  augroup LightLineOnLSP
+    autocmd!
+    autocmd User lsp_diagnostics_updated call lightline#update()
+  augroup END
+" }}}
+
+" asynccomplete-lsp {{{
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+      \ 'name': 'file',
+      \ 'whitelist': ['*'],
+      \ 'priority': 10,
+      \ 'completor': function('asyncomplete#sources#file#completor')
+      \ }))
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+endfunction
+
+let g:lsp_highlight_references_enabled = 1  " Highlight references.
+let g:lsp_virtual_text_enabled = 0          " Disabled linter on the same line.
+let g:lsp_signs_enabled = 1                 " Enable signs.
+let g:lsp_diagnostics_echo_cursor = 1       " Enable echo under cursor when in normal mode
+let g:lsp_preview_autoclose = 1
+
+augroup lsp_install
+  au!
+  " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 " }}}
 
 " Language bindings {{{
-inoremap <silent> <expr> <c-space> coc#refresh()
+imap <c-space> <Plug>(asyncomplete_force_refresh)
 
 " Remap keys for gotos
-nmap <silent> <leader>gd <Plug>(coc-definition)
-nmap <silent> <leader>gy <Plug>(coc-type-definition)
-nmap <silent> <leader>gi <Plug>(coc-implementation)
-nmap <silent> <leader>gr <Plug>(coc-references)
-
-" List of actions.
-map <silent> <leader>gl :<C-u>CocFzfList<CR> 
+nmap <silent> <leader>gd <Plug>(lsp-definition)
+nmap <silent> <leader>gy <Plug>(lsp-type-definition)
+nmap <silent> <leader>gi <Plug>(lsp-implementation)
+nmap <silent> <leader>gr <Plug>(lsp-references)
 
 " Checks the errors
-map <silent> <leader>ge :<C-u>CocFzfList diagnostics<CR>
+nmap <silent> <leader>ge <Plug>(lsp-document-diagnostics)
+nmap <silent> <leader>gf <Plug>(lsp-document-format)
+nmap <silent> <leader>gq <Plug>(lsp-preview-close)
 
-" List available commands
-map <silent> <leader>gc :<C-u>CocFzfList commands<CR>
-
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=0 Organise :call     CocAction('runCommand', 'editor.action.organizeImport')
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" Remap for rename current word
-nmap <leader>r <Plug>(coc-rename)
-
-" Remap for format selected region
-xmap <leader>gf  <Plug>(coc-format-selected)
-nmap <leader>gf  <Plug>(coc-format-selected)
-
-" Remap for code actions
-nmap <leader>ga  <Plug>(coc-codeaction)
-xmap <leader>gA  <Plug>(coc-codeaction-selected)
-nmap <leader>gA  <Plug>(coc-codeaction-selected)
-
-nmap <leader>gq  <Plug>(coc-fix-current)
+" OTher actions.
+nmap <silent> K <Plug>(lsp-hover)
+nmap <leader>r <Plug>(lsp-rename)
+nmap <leader>ga  <Plug>(lsp-codeaction)
 
 " Python {{{
-autocmd FileType python,yaml BracelessEnable +indent +fold +highlight
+augroup python_configuration
+  au!
+  au FileType python setlocal foldmethod=syntax
+  au FileType python set shiftwidth=4
+  au FileType python set softtabstop=4
+  au FileType python set tabstop=4
+  autocmd FileType python,yaml BracelessEnable +indent +fold +highlight
 
-augroup python_folding
-    au!
-    au FileType python setlocal foldmethod=syntax
-    au FileType python set shiftwidth=4
-    au FileType python set softtabstop=4
-    au FileType python set tabstop=4
+  if executable('pyls')
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'pyls',
+          \ 'cmd': {server_info->['pyls']},
+          \ 'whitelist': ['python'],
+          \ 'workspace_config': { 'pyls': { 'plugins': {
+          \   'pydocstyle': { 'enabled': v:true },
+          \   'pyls_mypy': {'enabled': v:true },
+          \   'pyls_isort': {'enabled': v:true },
+          \   'pyls_black': {'enabled': v:true}
+          \ }}}
+          \ })
+    au BufWritePre *.py LspDocumentFormatSync 
+  endif
 augroup END
 " }}}
 
 " JavaScript/TypeScript {{{
-autocmd BufEnter *.tsx set filetype=typescript.tsx
-autocmd BufEnter *.jsx set filetype=javascript.jsx
-autocmd FileType json syntax match Comment +\/\/.\+$+
+augroup js_configuration
+  au!
+  autocmd FileType vue syntax sync fromstart
+  autocmd BufEnter *.tsx set filetype=typescript.tsx
+  autocmd BufEnter *.jsx set filetype=javascript.jsx
+  autocmd FileType json syntax match Comment +\/\/.\+$+
+  au FileType javascript,typescript,javascript.jsx,typescript.tsx,json,vue setlocal foldmethod=syntax
+  au FileType javascript,typescript,javascript.jsx,typescript.tsx,json,vue set shiftwidth=2
+  au FileType javascript,typescript,javascript.jsx,typescript.tsx,json,vue set softtabstop=2
+  au FileType javascript,typescript,javascript.jsx,typescript.tsx,json,vue set tabstop=2
 
-augroup js_folding
-    au!
-    au FileType javascript,typescript,javascript.jsx,typescript.tsx,json setlocal foldmethod=syntax
-    au FileType javascript,typescript,javascript.jsx,typescript.tsx,json set shiftwidth=2
-    au FileType javascript,typescript,javascript.jsx,typescript.tsx,json set softtabstop=2
-    au FileType javascript,typescript,javascript.jsx,typescript.tsx,json set tabstop=2
+  if executable('typescript-language-server')
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'js-ls',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+          \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact']
+          \ })
+  endif
+
+  if executable('prettier')
+    au BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html Prettier
+  endif
 augroup END
+
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
+let g:jsx_ext_required = 0
+set conceallevel=0
 " }}}
 
 " Bash, Dockerfile {{{
@@ -705,15 +614,21 @@ autocmd FileType sh,Dockerfile set textwidth=0
 " }}}
 
 " Go {{{
-
-autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
-augroup go_folding
-    au!
-    " Go styleguide
-    autocmd FileType go set noexpandtab
-    autocmd FileType go set shiftwidth=4
-    autocmd FileType go set softtabstop=4
-    autocmd FileType go set tabstop=4
+augroup go_configuration
+  au!
+  if executable('gopls')
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'gopls',
+          \ 'cmd': {server_info->['gopls']},
+          \ 'whitelist': ['go'],
+          \ })
+    au BufWritePre *.go LspDocumentFormatSync
+  endif
+  " Go styleguide
+  autocmd FileType go set noexpandtab
+  autocmd FileType go set shiftwidth=4
+  autocmd FileType go set softtabstop=4
+  autocmd FileType go set tabstop=4
 augroup END
 
 " Extra higlights.
@@ -725,25 +640,7 @@ let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
-
-" Disable go-def
-let g:go_def_mapping_enabled = 0
+  " }}}
 " }}}
-" }}}
-
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [ 'fileformat', 'fileencoding', 'filetype', 'cocstatus' ] ]
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status',
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
 
 "vim:foldmethod=marker:foldlevel=0

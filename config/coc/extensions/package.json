@@ -1,25 +1,25 @@
 {
   "dependencies": {
-    "coc-css": ">=1.2.2",
+    "coc-calc": ">=1.5.0",
+    "coc-css": ">=1.2.3",
     "coc-docker": ">=0.2.1",
-    "coc-go": ">=0.6.2",
+    "coc-go": ">=0.7.0",
     "coc-highlight": ">=1.2.5",
-    "coc-html": ">=1.2.3",
+    "coc-html": ">=1.2.4",
     "coc-json": ">=1.2.5",
     "coc-marketplace": ">=1.7.0",
-    "coc-prettier": ">=1.1.11",
+    "coc-pairs": ">=1.2.21",
+    "coc-prettier": ">=1.1.12",
+    "coc-project": ">=0.0.9",
+    "coc-pyright": ">=1.1.32",
     "coc-python": ">=1.2.9",
     "coc-rls": ">=1.1.4",
     "coc-sh": ">=0.4.0",
     "coc-tag": ">=1.2.4",
-    "coc-tsserver": ">=1.4.11",
-    "coc-vetur": ">=1.1.7",
-    "coc-vimtex": ">=1.0.2",
-    "coc-yaml": ">=1.0.4",
-    "coc-pairs": ">=1.2.21",
-    "coc-calc": ">=1.5.0",
-    "coc-project": ">=0.0.9",
     "coc-terminal": ">=0.3.1",
-    "coc-pyright": ">=1.1.26"
+    "coc-tsserver": ">=1.4.15",
+    "coc-vetur": ">=1.1.10",
+    "coc-vimtex": ">=1.0.3",
+    "coc-yaml": ">=1.0.4"
   }
 }
