@@ -71,14 +71,14 @@ call plug#begin($BASE.'/plugged')
   " }}}
 
   " Other {{{
-  Plug 'godlygeek/tabular'                                " Aligns stuff.
-  Plug 'terryma/vim-multiple-cursors'                     " Mutiple cursors.
-  Plug 'sjl/gundo.vim'                                    " Displays the undo tree.
-  Plug 'bagrat/vim-workspace'                             " Tab appeareance
-  Plug 'roxma/vim-paste-easy'                             " Fixes pasting.
-  Plug 'ryanoasis/vim-devicons'                           " Dev icons.
-  Plug 'tpope/vim-sleuth'                                 " Set tabs and spaces.
-  Plug 'gorodinskiy/vim-coloresque'                       " Colours preview.
+  Plug 'godlygeek/tabular'                              " Aligns stuff.
+  Plug 'terryma/vim-multiple-cursors'                   " Mutiple cursors.
+  Plug 'sjl/gundo.vim'                                  " Displays the undo tree.
+  Plug 'bagrat/vim-workspace'                           " Tab appeareance
+  Plug 'roxma/vim-paste-easy'                           " Fixes pasting.
+  Plug 'ryanoasis/vim-devicons'                         " Dev icons.
+  Plug 'tpope/vim-sleuth'                               " Set tabs and spaces.
+  Plug 'gorodinskiy/vim-coloresque'                     " Colours preview.
   " }}}
 
   " Languages {{{
@@ -91,6 +91,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'mattn/vim-lsp-settings'                         " LSP configuration.
   Plug 'prabirshrestha/asyncomplete-file.vim'           " File completion
   Plug 'prettier/vim-prettier', { 'do': 'npm install' } " Prettier plugin.
+  Plug 'liuchengxu/vista.vim'                           " Symbols
   " }}}
 
   " Themes {{{
@@ -228,6 +229,8 @@ if g:is_nvim
   autocmd TermOpen * set nonumber
   autocmd TermClose * set number
   tnoremap <Esc> <C-\><C-n>
+  " Fix for FZF https://old.reddit.com/r/neovim/comments/gkd86x/fzf_behavior_in_neovim_vs_vim/fqqfk9l/
+  autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
   command Tsplit split term://$SHELL
   command Tvsplit vsplit term://$SHELL
   command Ttabedit tabedit term://$SHELL
@@ -256,17 +259,17 @@ let g:nord_cursor_line_number_background = 1
 
 " Functions {{{
 " Trim white spaces {{{
-"function! StripTrailingWS()
-"    " save last search & cursor position
-"    let _s=@/
-"    let l = line(".")
-"    let c = col(".")
-"    " Clear trailing whitespace
-"    %s/\s\+$//e
-"    "Restore saved cursor & search.
-"    let @/=_s
-"    call cursor(l, c)
-"endfunction
+function! RemoveWS()
+    " save last search & cursor position
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Clear trailing whitespace
+    %s/\s\+$//e
+    "Restore saved cursor & search.
+    let @/=_s
+    call cursor(l, c)
+endfunction
 " }}}
 " }}}
 
@@ -366,7 +369,9 @@ map <leader>gs :GFiles?<CR>
 map <leader>t :NERDTreeToggle<CR>
 
 " Outline
-map <leader>o <Plug>(lsp-document-symbol)
+" map <leader>o <Plug>(lsp-document-symbol)
+map <silent> <leader>o :Vista!!<CR>
+map <silent> <leader>go :Vista finder fzf:vim_lsp<CR>
 
 " Opens the silver searcher.
 map <leader>a :Ag<CR>
@@ -525,6 +530,7 @@ let g:lsp_virtual_text_enabled = 0          " Disabled linter on the same line.
 let g:lsp_signs_enabled = 1                 " Enable signs.
 let g:lsp_diagnostics_echo_cursor = 1       " Enable echo under cursor when in normal mode
 let g:lsp_preview_autoclose = 1
+let g:vista_default_executive = 'vim_lsp'   " Set Vista to use vim-lsp
 
 augroup lsp_install
   au!
@@ -553,6 +559,7 @@ nmap <leader>r <Plug>(lsp-rename)
 nmap <leader>ga  <Plug>(lsp-codeaction)
 
 " Python {{{
+" pip install python-language-server
 augroup python_configuration
   au!
   au FileType python setlocal foldmethod=syntax
@@ -573,12 +580,13 @@ augroup python_configuration
           \   'pyls_black': {'enabled': v:true}
           \ }}}
           \ })
-    au BufWritePre *.py LspDocumentFormatSync 
+    au BufWritePre *.py LspDocumentFormatSync
   endif
 augroup END
 " }}}
 
 " JavaScript/TypeScript {{{
+" npm install -g typescript typescript-language-server
 augroup js_configuration
   au!
   autocmd FileType vue syntax sync fromstart
@@ -614,6 +622,7 @@ autocmd FileType sh,Dockerfile set textwidth=0
 " }}}
 
 " Go {{{
+" go get -u golang.org/x/tools/gopls
 augroup go_configuration
   au!
   if executable('gopls')
@@ -640,7 +649,65 @@ let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
-  " }}}
+" }}}
+
+" YAML configuration {{{
+if executable('yaml-language-server')
+  augroup LspYaml
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'yaml-language-server',
+          \ 'cmd': {server_info->['yaml-language-server', '--stdio']},
+          \ 'whitelist': ['yaml', 'yaml.ansible'],
+          \ 'workspace_config': {
+          \   'yaml': {
+          \     'validate': v:true,
+          \     'hover': v:true,
+          \     'completion': v:true,
+          \     'customTags': [],
+          \     'schemas': {},
+          \     'schemaStore': { 'enable': v:true },
+          \   }
+          \ }
+          \})
+  augroup END
+endif
+" }}}
+
+" HTML configuration {{{
+" npm install --global vscode-html-languageserver-bin
+if executable('html-languageserver')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'html-languageserver',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'html-languageserver --stdio']},
+        \ 'whitelist': ['html'],
+        \ })
+endif
+" }}}
+
+" JSON configuration {{{
+" npm install --global vscode-json-languageserver
+if executable('vscode-json-languageserver')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'vscode-json-languageserver',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'vscode-json-languageserver --stdio']},
+        \ 'initialization_options': {'provideFormatter': v:true},
+        \ 'workspace_config': {'json': {'format': {'enable': v:true}}},
+        \ 'whitelist': ['json'],
+        \ })
+endif
+" }}}
+
+" Docker configuration {{{
+" npm install -g dockerfile-language-server-nodejs
+if executable('docker-langserver')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'docker-langserver',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'docker-langserver --stdio']},
+        \ 'whitelist': ['dockerfile'],
+        \ })
+endif
+" }}}
 " }}}
 
 "vim:foldmethod=marker:foldlevel=0
