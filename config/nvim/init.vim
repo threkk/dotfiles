@@ -41,7 +41,7 @@ call plug#begin($BASE.'/plugged')
 
   " Lightline {{{
   Plug 'itchyny/lightline.vim'                            " Better statusline.
-  " Plug 'maximbaz/lightline-ale'                           " ALE integration
+  Plug 'maximbaz/lightline-ale'                           " ALE integration
   " }}}
 
   " Brackets {{{
@@ -92,6 +92,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'prabirshrestha/asyncomplete-file.vim'           " File completion
   Plug 'prettier/vim-prettier', { 'do': 'npm install' } " Prettier plugin.
   Plug 'liuchengxu/vista.vim'                           " Symbols
+  Plug 'dense-analysis/ale'                             " Diagnostics.
   " }}}
 
   " Themes {{{
@@ -351,7 +352,7 @@ map <leader>D :split<CR>
 map <leader>u :GundoToggle<CR>
 
 " Toggles the bracket colouring.
-map <leader>b :RainbowToggle<CR>
+map <leader>b :Buffers<CR>
 
 " Searches a file.
 map <leader>f :Files<CR>
@@ -473,45 +474,26 @@ let g:lightline = {
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],
       \              [ 'fileformat', 'fileencoding', 'filetype' ],
-      \              ['lsp_errors', 'lsp_warnings', 'lsp_ok']]
+      \              [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ]]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head'
       \ },
       \   'component_expand': {
-      \     'lsp_warnings': 'LightlineLSPWarnings',
-      \     'lsp_errors':   'LightlineLSPErrors',
-      \     'lsp_ok':       'LightlineLSPOk',
+      \     'linter_checking': 'lightline#ale#checking',
+      \     'linter_infos': 'lightline#ale#infos',
+      \     'linter_warnings': 'lightline#ale#warnings',
+      \     'linter_errors': 'lightline#ale#errors',
+      \     'linter_ok': 'lightline#ale#ok',
       \   },
       \   'component_type': {
-      \     'lsp_warnings': 'warning',
-      \     'lsp_errors':   'error',
-      \     'lsp_ok':       'right',
+      \     'linter_checking': 'right',
+      \     'linter_infos': 'right',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'right',
       \   },
       \ }
-
-" From https://github.com/prabirshrestha/vim-lsp/pull/783
-  function! LightlineLSPWarnings() abort
-    let l:counts = lsp#ui#vim#diagnostics#get_buffer_diagnostics_counts()
-    return l:counts.warning == 0 ? '' : printf('W:%d', l:counts.warning)
-  endfunction
-
-  function! LightlineLSPErrors() abort
-    let l:counts = lsp#ui#vim#diagnostics#get_buffer_diagnostics_counts()
-    return l:counts.error == 0 ? '' : printf('E:%d', l:counts.error)
-  endfunction
-
-  function! LightlineLSPOk() abort
-    let l:counts =  lsp#ui#vim#diagnostics#get_buffer_diagnostics_counts()
-    let l:total = l:counts.error + l:counts.warning
-    return l:total == 0 ? 'OK' : ''
-  endfunction
-
-  augroup LightLineOnLSP
-    autocmd!
-    autocmd User lsp_diagnostics_updated call lightline#update()
-  augroup END
-" }}}
 
 " asynccomplete-lsp {{{
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
@@ -531,6 +513,7 @@ let g:lsp_signs_enabled = 1                 " Enable signs.
 let g:lsp_diagnostics_echo_cursor = 1       " Enable echo under cursor when in normal mode
 let g:lsp_preview_autoclose = 1
 let g:vista_default_executive = 'vim_lsp'   " Set Vista to use vim-lsp
+let g:lsp_diagnostics_enabled = 0           " Disable diagnostics support
 
 augroup lsp_install
   au!
@@ -539,6 +522,29 @@ augroup lsp_install
 augroup END
 " }}}
 
+" ALE {{{
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['prettier'],
+\   'typescript': ['prettier'],
+\   'go': ['gopls', 'gofmt'],
+\   'python': ['black'],
+\   'vue': ['prettier']
+\}
+
+let g:ale_linters = {
+  \   'javascript': ['eslint','tsserver'],
+  \   'typescript': ['eslint','tsserver'],
+  \   'go': ['gopls', 'gofmt' ,'golint', 'govet'],
+  \   'python': ['flake8', 'mypy', 'pylint'],
+  \   'vue': ['eslint', 'vls'],
+\}
+
+let g:ale_javascript_eslint_executable = '/home/threkk/.config/eslint/node_modules/.bin/eslint'
+let g:ale_javascript_eslint_options = '-C /home/threkk/.config/eslint/eslintrc.json'
+
+" }}}
 " Language bindings {{{
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 
@@ -549,9 +555,10 @@ nmap <silent> <leader>gi <Plug>(lsp-implementation)
 nmap <silent> <leader>gr <Plug>(lsp-references)
 
 " Checks the errors
-nmap <silent> <leader>ge <Plug>(lsp-document-diagnostics)
-nmap <silent> <leader>gf <Plug>(lsp-document-format)
-nmap <silent> <leader>gq <Plug>(lsp-preview-close)
+nmap <silent> <leader>ge <Plug>(ale_lint)
+nmap <silent> <leader>gf <Plug>(ale_fix)
+nmap <silent> <leader>gk <Plug>(ale_previous_wrap)
+nmap <silent> <leader>gj <Plug>(ale_next_wrap)
 
 " OTher actions.
 nmap <silent> K <Plug>(lsp-hover)
@@ -580,7 +587,6 @@ augroup python_configuration
           \   'pyls_black': {'enabled': v:true}
           \ }}}
           \ })
-    au BufWritePre *.py LspDocumentFormatSync
   endif
 augroup END
 " }}}
@@ -606,8 +612,9 @@ augroup js_configuration
           \ })
   endif
 
+  " Other Prettier.
   if executable('prettier')
-    au BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html Prettier
+    au BufWritePre *.css,*.less,*.scss,*.json,*.graphql,*.md,*.yaml,*.html Prettier
   endif
 augroup END
 
@@ -631,7 +638,6 @@ augroup go_configuration
           \ 'cmd': {server_info->['gopls']},
           \ 'whitelist': ['go'],
           \ })
-    au BufWritePre *.go LspDocumentFormatSync
   endif
   " Go styleguide
   autocmd FileType go set noexpandtab

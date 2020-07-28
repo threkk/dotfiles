@@ -1,0 +1,41 @@
+// https://eslint.org/docs/user-guide/configuring#specifying-environments
+// https://github.com/prettier/eslint-config-prettier
+{
+  "extends": [
+    "standard",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:vue/recommended",
+    "prettier",
+    "prettier/@typescript-eslint",
+    "prettier/babel",
+    "prettier/react",
+    "prettier/standard",
+    "prettier/unicorn",
+    "prettier/vue"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "babel",
+    "react",
+    "standard",
+    "unicorn",
+    "vue"
+  ],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": "true",
+    "es6": true,
+    "jest": true,
+    "node": true,
+    "shared-node-browser": true
+  }
+}

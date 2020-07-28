@@ -4,9 +4,13 @@ exports.sh
 config/nvim/plugged/*
 config/hub
 config/vim-tmp/*
+config/vue
+config/cdpath/*
+!config/cdpath/.gitkeep
 config/configstore
 config/coc/*
 !config/coc/extensions/
 config/coc/extensions/*
 !config/coc/extensions/package.json
 !config/vim-tmp/.gitkeep
+node_modules

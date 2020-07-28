@@ -24,7 +24,11 @@ fi
 
 alias vimrc="${EDITOR} ${HOME}/.config/nvim/init.vim"
 alias myip-local="myip -local | cut -d ' ' -f2"
-alias run="docker run -it --rm  -v `pwd`:`pwd` $1 $2"
+
+if [ -d "$HOME/.config/cdpath" ]; then
+    export CDPATH=".:$HOME/.config/cdpath:/"
+    alias goto="cd -P"
+fi 
 
 if command -v bat >/dev/null 2>&1; then
     alias cat=bat
