@@ -73,12 +73,13 @@ call plug#begin($BASE.'/plugged')
   " Other {{{
   Plug 'godlygeek/tabular'                              " Aligns stuff.
   Plug 'terryma/vim-multiple-cursors'                   " Mutiple cursors.
-  Plug 'sjl/gundo.vim'                                  " Displays the undo tree.
   Plug 'bagrat/vim-workspace'                           " Tab appeareance
   Plug 'roxma/vim-paste-easy'                           " Fixes pasting.
   Plug 'ryanoasis/vim-devicons'                         " Dev icons.
   Plug 'tpope/vim-sleuth'                               " Set tabs and spaces.
   Plug 'gorodinskiy/vim-coloresque'                     " Colours preview.
+  Plug 'vim-scripts/ReplaceWithRegister'                " Replaces the current selection with a register.
+  Plug 'easymotion/vim-easymotion'                      " Move around the place
   " }}}
 
   " Languages {{{
@@ -136,7 +137,7 @@ set updatetime=300              " Smaller update times.
 if g:is_nvim
   let g:loaded_python2_provider = 0
   let g:python3_host_prog = g:python_path
-  set clipboard+=unnamedplus
+  " set clipboard+=unnamedplus
   set inccommand=nosplit
 endif
 " }}}
@@ -292,6 +293,11 @@ nnoremap k gk
 nnoremap <C-a> ^
 nnoremap <C-e> $
 
+" System copy-paste
+inoremap <C-S-v> <ESC>"+pa
+vnoremap <C-S-c> "+y
+vnoremap <C-S-x> "+d
+
 " U to redo. u stays for undo.
 nnoremap U <C-r>
 
@@ -303,17 +309,17 @@ map! <C-Tab> <C-O>:tabnext<CR>
 map! <C-S-Tab> <C-O>:tabprev<CR>
 
 " Switch to specific tab numbers with number
-nmap 1 :tabn 1<CR>
-nmap 2 :tabn 2<CR>
-nmap 3 :tabn 3<CR>
-nmap 4 :tabn 4<CR>
-nmap 5 :tabn 5<CR>
-nmap 6 :tabn 6<CR>
-nmap 7 :tabn 7<CR>
-nmap 8 :tabn 8<CR>
-nmap 9 :tabn 9<CR>
+nmap <leader>1 :tabn 1<CR>
+nmap <leader>2 :tabn 2<CR>
+nmap <leader>3 :tabn 3<CR>
+nmap <leader>4 :tabn 4<CR>
+nmap <leader>5 :tabn 5<CR>
+nmap <leader>6 :tabn 6<CR>
+nmap <leader>7 :tabn 7<CR>
+nmap <leader>8 :tabn 8<CR>
+nmap <leader>9 :tabn 9<CR>
 " Control-0 goes to the last tab
-map 0 :tablast<CR>
+nmap <leader>0 :tablast<CR>
 
 " Open and close tabs.
 map <C-T> :tabnew<CR>
@@ -348,23 +354,21 @@ map <leader>D :split<CR>
 " }}}
 
 " Plugins {{{
-" Toggle gundo.vim
-map <leader>u :GundoToggle<CR>
-
-" Toggles the bracket colouring.
-map <leader>b :Buffers<CR>
 
 " Searches a file.
 map <leader>f :Files<CR>
+" Searches a buffer
+map <leader>F :Buffers<CR>
 
 " Searches a line.
 map <leader>p :Lines<CR>
+" Opens the silver searcher.
+map <leader>P :Ag<CR>
 
 " Searches on the Git files.
-map <leader>g :GFiles<CR>
-
+map <leader>s :GFiles<CR>
 " Searches on the Git Status.
-map <leader>gs :GFiles?<CR>
+map <leader>S :GFiles?<CR>
 
 " Opens NERDTree.
 map <leader>t :NERDTreeToggle<CR>
@@ -372,10 +376,7 @@ map <leader>t :NERDTreeToggle<CR>
 " Outline
 " map <leader>o <Plug>(lsp-document-symbol)
 map <silent> <leader>o :Vista!!<CR>
-map <silent> <leader>go :Vista finder fzf:vim_lsp<CR>
-
-" Opens the silver searcher.
-map <leader>a :Ag<CR>
+map <silent> <leader>O :Vista finder fzf:vim_lsp<CR>
 " }}}
 
 " Plugins {{{
@@ -528,7 +529,7 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier'],
 \   'typescript': ['prettier'],
-\   'go': ['gopls', 'gofmt'],
+\   'go': ['gofmt', 'goimports'],
 \   'python': ['black'],
 \   'vue': ['prettier']
 \}
@@ -550,7 +551,7 @@ imap <c-space> <Plug>(asyncomplete_force_refresh)
 
 " Remap keys for gotos
 nmap <silent> <leader>gd <Plug>(lsp-definition)
-nmap <silent> <leader>gy <Plug>(lsp-type-definition)
+nmap <silent> <leader>gt <Plug>(lsp-type-definition)
 nmap <silent> <leader>gi <Plug>(lsp-implementation)
 nmap <silent> <leader>gr <Plug>(lsp-references)
 
