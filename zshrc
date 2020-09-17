@@ -55,7 +55,7 @@ fi
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-if [[ -d $HOME/.dotfiles/zsh_custom/themes/powerlevel10k ]]; then 
+if [[ -d $HOME/.dotfiles/zsh_custom/themes/powerlevel10k ]]; then
   ZSH_THEME="powerlevel10k/powerlevel10k"
 else
   ZSH_THEME="norm"
@@ -125,7 +125,7 @@ fi
 export PLATFORM
 
 
-if [[ $PLATFORM == 'linux' ]]; then 
+if [[ $PLATFORM == 'linux' ]]; then
   BREW_PATH='/home/linuxbrew/.linuxbrew'
 elif [[ $PLATFORM == 'osx' ]]; then
   BREW_PATH='/usr/local'
@@ -138,7 +138,6 @@ export BREW_PATH
 # Path
 export PATH=$BREW_PATH/sbin:$PATH
 export PATH=$BREW_PATH/bin:$PATH
-export PATH=$BREW_PATH/opt/python@2/bin:$PATH
 export PATH=$BREW_PATH/opt/python/libexec/bin:$PATH
 export PATH=$GOPATH/bin:$PATH
 export PATH=`npm bin --global`:$PATH

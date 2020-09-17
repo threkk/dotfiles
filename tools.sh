@@ -28,12 +28,12 @@ alias myip-local="myip -local | cut -d ' ' -f2"
 if [ -d "$HOME/.config/cdpath" ]; then
     export CDPATH=".:$HOME/.config/cdpath:/"
     alias goto="cd -P"
-fi 
+fi
 
 if command -v bat >/dev/null 2>&1; then
     alias cat=bat
 else
-    if command -v ccat >/dev/null 2>&1; then 
+    if command -v ccat >/dev/null 2>&1; then
         alias cat=ccat
     fi
 fi
@@ -74,7 +74,7 @@ weather() {
 }
 
 base64() {
-    command -v openssl >/dev/null 2>&1 || { 
+    command -v openssl >/dev/null 2>&1 || {
         echo "Required openssl but it's not installed.  Aborting." >&2
         exit 1
     }
@@ -86,12 +86,12 @@ base64() {
         elif [ "$1" = "-d" ]; then
             echo "$2" | openssl base64 -d -A
             return 0
-        fi   
+        fi
 
     elif [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
         echo "1.0.0"
         return 0
-    
+
     elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
         echo "usage: $0 [-ed] <string>"
         echo "  Encodes/Decodes the given string into base64."
@@ -107,7 +107,7 @@ base64() {
 }
 
 crypt() {
-    command -v openssl >/dev/null 2>&1 || { 
+    command -v openssl >/dev/null 2>&1 || {
         echo "Required openssl but it's not installed.  Aborting." >&2
         exit 1
     }
@@ -119,12 +119,12 @@ crypt() {
         elif [ "$1" = "-d" ]; then
             openssl enc -d -aes256 -in $2 -out $3
             return 0
-        fi   
+        fi
 
     elif [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
         echo "1.0.0"
         return 0
-    
+
     elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
         echo "usage: $0 [-ed] <input> <output>"
         echo "  Encodes/Decodes the given file."
@@ -160,7 +160,7 @@ alias run="docker run -it --rm  -v `pwd`:`pwd` $@"
 alias tmux="tmux new-session -ADs main"
 
 # Windows specifics
-if [[ $(uname -r) =~ Microsoft$ ]]; then
+if [[ $(uname -r) =~ "microsoft" ]]; then
     open() {
         for file in "$@"
         do
@@ -171,8 +171,8 @@ if [[ $(uname -r) =~ Microsoft$ ]]; then
             fi
         done
     }
-    
-    if command -v "win32yank.exe" >/dev/null 2>&1; then 
+
+    if command -v "win32yank.exe" >/dev/null 2>&1; then
         alias pbcopy="win32yank.exe -i"
         alias pbpaste="win32yank.exe -o"
     fi
