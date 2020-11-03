@@ -98,11 +98,9 @@ call plug#begin($BASE.'/plugged')
 
   " Themes {{{
   Plug 'altercation/vim-colors-solarized'
-  Plug 'jpo/vim-railscasts-theme'
   Plug '29decibel/codeschool-vim-theme'
-  Plug 'endel/vim-github-colorscheme'
   Plug 'trusktr/seti.vim'
-  Plug 'blueshirts/darcula'
+  Plug 'dracula/vim', { 'as': 'dracula' }
   Plug 'reedes/vim-colors-pencil'
   Plug 'jacoborus/tender'
   Plug 'arcticicestudio/nord-vim'
@@ -244,11 +242,11 @@ endif
 " Themes and colours {{{
 set t_Co=256                    " Number of colours.
 set background=dark             " Chooses the dark version of the colourscheme.
-colorscheme nightsky            " Chooses the colour scheme.
+colorscheme nord             " Chooses the colour scheme.
 
 " Tender theme
 if (has("termguicolors"))
-    set termguicolors
+    " set termguicolors
 endif
 
 " Nord theme
@@ -542,8 +540,18 @@ let g:ale_linters = {
   \   'vue': ['eslint', 'vls'],
 \}
 
-let g:ale_javascript_eslint_executable = '/home/threkk/.config/eslint/node_modules/.bin/eslint'
-let g:ale_javascript_eslint_options = '-C /home/threkk/.config/eslint/eslintrc.json'
+if (filereadable(expand('%:p:h').'/node_modules/.bin/eslint'))
+  let g:ale_javascript_eslint_executable =  expand('%:p:h').'/node_modules/.bin/eslint'
+else
+  let g:ale_javascript_eslint_executable = '/home/threkk/.config/eslint/node_modules/.bin/eslint'
+endif
+
+
+if (filereadable(expand('%:p:h').'/eslintrc.json'))
+  let g:ale_javascript_eslint_options = '-C '.expand('%:p:h').'/eslintrc.json'
+else
+  let g:ale_javascript_eslint_options = '-C /home/threkk/.config/eslint/eslintrc.json'
+endif
 
 " }}}
 " Language bindings {{{
@@ -610,6 +618,14 @@ augroup js_configuration
           \ 'name': 'js-ls',
           \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
           \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact']
+          \ })
+  endif
+
+  if executable('vls')
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'vls',
+          \ 'cmd': {server_info->['vls']},
+          \ 'whitelist': ['vue']
           \ })
   endif
 
