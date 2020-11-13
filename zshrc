@@ -49,32 +49,38 @@ HIST_STAMPS="dd.mm.yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
-if [[ -d $HOME/.dotfiles/zsh_custom ]]; then
-  ZSH_CUSTOM=$HOME/.dotfiles/zsh_custom
+if [[ -d $HOME/.config/zsh_custom ]]; then
+  ZSH_CUSTOM=$HOME/.config/zsh_custom
 fi
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-if [[ -d $HOME/.dotfiles/zsh_custom/themes/powerlevel10k ]]; then
+if [[ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]]; then
   ZSH_THEME="powerlevel10k/powerlevel10k"
+
+  if [ -f $HOME/.p10k.zsh ]; then
+    source $HOME/.p10k.zsh
+  fi
 else
-  ZSH_THEME="norm"
+    ZSH_THEME="norm"
 fi
 
 # Which plugins would you like to load? (plugins can be found in $HOME/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew common-aliases docker gitfast git-extras github httpie npm osx pip python web-search z)
+plugins=(git brew common-aliases docker gitfast git-extras github httpie npm osx pip python z)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
+export LC_ALL=en_GB.UTF-8
+export LANG=en_GB.UTF-8
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -104,72 +110,52 @@ export SSH_KEY_PATH="${HOME}/.ssh/id_rsa"
 
 # Extra config
 export HOME
-export LC_ALL=en_GB.UTF-8
-export LANG=en_GB.UTF-8
+
 export HOMEBREW_NO_ANALYTICS=1
 export PYTHONDONTWRITEBYTECODE=1
 export XDG_CONFIG_HOME=$HOME/.config
-export GPG_TTY="$(tty)"
-export PIPENV_VENV_IN_PROJECT=1
-export GO111MODULE=on
 export GOPATH=$HOME/.go
-export DISPLAY=:0
-export DOCKER_HOST="tcp://localhost:2375"
+export NVM_DIR="$HOME/nvm"
 
-PLATFORM='unknown'
-if [[ `uname` == 'Linux' ]]; then
-  PLATFORM='linux'
-elif [[ `uname` == 'Darwin' ]]; then
-  PLATFORM='osx'
+if [[`uname` eq 'Linux' ]]; then
+  BREW_PREFIX='/home/linuxbrew/.linuxbrew'
+else
+  BREW_PREFIX='/usr/local'
 fi
-export PLATFORM
-
-
-if [[ $PLATFORM == 'linux' ]]; then
-  BREW_PATH='/home/linuxbrew/.linuxbrew'
-elif [[ $PLATFORM == 'osx' ]]; then
-  BREW_PATH='/usr/local'
-fi
-export BREW_PATH
 
 # Exports
-[ -f $HOME/.dotfiles/exports.sh ] && source $HOME/.dotfiles/exports.sh
-
-# Path
-export PATH=$BREW_PATH/sbin:$PATH
-export PATH=$BREW_PATH/bin:$PATH
-export PATH=$BREW_PATH/opt/python/libexec/bin:$PATH
-export PATH=$GOPATH/bin:$PATH
-export PATH=`npm bin --global`:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/.bin:$PATH
-
-# Tools
-source $HOME/.dotfiles/tools.sh
-[ ! -d "$HOME/.bin" ] && mkdir -p $HOME/.bin
-
-# Dircolors
-[ -f $HOME/.dir_colors ] && eval `dircolors $HOME/.dir_colors`
-
-# Auto completation
-command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
-command -v pipenv > /dev/null 2>&1 && eval "$(pipenv --completion)"
-[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
-[ -f $HOME/.iterm2_shell_integration.zsh ] && source $HOME/.iterm2_shell_integration.zsh
-[ -f $BREW_PATH/share/zsh-syntax-highlighting.zsh ] && source $BREW_PATH/share/zsh-syntax-highlighting.zsh
-[ -f $BREW_PATH/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $BREW_PATH/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fpath=($BREW_PATH/share/zsh-completions $fpath)
-
-autoload -U bashcompinit
-bashcompinit
-eval "$(register-python-argcomplete pipx)"
-
-if [ "$(umask)" = "0000" ]; then
-  umask 0022
+if [ -f $HOME/.exports.sh ]; then
+  . $HOME/.exports.sh
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Path
+export PATH=$BREW_PREFIX/sbin:$PATH
+export PATH=$BREW_PREFIX/bin:$PATH
+export PATH="$BREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="$BREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
+export PATH=$GOPATH/bin:$PATH
+export PATH=`npm bin --global`:$PATH
+export PATH=$HOME/.bin:$PATH
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(pyenv init -)"
+
+if [ -s "$BREW_PREFIX/opt/nvm/nvm.sh"  ]; then
+  . "$BREW_PREFIX/opt/nvm/nvm.sh"
+fi
+
+if [ -s "$BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ]; then
+  . "$BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
+fi
+
+# Auto completation
+[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
+[ -f $BREW_PREFIX/share/zsh-syntax-highlighting.zsh ] && source $BREW_PREFIX/share/zsh-syntax-highlighting.zsh
+[ -f $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+fpath=($BREW_PREFIX/share/zsh-completions $fpath)
+autoload -U bashcompinit
+bashcompinit
+
+if [ -f ~/.alias ]; then
+    . ~/.alias
+fi

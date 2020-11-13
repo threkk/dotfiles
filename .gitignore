@@ -14,3 +14,4 @@ config/coc/extensions/*
 !config/coc/extensions/package.json
 !config/vim-tmp/.gitkeep
 node_modules
+config/waypoint
