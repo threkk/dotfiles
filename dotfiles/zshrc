@@ -113,7 +113,7 @@ export PYTHONDONTWRITEBYTECODE=1
 export XDG_CONFIG_HOME=$HOME/.config
 export GOPATH=$HOME/.go
 export GO111MODULE=on
-export NVM_DIR="$HOME/nvm"
+export NVM_DIR="$HOME/.nvm"
 
 if [[ `uname` -eq "Linux" ]]; then
   BREW_PREFIX='/home/linuxbrew/.linuxbrew'
