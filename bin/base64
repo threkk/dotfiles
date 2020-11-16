@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+command -v openssl >/dev/null 2>&1 || {
+    echo "Required openssl but it's not installed.  Aborting." >&2
+    exit 1
+}
+
+if [ $# -eq 2 ]; then
+    if [ "$1" =  "-e" ]; then
+        echo "$2" | openssl base64 -e
+        exit 0
+    elif [ "$1" = "-d" ]; then
+        echo "$2" | openssl base64 -d -A
+        exit 0
+    fi
+
+elif [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
+    echo "1.0.0"
+    exit 0
+
+elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    echo "usage: $0 [-ed] <string>"
+    echo "  Encodes/Decodes the given string into base64."
+    echo "  Options: "
+    echo ""
+    echo "    -e Encodes the given string into base64."
+    echo "    -d Decodes the given base64 string."
+    exit 0
+else
+    echo "Invalid usage. Type $0 --help for more information."
+    exit 1
+fi

@@ -1,6 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -115,17 +112,18 @@ export HOMEBREW_NO_ANALYTICS=1
 export PYTHONDONTWRITEBYTECODE=1
 export XDG_CONFIG_HOME=$HOME/.config
 export GOPATH=$HOME/.go
+export GO111MODULE=on
 export NVM_DIR="$HOME/nvm"
 
-if [[`uname` eq 'Linux' ]]; then
+if [[ `uname` -eq "Linux" ]]; then
   BREW_PREFIX='/home/linuxbrew/.linuxbrew'
 else
   BREW_PREFIX='/usr/local'
 fi
 
 # Exports
-if [ -f $HOME/.exports.sh ]; then
-  . $HOME/.exports.sh
+if [ -f $HOME/.exports ]; then
+  . $HOME/.exports
 fi
 
 # Path
@@ -133,9 +131,6 @@ export PATH=$BREW_PREFIX/sbin:$PATH
 export PATH=$BREW_PREFIX/bin:$PATH
 export PATH="$BREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="$BREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
-export PATH=$GOPATH/bin:$PATH
-export PATH=`npm bin --global`:$PATH
-export PATH=$HOME/.bin:$PATH
 
 eval "$(pyenv init -)"
 
@@ -146,6 +141,10 @@ fi
 if [ -s "$BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ]; then
   . "$BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
 fi
+
+export PATH=$GOPATH/bin:$PATH
+export PATH=`npm bin --global`:$PATH
+export PATH=$HOME/.bin:$PATH
 
 # Auto completation
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
@@ -158,4 +157,8 @@ bashcompinit
 
 if [ -f ~/.alias ]; then
     . ~/.alias
+fi
+
+if [ "$(umask)" = "0000" ]; then
+  umask 0022
 fi

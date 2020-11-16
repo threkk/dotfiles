@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+command -v openssl >/dev/null 2>&1 || {
+    echo "Required openssl but it's not installed.  Aborting." >&2
+    exit 1
+}
+
+if [ $# -eq 3 ]; then
+    if [ "$1" =  "-e" ]; then
+        openssl enc -e -aes256 -in $2 -out $3
+        exit 0
+    elif [ "$1" = "-d" ]; then
+        openssl enc -d -aes256 -in $2 -out $3
+        exit 0
+    fi
+
+elif [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
+    echo "1.0.0"
+    exit 0
+
+elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    echo "usage: $0 [-ed] <input> <output>"
+    echo "  Encodes/Decodes the given file."
+    echo "  Options: "
+    echo ""
+    echo "    -e Encodes the given file in <input> in <output>."
+    echo "    -d Decodes the given file in <input> in <output>."
+    exit 0;
+else
+    echo "Invalid usage. Type $0 --help for more information."
+    exit 1
+fi

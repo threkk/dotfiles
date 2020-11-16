@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+local city
+city=Amsterdam
+
+if [ $# -gt 0 ]; then
+    if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        echo "usage: $0 <city>"
+        echo "  Displays the weather report for the given city. Amsterdam by default."
+        exit 0
+    elif [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
+        echo "1.0.0"
+        exit 0
+    else
+        city=$1
+    fi
+fi
+
+if http --version >/dev/null 2>&1; then
+    http -b GET "http://wttr.in/$city"
+else
+    curl -X GET "http://wttr.in/$city"
+fi

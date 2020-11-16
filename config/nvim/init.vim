@@ -21,7 +21,7 @@ endfunction
 " }}}
 
 if g:is_vim
-    let $BASE = '~/.vim'
+    let $BASE = '$HOME/.vim'
 else
     let $BASE = stdpath('config')
 endif
@@ -60,7 +60,7 @@ call plug#begin($BASE.'/plugged')
   " }}}
 
   " Search {{{
-  Plug 'junegunn/fzf', { 'do': './install --bin' }
+  Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
   Plug 'mileszs/ack.vim', Cond(g:has_ack)                    " ACK.
   " }}}
@@ -130,14 +130,10 @@ set backspace=eol,start,indent  " Makes backspace work as expected in old termin
 set nocompatible                " Disables vi compatibility.
 set ttyfast                     " Indicates a fast terminal.
 set updatetime=300              " Smaller update times.
-
-" Configures Python for NVIM
-if g:is_nvim
-  let g:loaded_python2_provider = 0
-  let g:python3_host_prog = g:python_path
-  " set clipboard+=unnamedplus
-  set inccommand=nosplit
-endif
+set scrolloff=5                 " Show a few lines of context.
+set fileformats=unix,mac,dos    " Handle all line endings, but prefer unix.
+set inccommand=nosplit          " Preview of the search.
+" set clipboard+=unnamedplus    " Use the system clipboard.
 " }}}
 
 " UI {{{
@@ -166,13 +162,14 @@ set softtabstop=4               " Number of spaces in tab when editing.
 set expandtab                   " Tabs are spaces.
 set smarttab                    " Inserts as many spaces as needed to tab.
 set nolist                      " Hides non visual chars (tabs, break lines...)
+set lcs=tab:>.,trail:.          " ...but only tabs and trailing whitespace
 " }}}
 
 " Indent {{{
 set ai                          " Copy the indent when starting a new line.
 set si                          " Enables smart indent.
 set shiftround                  " Round indent to multiple of (auto) indent.
-set shiftwidth=4                " Number of spaces to use for each step of (auto)indent.
+set shiftwidth=0                " Number of spaces to use for each step of (auto)indent.
 " }}}
 
 " Search {{{
@@ -194,10 +191,15 @@ set fillchars+=stl:\ ,stlnc:\   " Characters to fill the statuslines and vertica
 " Backup {{{
 set backup
 set writebackup
-set backupdir=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for backups.
-set backupskip=/tmp/*,/private/tmp/*                " Don't create backups for these folders.
-set directory=~/.config/vim-tmp,/tmp,/private/tmp   " Directories for swapfiles.
+set backupdir=$HOME/.config/vim-tmp,/tmp,/private/tmp   " Directories for backups.
+set backupskip=/tmp/*,/private/tmp/*                    " Don't create backups for these folders.
+set directory=$HOME/.config/vim-tmp,/tmp,/private/tmp   " Directories for swapfiles.
 " }}}
+
+" Undo {{{
+set undodir=$HOME/.config/vim-undo,/tmp,/private/tmp    " Directories for undo.
+set undofile
+"}}}
 
 " Autocomplete {{{
 " Enables autocomplete.
@@ -226,8 +228,8 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " nvim terminal {{{
 if g:is_nvim
   autocmd TermOpen * startinsert
-  autocmd TermOpen * set nonumber
-  autocmd TermClose * set number
+  autocmd TermEnter * set nonumber
+  autocmd TermLeave * set number
   tnoremap <Esc> <C-\><C-n>
   " Fix for FZF https://old.reddit.com/r/neovim/comments/gkd86x/fzf_behavior_in_neovim_vs_vim/fqqfk9l/
   autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
@@ -242,19 +244,7 @@ endif
 " Themes and colours {{{
 set t_Co=256                    " Number of colours.
 set background=dark             " Chooses the dark version of the colourscheme.
-colorscheme nord             " Chooses the colour scheme.
-
-" Tender theme
-if (has("termguicolors"))
-    " set termguicolors
-endif
-
-" Nord theme
-let g:nord_italic = 1
-let g:nord_italic_comments = 1
-let g:nord_comment_brightness = 20
-let g:nord_cursor_line_number_background = 1
-" }}}
+colorscheme iceberg             " Chooses the colour scheme.
 " }}}
 
 " Functions {{{
@@ -290,14 +280,27 @@ nnoremap k gk
 " Move to beginning/end of line
 nnoremap <C-a> ^
 nnoremap <C-e> $
+" Makes yanking consistent.
+nnoremap Y y$
+" Disables ex mode
+map Q <Nop>
+
+" Make tab in v mode ident code
+vmap <tab> >gv
+vmap <s-tab> <gv
+
+" Make tab in normal mode ident code
+nmap <tab> I<tab><esc>
+nmap <s-tab> ^i<bs><esc>
 
 " System copy-paste
-inoremap <C-S-v> <ESC>"+pa
-vnoremap <C-S-c> "+y
-vnoremap <C-S-x> "+d
+vnoremap <C-x> "+d
+vnoremap <C-c> "+y
+inoremap <C-v> <ESC>"+pa
 
-" U to redo. u stays for undo.
-nnoremap U <C-r>
+" Undo and redo mapped to C-Z.
+nnoremap <C-S-z> <C-r>
+nnoremap <C-z> u
 
 " Tabs {{{
 map <C-Tab> :tabnext<CR>
@@ -420,23 +423,6 @@ let g:NERDTreeIndicatorMapCustom = {
       \ }
 " }}}
 
-" vim-markdown {{{
-" Adds a TOC
-let g:vim_markdown_toc_autofit = 1
-" Add syntax highlight.
-let g:vim_markdown_fenced_languages = ['python=python', 'go=go', 'javascript=javascript']
-" follow anchors
-let g:vim_markdown_follow_anchor = 1
-" Latex math
-let g:vim_markdown_math = 1
-" Headers in YAML and JSON.
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_json_frontmatter = 1
-
-" Do not autoclose the preview window.
-let g:mkdp_auto_close = 1
-" }}}
-
 " Rainbow parenthesis {{{
 let g:rainbow_active = 1
 
@@ -540,19 +526,6 @@ let g:ale_linters = {
   \   'vue': ['eslint', 'vls'],
 \}
 
-if (filereadable(expand('%:p:h').'/node_modules/.bin/eslint'))
-  let g:ale_javascript_eslint_executable =  expand('%:p:h').'/node_modules/.bin/eslint'
-else
-  let g:ale_javascript_eslint_executable = '/home/threkk/.config/eslint/node_modules/.bin/eslint'
-endif
-
-
-if (filereadable(expand('%:p:h').'/eslintrc.json'))
-  let g:ale_javascript_eslint_options = '-C '.expand('%:p:h').'/eslintrc.json'
-else
-  let g:ale_javascript_eslint_options = '-C /home/threkk/.config/eslint/eslintrc.json'
-endif
-
 " }}}
 " Language bindings {{{
 imap <c-space> <Plug>(asyncomplete_force_refresh)
@@ -569,168 +542,29 @@ nmap <silent> <leader>gf <Plug>(ale_fix)
 nmap <silent> <leader>gk <Plug>(ale_previous_wrap)
 nmap <silent> <leader>gj <Plug>(ale_next_wrap)
 
-" OTher actions.
+" Other actions.
 nmap <silent> K <Plug>(lsp-hover)
 nmap <leader>r <Plug>(lsp-rename)
 nmap <leader>ga  <Plug>(lsp-codeaction)
 
 " Python {{{
-" pip install python-language-server
-augroup python_configuration
-  au!
-  au FileType python setlocal foldmethod=syntax
-  au FileType python set shiftwidth=4
-  au FileType python set softtabstop=4
-  au FileType python set tabstop=4
-  autocmd FileType python,yaml BracelessEnable +indent +fold +highlight
-
-  if executable('pyls')
-    autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'pyls',
-          \ 'cmd': {server_info->['pyls']},
-          \ 'whitelist': ['python'],
-          \ 'workspace_config': { 'pyls': { 'plugins': {
-          \   'pydocstyle': { 'enabled': v:true },
-          \   'pyls_mypy': {'enabled': v:true },
-          \   'pyls_isort': {'enabled': v:true },
-          \   'pyls_black': {'enabled': v:true}
-          \ }}}
-          \ })
-  endif
-augroup END
+source $BASE/python.vim
 " }}}
 
 " JavaScript/TypeScript {{{
-" npm install -g typescript typescript-language-server
-augroup js_configuration
-  au!
-  autocmd FileType vue syntax sync fromstart
-  autocmd BufEnter *.tsx set filetype=typescript.tsx
-  autocmd BufEnter *.jsx set filetype=javascript.jsx
-  autocmd FileType json syntax match Comment +\/\/.\+$+
-  au FileType javascript,typescript,javascript.jsx,typescript.tsx,json,vue setlocal foldmethod=syntax
-  au FileType javascript,typescript,javascript.jsx,typescript.tsx,json,vue set shiftwidth=2
-  au FileType javascript,typescript,javascript.jsx,typescript.tsx,json,vue set softtabstop=2
-  au FileType javascript,typescript,javascript.jsx,typescript.tsx,json,vue set tabstop=2
-
-  if executable('typescript-language-server')
-    autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'js-ls',
-          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-          \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact']
-          \ })
-  endif
-
-  if executable('vls')
-    autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'vls',
-          \ 'cmd': {server_info->['vls']},
-          \ 'whitelist': ['vue']
-          \ })
-  endif
-
-  " Other Prettier.
-  if executable('prettier')
-    au BufWritePre *.css,*.less,*.scss,*.json,*.graphql,*.md,*.yaml,*.html Prettier
-  endif
-augroup END
-
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
-let g:jsx_ext_required = 0
-set conceallevel=0
-" }}}
-
-" Bash, Dockerfile {{{
-autocmd FileType sh,Dockerfile set textwidth=0
+source $BASE/javascript.vim
 " }}}
 
 " Go {{{
-" go get -u golang.org/x/tools/gopls
-augroup go_configuration
-  au!
-  if executable('gopls')
-    au User lsp_setup call lsp#register_server({
-          \ 'name': 'gopls',
-          \ 'cmd': {server_info->['gopls']},
-          \ 'whitelist': ['go'],
-          \ })
-  endif
-  " Go styleguide
-  autocmd FileType go set noexpandtab
-  autocmd FileType go set shiftwidth=4
-  autocmd FileType go set softtabstop=4
-  autocmd FileType go set tabstop=4
-augroup END
-
-" Extra higlights.
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
+source $BASE/golang.vim
 " }}}
 
-" YAML configuration {{{
-if executable('yaml-language-server')
-  augroup LspYaml
-    autocmd!
-    autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'yaml-language-server',
-          \ 'cmd': {server_info->['yaml-language-server', '--stdio']},
-          \ 'whitelist': ['yaml', 'yaml.ansible'],
-          \ 'workspace_config': {
-          \   'yaml': {
-          \     'validate': v:true,
-          \     'hover': v:true,
-          \     'completion': v:true,
-          \     'customTags': [],
-          \     'schemas': {},
-          \     'schemaStore': { 'enable': v:true },
-          \   }
-          \ }
-          \})
-  augroup END
-endif
+" Perl {{{
+source $BASE/perl.vim
 " }}}
 
-" HTML configuration {{{
-" npm install --global vscode-html-languageserver-bin
-if executable('html-languageserver')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'html-languageserver',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'html-languageserver --stdio']},
-        \ 'whitelist': ['html'],
-        \ })
-endif
-" }}}
-
-" JSON configuration {{{
-" npm install --global vscode-json-languageserver
-if executable('vscode-json-languageserver')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'vscode-json-languageserver',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'vscode-json-languageserver --stdio']},
-        \ 'initialization_options': {'provideFormatter': v:true},
-        \ 'workspace_config': {'json': {'format': {'enable': v:true}}},
-        \ 'whitelist': ['json'],
-        \ })
-endif
-" }}}
-
-" Docker configuration {{{
-" npm install -g dockerfile-language-server-nodejs
-if executable('docker-langserver')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'docker-langserver',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'docker-langserver --stdio']},
-        \ 'whitelist': ['dockerfile'],
-        \ })
-endif
-" }}}
+" Other {{{
+source $BASE/other.vim
 " }}}
 
 "vim:foldmethod=marker:foldlevel=0
