@@ -406,7 +406,7 @@ let g:fzf_colors =
       \ 'pointer': ['fg', 'Exception'],
       \ 'marker':  ['fg', 'Keyword'],
       \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+      \ 'header':  ['fg', 'Comment'] }
 " }}}
 
 " NerdTree Git {{{
@@ -508,22 +508,26 @@ augroup END
 " }}}
 
 " ALE {{{
+" We need to keep it enabled for the TS Server linter.
+" let g:ale_disable_lsp = 1
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['prettier'],
-\   'typescript': ['prettier'],
 \   'go': ['gofmt', 'goimports'],
+\   'javascript': ['prettier'],
+\   'perl': ['perltidy'],
 \   'python': ['black'],
-\   'vue': ['prettier']
+\   'typescript': ['prettier'],
+\   'vue': ['prettier'],
 \}
 
 let g:ale_linters = {
-  \   'javascript': ['eslint','tsserver'],
-  \   'typescript': ['eslint','tsserver'],
-  \   'go': ['gopls', 'gofmt' ,'golint', 'govet'],
-  \   'python': ['flake8', 'mypy', 'pylint'],
-  \   'vue': ['eslint', 'vls'],
+\   'go': ['gopls', 'gofmt' ,'golint', 'govet'],
+\   'javascript': ['eslint','tsserver'],
+\   'perl': ['perl', 'perlcritic'],
+\   'python': ['pyls','flake8', 'mypy', 'pylint'],
+\   'typescript': ['eslint','tsserver'],
+\   'vue': ['eslint', 'vls'],
 \}
 
 " }}}
