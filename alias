@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+alias vimrc="${EDITOR} ${HOME}/.config/nvim/init.vim"
+alias run="docker run -it --rm  -v `pwd`:`pwd` $@"
+alias tmux="tmux new-session -ADs main"
+alias myip-local="myip -local | cut -d ' ' -f2"
+
+if command -v bat >/dev/null 2>&1; then
+    alias cat=bat
+else
+    if command -v ccat >/dev/null 2>&1; then
+        alias cat=ccat
+    fi
+fi
+
+if [ -d "$HOME/.config/cdpath" ]; then
+    export CDPATH=".:$HOME/.config/cdpath:/"
+    alias goto="cd -P"
+fi
+
+# OS X specifics
+if [[ $(uname) == 'Darwin' ]] && fzf --version >/dev/null 2>&1 ; then
+    app() {
+        if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+            echo "usage: $0 <name>"
+            echo "  Searchs and opens an application with name <name> or all of the available if empty."
+            echo "  The search is done in /Applications and $HOME/Applications."
+            return 0
+        elif [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
+            echo "1.0.0"
+            return 0
+        else
+            find /Applications ${HOME}/Applications -iname "*$1*.app" -maxdepth 3 | fzf | sed 's/ /\\ /g' | xargs -I % open -n %
+        fi
+    }
+fi
+
+
+
+# Windows specifics
+if [[ $(uname -r) =~ "microsoft" ]]; then
+    open() {
+        for file in "$@"
+        do
+            if [ -f $file ]; then
+                cmd.exe /C "$file"
+            else
+                explorer.exe $file
+            fi
+        done
+    }
+
+    if command -v "win32yank.exe" >/dev/null 2>&1; then
+        alias pbcopy="win32yank.exe -i"
+        alias pbpaste="win32yank.exe -o"
+    fi
+fi
