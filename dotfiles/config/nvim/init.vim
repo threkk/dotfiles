@@ -108,6 +108,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'kkpmw/sacredforest-vim'
   Plug 'ajh17/Spacegray.vim'
   Plug $BASE.'/unmanaged/night-sky-themer'
+  Plug 'chriskempson/base16-vim'  " https://github.com/chriskempson/base16
   " }}}
 
 call plug#end()
@@ -244,7 +245,9 @@ endif
 " Themes and colours {{{
 set t_Co=256                    " Number of colours.
 set background=dark             " Chooses the dark version of the colourscheme.
-colorscheme iceberg             " Chooses the colour scheme.
+set termguicolors
+let base16colorspace=256
+colorscheme base16-outrun-dark  " Chooses the colour scheme.
 " }}}
 
 " Functions {{{

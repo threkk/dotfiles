@@ -32,19 +32,19 @@
     smudge = git-lfs smudge %f
     required = true
 [color]
-    ui = true
+	ui = true
 [color "diff-highlight"]
-    oldNormal = red bold
-    oldHighlight = red bold 52
-    newNormal = green bold
-    newHighlight = green bold 22
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = cyan
+	newHighlight = cyan 22
 [color "diff"]
-    meta = 227
-    frag = magenta bold
-    commit = 227 bold
-    old = red bold
-    new = green bold
-    whitespace = red reverse
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red
+	new = green
+	whitespace = red reverse
 [alias]
     graph = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     sb = "!git switch `git branch | fzf`"
