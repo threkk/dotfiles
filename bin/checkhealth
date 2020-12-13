@@ -1,0 +1,41 @@
+#!/usr/bin/env perl 
+
+use strict;
+use warnings;
+use feature qw( say );
+use Cwd qw(cwd);
+
+my @CMDS = (
+    'nvim',
+    'git',
+    'ag',
+    'fzf',
+
+    # JS
+    'node',
+    'typescript-language-server',
+    'tsserver',
+    'prettier',
+
+    # Go
+    'go',
+    'gopls',
+
+    # Python
+    'python',
+    'pyls',
+    'black',
+);
+
+sub check_cmd {
+    my $cmd = shift;
+
+    if (qx(/bin/sh -c 'command -v $cmd')) {
+        say STDOUT ("[  OK  ]  $cmd");
+    }
+    else {
+        say STDOUT ("[ FAIL ]  $cmd");
+    }
+}
+
+map { check_cmd $_ } @CMDS;

@@ -148,8 +148,8 @@ set noshowmode                  " Hides the current mode.
 set cmdheight=2                 " Command line height.
 set shortmess+=c                " Don't give |ins-completion-menu| messages.
 set signcolumn=yes              " Always show signcolumns.
-set columns=80                  " Maximum amount of columns to display.
 set textwidth=80                " Maximum line width.
+" Don't set columns, let the terminal do it.
 set colorcolumn=81              " Draws a vertical line at the selected column.
 
 " Line wrap {{{
@@ -302,7 +302,7 @@ vnoremap <C-c> "+y
 inoremap <C-v> <ESC>"+pa
 
 " Undo and redo mapped to C-Z.
-nnoremap <C-S-z> <C-r>
+nnoremap <C-y> <C-r>
 nnoremap <C-z> u
 
 " Tabs {{{
@@ -455,7 +455,7 @@ autocmd! User GoyoLeave Limelight!
 
 " Lightline {{{
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
