@@ -231,7 +231,7 @@ if g:is_nvim
   autocmd TermOpen * startinsert
   autocmd TermEnter * set nonumber
   autocmd TermLeave * set number
-  tnoremap <Esc> <C-\><C-n>
+  tnoremap <esc><esc> <C-\><C-n>
   " Fix for FZF https://old.reddit.com/r/neovim/comments/gkd86x/fzf_behavior_in_neovim_vs_vim/fqqfk9l/
   autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
   command Tsplit split term://$SHELL
@@ -535,7 +535,8 @@ let g:ale_linters = {
 
 " }}}
 " Language bindings {{{
-imap <c-space> <Plug>(asyncomplete_force_refresh)
+" imap <c-space> <Plug>(asyncomplete_force_refresh)
+inoremap <c-space> <c-x><c-o>
 
 " Remap keys for gotos
 nmap <silent> <leader>gd <Plug>(lsp-definition)
