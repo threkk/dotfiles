@@ -227,19 +227,17 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " }}}
 
 " nvim terminal {{{
-if g:is_nvim
-  autocmd TermOpen * startinsert
-  autocmd TermEnter * set nonumber
-  autocmd TermLeave * set number
-  tnoremap <esc><esc> <C-\><C-n>
-  " Fix for FZF https://old.reddit.com/r/neovim/comments/gkd86x/fzf_behavior_in_neovim_vs_vim/fqqfk9l/
-  autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
-  command Tsplit split term://$SHELL
-  command Tvsplit vsplit term://$SHELL
-  command Ttabedit tabedit term://$SHELL
-  let &t_AB="\e[48;5;%dm"
-  let &t_AF="\e[38;5;%dm"
-endif
+autocmd TermOpen * startinsert
+autocmd TermOpen * set nonumber
+autocmd TermClose * set number
+tnoremap <esc><esc> <C-\><C-n>
+" Fix for FZF https://old.reddit.com/r/neovim/comments/gkd86x/fzf_behavior_in_neovim_vs_vim/fqqfk9l/
+autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+command Tsplit split term://$SHELL
+command Tvsplit vsplit term://$SHELL
+command Ttabedit tabedit term://$SHELL
+let &t_AB="\e[48;5;%dm"
+let &t_AF="\e[38;5;%dm"
 " }}}
 
 " Themes and colours {{{
