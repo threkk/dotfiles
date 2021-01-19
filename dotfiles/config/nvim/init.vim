@@ -80,6 +80,8 @@ call plug#begin($BASE.'/plugged')
   Plug 'gorodinskiy/vim-coloresque'                     " Colours preview.
   Plug 'vim-scripts/ReplaceWithRegister'                " Replaces the current selection with a register.
   Plug 'easymotion/vim-easymotion'                      " Move around the place
+  Plug 'Lenovsky/nuake'                                 " Floating terminal
+  Plug 'editorconfig/editorconfig-vim'                  " Editorconfig support
   " }}}
 
   " Languages {{{
@@ -363,9 +365,9 @@ map <leader>f :Files<CR>
 map <leader>F :Buffers<CR>
 
 " Searches a line.
-map <leader>p :Lines<CR>
+map <leader>P :Lines<CR>
 " Opens the silver searcher.
-map <leader>P :Ag<CR>
+map <leader>p :Ag<CR>
 
 " Searches on the Git files.
 map <leader>s :GFiles<CR>
@@ -422,6 +424,14 @@ let g:NERDTreeIndicatorMapCustom = {
       \ "Clean"     : "✔︎",
       \ "Unknown"   : "?"
       \ }
+" }}}
+
+" Editorconfig {{{
+let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Make it work with fugitive
+"}}}
+
+" Nuake {{{
+map t :Nuake<CR>
 " }}}
 
 " Rainbow parenthesis {{{
