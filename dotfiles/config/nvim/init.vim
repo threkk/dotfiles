@@ -18,7 +18,7 @@ function! Cond(cond, ...)
   let opts = get(a:000, 0, {})
   return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
 endfunction
-" }}}
+" }}}args
 
 if g:is_vim
     let $BASE = '$HOME/.vim'
@@ -232,7 +232,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 autocmd TermOpen * startinsert
 autocmd TermOpen * set nonumber
 autocmd TermClose * set number
-tnoremap <esc><esc> <C-\><C-n>
+tnoremap <esc>; <C-\><C-n>
 " Fix for FZF https://old.reddit.com/r/neovim/comments/gkd86x/fzf_behavior_in_neovim_vs_vim/fqqfk9l/
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 command Tsplit split term://$SHELL
@@ -287,6 +287,9 @@ nnoremap <C-e> $
 nnoremap Y y$
 " Disables ex mode
 map Q <Nop>
+
+" I am tired of :W when I want to write.
+nnoremap W w
 
 " Make tab in v mode ident code
 vmap <tab> >gv
@@ -431,7 +434,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Make it work with fugi
 "}}}
 
 " Nuake {{{
-map t :Nuake<CR>
+map <silent> t :Nuake<CR>
 " }}}
 
 " Rainbow parenthesis {{{
