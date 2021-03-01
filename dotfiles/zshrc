@@ -66,7 +66,7 @@ fi
 # Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew common-aliases docker gitfast git-extras github httpie npm osx pip python z)
+plugins=(git brew common-aliases docker gitfast git-extras github httpie npm osx pip python z asdf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -113,7 +113,6 @@ export PYTHONDONTWRITEBYTECODE=1
 export XDG_CONFIG_HOME=$HOME/.config
 export GOPATH=$HOME/.go
 export GO111MODULE=on
-export NVM_DIR="$HOME/.nvm"
 
 if [[ `uname` -eq "Linux" ]]; then
   BREW_PREFIX='/home/linuxbrew/.linuxbrew'
@@ -131,23 +130,6 @@ export PATH=$BREW_PREFIX/bin:$PATH
 export PATH=$BREW_PREFIX/sbin:$PATH
 export PATH="$BREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="$BREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
-
-
-if command -v pyenv >/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-if [ -s "$BREW_PREFIX/opt/nvm/nvm.sh"  ]; then
-  . "$BREW_PREFIX/opt/nvm/nvm.sh"
-fi
-
-if [ -s "$BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ]; then
-  . "$BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
-fi
-
-if command -v npm >/dev/null 2>&1; then
-  export PATH=`npm bin --global`:$PATH
-fi
 
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.bin:$PATH

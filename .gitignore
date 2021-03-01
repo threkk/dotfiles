@@ -15,3 +15,5 @@ dotfiles/config/coc/extensions/*
 node_modules
 dotfiles/config/waypoint
 dotfiles/config/gh/hosts.yml
+dotfiles/config/.bombadillo.ini
+dotfiles/config/nextjs-nodejs/
