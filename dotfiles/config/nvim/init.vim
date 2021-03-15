@@ -87,12 +87,7 @@ call plug#begin($BASE.'/plugged')
   " Languages {{{
   Plug 'sheerun/vim-polyglot'                           " Syntax colouring
   Plug 'tweekmonster/braceless.vim'                     " Indicates the block line.
-  Plug 'prabirshrestha/asyncomplete.vim'                " Autocomplete engine.
-  Plug 'prabirshrestha/async.vim'                       " Shim for the LSP.
-  Plug 'prabirshrestha/vim-lsp'                         " LSP.
-  Plug 'prabirshrestha/asyncomplete-lsp.vim'            " LSP integration.
-  Plug 'mattn/vim-lsp-settings'                         " LSP configuration.
-  Plug 'prabirshrestha/asyncomplete-file.vim'           " File completion
+  Plug 'natebosch/vim-lsc'                              " Language server
   Plug 'prettier/vim-prettier', { 'do': 'npm install' } " Prettier plugin.
   Plug 'liuchengxu/vista.vim'                           " Symbols
   Plug 'dense-analysis/ale'                             " Diagnostics.
@@ -157,6 +152,7 @@ set colorcolumn=81              " Draws a vertical line at the selected column.
 " Line wrap {{{
 set wrap                        " Lines longer than the width will wrap and continue on the next line.
 set linebreak                   " Smart wrapping instead of the last character.
+set whichwrap=<,>,[,],b         " When a line finishes, another starts.
 " }}}
 
 " Tabs {{{
@@ -209,8 +205,7 @@ set undofile
 
 " Shows the longest autcomplete.
 " http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
-set completeopt=longest,menuone
-set completeopt+=preview
+set completeopt=longest,menuone,preview
 
 " Makes ENTER select the pop up menu.
 inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -229,17 +224,19 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " }}}
 
 " nvim terminal {{{
-autocmd TermOpen * startinsert
-autocmd TermOpen * set nonumber
-autocmd TermClose * set number
-tnoremap <esc>; <C-\><C-n>
-" Fix for FZF https://old.reddit.com/r/neovim/comments/gkd86x/fzf_behavior_in_neovim_vs_vim/fqqfk9l/
-autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
-command Tsplit split term://$SHELL
-command Tvsplit vsplit term://$SHELL
-command Ttabedit tabedit term://$SHELL
-let &t_AB="\e[48;5;%dm"
-let &t_AF="\e[38;5;%dm"
+if g:is_nvim
+    autocmd TermOpen * startinsert
+    autocmd TermOpen * set nonumber
+    autocmd TermClose * set number
+    tnoremap <esc>; <C-\><C-n>
+    " Fix for FZF https://old.reddit.com/r/neovim/comments/gkd86x/fzf_behavior_in_neovim_vs_vim/fqqfk9l/
+    autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+    command Tsplit split term://$SHELL
+    command Tvsplit vsplit term://$SHELL
+    command Ttabedit tabedit term://$SHELL
+    let &t_AB="\e[48;5;%dm"
+    let &t_AF="\e[38;5;%dm"
+endif
 " }}}
 
 " Themes and colours {{{
@@ -280,6 +277,13 @@ nnoremap <space> za
 nnoremap j gj
 nnoremap k gk
 
+" Center VIM searches
+noremap n nzz
+noremap N Nzz
+
+" Y should behave like D and C
+noremap Y y$
+
 " Move to beginning/end of line
 nnoremap <C-a> ^
 nnoremap <C-e> $
@@ -305,8 +309,22 @@ vnoremap <C-c> "+y
 inoremap <C-v> <ESC>"+pa
 
 " Undo and redo mapped to C-Z.
+nnoremap U <C-r>
 nnoremap <C-y> <C-r>
 nnoremap <C-z> u
+
+" Extra mappings for completion
+" Tags
+inoremap <C-]> <C-x><C-]>
+" Omni
+inoremap <C-p> <C-x><C-o>
+" Buffers
+inoremap <C-b> <C-x><C-p>
+" Files
+inoremap <C-f> <C-x><C-f>
+" Lines
+inoremap <C-l> <C-x><C-l>
+
 
 " Tabs {{{
 map <C-Tab> :tabnext<CR>
@@ -383,7 +401,7 @@ map <leader>t :NERDTreeToggle<CR>
 " Outline
 " map <leader>o <Plug>(lsp-document-symbol)
 map <silent> <leader>o :Vista!!<CR>
-map <silent> <leader>O :Vista finder fzf:vim_lsp<CR>
+map <silent> <leader>O :Vista finder fzf:ale<CR>
 " }}}
 
 " Plugins {{{
@@ -494,45 +512,33 @@ let g:lightline = {
       \   },
       \ }
 
-" asynccomplete-lsp {{{
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-      \ 'name': 'file',
-      \ 'whitelist': ['*'],
-      \ 'priority': 10,
-      \ 'completor': function('asyncomplete#sources#file#completor')
-      \ }))
+" Vista {{{
+let g:vista_default_executive = 'vim_lsc'       " Set Vista to use vim-lsp
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista#renderer#icons = {
+            \   "function": "\uf794",
+            \   "variable": "\uf71b",
+            \  }
+"}}}
 
-function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-endfunction
-
-let g:lsp_highlight_references_enabled = 1  " Highlight references.
-let g:lsp_virtual_text_enabled = 0          " Disabled linter on the same line.
-let g:lsp_signs_enabled = 1                 " Enable signs.
-let g:lsp_diagnostics_echo_cursor = 1       " Enable echo under cursor when in normal mode
-let g:lsp_preview_autoclose = 1
-let g:vista_default_executive = 'vim_lsp'   " Set Vista to use vim-lsp
-let g:lsp_diagnostics_enabled = 0           " Disable diagnostics support
-
-augroup lsp_install
-  au!
-  " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-" }}}
 
 " ALE {{{
-" We need to keep it enabled for the TS Server linter.
-" let g:ale_disable_lsp = 1
+if g:is_nvim
+    let g:ale_virtualtext_cursor = 1
+    let g:ale_virtualtext_prefix   = ' ▶ '
+endif
+" let g:ale_echo_cursor = 1
+let g:ale_cursor_detail = 0
+let g:ale_hover_cursor = 1
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'go': ['gofmt', 'goimports'],
-\   'javascript': ['prettier'],
+\   'javascript': ['prettier', 'eslint'],
 \   'perl': ['perltidy'],
 \   'python': ['black'],
-\   'typescript': ['prettier'],
-\   'vue': ['prettier'],
+\   'typescript': ['prettier', 'eslint'],
+\   'vue': ['prettier', 'eslint'],
 \}
 
 let g:ale_linters = {
@@ -541,30 +547,70 @@ let g:ale_linters = {
 \   'perl': ['perl', 'perlcritic'],
 \   'python': ['pyls','flake8', 'mypy', 'pylint'],
 \   'typescript': ['eslint','tsserver'],
-\   'vue': ['eslint', 'vls'],
+\   'vue': ['eslint', 'vls', 'tsserver'],
 \}
 
 " }}}
-" Language bindings {{{
-" imap <c-space> <Plug>(asyncomplete_force_refresh)
-inoremap <c-space> <c-x><c-o>
 
-" Remap keys for gotos
-nmap <silent> <leader>gd <Plug>(lsp-definition)
-nmap <silent> <leader>gt <Plug>(lsp-type-definition)
-nmap <silent> <leader>gi <Plug>(lsp-implementation)
-nmap <silent> <leader>gr <Plug>(lsp-references)
+" Language bindings {{{
+" Vim LSC {{{
+let g:lsc_server_commands = {
+\  'javascript': {
+\    'command': 'typescript-language-server --stdio',
+\    'log_level': -1,
+\    'suppress_stderr': v:true,
+\  },
+\  'typescript': {
+\    'command': 'typescript-language-server --stdio',
+\    'log_level': -1,
+\    'suppress_stderr': v:true,
+\  },
+\  'vue': {
+\    'command': 'typescript-language-server --stdio',
+\    'log_level': -1,
+\    'suppress_stderr': v:true,
+\  },
+\  'go': {
+\    'command': 'gopls',
+\    'log_level': -1,
+\    'suppress_stderr': v:true,
+\  },
+\  'python': {
+\    'command': 'pyls',
+\    'log_level': -1,
+\    'suppress_stderr': v:true,
+\  },
+\  'perl': {
+\    'command': 'perl -MPerl::LanguageServer -e Perl::LanguageServer->run',
+\    'log_level': -1,
+\    'suppress_stderr': v:true,
+\  },
+\ }
+
+let g:lsc_auto_map = {
+ \  'defaults': v:true,
+ \  'GoToDefinition': '<leader>gd',
+ \  'FindReferences': '<leader>gr',
+ \  'FindImplementation': '<leader>gi',
+ \  'Rename': '<leader>r',
+ \  'ShowHover': v:true,
+ \  'FindCodeActions': '<leader>ga',
+ \  'Completion': 'omnifunc',
+ \}
+
+let g:lsc_enable_autocomplete  = v:true
+let g:lsc_enable_diagnostics   = v:false
+let g:lsc_reference_highlights = v:false
+let g:lsc_trace_level          = 'off'
+
+"}}}
+
 
 " Checks the errors
-nmap <silent> <leader>ge <Plug>(ale_lint)
+nmap <silent> <leader>ge <Plug>(ale_detail)
 nmap <silent> <leader>gf <Plug>(ale_fix)
 nmap <silent> <leader>gk <Plug>(ale_previous_wrap)
 nmap <silent> <leader>gj <Plug>(ale_next_wrap)
-
-" Other actions.
-nmap <silent> K <Plug>(lsp-hover)
-nmap <leader>r <Plug>(lsp-rename)
-nmap <leader>ga  <Plug>(lsp-codeaction)
 
 " Python {{{
 source $BASE/python.vim
