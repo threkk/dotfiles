@@ -2,13 +2,13 @@
 augroup js_configuration
   au!
   autocmd FileType vue syntax sync fromstart
-  autocmd BufEnter *.tsx set filetype=typescript.tsx
-  autocmd BufEnter *.jsx set filetype=javascript.jsx
+  autocmd BufEnter *.tsx set filetype=typescriptreact
+  autocmd BufEnter *.jsx set filetype=javascriptreact
   autocmd FileType json syntax match Comment +\/\/.\+$+
-  au FileType javascript,typescript,javascript.jsx,typescript.tsx,json,vue setlocal foldmethod=syntax
-  au FileType javascript,typescript,javascript.jsx,typescript.tsx,json,vue set shiftwidth=2
-  au FileType javascript,typescript,javascript.jsx,typescript.tsx,json,vue set softtabstop=2
-  au FileType javascript,typescript,javascript.jsx,typescript.tsx,json,vue set tabstop=2
+  au FileType javascript,typescript,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact,json,vue setlocal foldmethod=syntax
+  au FileType javascript,typescript,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact,json,vue set shiftwidth=2
+  au FileType javascript,typescript,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact,json,vue set softtabstop=2
+  au FileType javascript,typescript,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact,json,vue set tabstop=2
 
   if executable('typescript-language-server')
     autocmd User lsp_setup call lsp#register_server({

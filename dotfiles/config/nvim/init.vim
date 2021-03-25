@@ -542,7 +542,7 @@ let g:ale_fixers = {
 \}
 
 let g:ale_linters = {
-\   'go': ['gopls', 'gofmt' ,'golint', 'govet'],
+\   'go': ['golangci-lint','gopls', 'gofmt' ,'golint', 'govet'],
 \   'javascript': ['eslint','tsserver'],
 \   'perl': ['perl', 'perlcritic'],
 \   'python': ['pyls','flake8', 'mypy', 'pylint'],
@@ -555,36 +555,16 @@ let g:ale_linters = {
 " Language bindings {{{
 " Vim LSC {{{
 let g:lsc_server_commands = {
-\  'javascript': {
-\    'command': 'typescript-language-server --stdio',
-\    'log_level': -1,
-\    'suppress_stderr': v:true,
-\  },
-\  'typescript': {
-\    'command': 'typescript-language-server --stdio',
-\    'log_level': -1,
-\    'suppress_stderr': v:true,
-\  },
-\  'vue': {
-\    'command': 'typescript-language-server --stdio',
-\    'log_level': -1,
-\    'suppress_stderr': v:true,
-\  },
-\  'go': {
-\    'command': 'gopls',
-\    'log_level': -1,
-\    'suppress_stderr': v:true,
-\  },
-\  'python': {
-\    'command': 'pyls',
-\    'log_level': -1,
-\    'suppress_stderr': v:true,
-\  },
-\  'perl': {
-\    'command': 'perl -MPerl::LanguageServer -e Perl::LanguageServer->run',
-\    'log_level': -1,
-\    'suppress_stderr': v:true,
-\  },
+\  'javascript': 'typescript-language-server --stdio',
+\  'javascript.jsx': 'typescript-language-server --stdio',
+\  'javascriptreact': 'typescript-language-server --stdio',
+\  'typescript': 'typescript-language-server --stdio',
+\  'typescript.tsx': 'typescript-language-server-debug',
+\  'typescriptreact': 'typescript-language-server-debug',
+\  'vue': 'typescript-language-server --stdio',
+\  'go': 'gopls',
+\  'python': 'pyls',
+\  'perl': 'perl -MPerl::LanguageServer -e Perl::LanguageServer->run',
 \ }
 
 let g:lsc_auto_map = {
