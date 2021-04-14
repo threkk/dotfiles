@@ -10,22 +10,6 @@ augroup js_configuration
   au FileType javascript,typescript,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact,json,vue set softtabstop=2
   au FileType javascript,typescript,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact,json,vue set tabstop=2
 
-  if executable('typescript-language-server')
-    autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'js-ls',
-          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-          \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact']
-          \ })
-  endif
-
-  if executable('vls')
-    autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'vls',
-          \ 'cmd': {server_info->['vls']},
-          \ 'whitelist': ['vue']
-          \ })
-  endif
-
   " Other Prettier.
   if executable('prettier')
     au BufWritePre *.css,*.less,*.scss,*.json,*.graphql,*.md,*.yaml,*.html Prettier

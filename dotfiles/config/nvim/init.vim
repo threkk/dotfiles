@@ -535,6 +535,7 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'go': ['gofmt', 'goimports'],
 \   'javascript': ['prettier', 'eslint'],
+\   'javascriptreact': ['prettier', 'eslint'],
 \   'perl': ['perltidy'],
 \   'python': ['black'],
 \   'typescript': ['prettier', 'eslint'],
@@ -547,6 +548,7 @@ let g:ale_linters = {
 \   'perl': ['perl', 'perlcritic'],
 \   'python': ['pyls','flake8', 'mypy', 'pylint'],
 \   'typescript': ['eslint','tsserver'],
+\   'typescriptreact': ['eslint','tsserver'],
 \   'vue': ['eslint', 'vls', 'tsserver'],
 \}
 
@@ -559,8 +561,8 @@ let g:lsc_server_commands = {
 \  'javascript.jsx': 'typescript-language-server --stdio',
 \  'javascriptreact': 'typescript-language-server --stdio',
 \  'typescript': 'typescript-language-server --stdio',
-\  'typescript.tsx': 'typescript-language-server-debug',
-\  'typescriptreact': 'typescript-language-server-debug',
+\  'typescript.tsx': 'typescript-language-server --stdio',
+\  'typescriptreact': 'typescript-language-server --stdio',
 \  'vue': 'typescript-language-server --stdio',
 \  'go': 'gopls',
 \  'python': 'pyls',

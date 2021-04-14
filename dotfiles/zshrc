@@ -66,7 +66,7 @@ fi
 # Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew common-aliases docker gitfast git-extras github httpie npm osx pip python z asdf)
+plugins=(git brew common-aliases docker gitfast git-extras github httpie npm osx pip python z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -134,10 +134,18 @@ export PATH="$BREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.bin:$PATH
 
+if [ -f $HOME/.asdf/asdf.sh ]; then
+    . $HOME/.asdf/asdf.sh
+fi
+
 # Auto completation
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
 [ -f $BREW_PREFIX/share/zsh-syntax-highlighting.zsh ] && source $BREW_PREFIX/share/zsh-syntax-highlighting.zsh
 [ -f $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+if [ -f  $HOME/.asdf/completions/asdf.bash ]; then
+    . $HOME/.asdf/completions/asdf.bash
+fi
 
 fpath=($BREW_PREFIX/share/zsh-completions $fpath)
 autoload -U bashcompinit
