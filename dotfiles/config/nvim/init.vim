@@ -4,7 +4,6 @@
 let g:is_nvim = has('nvim')
 let g:is_vim = !has('nvim')
 
-let g:has_ack = executable('ack') || executable('ag')
 let g:has_git = executable('git')
 
 let g:python_path = has('python3') ? exepath('python3') : exepath('python')
@@ -62,7 +61,7 @@ call plug#begin($BASE.'/plugged')
   " Search {{{
   Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
-  Plug 'mileszs/ack.vim', Cond(g:has_ack)                    " ACK.
+  Plug 'mileszs/ack.vim',                                " ACK, AG, RG...
   " }}}
 
   " Text edition {{{
@@ -387,8 +386,8 @@ map <leader>F :Buffers<CR>
 
 " Searches a line.
 map <leader>P :Lines<CR>
-" Opens the silver searcher.
-map <leader>p :Ag<CR>
+" Opens ripgrep.
+map <leader>p :Rg<CR>
 
 " Searches on the Git files.
 map <leader>s :GFiles<CR>
@@ -467,9 +466,7 @@ autocmd BufReadPre,FileReadPre * :Sleuth
 " }}}
 
 " ACK.vim {{{
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
+let g:ackprg = 'rg --vimgrep'
 " }}}
 
 " vim-paste-easy {{{

@@ -3,6 +3,7 @@ alias vimrc="${EDITOR} ${HOME}/.config/nvim/init.vim"
 alias run="docker run -it --rm  -v `pwd`:`pwd` $@"
 alias tmux="tmux new-session -ADs main"
 alias myip-local="myip -local | cut -d ' ' -f2"
+alias less="less -r -S -N"
 
 if command -v bat >/dev/null 2>&1; then
     alias cat=bat

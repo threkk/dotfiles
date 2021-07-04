@@ -95,6 +95,9 @@ fi
 # SSH
 export SSH_KEY_PATH="${HOME}/.ssh/id_rsa"
 
+# AGE
+export AGE_PUBLIC_KEY="age1xdnnacmr5z3rk4a8avn62vzz8mnzc3xu668k33mn7gj2qe3uavtqgdv2t7"
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -128,8 +131,6 @@ fi
 # Path
 export PATH=$BREW_PREFIX/bin:$PATH
 export PATH=$BREW_PREFIX/sbin:$PATH
-export PATH="$BREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
-export PATH="$BREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
 
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.bin:$PATH
