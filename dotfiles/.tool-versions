@@ -14,3 +14,6 @@ fzf 0.27.2
 awscli 2.2.11
 bat 0.18.1
 ripgrep 13.0.0
+act 0.2.24
+terraform 1.0.2
+cloudflared 2021.8.6
