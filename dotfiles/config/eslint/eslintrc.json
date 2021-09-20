@@ -7,13 +7,7 @@
     "plugin:react/recommended",
     "plugin:unicorn/recommended",
     "plugin:vue/recommended",
-    "prettier",
-    "prettier/@typescript-eslint",
-    "prettier/babel",
-    "prettier/react",
-    "prettier/standard",
-    "prettier/unicorn",
-    "prettier/vue"
+    "prettier"
   ],
   "plugins": [
     "@typescript-eslint",
