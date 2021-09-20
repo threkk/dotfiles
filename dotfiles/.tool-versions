@@ -6,7 +6,7 @@ golangci-lint 1.38.0
 neovim 0.5.0
 litestream 0.3.4
 bats v1.3.0
-age 1.0.0-rc.2
+age 1.0.0
 sops 3.7.1
 hey v0.1.4
 dotenv-linter 3.1.0
@@ -15,5 +15,7 @@ awscli 2.2.11
 bat 0.18.1
 ripgrep 13.0.0
 act 0.2.24
-terraform 1.0.2
+terraform 1.0.7
 cloudflared 2021.8.6
+terraform-ls 0.22.0
+jq 1.6
