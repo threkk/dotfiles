@@ -143,6 +143,7 @@ fi
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
 [ -f $BREW_PREFIX/share/zsh-syntax-highlighting.zsh ] && source $BREW_PREFIX/share/zsh-syntax-highlighting.zsh
 [ -f $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f $HOME/.asdf/shimgs/terraform ] && complete -o nospace -C /home/threkk/.asdf/shims/terraform terraform
 
 if [ -f  $HOME/.asdf/completions/asdf.bash ]; then
     . $HOME/.asdf/completions/asdf.bash
@@ -152,8 +153,9 @@ fpath=($BREW_PREFIX/share/zsh-completions $fpath)
 autoload -U bashcompinit
 bashcompinit
 
-if [ -f ~/.alias ]; then
-    . ~/.alias
+# Aliases
+if [ -f $HOME/.alias ]; then
+    . $HOME/.alias
 fi
 
 if [ "$(umask)" = "0000" ]; then
