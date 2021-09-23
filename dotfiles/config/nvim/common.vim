@@ -154,30 +154,48 @@ nnoremap <C-z> u
 " Tabs
 map <C-Tab> :tabnext<CR>
 map <C-S-Tab> :tabprev<CR>
-map! <C-Tab> <C-O>:tabnext<CR>
-map! <C-S-Tab> <C-O>:tabprev<CR>
+map! <C-Tab> <Esc>:tabnext<CR>
+map! <C-S-Tab> <Esc>:tabprev<CR>
 
 " Switch to specific tab numbers with number
-nmap <leader>1 :tabn 1<CR>
-nmap <leader>2 :tabn 2<CR>
-nmap <leader>3 :tabn 3<CR>
-nmap <leader>4 :tabn 4<CR>
-nmap <leader>5 :tabn 5<CR>
-nmap <leader>6 :tabn 6<CR>
-nmap <leader>7 :tabn 7<CR>
-nmap <leader>8 :tabn 8<CR>
-nmap <leader>9 :tabn 9<CR>
+nmap <silent> <leader>1 :tabn 1<CR>
+nmap <silent> <leader>2 :tabn 2<CR>
+nmap <silent> <leader>3 :tabn 3<CR>
+nmap <silent> <leader>4 :tabn 4<CR>
+nmap <silent> <leader>5 :tabn 5<CR>
+nmap <silent> <leader>6 :tabn 6<CR>
+nmap <silent> <leader>7 :tabn 7<CR>
+nmap <silent> <leader>8 :tabn 8<CR>
+nmap <silent> <leader>9 :tabn 9<CR>
 
 " Control-0 goes to the last tab
 nmap <leader>0 :tablast<CR>
 
 " Open tabs.
-map <C-T> :tabnew<CR>
-map! <C-T> <C-O>:tabnew<CR>
+map <silent> <C-T> :tabnew<CR>
+map! <silent> <C-T> <Esc>:tabnew<CR>
+
+map <silent> <C-G> :tabnew term://$SHELL<CR>
+map! <silent> <C-G> <ESC>:tabnew term://$SHELL<CR>
 
 " Close tabs.
 map <C-W> :tabc<CR>
-map! <C-W> <C-O>:tabc<CR>
+map! <C-W> <Esc>:tabc<CR>
+
+" Terminal
+tnoremap <esc>; <C-\><C-n>
+command Tsplit split term://$SHELL
+command Tvsplit vsplit term://$SHELL
+command Ttabedit tabedit term://$SHELL
+
+let &t_AB="\e[48;5;%dm"
+let &t_AF="\e[38;5;%dm"
+
+if has('nvim')
+  autocmd TermOpen * startinsert
+  autocmd TermOpen * set nonumber
+  autocmd TermClose * set number
+endif
 
 " Lane swapping
 map <C-j> :m .+1<CR>==
@@ -201,3 +219,24 @@ nmap <silent> <leader>l :wincmd l<CR>
 " Split screen
 map <leader>d :vs<CR>
 map <leader>D :split<CR>
+
+" Easier mappings for completion
+" Tags
+inoremap <C-]> <C-x><C-]>
+" Omni
+inoremap <C-p> <C-x><C-o>
+" Buffers
+inoremap <C-b> <C-x><C-p>
+" Files
+inoremap <C-f> <C-x><C-f>
+" Lines
+inoremap <C-l> <C-x><C-l>
+
+" ACK.vim 
+" if has('rg')
+"   let g:ackprg = 'rg --vimgrep'
+" elseif has('ag')
+"   let g:ackprg = 'ag'
+" else
+"   let g:ackprg = 'ack'
+" endif

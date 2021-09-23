@@ -12,3 +12,12 @@ vim.api.nvim_set_keymap(
   [[<C-\><C-n>:Nuake<CR>]],
   { noremap = true, silent = true }
 )
+
+-- Opens NERDTree.
+-- map <leader>t :NERDTreeToggle<CR>
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>t',
+  [[:NERDTreeToggle<CR>]],
+  { noremap = true, silent = true }
+)

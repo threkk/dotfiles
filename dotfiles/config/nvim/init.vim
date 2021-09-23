@@ -20,11 +20,12 @@ call plug#begin($BASE.'/plugged')
   Plug 'wincent/terminus'                                 " Improves term sup.
   Plug 'equalsraf/neovim-gui-shim', Cond(has('nvim'))     " Shims for UI config.
   Plug 'nvim-lua/plenary.nvim', Cond(has('nvim'))         " Supporting library
+  Plug 'kyazdani42/nvim-web-devicons'                     " Nerd font support
   " }}}
 
   " File tree menu {{{
-  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " File tree.
-  Plug 'Xuyuanp/nerdtree-git-plugin'                      " Git support.
+  Plug 'scrooloose/nerdtree'                            " File tree.
+  Plug 'Xuyuanp/nerdtree-git-plugin'                      " with git support
   " }}}
 
   " Lightline {{{
@@ -35,12 +36,12 @@ call plug#begin($BASE.'/plugged')
   " Brackets {{{
   Plug 'tpope/vim-surround'                               " Brackets operations.
   Plug 'luochen1990/rainbow'                              " Brackets color.
-  Plug 'cohama/lexima.vim'                                " Moving around.
+  Plug 'cohama/lexima.vim'                                " Closes parenthesis
   " }}}
 
   " Git {{{
-  Plug 'tpope/vim-fugitive',     Cond(has('git'))          " Git basic commands.
-  Plug 'airblade/vim-gitgutter', Cond(has('git'))          " Git Diff.
+  Plug 'tpope/vim-fugitive',     Cond(has('git'))         " Git basic commands.
+  Plug 'airblade/vim-gitgutter', Cond(has('git'))         " Git Diff.
   " }}}
 
   " Comments {{{
@@ -48,9 +49,8 @@ call plug#begin($BASE.'/plugged')
   " }}}
 
   " Search {{{
-  Plug 'junegunn/fzf'
-  Plug 'junegunn/fzf.vim'
-  Plug 'mileszs/ack.vim',                                " ACK, AG, RG...
+  Plug 'nvim-telescope/telescope.nvim'
+  " Plug 'mileszs/ack.vim'                                " ACK, AG, RG...
   " }}}
 
   " Text edition {{{
@@ -63,12 +63,11 @@ call plug#begin($BASE.'/plugged')
   Plug 'terryma/vim-multiple-cursors'                   " Mutiple cursors.
   Plug 'bagrat/vim-workspace'                           " Tab appeareance
   Plug 'roxma/vim-paste-easy'                           " Fixes pasting.
-  Plug 'ryanoasis/vim-devicons'                         " Dev icons.
   Plug 'tpope/vim-sleuth'                               " Set tabs and spaces.
   Plug 'gorodinskiy/vim-coloresque'                     " Colours preview.
   Plug 'vim-scripts/ReplaceWithRegister'                " Replaces the current selection with a register.
   Plug 'easymotion/vim-easymotion'                      " Move around the place
-  Plug 'Lenovsky/nuake'                                 " Floating terminal
+  Plug 'lenovsky/nuake'                                 " Floating terminal
   Plug 'editorconfig/editorconfig-vim'                  " Editorconfig support
   " }}}
 
@@ -87,99 +86,17 @@ call plug#begin($BASE.'/plugged')
   Plug 'jacoborus/tender'
   Plug 'arcticicestudio/nord-vim'
   Plug 'cocopon/iceberg.vim'
-  Plug 'chriskempson/base16-vim'  " https://github.com/chriskempson/base16
-  " }}}
+  Plug 'chriskempson/base16-vim'   
+" }}}
 
 call plug#end()
 
 source $BASE/common.vim
 
-" nvim terminal
-if has('nvim')
-  autocmd TermOpen * startinsert
-  autocmd TermOpen * set nonumber
-  autocmd TermClose * set number
-endif
-
-tnoremap <esc>; <C-\><C-n>
-" Fix for FZF https://old.reddit.com/r/neovim/comments/gkd86x/fzf_behavior_in_neovim_vs_vim/fqqfk9l/
-autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
-command Tsplit split term://$SHELL
-command Tvsplit vsplit term://$SHELL
-command Ttabedit tabedit term://$SHELL
-let &t_AB="\e[48;5;%dm"
-let &t_AF="\e[38;5;%dm"
-
-
-" Easier mappings for completion
-" Tags
-inoremap <C-]> <C-x><C-]>
-" Omni
-inoremap <C-p> <C-x><C-o>
-" Buffers
-inoremap <C-b> <C-x><C-p>
-" Files
-inoremap <C-f> <C-x><C-f>
-" Lines
-inoremap <C-l> <C-x><C-l>
-
 " Plugins {{{
-
-" Searches a file.
-map <leader>f :Files<CR>
-" Searches a buffer
-map <leader>F :Buffers<CR>
-
-" Searches a line.
-map <leader>P :Lines<CR>
-" Opens ripgrep.
-map <leader>p :Rg<CR>
-
-" Searches on the Git files.
-map <leader>s :GFiles<CR>
-" Searches on the Git Status.
-map <leader>S :GFiles?<CR>
-
-" Opens NERDTree.
-map <leader>t :NERDTreeToggle<CR>
-
-" Outline
-" map <leader>o <Plug>(lsp-document-symbol)
-map <silent> <leader>o :Vista!!<CR>
-map <silent> <leader>O :Vista finder fzf:ale<CR>
-" }}}
-
-" Plugins {{{
-" fzf {{{
-" Customize fzf colors to match the color scheme.
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-" Adds preview to the Files and Ag commands.
-command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                 <bang>0)
-
-let g:fzf_colors =
-      \ { 'fg':    ['fg', 'Normal'],
-      \ 'bg':      ['bg', 'Normal'],
-      \ 'hl':      ['fg', 'Comment'],
-      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-      \ 'hl+':     ['fg', 'Statement'],
-      \ 'info':    ['fg', 'PreProc'],
-      \ 'border':  ['fg', 'Ignore'],
-      \ 'prompt':  ['fg', 'Conditional'],
-      \ 'pointer': ['fg', 'Exception'],
-      \ 'marker':  ['fg', 'Keyword'],
-      \ 'spinner': ['fg', 'Label'],
-      \ 'header':  ['fg', 'Comment'] }
-" }}}
 
 " NerdTree Git {{{
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
       \ "Modified"  : "✹",
       \ "Staged"    : "✚",
       \ "Untracked" : "✭",
@@ -200,15 +117,10 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Make it work with fugi
 let g:rainbow_active = 1
 
 autocmd BufNewFile,BufRead :normal RainbowToggle<CR>
-autocmd BufNewFile,BufRead :insert <C-O>:RainbowToggle<CR>i
 " }}}
 
 " vim-sleuth {{{
 autocmd BufReadPre,FileReadPre * :Sleuth
-" }}}
-
-" ACK.vim {{{
-let g:ackprg = 'rg --vimgrep'
 " }}}
 
 " vim-paste-easy {{{
@@ -251,14 +163,13 @@ let g:lightline = {
       \   },
       \ }
 
-" Vista {{{
+" Vista does not want to work in Lua.
 let g:vista_default_executive = 'nvim_lsp'
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista#renderer#icons = {
       \   "function": "\uf794",
       \   "variable": "\uf71b",
       \  }
-"}}}
 
 " Python
 source $BASE/languages/python.vim
@@ -279,8 +190,9 @@ if has('nvim')
   " General
   lua require('general')
   lua require('tree_sitter')
-  lua require('lsp')
+  lua require('lsp')  
   lua require('null_ls')
+  lua require('telescope')
 
   " Languages
   lua require('languages.go')
