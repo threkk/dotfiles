@@ -20,7 +20,8 @@ call plug#begin($BASE.'/plugged')
   Plug 'wincent/terminus'                                 " Improves term sup.
   Plug 'equalsraf/neovim-gui-shim', Cond(has('nvim'))     " Shims for UI config.
   Plug 'nvim-lua/plenary.nvim', Cond(has('nvim'))         " Supporting library
-  Plug 'kyazdani42/nvim-web-devicons'                     " Nerd font support
+  Plug 'ryanoasis/vim-devicons'                           " Nerd font viml support
+  Plug 'kyazdani42/nvim-web-devicons'                     " Nerd fron lua support
   " }}}
 
   " File tree menu {{{

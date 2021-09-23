@@ -13,7 +13,7 @@ vim.api.nvim_set_keymap('n', '<leader>p',
   '<cmd>lua require"telescope.builtin".live_grep()<cr>',  ns)
 
 -- Searches the list of builtins
-vim.api.nvim_set_keymap('n', '<leader>l',
+vim.api.nvim_set_keymap('n', '<leader>L',
   '<cmd>lua require"telescope.builtin".builtin()<cr>',  ns)
 
 -- Searches the Git files.
