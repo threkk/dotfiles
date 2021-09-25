@@ -15,7 +15,6 @@ set ttyfast                     " Indicates a fast terminal.
 set updatetime=300              " Smaller update times.
 set scrolloff=5                 " Show a few lines of context.
 set fileformats=unix,mac,dos    " Handle all line endings, but prefer unix.
-set inccommand=nosplit          " Preview of the search.
 " set clipboard+=unnamedplus    " Use the system clipboard.
 
 " UI
@@ -78,11 +77,10 @@ set undodir=$HOME/.config/vim-undo,/tmp,/private/tmp    " Directories for undo.
 set undofile
 
 " Themes and colours
+set termguicolors
 set t_Co=256                    " Number of colours.
 set background=dark             " Chooses the dark version of the colourscheme.
-set termguicolors
-let base16colorspace=256
-colorscheme base16-outrun-dark  " Chooses the colour scheme.
+colorscheme one                 " Chooses the colour scheme.
 
 " Shows the longest autcomplete.
 " http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
@@ -231,12 +229,3 @@ inoremap <C-b> <C-x><C-p>
 inoremap <C-f> <C-x><C-f>
 " Lines
 inoremap <C-l> <C-x><C-l>
-
-" ACK.vim 
-" if has('rg')
-"   let g:ackprg = 'rg --vimgrep'
-" elseif has('ag')
-"   let g:ackprg = 'ag'
-" else
-"   let g:ackprg = 'ack'
-" endif
