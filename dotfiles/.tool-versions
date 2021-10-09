@@ -16,6 +16,7 @@ bat 0.18.1
 ripgrep 13.0.0
 act 0.2.24
 terraform 1.0.7
-cloudflared 2021.8.6
+cloudflared 2021.9.2
 terraform-ls 0.22.0
 jq 1.6
+shellcheck 0.7.2
