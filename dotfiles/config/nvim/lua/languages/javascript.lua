@@ -19,8 +19,11 @@ require'lspconfig'.tsserver.setup{
 
       eslint_enable_code_actions = true,
       eslint_enable_disable_comments = true,
+
+      -- linting
       eslint_bin = "eslint",
       eslint_enable_diagnostics =  true,
+      eslint_enable_disable_comments = true,
       eslint_opts = {
         extra_args = function(params)
           local lsputil = require("lspconfig.util")
@@ -31,17 +34,20 @@ require'lspconfig'.tsserver.setup{
         end,
       },
 
+      -- formatting
       enable_formatting = true,
-      formatter = "prettier",
+      formatter = "eslint",
       formatter_opts = {
         extra_args = function(params)
           local lsputil = require("lspconfig.util")
           local root = lsputil.root_pattern("package.json")(params.bufname)
-          -- replace with your preferred config file format and fallback path
-          return lsputil.path.exists(lsputil.path.join(root, ".prettierrc")) and {}
-          or { "--config", vim.fn.expand("~/.prettierrc.json") }
+
+          return lsputil.path.exists(lsputil.path.join(root, ".eslintrc.js")) and {}
+          or { "--config", vim.fn.expand("~/.config/eslint/eslintrc.json") }
         end,
       },
+
+
     }
 
     ts_utils.setup_client(client)
@@ -60,8 +66,8 @@ require'lspconfig'.vuels.setup{
       vetur = {
         format = {
           defaultFormatter = {
-            js = 'prettier-eslint',
-            ts = 'prettier-tslint'
+            js = 'none',
+            ts = 'none'
           }
         }
       }

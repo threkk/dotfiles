@@ -60,7 +60,6 @@ call plug#begin($BASE.'/plugged')
   " Language support
   Plug 'nvim-treesitter/nvim-treesitter', Cond(is_nvim)       " Syntax colouring
   Plug 'neovim/nvim-lspconfig', Cond(is_nvim)                 " LSP configuration
-  Plug 'glepnir/lspsaga.nvim', Cond(is_nvim)                  " LSP UI
   Plug 'jose-elias-alvarez/null-ls.nvim', Cond(is_nvim)       " LSP for other tools
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils', Cond(is_nvim)  " Improves JS tooling
   Plug 'liuchengxu/vista.vim'                                 " Tags

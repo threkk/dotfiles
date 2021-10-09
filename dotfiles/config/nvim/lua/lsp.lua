@@ -1,5 +1,3 @@
-require 'lspsaga'.init_lsp_saga()
-
 lsp_on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -14,26 +12,25 @@ lsp_on_attach = function(client, bufnr)
   -- ++ Moving around ++
   buf_set_keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', '<leader>gD', '<cmd>lua require"telescope.builtin".lsp_definitions()<CR>', opts)
-  buf_set_keymap('n', '<leader>gh', '<cmd>lua require"lspsaga.provider".lsp_finder()<CR>', opts)
   buf_set_keymap('n', '<leader>gi', '<cmd>lua require"telescope.builtin".lsp_implementations<CR>', opts)
   buf_set_keymap('n', '<leader>gr', '<cmd>lua require"telescope.builtin".lsp_references()<CR>', opts)
   buf_set_keymap('n', '<leader>gt', '<cmd>lua require"telescope.builtin".lsp_type_definitions()<CR>', opts)
   buf_set_keymap('n', '<leader>go', '<cmd>lua require"telescope.builtin".lsp_document_symbols()<CR>', opts)
 
   -- ++ Information ++
-  buf_set_keymap('n', 'K', '<cmd>lua require("lspsaga.hover").render_hover_doc()<CR>', opts)
-  buf_set_keymap('n', '<leader>gs', '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 
   -- ++ Actions ++
-  buf_set_keymap('n', '<leader>ga', '<cmd>lua require("lspsaga.codeaction").code_action()<CR>', opts)
-  buf_set_keymap('v', '<leader>ga', '<cmd>lua require("lspsaga.codeaction").range_code_action()<CR>', opts)
+  buf_set_keymap('n', '<leader>ga', '<cmd>lua require"telescope.builtin".lsp_code_actions()<CR>', opts)
+  buf_set_keymap('v', '<leader>ga', '<cmd>lua require"telescope.builtin".range_code_actions()<CR>', opts)
   buf_set_keymap('n', '<leader>gf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  buf_set_keymap('n', '<leader>r', '<cmd>lua require("lspsaga.rename").rename()<CR>', opts)
+  buf_set_keymap('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
   -- ++ Diagnostics ++
-  buf_set_keymap('n', '<leader>ge', '<cmr>require"lspsaga.diagnostic".show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '<leader>gp', '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_prev()<CR>', opts)
-  buf_set_keymap('n', '<leader>gn', '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_next()<CR>', opts)
+  buf_set_keymap('n', '<leader>ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '<leader>gp', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', '<leader>gn', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<leader>gE', '<cmd>lua require"telescope.builtin".lsp_document_diagnostics()<CR>', opts)
 
   -- ++ Workspace ++
