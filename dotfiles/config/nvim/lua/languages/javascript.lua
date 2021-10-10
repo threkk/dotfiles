@@ -5,6 +5,7 @@ parser_config.tsx.used_by = { "javascript.jsx", "typescript.tsx", "javascriptrea
 -- ++ LSP ++
 require'lspconfig'.tsserver.setup{
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+  capabilities = capabilities, 
   on_attach = function(client, bufnr)
     -- Disable tsserver formatter
     client.resolved_capabilities.document_formatting = false
@@ -29,7 +30,10 @@ require'lspconfig'.tsserver.setup{
           local lsputil = require("lspconfig.util")
           local root = lsputil.root_pattern("package.json")(params.bufname)
 
-          return lsputil.path.exists(lsputil.path.join(root, ".eslintrc.js")) and {}
+          local eslint_js = lsputil.path.join(root, ".eslintrc.js")
+          local eslint_json = lsputil.path.join(root, ".eslintrc.json")
+
+          return lsputil.path.exists(eslint_js or eslint_json) and {}
           or { "--config", vim.fn.expand("~/.config/eslint/eslintrc.json") }
         end,
       },
@@ -42,7 +46,10 @@ require'lspconfig'.tsserver.setup{
           local lsputil = require("lspconfig.util")
           local root = lsputil.root_pattern("package.json")(params.bufname)
 
-          return lsputil.path.exists(lsputil.path.join(root, ".eslintrc.js")) and {}
+          local eslint_js = lsputil.path.join(root, ".eslintrc.js")
+          local eslint_json = lsputil.path.join(root, ".eslintrc.json")
+
+          return lsputil.path.exists(eslint_js or eslint_json) and {}
           or { "--config", vim.fn.expand("~/.config/eslint/eslintrc.json") }
         end,
       },

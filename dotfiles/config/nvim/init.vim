@@ -64,6 +64,14 @@ call plug#begin($BASE.'/plugged')
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils', Cond(is_nvim)  " Improves JS tooling
   Plug 'liuchengxu/vista.vim'                                 " Tags
 
+  " Autcomplete
+  Plug 'hrsh7th/nvim-cmp', Cond(is_nvim)                " Autocomplete
+  Plug 'hrsh7th/cmp-nvim-lsp', Cond(is_nvim)            " LSP support
+  Plug 'hrsh7th/cmp-buffer', Cond(is_nvim)              " Buffer support
+  Plug 'hrsh7th/cmp-path', Cond(is_nvim)                " Path support
+  Plug 'hrsh7th/cmp-nvim-lua', Cond(is_nvim)            " Neovim Lua API
+  Plug 'onsails/lspkind-nvim', Cond(is_nvim)            " Meta information
+
   " Other
   Plug 'bagrat/vim-workspace'                           " Tab appeareance
   Plug 'easymotion/vim-easymotion'                      " Move around the place
@@ -101,6 +109,7 @@ if is_nvim
   lua require('other')
   lua require('tree_sitter')
   lua require('lsp')  
+  lua require('autocomp')
   lua require('null_ls')
   lua require('telescope')
 

@@ -8,6 +8,7 @@ require'lspconfig'.gopls.setup{
       staticcheck = true,
     },
   },
+  capabilities = capabilities,
   on_attach = function(client, bufnr)
     -- Disabled default autoformatter until it is fixed
     client.resolved_capabilities.document_range_formatting = false
