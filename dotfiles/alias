@@ -4,6 +4,8 @@ alias run="docker run -it --rm  -v `pwd`:`pwd` $@"
 alias tmux="tmux new-session -ADs main"
 alias myip-local="myip -local | cut -d ' ' -f2"
 alias less="less -r -S -N"
+alias zshrc="${EDITOR} ${HOME}/.zshrc"
+alias js3="tree -L 3 -I node_modules"
 
 if command -v bat >/dev/null 2>&1; then
     alias cat=bat
@@ -17,25 +19,6 @@ if [ -d "$HOME/.config/cdpath" ]; then
     export CDPATH=".:$HOME/.config/cdpath:/"
     alias goto="cd -P"
 fi
-
-# OS X specifics
-if [[ $(uname) == 'Darwin' ]] && fzf --version >/dev/null 2>&1 ; then
-    app() {
-        if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-            echo "usage: $0 <name>"
-            echo "  Searchs and opens an application with name <name> or all of the available if empty."
-            echo "  The search is done in /Applications and $HOME/Applications."
-            return 0
-        elif [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
-            echo "1.0.0"
-            return 0
-        else
-            find /Applications ${HOME}/Applications -iname "*$1*.app" -maxdepth 3 | fzf | sed 's/ /\\ /g' | xargs -I % open -n %
-        fi
-    }
-fi
-
-
 
 # Windows specifics
 if [[ $(uname -r) =~ "microsoft" ]]; then
