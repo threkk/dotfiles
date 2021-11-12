@@ -12,7 +12,7 @@ lsp_on_attach = function(client, bufnr)
   -- ++ Moving around ++
   buf_set_keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', '<leader>gD', '<cmd>lua require"telescope.builtin".lsp_definitions()<CR>', opts)
-  buf_set_keymap('n', '<leader>gi', '<cmd>lua require"telescope.builtin".lsp_implementations<CR>', opts)
+  buf_set_keymap('n', '<leader>gi', '<cmd>lua require"telescope.builtin".lsp_implementations()<CR>', opts)
   buf_set_keymap('n', '<leader>gr', '<cmd>lua require"telescope.builtin".lsp_references()<CR>', opts)
   buf_set_keymap('n', '<leader>gt', '<cmd>lua require"telescope.builtin".lsp_type_definitions()<CR>', opts)
   buf_set_keymap('n', '<leader>go', '<cmd>lua require"telescope.builtin".lsp_document_symbols()<CR>', opts)
