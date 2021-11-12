@@ -176,9 +176,6 @@ nmap <leader>0 :tablast<CR>
 map <silent> <C-T> :tabnew<CR>
 map! <silent> <C-T> <Esc>:tabnew<CR>
 
-map <silent> <C-G> :tabnew term://$SHELL<CR>
-map! <silent> <C-G> <ESC>:tabnew term://$SHELL<CR>
-
 " Close tabs.
 map <C-W> :tabc<CR>
 map! <C-W> <Esc>:tabc<CR>

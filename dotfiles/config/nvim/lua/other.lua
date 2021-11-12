@@ -1,6 +1,12 @@
 -- Preview of the search
 vim.opt.inccommand = 'nosplit' 
 
+-- Terminal
+vim.api.nvim_set_keymap('n', '<c-g>',
+    ':tabnew | term<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('i', '<c-g>',
+    '<Esc>:tabnew | term<CR>', {noremap = true, silent = true})
+
 -- Gitsigns
 require('gitsigns').setup()
 
