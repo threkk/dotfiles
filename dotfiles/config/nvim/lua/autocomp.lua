@@ -2,6 +2,11 @@ vim.o.completeopt = 'menu,menuone,noselect'
 
 local cmp = require'cmp'
 cmp.setup {
+  snippet = {
+    expand = function(args)
+        vim.fn['vsnip#anonymous'](args.body)
+    end
+  },
   formatting = {
     format = function(entry, vim_item)
       vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
@@ -11,6 +16,7 @@ cmp.setup {
         path = "[Path]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
+        vsnip = "[LSP]"
       })[entry.source.name]
 
       return vim_item
@@ -29,35 +35,30 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true 
     }),
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(t "<C-n>", "n")
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
       else
         fallback()
       end
-    end, {
-        "i",
-        "s",
-      }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(t "<C-p>", "n")
+    end, { 'i', 's', }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
       else
         fallback()
       end
-    end, {
-        "i",
-        "s",
-      }),
+    end, { 'i', 's', }), 
   },
   documentation = {
     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'buffer' },
+--   { name = 'buffer' },
     { name = 'path' },
-    { name = 'nvim_lua' }
+    { name = 'nvim_lua' },
+    { name = 'vsnip' }
   }
 }
 

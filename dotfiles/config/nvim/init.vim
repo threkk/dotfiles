@@ -27,6 +27,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'kyazdani42/nvim-web-devicons', Cond(is_nvim)  " Nerd font lua support
   Plug 'vim-scripts/ReplaceWithRegister'              " Replaces the current selection with a register.
   Plug 'roxma/vim-paste-easy'                         " Fixes pasting.
+  Plug 'luukvbaal/stabilize.nvim', Cond(is_nvim)      " Stabilises the UI.
 
   " File tree menu
   Plug 'scrooloose/nerdtree'                              " File tree.
@@ -62,6 +63,9 @@ call plug#begin($BASE.'/plugged')
   Plug 'neovim/nvim-lspconfig', Cond(is_nvim)                 " LSP configuration
   Plug 'jose-elias-alvarez/null-ls.nvim', Cond(is_nvim)       " LSP for other tools
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils', Cond(is_nvim)  " Improves JS tooling
+  Plug 'hrsh7th/vim-vsnip', Cond(is_nvim)                     " Required by nvim-comp
+  Plug 'hrsh7th/cmp-vsnip', Cond(is_nvim)                     " Required by nvim-comp
+  Plug 'rafamadriz/friendly-snippets', Cond(is_nvim)          " Snippets for autocompletion
   Plug 'liuchengxu/vista.vim'                                 " Tags
 
   " Autcomplete
@@ -71,6 +75,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'hrsh7th/cmp-path', Cond(is_nvim)                " Path support
   Plug 'hrsh7th/cmp-nvim-lua', Cond(is_nvim)            " Neovim Lua API
   Plug 'onsails/lspkind-nvim', Cond(is_nvim)            " Meta information
+  Plug 'github/copilot.vim', Cond(is_nvim)              " Github Copilot
 
   " Other
   Plug 'bagrat/vim-workspace'                           " Tab appeareance

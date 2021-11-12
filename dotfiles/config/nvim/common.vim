@@ -131,6 +131,9 @@ map Q <Nop>
 " I am tired of :W when I want to write.
 nnoremap W w
 
+" Shift tab deletes a tab.
+inoremap <s-tab> <C-d>
+
 " Make tab in v mode ident code
 vmap <tab> >gv
 vmap <s-tab> <gv
