@@ -30,7 +30,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'luukvbaal/stabilize.nvim', Cond(is_nvim)      " Stabilises the UI.
 
   " File tree menu
-  Plug 'scrooloose/nerdtree'                              " File tree.
+  Plug 'preservim/nerdtree'                               " File tree.
   Plug 'Xuyuanp/nerdtree-git-plugin'                      " with git support
 
   " Lightline 
@@ -59,7 +59,8 @@ call plug#begin($BASE.'/plugged')
   Plug 'lukas-reineke/indent-blankline.nvim', Cond(is_nvim)   " Indicates the block line in nvim
 
   " Language support
-  Plug 'nvim-treesitter/nvim-treesitter', Cond(is_nvim)       " Syntax colouring
+  Plug 'nvim-treesitter/nvim-treesitter', Cond(is_nvim)       " Syntax colouring for neovim
+  Plug 'sheerun/vim-polyglot', Cond(is_vim)                   " Syntax colouring for vim 
   Plug 'neovim/nvim-lspconfig', Cond(is_nvim)                 " LSP configuration
   Plug 'jose-elias-alvarez/null-ls.nvim', Cond(is_nvim)       " LSP for other tools
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils', Cond(is_nvim)  " Improves JS tooling

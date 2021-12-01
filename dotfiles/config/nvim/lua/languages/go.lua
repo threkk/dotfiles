@@ -1,6 +1,7 @@
 -- ++ LSP ++
 require'lspconfig'.gopls.setup{
   settings = {
+    cmd = { "gopls" },
     gopls = {
       analyses = {
         unusedparams = true,
