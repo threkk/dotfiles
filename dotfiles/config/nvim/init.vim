@@ -21,6 +21,7 @@ call plug#begin($BASE.'/plugged')
   " Basic configuration for client specifics
   Plug 'tpope/vim-sensible', Cond(is_vim)             " Basic conf.
   Plug 'wincent/terminus'                             " Improves term sup.
+  Plug 'tpope/vim-eunuch'                             " Improves unix support 
   Plug 'equalsraf/neovim-gui-shim', Cond(is_nvim)     " Shims for UI config.
   Plug 'nvim-lua/plenary.nvim', Cond(is_nvim)         " Supporting library
   Plug 'ryanoasis/vim-devicons'                       " Nerd font viml support
@@ -76,7 +77,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'hrsh7th/cmp-path', Cond(is_nvim)                " Path support
   Plug 'hrsh7th/cmp-nvim-lua', Cond(is_nvim)            " Neovim Lua API
   Plug 'onsails/lspkind-nvim', Cond(is_nvim)            " Meta information
-  Plug 'github/copilot.vim', Cond(is_nvim)              " Github Copilot
+  Plug 'github/copilot.vim', Cond(v:false)              " Github Copilot
 
   " Other
   Plug 'bagrat/vim-workspace'                           " Tab appeareance

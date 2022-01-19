@@ -27,6 +27,13 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
       \ }
 
 " Vista
+map <silent> <leader>o :Vista!!<CR>
+map! <silent> <leader>o <Esc>:Vista!!<CR>
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
 let g:vista_default_executive = 'nvim_lsp'
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista#renderer#icons = {
@@ -57,12 +64,14 @@ let g:lightline = {
       \ 'colorscheme': has('nvim') ? 'tokyonight' : 'one',
       \ 'active': {
         \   'left':  [ [ 'mode', 'paste' ],
-        \              [ 'gitbranch', 'readonly',  'modified' ],
-        \              [ 'filename' ] ],
-        \   'right': [ [ 'fileformat', 'fileencoding', 'filetype' ],
+        \              [ 'gitbranch', 'readonly',  'modified',  ],
+        \              [ 'filename' ],
+        \              ['method' ]],
+        \   'right': [ [ 'fileformat', 'fileencoding', 'filetype', ],
         \              [ 'lineinfo', 'percent' ]],
         \ },
         \ 'component_function': {
-          \   'gitbranch': 'fugitive#head'
-        \ }
-     \ }
+          \   'gitbranch': 'fugitive#head',
+          \   'method': 'NearestMethodOrFunction',
+        \ },
+      \ }

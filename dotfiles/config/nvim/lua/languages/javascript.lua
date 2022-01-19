@@ -19,8 +19,8 @@ require'lspconfig'.tsserver.setup{
     ts_utils.setup_client(client)
 
     local opts = { noremap = true, silent = true }
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>go", ":TSLspImportAll<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gO", ":TSLspOrganize<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gm", ":TSLspImportAll<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gM", ":TSLspOrganize<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>R", ":TSLspRenameFile<CR>", opts)
   end
 }
