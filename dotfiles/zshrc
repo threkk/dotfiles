@@ -50,6 +50,10 @@ if [[ -d $HOME/.config/zsh_custom ]]; then
   ZSH_CUSTOM=$HOME/.config/zsh_custom
 fi
 
+if [ "$(umask)" = "0000" ]; then
+  umask 0022
+fi
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 if [[ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]]; then
@@ -66,13 +70,12 @@ fi
 # Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew common-aliases docker gitfast git-extras github httpie npm osx pip python z)
+plugins=(git gitfast git-extras common-aliases z)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export MANPATH="/usr/local/man:$MANPATH"
-export MANPAGER='nvim +Man!'
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -92,25 +95,8 @@ fi
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# SSH
-export SSH_KEY_PATH="${HOME}/.ssh/id_rsa"
-
-# AGE
-export AGE_PUBLIC_KEY="age1xdnnacmr5z3rk4a8avn62vzz8mnzc3xu668k33mn7gj2qe3uavtqgdv2t7"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate $HOME/.zshrc"
-# alias ohmyzsh="mate $HOME/.oh-my-zsh"
-#
-
 # Extra config
 export HOME
-
 export HOMEBREW_NO_ANALYTICS=1
 export PYTHONDONTWRITEBYTECODE=1
 export XDG_CONFIG_HOME=$HOME/.config
@@ -139,25 +125,16 @@ if [ -f $HOME/.asdf/asdf.sh ]; then
     . $HOME/.asdf/asdf.sh
 fi
 
-# Auto completation
-[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
-[ -f $BREW_PREFIX/share/zsh-syntax-highlighting.zsh ] && source $BREW_PREFIX/share/zsh-syntax-highlighting.zsh
-[ -f $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-[ -f $HOME/.asdf/shimgs/terraform ] && complete -o nospace -C /home/threkk/.asdf/shims/terraform terraform
-
-if [ -f  $HOME/.asdf/completions/asdf.bash ]; then
-    . $HOME/.asdf/completions/asdf.bash
-fi
-
-fpath=($BREW_PREFIX/share/zsh-completions $fpath)
-autoload -U bashcompinit
-bashcompinit
-
 # Aliases
 if [ -f $HOME/.alias ]; then
-    . $HOME/.alias
+  . $HOME/.alias
 fi
 
-if [ "$(umask)" = "0000" ]; then
-  umask 0022
-fi
+# Auto completation
+[ -f $HOME/.asdf/completions/asdf.bash ] && . $HOME/.asdf/completions/asdf.bash
+[ -f $HOME/.asdf/shims/terraform ] && complete -o nospace -C /home/threkk/.asdf/shims/terraform terraform
+[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
+
+fpath=(${ASDF_DIR}/completions $fpath)
+autoload -Uz compinit
+compinit

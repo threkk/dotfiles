@@ -25,7 +25,9 @@ else
 fi
 
 export AGE_PUBLIC_KEY="age1xdnnacmr5z3rk4a8avn62vzz8mnzc3xu668k33mn7gj2qe3uavtqgdv2t7"
-export SOPS_KMS_ARN="arn:aws:kms:eu-west-1:356505716865:key/e53a7fd4-f646-4e8f-9c9d-0abec63312b2"
+export SOPS_AGE_RECIPIENTS="$AGE_PUBLIC_KEY"
+export SOPS_AGE_KEY_FILE="$HOME/age.txt"
+# export SOPS_KMS_ARN="arn:aws:kms:eu-west-1:356505716865:key/e53a7fd4-f646-4e8f-9c9d-0abec63312b2"
 
 # https://linuxhint.com/ls_colors_bash/
 # https://medium.com/@xiemicha/wsl-how-to-fix-the-awkward-color-scheme-of-the-command-prompt-for-ls-6928dbc25f57
