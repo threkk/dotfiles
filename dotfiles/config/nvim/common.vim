@@ -111,8 +111,8 @@ map <leader>/ :nohlsearch<CR>
 nnoremap <space> za
 
 " Move vertically by visual line
-nnoremap j gj
-nnoremap k gk
+nnoremap <silent> j gj
+nnoremap <silent> k gk
 
 " Center VIM searches
 noremap n nzz
@@ -121,9 +121,11 @@ noremap N Nzz
 " Y should behave like D and C
 noremap Y y$
 
-" Move to beginning/end of line
-nnoremap <C-a> ^
-nnoremap <C-e> $
+" Select all
+map <silent> <C-a> <esc>ggVG<CR>
+
+" Save
+map <silent> <C-s> <esc>:w<CR>
 
 " Disables ex mode
 map Q <Nop>
@@ -147,8 +149,7 @@ vnoremap <C-x> "+d
 vnoremap <C-c> "+y
 inoremap <C-v> <ESC>"+pa
 
-" Undo and redo mapped to C-z/C-y or u/U
-nnoremap U <C-r>
+" Undo and redo mapped to C-z/C-y
 nnoremap <C-y> <C-r>
 nnoremap <C-z> u
 

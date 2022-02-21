@@ -75,3 +75,8 @@ let g:lightline = {
           \   'method': 'NearestMethodOrFunction',
         \ },
       \ }
+
+" OSC Yank
+set clipboard& clipboard^=unnamed,unnamedplus
+let g:oscyank_silent = v:true
+vnoremap <silent> <C-c> :OSCYank<CR>

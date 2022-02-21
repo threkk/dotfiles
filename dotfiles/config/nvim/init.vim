@@ -29,6 +29,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'vim-scripts/ReplaceWithRegister'              " Replaces the current selection with a register.
   Plug 'roxma/vim-paste-easy'                         " Fixes pasting.
   Plug 'luukvbaal/stabilize.nvim', Cond(is_nvim)      " Stabilises the UI.
+  Plug 'ojroques/vim-oscyank'                         " Copy-paste
 
   " File tree menu
   Plug 'preservim/nerdtree'                               " File tree.
