@@ -1,9 +1,9 @@
-golang 1.16
-nodejs 15.11.0
+golang 1.17.3
+nodejs 17.5.0
 python 3.9.2
 caddy 2.3.0
 golangci-lint 1.38.0
-neovim 0.5.1
+neovim 0.7.0
 litestream 0.3.4
 bats v1.3.0
 age 1.0.0
@@ -20,3 +20,10 @@ cloudflared 2021.9.2
 terraform-ls 0.22.0
 jq 1.6
 shellcheck 0.7.2
+github-cli 2.2.0
+git system
+exa 0.10.1
+fd 8.3.2
+duf 0.8.1
+dust 0.8.0
+ctop 0.7.7

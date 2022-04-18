@@ -70,7 +70,7 @@ fi
 # Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gitfast git-extras common-aliases z)
+plugins=(git gitfast git-extras z)
 
 source $ZSH/oh-my-zsh.sh
 

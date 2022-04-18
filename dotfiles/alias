@@ -9,10 +9,22 @@ alias js3="tree -L 3 -I node_modules"
 
 if command -v bat >/dev/null 2>&1; then
     alias cat=bat
-else
-    if command -v ccat >/dev/null 2>&1; then
-        alias cat=ccat
-    fi
+fi
+
+if command -v exa >/dev/null 2>&1; then
+    alias ls=exa
+fi
+
+if command -v fd >/dev/null 2>&1; then
+    alias find=fd
+fi
+
+if command -v duf >/dev/null 2>&1; then
+    alias df=duf
+fi
+
+if command -v dust >/dev/null 2>&1; then
+    alias du=dust
 fi
 
 if [ -d "$HOME/.config/cdpath" ]; then
@@ -25,10 +37,10 @@ if [[ $(uname -r) =~ "microsoft" ]]; then
     open() {
         for file in "$@"
         do
-            if [ -f $file ]; then
+            if [ -f "$file" ]; then
                 cmd.exe /C "$file"
             else
-                explorer.exe $file
+                explorer.exe "$file"
             fi
         done
     }

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+
+# export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 export CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
 # SSH
