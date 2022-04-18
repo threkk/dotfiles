@@ -8,9 +8,9 @@ else
 endif
 
 " Nuake
-map <silent> <C-o> :Nuake<CR>
-map! <silent> <C-o> <Esc>:Nuake<CR>
-tmap <silent> <C-o> <C-\><C-n>:Nuake<CR>
+map <silent> <C-e> :Nuake<CR>
+map! <silent> <C-e> <Esc>:Nuake<CR>
+tmap <silent> <C-e> <C-\><C-n>:Nuake<CR>
 
 " NerdTree Git
 map <silent> <leader>t :NERDTreeToggle<CR>

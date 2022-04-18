@@ -5,6 +5,7 @@ filetype plugin indent on       " Load filetype-specific indent files.
 set modelines=1                 " Enables custom configurations per file.
 set history=700                 " Size of the command history.
 set hidden                      " Hides not active buffers.
+set visualbell                  " Uses a visual bell instead of the sound.
 set noerrorbells                " Doesn't display the error bells.
 set encoding=utf8               " Sets the encoding to UTF-8.
 set termencoding=utf-8          " Sets the terminal encoding to UTF-8.
@@ -15,6 +16,7 @@ set ttyfast                     " Indicates a fast terminal.
 set updatetime=300              " Smaller update times.
 set scrolloff=5                 " Show a few lines of context.
 set fileformats=unix,mac,dos    " Handle all line endings, but prefer unix.
+set digraph                     " Enables input of special characters.
 " set clipboard+=unnamedplus    " Use the system clipboard.
 
 " UI
@@ -34,7 +36,7 @@ set colorcolumn=81              " Draws a vertical line at the selected column.
 
 " Line wrap
 set wrap                        " Lines longer than the width will wrap and continue on the next line.
-set linebreak                   " Smart wrapping instead of the last character.
+set nolinebreak                 " Smart wrapping instead of the last character.
 set whichwrap=<,>,[,],b         " When a line finishes, another starts.
 
 " Tabs
@@ -153,6 +155,10 @@ inoremap <C-v> <ESC>"+pa
 nnoremap <C-y> <C-r>
 nnoremap <C-z> u
 
+" ctrl+s saves the current buffer
+map <C-s> :w<CR>
+map! <C-s> <esc>:w<CR>
+
 " Tabs
 map <C-Tab> :tabnext<CR>
 map <C-S-Tab> :tabprev<CR>
@@ -168,14 +174,13 @@ nmap <silent> <leader>5 :tabn 5<CR>
 nmap <silent> <leader>6 :tabn 6<CR>
 nmap <silent> <leader>7 :tabn 7<CR>
 nmap <silent> <leader>8 :tabn 8<CR>
-nmap <silent> <leader>9 :tabn 9<CR>
 
-" Control-0 goes to the last tab
-nmap <leader>0 :tablast<CR>
+" Leader-9 goes to the last tab
+nmap <leader>9 :tablast<CR>
 
 " Open tabs.
-map <silent> <C-T> :tabnew<CR>
-map! <silent> <C-T> <Esc>:tabnew<CR>
+map <silent> <C-t> :tabnew<CR>
+map! <silent> <C-t> <Esc>:tabnew<CR>
 
 " Close tabs.
 map <C-W> :tabc<CR>
@@ -227,6 +232,6 @@ inoremap <C-p> <C-x><C-o>
 " Buffers
 inoremap <C-b> <C-x><C-p>
 " Files
-inoremap <C-f> <C-x><C-f>
+inoremap <C-u> <C-x><C-f>
 " Lines
 inoremap <C-l> <C-x><C-l>

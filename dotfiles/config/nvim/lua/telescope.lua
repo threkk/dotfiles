@@ -1,8 +1,14 @@
-local ns =  { noremap = true, silent = true }
+local ns = { noremap = true, silent = true }
 
 -- Searches a file
 vim.api.nvim_set_keymap('n', '<leader>f',
   '<cmd>lua require"telescope.builtin".find_files()<cr>',  ns)
+
+vim.api.nvim_set_keymap('n', '<C-o>', 
+  '<cmd>lua require"telescope.builtin".find_files()<cr>', ns)
+
+vim.api.nvim_set_keymap('!', '<C-o>', 
+  '<esc><cmd>lua require"telescope.builtin".find_files()<cr>', ns)
 
 -- Searches a buffer
 vim.api.nvim_set_keymap('n', '<leader>b',
@@ -12,8 +18,15 @@ vim.api.nvim_set_keymap('n', '<leader>b',
 vim.api.nvim_set_keymap('n', '<leader>p',
   '<cmd>lua require"telescope.builtin".live_grep()<cr>',  ns)
 
+-- Searches in the current file
+vim.api.nvim_set_keymap('n', '<c-f>',
+  '<cmd>lua require"telescope.builtin".current_buffer_fuzzy_find()<cr>',  ns)
+
+vim.api.nvim_set_keymap('!', '<c-f>',
+  '<esc><cmd>lua require"telescope.builtin".current_buffer_fuzzy_find()<cr>',  ns)
+
 -- Searches the list of builtins
-vim.api.nvim_set_keymap('n', '<leader>L',
+vim.api.nvim_set_keymap('n', '<leader>e',
   '<cmd>lua require"telescope.builtin".builtin()<cr>',  ns)
 
 -- Searches the Git files.
