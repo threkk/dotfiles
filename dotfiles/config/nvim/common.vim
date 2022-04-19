@@ -30,13 +30,13 @@ set noshowmode                  " Hides the current mode.
 set cmdheight=2                 " Command line height.
 set shortmess+=c                " Don't give |ins-completion-menu| messages.
 set signcolumn=yes              " Always show signcolumns.
-set textwidth=80                " Maximum line width.
+set textwidth=0                 " Maximum line width (disabled).
 set colorcolumn=81              " Draws a vertical line at the selected column.
 " Don't set columns, let the terminal do it.
 
 " Line wrap
 set wrap                        " Lines longer than the width will wrap and continue on the next line.
-set nolinebreak                 " Smart wrapping instead of the last character.
+set linebreak                   " Smart wrapping instead of the last character.
 set whichwrap=<,>,[,],b         " When a line finishes, another starts.
 
 " Tabs
