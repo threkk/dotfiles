@@ -18,6 +18,12 @@ vim.api.nvim_set_keymap('n', '<leader>b',
 vim.api.nvim_set_keymap('n', '<leader>p',
   '<cmd>lua require"telescope.builtin".live_grep()<cr>',  ns)
 
+vim.api.nvim_set_keymap('n', '<C-p>',
+  '<cmd>lua require"telescope.builtin".live_grep()<cr>',  ns)
+
+vim.api.nvim_set_keymap('!', '<C-p>',
+  '<esc><cmd>lua require"telescope.builtin".live_grep()<cr>',  ns)
+
 -- Searches in the current file
 vim.api.nvim_set_keymap('n', '<c-f>',
   '<cmd>lua require"telescope.builtin".current_buffer_fuzzy_find()<cr>',  ns)

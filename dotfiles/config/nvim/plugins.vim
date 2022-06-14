@@ -3,14 +3,16 @@ if has('rg')
   let g:ackprg = 'rg --vimgrep'
 elseif has('ag')
   let g:ackprg = 'ag'
-else
+elseif has('ack')
   let g:ackprg = 'ack'
 endif
 
 " Nuake
-map <silent> <C-e> :Nuake<CR>
-map! <silent> <C-e> <Esc>:Nuake<CR>
-tmap <silent> <C-e> <C-\><C-n>:Nuake<CR>
+if has('terminal')
+  map <silent> <C-e> :Nuake<CR>
+  map! <silent> <C-e> <Esc>:Nuake<CR>
+  tmap <silent> <C-e> <C-\><C-n>:Nuake<CR>
+endif
 
 " NerdTree Git
 map <silent> <leader>t :NERDTreeToggle<CR>

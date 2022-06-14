@@ -16,7 +16,7 @@ set ttyfast                     " Indicates a fast terminal.
 set updatetime=300              " Smaller update times.
 set scrolloff=5                 " Show a few lines of context.
 set fileformats=unix,mac,dos    " Handle all line endings, but prefer unix.
-set digraph                     " Enables input of special characters.
+" set digraph                     " Enables input of special characters.
 " set clipboard+=unnamedplus    " Use the system clipboard.
 
 " UI
@@ -106,9 +106,6 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Leader
 let mapleader=';'
 
-" Turns off the search highlight.
-map <leader>/ :nohlsearch<CR>
-
 " Enable folding with the spacebar
 nnoremap <space> za
 
@@ -146,18 +143,23 @@ vmap <s-tab> <gv
 nmap <tab> I<tab><esc>
 nmap <s-tab> ^i<bs><esc>
 
-" System copy-paste
-vnoremap <C-x> "+d
-vnoremap <C-c> "+y
-inoremap <C-v> <ESC>"+pa
+" System copy-paste (from mswin.vim)
+vnoremap <silent> <C-x> "+x
+vnoremap <silent> <C-c> "+y
+map      <silent> <C-v> "+gP
+map!     <silent> <C-v> <esc>"+gP<esc>i
+" inoremap <C-v> <ESC>"+pa
 
 " Undo and redo mapped to C-z/C-y
-nnoremap <C-y> <C-r>
-nnoremap <C-z> u
+map <silent> <C-y> <C-r>
+map! <silent> <C-y> <esc><C-r>i
+map <silent> <C-z> u
+map! <silent> <C-z> <esc>ui
+
 
 " ctrl+s saves the current buffer
-map <C-s> :w<CR>
-map! <C-s> <esc>:w<CR>
+map <C-s> :update<CR>
+map! <C-s> <esc>:update<CR><esc>i
 
 " Tabs
 map <C-Tab> :tabnext<CR>
@@ -183,8 +185,8 @@ map <silent> <C-t> :tabnew<CR>
 map! <silent> <C-t> <Esc>:tabnew<CR>
 
 " Close tabs.
-map <C-W> :tabc<CR>
-map! <C-W> <Esc>:tabc<CR>
+map <C-w> :tabc<CR>
+map! <C-w> <Esc>:tabc<CR>
 
 " Terminal
 tnoremap <esc>; <C-\><C-n>
@@ -225,13 +227,16 @@ map <leader>d :vs<CR>
 map <leader>D :split<CR>
 
 " Easier mappings for completion
-" Tags
-inoremap <C-]> <C-x><C-]>
 " Omni
-inoremap <C-p> <C-x><C-o>
+inoremap <C-space> <C-x><C-o>
 " Buffers
 inoremap <C-b> <C-x><C-p>
-" Files
-inoremap <C-u> <C-x><C-f>
 " Lines
 inoremap <C-l> <C-x><C-l>
+
+" Not really used
+" Tags
+inoremap <C-]> <C-x><C-]>
+
+" Files
+inoremap <C-[> <C-x><C-f>

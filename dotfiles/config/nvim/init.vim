@@ -26,7 +26,6 @@ call plug#begin($BASE.'/plugged')
   Plug 'nvim-lua/plenary.nvim', Cond(is_nvim)         " Supporting library
   Plug 'ryanoasis/vim-devicons'                       " Nerd font viml support
   Plug 'kyazdani42/nvim-web-devicons', Cond(is_nvim)  " Nerd font lua support
-  Plug 'vim-scripts/ReplaceWithRegister'              " Replaces the current selection with a register.
   Plug 'roxma/vim-paste-easy'                         " Fixes pasting.
   Plug 'luukvbaal/stabilize.nvim', Cond(is_nvim)      " Stabilises the UI.
   Plug 'ojroques/vim-oscyank'                         " Copy-paste
@@ -44,7 +43,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'cohama/lexima.vim'                                " Closes parenthesis
 
   " Git  
-  Plug 'tpope/vim-fugitive'                               " Git basic commands.
+  " Plug 'tpope/vim-fugitive'                             " Git basic commands.
   Plug 'airblade/vim-gitgutter', Cond(is_vim)             " Git diff in vim
   Plug 'lewis6991/gitsigns.nvim', Cond(is_nvim)           " Git diff in neovim
 
@@ -78,7 +77,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'hrsh7th/cmp-path', Cond(is_nvim)                " Path support
   Plug 'hrsh7th/cmp-nvim-lua', Cond(is_nvim)            " Neovim Lua API
   Plug 'onsails/lspkind-nvim', Cond(is_nvim)            " Meta information
-  Plug 'github/copilot.vim', Cond(v:false)              " Github Copilot
+  " Plug 'github/copilot.vim', Cond(v:false)            " Github Copilot
 
   " Other
   Plug 'bagrat/vim-workspace'                           " Tab appeareance
@@ -87,7 +86,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'folke/twilight.nvim', Cond(is_nvim)             " Dims other blocks of text
   Plug 'godlygeek/tabular'                              " Aligns stuff.
   Plug 'gorodinskiy/vim-coloresque'                     " Colours preview.
-  Plug 'lenovsky/nuake'                                 " Floating terminal
+  Plug 'lenovsky/nuake', Cond(has('terminal'))          " Floating terminal
   Plug 'terryma/vim-multiple-cursors'                   " Mutiple cursors.
   Plug 'tpope/vim-sleuth'                               " Set tabs and spaces.
 
