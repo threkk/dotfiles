@@ -1,5 +1,5 @@
 golang 1.17.3
-nodejs 17.5.0
+nodejs 18.3.0
 python 3.9.2
 caddy 2.3.0
 golangci-lint 1.38.0
@@ -7,7 +7,7 @@ neovim 0.7.0
 litestream 0.3.4
 bats v1.3.0
 age 1.0.0
-sops 3.7.1
+sops 3.7.3
 hey v0.1.4
 dotenv-linter 3.1.0
 fzf 0.27.2
@@ -15,7 +15,7 @@ awscli 2.2.11
 bat 0.18.1
 ripgrep 13.0.0
 act 0.2.24
-terraform 1.0.7
+terraform 1.2.2
 cloudflared 2021.9.2
 terraform-ls 0.22.0
 jq 1.6
@@ -27,3 +27,4 @@ fd 8.3.2
 duf 0.8.1
 dust 0.8.0
 ctop 0.7.7
+hadolint 2.10.0
