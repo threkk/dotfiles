@@ -18,4 +18,4 @@ set backupskip=/tmp/vim-tmp/*,/private/tmp/vim-tmp/*                     " Don't
 set directory=$HOME/.config/vim-tmp,/tmp/vim-tmp,/private/tmp/vim-tmp    " Directories for swapfiles.
 set undodir=$HOME/.config/vim-undo,/tmp/vim-undo,/private/tmp/vim-undo   " Directories for undo.
 
-autocmd BufReadPre BracelessEnable +indent +fold +highlight
+" autocmd FileType python,yaml BracelessEnable +indent +fold +highlight

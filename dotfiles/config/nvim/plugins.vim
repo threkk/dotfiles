@@ -8,7 +8,7 @@ elseif has('ack')
 endif
 
 " Nuake
-if has('terminal')
+if has('nvim') || has('terminal')
   map <silent> <C-e> :Nuake<CR>
   map! <silent> <C-e> <Esc>:Nuake<CR>
   tmap <silent> <C-e> <C-\><C-n>:Nuake<CR>

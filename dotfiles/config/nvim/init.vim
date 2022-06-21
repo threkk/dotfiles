@@ -9,6 +9,7 @@ endfunction
 
 let is_vim = !has('nvim')
 let is_nvim = has('nvim')
+let has_terminal = has('nvim') || has('terminal')
 
 if is_nvim
     let $BASE = stdpath('config')
@@ -56,7 +57,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'mileszs/ack.vim'                                  " ACK, AG, RG...
 
   " Blocks
-  Plug 'tweekmonster/braceless.vim', Cond(is_vim)             " Indicates the block line in vim
+  " Plug 'tweekmonster/braceless.vim', Cond(is_vim)             " Indicates the block line in vim
   Plug 'lukas-reineke/indent-blankline.nvim', Cond(is_nvim)   " Indicates the block line in nvim
 
   " Language support
@@ -77,7 +78,6 @@ call plug#begin($BASE.'/plugged')
   Plug 'hrsh7th/cmp-path', Cond(is_nvim)                " Path support
   Plug 'hrsh7th/cmp-nvim-lua', Cond(is_nvim)            " Neovim Lua API
   Plug 'onsails/lspkind-nvim', Cond(is_nvim)            " Meta information
-  " Plug 'github/copilot.vim', Cond(v:false)            " Github Copilot
 
   " Other
   Plug 'bagrat/vim-workspace'                           " Tab appeareance
@@ -86,7 +86,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'folke/twilight.nvim', Cond(is_nvim)             " Dims other blocks of text
   Plug 'godlygeek/tabular'                              " Aligns stuff.
   Plug 'gorodinskiy/vim-coloresque'                     " Colours preview.
-  Plug 'lenovsky/nuake', Cond(has('terminal'))          " Floating terminal
+  Plug 'lenovsky/nuake', Cond(has_terminal)             " Floating terminal
   Plug 'terryma/vim-multiple-cursors'                   " Mutiple cursors.
   Plug 'tpope/vim-sleuth'                               " Set tabs and spaces.
 
