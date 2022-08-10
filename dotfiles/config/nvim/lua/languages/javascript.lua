@@ -6,6 +6,7 @@ parser_config.tsx.filetype_to_parsername = { "javascript.jsx", "typescript.tsx",
 require'lspconfig'.tsserver.setup{
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
   capabilities = capabilities, 
+  root_dir = require'lspconfig'.util.root_pattern("package.json"),
   on_attach = function(client, bufnr)
     -- Disable tsserver formatter
     client.resolved_capabilities.document_formatting = false
@@ -26,7 +27,10 @@ require'lspconfig'.tsserver.setup{
 }
 
 -- ++ LSP: eslint ++
-require'lspconfig'.eslint.setup{}
+require'lspconfig'.eslint.setup{
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+  root_dir = require'lspconfig'.util.root_pattern("package.json"),
+}
 
 -- + LSP: vuels +
 require'lspconfig'.vuels.setup{
@@ -43,4 +47,20 @@ require'lspconfig'.vuels.setup{
       }
     }
   }
+}
+
+-- + LSP: deno +
+require'lspconfig'.denols.setup {
+  on_attach = lsp_on_attach,
+  root_dir = require'lspconfig'.util.root_pattern("deno.json", "deno.jsonc"),
+}
+
+vim.g.markdown_fenced_languages = {
+  "ts=typescript"
+}
+
+-- + LSP: astro +
+require'lspconfig'.astro.setup{
+  on_attach = lsp_on_attach,
+  root_dir = require'lspconfig'.util.root_pattern("astro.config.mjs")
 }

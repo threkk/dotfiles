@@ -8,5 +8,9 @@ augroup js_configuration
   au FileType javascript,typescript,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact,json,vue set shiftwidth=2
   au FileType javascript,typescript,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact,json,vue set softtabstop=2
   au FileType javascript,typescript,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact,json,vue set tabstop=2
+augroup END
 
+augroup astro_configuration
+  au!
+  autocmd BufEnter *.astro set filetype=astro
 augroup END

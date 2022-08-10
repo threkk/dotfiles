@@ -22,8 +22,7 @@ lsp_on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 
   -- ++ Actions ++
-  buf_set_keymap('n', '<leader>ga', '<cmd>lua require"telescope.builtin".lsp_code_actions()<CR>', opts)
-  buf_set_keymap('v', '<leader>ga', '<cmd>lua require"telescope.builtin".range_code_actions()<CR>', opts)
+  buf_set_keymap('n', '<leader>ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<leader>gf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   buf_set_keymap('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
