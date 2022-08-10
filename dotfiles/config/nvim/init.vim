@@ -70,6 +70,9 @@ call plug#begin($BASE.'/plugged')
   Plug 'hrsh7th/cmp-vsnip', Cond(is_nvim)                     " Required by nvim-comp
   Plug 'rafamadriz/friendly-snippets', Cond(is_nvim)          " Snippets for autocompletion
   Plug 'liuchengxu/vista.vim'                                 " Tags
+  Plug 'jxnblk/vim-mdx-js'                                    " MDX syntax highlight
+  Plug 'wuelnerdotexe/vim-astro', Cond(is_vim)                " Astro syntax highlight
+  Plug 'https://tildegit.org/sloum/gemini-vim-syntax'         " Gemini syntax highlight 
 
   " Autcomplete
   Plug 'hrsh7th/nvim-cmp', Cond(is_nvim)                " Autocomplete
