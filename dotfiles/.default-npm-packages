@@ -1,2 +1,17 @@
+@astrojs/language-server
+bash-language-server
+codesandbox
+dockerfile-language-server-nodejs
+former2
+graphql-language-service-cli
+gtop
+neovim
+pnpm
 prettier
+tldr
 typescript
+typescript-language-server
+vercel
+vls
+vscode-langservers-extracted
+wrangler

@@ -1,5 +1,5 @@
 golang 1.17.3
-nodejs 18.3.0
+nodejs 18.7.0
 python 3.9.2
 caddy 2.3.0
 golangci-lint 1.38.0
@@ -28,3 +28,5 @@ duf 0.8.1
 dust 0.8.0
 ctop 0.7.7
 hadolint 2.10.0
+lazydocker 0.18.1
+deno 1.24.2
