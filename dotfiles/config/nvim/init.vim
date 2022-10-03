@@ -84,6 +84,7 @@ call plug#begin($BASE.'/plugged')
 
   " Other
   Plug 'bagrat/vim-workspace'                           " Tab appeareance
+  Plug 'ahmedkhalf/project.nvim', Cond(is_nvim)         " Project management
   Plug 'easymotion/vim-easymotion'                      " Move around the place
   Plug 'editorconfig/editorconfig-vim'                  " Editorconfig support
   Plug 'folke/twilight.nvim', Cond(is_nvim)             " Dims other blocks of text
@@ -95,7 +96,7 @@ call plug#begin($BASE.'/plugged')
 
   " Themes
   Plug 'arcticicestudio/nord-vim'
-  Plug 'chriskempson/base16-vim'   
+  Plug 'chriskempson/base16-vim'
   Plug 'cocopon/iceberg.vim'
   Plug 'dracula/vim', { 'as': 'dracula' }
   Plug 'folke/tokyonight.nvim', Cond(is_nvim)
@@ -121,7 +122,7 @@ if is_nvim
   lua require('lsp')  
   lua require('autocomp')
   lua require('null_ls')
-  lua require('telescope')
+  lua require('telescope_bindings')
 
   " Languages
   lua require('languages.go')

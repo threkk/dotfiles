@@ -1,5 +1,9 @@
 local ns = { noremap = true, silent = true }
 
+-- Telescope
+local telescope = require('telescope')
+telescope.setup{}
+
 -- Preview of the search
 vim.opt.inccommand = 'nosplit' 
 
@@ -40,3 +44,9 @@ for i = 1, 8  do
 end
 vim.api.nvim_set_keymap('n', '<C-9>', ':tablast<CR>', ns)
 vim.api.nvim_set_keymap('!', '<C-9>', '<ESC>:tablast<CR>', ns)
+
+-- Project.nvim
+require('project_nvim').setup{}
+telescope.load_extension('projects')
+vim.api.nvim_set_keymap('n', '<leader>w', ':Telescope projects<CR>', ns)
+vim.api.nvim_set_keymap('!', '<leader>w', ':<ESC>:Telescope projects<CR>', ns)
