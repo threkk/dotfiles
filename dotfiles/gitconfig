@@ -53,4 +53,4 @@
     autocorrect = 7
 [http]
 	sslVerify = true
-	sslCAInfo = /etc/ssl/certs/ca-certificates.crt
+	# sslCAInfo = /etc/ssl/certs/ca-certificates.crt
