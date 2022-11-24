@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 alias vimrc="${EDITOR} ${HOME}/.config/nvim/init.vim"
-alias run="docker run -it --rm  -v `pwd`:`pwd` $@"
 alias tmux="tmux new-session -ADs main"
-alias myip-local="myip -local | cut -d ' ' -f2"
 alias less="less -r -S -N"
 alias zshrc="${EDITOR} ${HOME}/.zshrc"
-alias js3="tree -L 3 -I node_modules"
+alias ..="cd .."
+alias ...="cd ../../"
 
 if command -v bat >/dev/null 2>&1; then
     alias cat=bat
