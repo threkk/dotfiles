@@ -25,6 +25,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'tpope/vim-eunuch'                             " Improves unix support 
   Plug 'equalsraf/neovim-gui-shim', Cond(is_nvim)     " Shims for UI config.
   Plug 'nvim-lua/plenary.nvim', Cond(is_nvim)         " Supporting library
+  Plug 'nvim-lua/popup.nvim', Cond(is_nvim)           " Supporting library
   Plug 'ryanoasis/vim-devicons'                       " Nerd font viml support
   Plug 'kyazdani42/nvim-web-devicons', Cond(is_nvim)  " Nerd font lua support
   Plug 'roxma/vim-paste-easy'                         " Fixes pasting.
@@ -72,6 +73,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'liuchengxu/vista.vim'                                 " Tags
   Plug 'jxnblk/vim-mdx-js'                                    " MDX syntax highlight
   Plug 'wuelnerdotexe/vim-astro', Cond(is_vim)                " Astro syntax highlight
+  Plug 'j-hui/fidget.nvim', Cond(is_nvim)                     " LSP progress info
   Plug 'https://tildegit.org/sloum/gemini-vim-syntax'         " Gemini syntax highlight 
 
   " Autcomplete

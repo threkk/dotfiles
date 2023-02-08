@@ -33,10 +33,6 @@ require('indent_blankline').setup {
     show_current_context = true,
 }
 
--- Copilot (disabled)
--- vim.cmd[[imap <silent><script><expr> <leader>gc copilot#Accept("\<CR>")]]
--- vim.cmd[[let g:copilot_no_tab_map = v:true]]
-
 -- Control + number tabs (only nvim > 0.7)
 for i = 1, 8  do
     vim.api.nvim_set_keymap('n', '<C-'..i..'>', ':tabn '..i..'<CR>', ns)
@@ -44,6 +40,9 @@ for i = 1, 8  do
 end
 vim.api.nvim_set_keymap('n', '<C-9>', ':tablast<CR>', ns)
 vim.api.nvim_set_keymap('!', '<C-9>', '<ESC>:tablast<CR>', ns)
+
+-- Fidget
+require('fidget').setup()
 
 -- Project.nvim
 require('project_nvim').setup{}

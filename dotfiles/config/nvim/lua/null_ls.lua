@@ -17,8 +17,3 @@ null_ls.setup({
     }, 
     on_attach = lsp_on_attach 
 })
-
--- DEPRECATED
--- require('lspconfig')['null-ls'].setup({
---     on_attach = lsp_on_attach
--- })

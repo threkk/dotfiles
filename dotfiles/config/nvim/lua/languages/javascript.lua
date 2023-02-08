@@ -9,8 +9,8 @@ require'lspconfig'.tsserver.setup{
   root_dir = require'lspconfig'.util.root_pattern("package.json"),
   on_attach = function(client, bufnr)
     -- Disable tsserver formatter
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.document_formatting = false
+    client.server_capabilities.document_range_formatting = false
 
 
     lsp_on_attach(client, bufnr)
