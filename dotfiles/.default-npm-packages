@@ -1,4 +1,5 @@
 @astrojs/language-server
+@volar/vue-language-server
 bash-language-server
 codesandbox
 dockerfile-language-server-nodejs
@@ -10,7 +11,5 @@ prettier
 tldr
 typescript
 typescript-language-server
-vercel
-vls
 vscode-langservers-extracted
 wrangler

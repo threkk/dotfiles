@@ -32,27 +32,17 @@ require'lspconfig'.eslint.setup{
   root_dir = require'lspconfig'.util.root_pattern("package.json"),
 }
 
--- + LSP: vuels +
-require'lspconfig'.vuels.setup{
+-- + LSP: volar +
+require'lspconfig'.volar.setup{
   on_attach = lsp_on_attach,
-  init_options = {
-    config = {
-      vetur = {
-        format = {
-          defaultFormatter = {
-            js = 'none',
-            ts = 'none'
-          }
-        }
-      }
-    }
-  }
+  -- Only if we need Take Over mode: https://vuejs.org/guide/typescript/overview.html#volar-takeover-mode
+  -- filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'}
 }
 
 -- + LSP: deno +
 require'lspconfig'.denols.setup {
   on_attach = lsp_on_attach,
-  root_dir = require'lspconfig'.util.root_pattern("deno.json", "deno.jsonc"),
+  root_dir = require'lspconfig'.util.root_pattern("deno.json", "deno.jsonc", "deno.lock"),
 }
 
 vim.g.markdown_fenced_languages = {
