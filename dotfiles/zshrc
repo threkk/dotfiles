@@ -88,6 +88,14 @@ function _ps1_branch {
 function _ps1_changes {
   local staged
   local changed
+  local zsh_no_git
+
+  zsh_git="$ZSH_GIT"
+
+  if [[ zsh_git -eq "off" ]]; then
+    return
+  fi
+
   if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     staged=$(git diff --staged --numstat | wc -l | awk '{ print $1 }')
     changed=$(git diff --numstat | wc -l | awk '{ print $1 }')
