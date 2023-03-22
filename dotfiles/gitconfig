@@ -13,6 +13,7 @@
     smudge = git media smudge %f
 [push]
     default = current
+    autoSetupRemote = true
 [commit]
     gpgsign = false
 [gpg]
