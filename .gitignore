@@ -26,3 +26,4 @@ dotfiles/config/nextjs-nodejs/
 dotfiles/config/planetscale
 dotfiles/config/waypoint
 dotfiles/config/btop
+dotfiles/config/.wrangler/
