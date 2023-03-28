@@ -40,6 +40,9 @@ fi
 export PATH=$BREW_PREFIX/bin:$PATH
 export PATH=$BREW_PREFIX/sbin:$PATH
 
+export PATH="$BREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="$BREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
+
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.bin:$PATH
 
@@ -54,7 +57,7 @@ fi
 
 # Auto completation
 # Adds asdf and brew to the path before starting the engine.
-fpath=(${ASDF_DIR}/completions ${BREW_PREFIX}/share/zsh/site-functions $fpath)
+fpath=(${ASDF_DIR}/completions ${BREW_PREFIX}/share/zsh/site-functions ${BREW_PREFIX}/share/zsh-completions $fpath)
 
 autoload -Uz compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
@@ -76,7 +79,9 @@ setopt share_history
 # Other automcompletes
 [ -f $HOME/.asdf/shims/terraform ] && complete -o nospace -C /home/threkk/.asdf/shims/terraform terraform
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
-
+[ -f $BREW_PREFIX/share/zsh-syntax-highlighting.zsh ] && source $BREW_PREFIX/share/zsh-syntax-highlighting.zsh
+[ -f $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+ 
 # Prompt
 setopt promptsubst
 function _ps1_branch {
