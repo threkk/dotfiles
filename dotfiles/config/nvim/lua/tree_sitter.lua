@@ -25,6 +25,8 @@ require'nvim-treesitter.configs'.setup {
     'hcl',
     'html',
     'javascript',
+    'markdown',
+    'regex',
     'json',
     'lua',
     -- 'perl',

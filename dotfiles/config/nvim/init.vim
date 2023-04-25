@@ -66,23 +66,32 @@ call plug#begin($BASE.'/plugged')
   Plug 'sheerun/vim-polyglot', Cond(is_vim)                   " Syntax colouring for vim 
   Plug 'neovim/nvim-lspconfig', Cond(is_nvim)                 " LSP configuration
   Plug 'jose-elias-alvarez/null-ls.nvim', Cond(is_nvim)       " LSP for other tools
-  Plug 'jose-elias-alvarez/nvim-lsp-ts-utils', Cond(is_nvim)  " Improves JS tooling
   Plug 'hrsh7th/vim-vsnip', Cond(is_nvim)                     " Required by nvim-comp
   Plug 'hrsh7th/cmp-vsnip', Cond(is_nvim)                     " Required by nvim-comp
+  Plug 'jose-elias-alvarez/typescript.nvim', Cond(is_nvim)    " Improves JS tooling
+  Plug 'sigmasd/deno-nvim', Cond(is_nvim)                     " Improves deno support
+  Plug 'b0o/schemastore.nvim', Cond(is_nvim)                  " Improves JSONLS support
+  
   Plug 'rafamadriz/friendly-snippets', Cond(is_nvim)          " Snippets for autocompletion
   Plug 'liuchengxu/vista.vim'                                 " Tags
   Plug 'jxnblk/vim-mdx-js'                                    " MDX syntax highlight
-  Plug 'wuelnerdotexe/vim-astro', Cond(is_vim)                " Astro syntax highlight
+  " Plug 'wuelnerdotexe/vim-astro', Cond(is_vim)                " Astro syntax highlight
   Plug 'j-hui/fidget.nvim', Cond(is_nvim)                     " LSP progress info
   Plug 'https://tildegit.org/sloum/gemini-vim-syntax'         " Gemini syntax highlight 
 
   " Autcomplete
-  Plug 'hrsh7th/nvim-cmp', Cond(is_nvim)                " Autocomplete
-  Plug 'hrsh7th/cmp-nvim-lsp', Cond(is_nvim)            " LSP support
-  Plug 'hrsh7th/cmp-buffer', Cond(is_nvim)              " Buffer support
-  Plug 'hrsh7th/cmp-path', Cond(is_nvim)                " Path support
-  Plug 'hrsh7th/cmp-nvim-lua', Cond(is_nvim)            " Neovim Lua API
-  Plug 'onsails/lspkind-nvim', Cond(is_nvim)            " Meta information
+  Plug 'hrsh7th/nvim-cmp', Cond(is_nvim)                      " Autocomplete
+  Plug 'hrsh7th/cmp-nvim-lsp', Cond(is_nvim)                  " LSP support
+  Plug 'hrsh7th/cmp-buffer', Cond(is_nvim)                    " Buffer support
+  Plug 'hrsh7th/cmp-path', Cond(is_nvim)                      " Path support
+  Plug 'hrsh7th/cmp-nvim-lua', Cond(is_nvim)                  " Neovim Lua API
+  Plug 'onsails/lspkind-nvim', Cond(is_nvim)                  " Meta information
+  " Plug 'hrsh7th/cmp-nvim-lsp-signature-help', Cond(is_nvim)  " Signature helper
+
+" Noice
+  Plug 'folke/noice.nvim', Cond(is_nvim)                " Noice alerts
+  Plug 'MunifTanjim/nui.nvim', Cond(is_nvim)            " Requirement for the noice alerts.
+  Plug 'rcarriga/nvim-notify', Cond(is_nvim)            " Makes them appear
 
   " Other
   Plug 'bagrat/vim-workspace'                           " Tab appeareance

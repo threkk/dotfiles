@@ -23,7 +23,7 @@ lsp_on_attach = function(client, bufnr)
 
   -- ++ Actions ++
   buf_set_keymap('n', '<leader>ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', '<leader>gf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<leader>gf', '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', opts)
   buf_set_keymap('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
   -- ++ Diagnostics ++

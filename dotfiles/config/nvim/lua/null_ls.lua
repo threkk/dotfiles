@@ -12,8 +12,13 @@ null_ls.setup({
         null_ls.builtins.formatting.gofmt,
         null_ls.builtins.formatting.goimports,
         null_ls.builtins.formatting.isort,
-        null_ls.builtins.formatting.prettier,
         null_ls.builtins.formatting.shfmt,
+        null_ls.builtins.formatting.prettier.with({
+            condition = function(utils)
+                return not utils.root_has_file({ "deno.json", "deno.jsonc" })
+            end,
+        }),
+        require('typescript.extensions.null-ls.code-actions'),
     }, 
     on_attach = lsp_on_attach 
 })

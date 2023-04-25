@@ -17,7 +17,13 @@ require'lspconfig'.html.setup{
 }
 require'lspconfig'.jsonls.setup{
   capabilities = capabilities,
-  on_attach = lsp_on_attach
+  on_attach = lsp_on_attach,
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    },
+  },
 }
 
 -- ++ Docker ++

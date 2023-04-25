@@ -47,7 +47,7 @@ let g:vista#renderer#icons = {
 let g:paste_easy_message=0
 
 " vim-sleuth
-autocmd BufReadPre,FileReadPre * :Sleuth
+autocmd BufRead,FileReadPost * :Sleuth
 
 " Rainbow parenthesis
 let g:rainbow_active = 1
