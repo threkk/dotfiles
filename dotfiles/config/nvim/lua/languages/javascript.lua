@@ -25,29 +25,22 @@ require'typescript'.setup({
       client.server_capabilities.document_range_formatting = false
       client.server_capabilities.document_formatting = false -- 0.7 and earlier
       client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
-
-      lsp_on_attach(client, bufnr)
     end
   },
 })
 
 -- ++ LSP: eslint ++
 require'lspconfig'.eslint.setup{
-  on_attach = lsp_on_attach,
   root_dir = util.root_pattern('package.json'),
 }
 
 -- + LSP: volar +
-require'lspconfig'.volar.setup{
-  on_attach = lsp_on_attach,
-  -- Only if we need Take Over mode: https://vuejs.org/guide/typescript/overview.html#volar-takeover-mode
-  -- filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'}
-}
+-- We might need Take Over mode: https://vuejs.org/guide/typescript/overview.html#volar-takeover-mode
+require'lspconfig'.volar.setup{}
 
 -- + LSP: deno +
 require'deno-nvim'.setup {
   server = {
-    on_attach = lsp_on_attach,
     root_dir = util.root_pattern('deno.json', 'deno.jsonc'),
   }
 }
@@ -57,6 +50,4 @@ vim.g.markdown_fenced_languages = {
 }
 
 -- + LSP: astro +
-require'lspconfig'.astro.setup{
-  on_attach = lsp_on_attach
-}
+require'lspconfig'.astro.setup{}

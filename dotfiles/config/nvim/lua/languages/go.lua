@@ -14,6 +14,5 @@ require'lspconfig'.gopls.setup{
     -- Disabled default autoformatter until it is fixed
     client.server_capabilities.document_range_formatting = false
     client.server_capabilities.document_formatting = false
-    lsp_on_attach(client, bufnr)
   end
 }

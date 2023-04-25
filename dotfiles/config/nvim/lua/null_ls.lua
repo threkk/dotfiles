@@ -20,5 +20,4 @@ null_ls.setup({
         }),
         require('typescript.extensions.null-ls.code-actions'),
     }, 
-    on_attach = lsp_on_attach 
 })
