@@ -122,9 +122,12 @@ noremap Y y$
 
 " Paste will not copy the selection https://stackoverflow.com/a/38810513
 noremap p "0p
+noremap P "0P
 
-" We need c to adapt too
-noremap c "0c
+" We need d to adapt too
+noremap d "0
+noremap dd "0dd
+noremap D "0D
 
 " Select all
 map <silent> <C-a> <esc>ggVG<CR>
