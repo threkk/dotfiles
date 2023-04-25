@@ -70,12 +70,12 @@ set fillchars+=stl:\ ,stlnc:\   " Characters to fill the statuslines and vertica
 " Backup
 set backup
 set writebackup
-set backupdir=$HOME/.config/nvim-tmp,/tmp/nvim-tmp,/private/tmp/nvim-tmp   " Directories for backups.
-set backupskip=/tmp/nvim-tmp/*,/private/tmp/nvim-tmp/*                     " Don't create backups for these folders.
-set directory=$HOME/.config/nvim-tmp,/tmp/nvim-tmp,/private/tmp/nvim-tmp   " Directories for swapfiles.
+set backupdir=$HOME/.config/nvim-tmp,/tmp/nvim-tmp   " Directories for backups.
+set backupskip=/tmp/nvim-tmp/*                       " Don't create backups for these folders.
+set directory=$HOME/.config/nvim-tmp,/tmp/nvim-tmp   " Directories for swapfiles.
 
 " Undo
-set undodir=$HOME/.config/nvim-undo,/tmp/nvim-undo,/private/tmp/nvim-undo    " Directories for undo.
+set undodir=$HOME/.config/nvim-undo,/tmp/nvim-undo   " Directories for undo.
 set undofile
 
 " Themes and colours
