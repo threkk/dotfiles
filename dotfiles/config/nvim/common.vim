@@ -125,7 +125,7 @@ noremap p "0p
 noremap P "0P
 
 " We need d to adapt too
-noremap d "0
+noremap d "0d
 noremap dd "0dd
 noremap D "0D
 
