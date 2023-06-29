@@ -51,3 +51,6 @@ vim.g.markdown_fenced_languages = {
 
 -- + LSP: astro +
 require'lspconfig'.astro.setup{}
+
+-- +LSP: svelte +
+require'lspconfig'.svelte.setup{}

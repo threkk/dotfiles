@@ -8,6 +8,7 @@ graphql-language-service-cli
 gtop
 neovim
 prettier
+svelte-language-server
 tldr
 tsx
 typescript
