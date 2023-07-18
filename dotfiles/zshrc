@@ -118,4 +118,4 @@ function _ps1_date {
 }
 
 # name@relative_path branch +staged±changes last_status_code
-export PS1='$(_ps1_date) %B%F{blue}%n%f@ %F{green}%~%f%b $(_ps1_branch)$(_ps1_changes) %B%(0?.%F{yellow}⌘%f.%F{magenta}⌘%f)%b '
+export PS1='$(_ps1_date) %B%F{green}%n%f@%F{blue}%m%f %~%b $(_ps1_branch)$(_ps1_changes) %B%(0?.%F{yellow}⌘%f.%F{magenta}⌘%f)%b '
