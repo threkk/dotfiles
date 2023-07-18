@@ -19,7 +19,7 @@ require'typescript'.setup({
   server = { -- pass options to lspconfig's setup method
     capabilities = capabilities,
     single_file_support = false,
-    root_dir = util.root_pattern('package.json'),
+    root_dir = util.root_pattern('jsconfig.json', 'tsconfig.json'),
     on_attach = function(client, bufnr)
       -- Disable tsserver formatter
       client.server_capabilities.document_range_formatting = false
@@ -31,7 +31,7 @@ require'typescript'.setup({
 
 -- ++ LSP: eslint ++
 require'lspconfig'.eslint.setup{
-  root_dir = util.root_pattern('package.json'),
+  root_dir = util.root_pattern('jsconfig.json', 'tsconfig.json'),
 }
 
 -- + LSP: volar +
