@@ -3,8 +3,10 @@ alias vimrc="${EDITOR} ${HOME}/.config/nvim/init.vim"
 alias tmux="tmux new-session -ADs main"
 alias less="less -r -S -N"
 alias zshrc="${EDITOR} ${HOME}/.zshrc"
-alias ..="cd .."
-alias ...="cd ../../"
+
+if command -v caffeinate >/dev/null 2>&1; then
+    alias awake="caffeinate -dims"
+fi
 
 if command -v bat >/dev/null 2>&1; then
     alias cat=bat
