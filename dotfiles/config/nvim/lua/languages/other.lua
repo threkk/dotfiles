@@ -51,3 +51,8 @@ require'lspconfig'.terraformls.setup{
 require'lspconfig'.yamlls.setup{
   capabilities = capabilities,
 }
+
+-- ++ LUA ++
+require'lspconfig'.lua_ls.setup{
+  capabilities = capabilities,
+}

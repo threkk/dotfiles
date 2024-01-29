@@ -1,5 +1,17 @@
 local ns = { noremap = true, silent = true }
 
+-- Mason
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+require("mason-lspconfig").setup()
+
 -- Telescope
 local telescope = require('telescope')
 telescope.setup{}
@@ -28,10 +40,7 @@ require('stabilize').setup()
 
 -- Blankline
 vim.opt.list = true
-require('indent_blankline').setup {
-    space_char_blankline = ' ',
-    show_current_context = true,
-}
+require('ibl').setup()
 
 -- Control + number tabs (only nvim > 0.7)
 for i = 1, 8  do

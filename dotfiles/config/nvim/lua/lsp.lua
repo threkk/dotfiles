@@ -7,8 +7,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Mappings
     local opts = { buffer = ev.buf, noremap = true, silent = true  }
     -- ++ Moving around ++
-    vim.keymap.set('n', '<leader>gd', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', '<leader>gD', require"telescope.builtin".lsp_definitions, opts)
+    vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', '<leader>gd', require"telescope.builtin".lsp_definitions, opts)
     vim.keymap.set('n', '<leader>gi', require"telescope.builtin".lsp_implementations, opts)
     vim.keymap.set('n', '<leader>gr', require"telescope.builtin".lsp_references, opts)
     vim.keymap.set('n', '<leader>gt', require"telescope.builtin".lsp_type_definitions, opts)
@@ -21,9 +21,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- ++ Actions ++
     vim.keymap.set('n', '<leader>ga', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>gf', function ()
-      vim.lsp.buf.format({ async = true })
-    end, opts)
+    -- vim.keymap.set('n', '<leader>gf', function ()
+    --   vim.lsp.buf.format({ async = true })
+    -- end, opts)
     vim.keymap.set('n', '<leader>gc', function()
       vim.lsp.codelens.refresh() 
       vim.lsp.codelens.run()

@@ -61,21 +61,27 @@ call plug#begin($BASE.'/plugged')
   " Plug 'tweekmonster/braceless.vim', Cond(is_vim)             " Indicates the block line in vim
   Plug 'lukas-reineke/indent-blankline.nvim', Cond(is_nvim)   " Indicates the block line in nvim
 
+  " Debugger
+  Plug 'mfussenegger/nvim-dap', Cond(is_nvim)                 " Debugger
+  Plug 'rcarriga/nvim-dap-ui', Cond(is_nvim)                  " Debugger ui
+
   " Language support
   Plug 'nvim-treesitter/nvim-treesitter', Cond(is_nvim)       " Syntax colouring for neovim
   Plug 'sheerun/vim-polyglot', Cond(is_vim)                   " Syntax colouring for vim 
   Plug 'neovim/nvim-lspconfig', Cond(is_nvim)                 " LSP configuration
-  Plug 'jose-elias-alvarez/null-ls.nvim', Cond(is_nvim)       " LSP for other tools
   Plug 'hrsh7th/vim-vsnip', Cond(is_nvim)                     " Required by nvim-comp
   Plug 'hrsh7th/cmp-vsnip', Cond(is_nvim)                     " Required by nvim-comp
-  Plug 'jose-elias-alvarez/typescript.nvim', Cond(is_nvim)    " Improves JS tooling
   Plug 'sigmasd/deno-nvim', Cond(is_nvim)                     " Improves deno support
   Plug 'b0o/schemastore.nvim', Cond(is_nvim)                  " Improves JSONLS support
-  
+  Plug 'williamboman/mason.nvim', Cond(is_nvim)               " LSP manager
+  Plug 'williamboman/mason-lspconfig.nvim', Cond(is_nvim)     " Supporting package
+ 
+  Plug 'mfussenegger/nvim-lint', Cond(is_nvim)                " Linter
+  Plug 'mhartington/formatter.nvim', Cond(is_nvim)            " Formatter
+
   Plug 'rafamadriz/friendly-snippets', Cond(is_nvim)          " Snippets for autocompletion
   Plug 'liuchengxu/vista.vim'                                 " Tags
   Plug 'jxnblk/vim-mdx-js'                                    " MDX syntax highlight
-  " Plug 'wuelnerdotexe/vim-astro', Cond(is_vim)                " Astro syntax highlight
   Plug 'j-hui/fidget.nvim', Cond(is_nvim)                     " LSP progress info
   Plug 'https://tildegit.org/sloum/gemini-vim-syntax'         " Gemini syntax highlight 
 
@@ -97,7 +103,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'bagrat/vim-workspace'                           " Tab appeareance
   Plug 'ahmedkhalf/project.nvim', Cond(is_nvim)         " Project management
   Plug 'easymotion/vim-easymotion'                      " Move around the place
-  Plug 'editorconfig/editorconfig-vim'                  " Editorconfig support
+  Plug 'editorconfig/editorconfig-vim', Cond(is_vim)    " Editorconfig support
   Plug 'folke/twilight.nvim', Cond(is_nvim)             " Dims other blocks of text
   Plug 'godlygeek/tabular'                              " Aligns stuff.
   Plug 'gorodinskiy/vim-coloresque'                     " Colours preview.
@@ -132,7 +138,7 @@ if is_nvim
   lua require('tree_sitter')
   lua require('lsp')  
   lua require('autocomp')
-  lua require('null_ls')
+  lua require('linter')
   lua require('telescope_bindings')
 
   " Languages
