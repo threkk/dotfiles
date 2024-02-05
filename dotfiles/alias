@@ -12,8 +12,12 @@ if command -v bat >/dev/null 2>&1; then
     alias cat=bat
 fi
 
-if command -v exa >/dev/null 2>&1; then
-    alias ls=exa
+if command -v walk >/dev/null 2>&1; then
+    alias wd='cd "$(walk "$@")"'
+fi
+
+if command -v eza >/dev/null 2>&1; then
+    alias ls=eza
 fi
 
 if command -v fd >/dev/null 2>&1; then
@@ -32,6 +36,22 @@ if [ -d "$HOME/.config/cdpath" ]; then
     export CDPATH=".:$HOME/.config/cdpath:/"
     alias goto="cd -P"
 fi
+
+# From https://news.ycombinator.com/item?id=38474106
+# Requires fzf, rg and bat.
+function frg {
+    result=$(rg --ignore-case --color=always --line-number --no-heading "$@" |
+    fzf --ansi \
+        --color 'hl:-1:underline,hl+:-1:underline:reverse' \
+        --delimiter ':' \
+        --preview "bat --color=always {1} --theme='Solarized (light)' --highlight-line {2}" \
+        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3')
+    file=${result%%:*}
+    linenumber=$(echo "${result}" | cut -d: -f2)
+    if [[ -n "$file" ]]; then
+            $EDITOR +"${linenumber}" "$file"
+    fi
+}
 
 # Windows specifics
 if [[ $(uname -r) =~ "microsoft" ]]; then
