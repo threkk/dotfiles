@@ -144,11 +144,17 @@ nmap <tab> I<tab><esc>
 nmap <s-tab> ^i<bs><esc>
 
 " System copy-paste (from mswin.vim)
-vnoremap <silent> <C-x> "+x
-vnoremap <silent> <C-c> "+y
-map      <silent> <C-v> "+gP
-map!     <silent> <C-v> <esc>"+gP<esc>i
+" vnoremap <silent> <C-x> "+x
+" vnoremap <silent> <C-c> "+y
+" map      <silent> <C-v> "+gP
+" map!     <silent> <C-v> <esc>"+gP<esc>i
 " inoremap <C-v> <ESC>"+pa
+" Replaced with vim-easypaste, keeping it just in case it needs to be 
+" quickly added back.
+vnoremap <silent> <C-x> x
+vnoremap <silent> <C-c> y
+map      <silent> <C-v> gP
+map!     <silent> <C-v> <esc>gP<esc>i
 
 " Undo and redo mapped to C-z/C-y
 map <silent> <C-y> <C-r>

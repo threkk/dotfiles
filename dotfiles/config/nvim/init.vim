@@ -30,7 +30,9 @@ call plug#begin($BASE.'/plugged')
   Plug 'kyazdani42/nvim-web-devicons', Cond(is_nvim)  " Nerd font lua support
   Plug 'roxma/vim-paste-easy'                         " Fixes pasting.
   Plug 'luukvbaal/stabilize.nvim', Cond(is_nvim)      " Stabilises the UI.
+  Plug 'wellle/targets.vim'                           " Provides additional text objects 
   Plug 'ojroques/vim-oscyank'                         " Copy-paste
+  Plug 'svermeulen/vim-easyclip'                      " Fixes some copy paste oddities
 
   " File tree menu
   Plug 'preservim/nerdtree'                               " File tree.
@@ -56,6 +58,7 @@ call plug#begin($BASE.'/plugged')
   Plug 'nvim-telescope/telescope.nvim', Cond(is_nvim)     " Moving around in nvim
   Plug 'ctrlpvim/ctrlp.vim', Cond(is_vim)                 " Moving around in vim
   Plug 'mileszs/ack.vim'                                  " ACK, AG, RG...
+  Plug 'LintaoAmons/bookmarks.nvim', Cond(is_nvim)        " Bookmarks
 
   " Blocks
   " Plug 'tweekmonster/braceless.vim', Cond(is_vim)             " Indicates the block line in vim

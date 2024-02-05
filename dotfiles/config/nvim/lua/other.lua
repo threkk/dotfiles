@@ -1,5 +1,12 @@
 local ns = { noremap = true, silent = true }
 
+-- Disable non native plugin 
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python_provider = 0
+vim.g.loaded_python3_provider = 0
+
 -- Mason
 require("mason").setup({
     ui = {
@@ -72,6 +79,9 @@ require('noice').setup({
     lsp_doc_border = false, -- add a border to hover docs and signature help
   },
 })
+
+-- Tardis
+require("bookmarks").setup{}
 
 -- Project.nvim
 require('project_nvim').setup{}
