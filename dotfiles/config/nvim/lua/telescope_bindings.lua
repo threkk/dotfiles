@@ -42,3 +42,7 @@ vim.api.nvim_set_keymap('n', '<leader>s',
 -- Searches the Git Status.
 vim.api.nvim_set_keymap('n', '<leader>S',
   '<cmd>lua require"telescope.builtin".git_status()<cr>',  ns)
+
+-- Opens telescope main menu
+vim.api.nvim_set_keymap('n', '<leader>k', '<cmd>Telescope<cr>', ns)
+vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>Telescope<cr>', ns)
