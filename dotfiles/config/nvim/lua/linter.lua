@@ -18,6 +18,8 @@ require("formatter").setup({
 	filetype = {
 		json = { require("formatter.filetypes.json").prettier },
 		graphql = { require("formatter.filetypes.graphql").prettier },
+		css = { require("formatter.filetypes.css").prettier },
+		html = { require("formatter.filetypes.html").prettier },
 		lua = { require("formatter.filetypes.lua").stylua },
 		javascript = {
 			function()
