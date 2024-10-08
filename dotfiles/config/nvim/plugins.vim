@@ -1,12 +1,3 @@
-" ACK.vim 
-if has('rg')
-  let g:ackprg = 'rg --vimgrep'
-elseif has('ag')
-  let g:ackprg = 'ag'
-elseif has('ack')
-  let g:ackprg = 'ack'
-endif
-
 " Nuake
 if has('nvim') || has('terminal')
   map <silent> <C-e> :Nuake<CR>

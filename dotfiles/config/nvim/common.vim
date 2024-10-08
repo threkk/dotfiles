@@ -16,7 +16,7 @@ set ttyfast                     " Indicates a fast terminal.
 set updatetime=300              " Smaller update times.
 set scrolloff=5                 " Show a few lines of context.
 set fileformats=unix,mac,dos    " Handle all line endings, but prefer unix.
-" set digraph                     " Enables input of special characters.
+" set digraph                   " Enables input of special characters.
 " set clipboard+=unnamedplus    " Use the system clipboard.
 
 " UI
@@ -93,12 +93,16 @@ inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Selects the first options by default.
 inoremap <silent> <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <silent> <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" inoremap <silent> <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " Enables tab for selecting the options.
 inoremap <silent> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<cr>"
+
+" open omni completion menu closing previous if open and opening new menu without changing the text
+" inoremap <silent> <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
+"            \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
 
 " Closes the menu once an option has been selected.
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -132,14 +136,14 @@ map Q <Nop>
 " I am tired of :W when I want to write.
 nnoremap W w
 
-" Shift tab deletes a tab.
+" Shift tab deletes a tab in insert mode.
 inoremap <s-tab> <C-d>
 
-" Make tab in v mode ident code
+" Make tab in v mode indent code
 vmap <tab> >gv
 vmap <s-tab> <gv
 
-" Make tab in normal mode ident code
+" Make tab in normal mode indent code
 nmap <tab> I<tab><esc>
 nmap <s-tab> ^i<bs><esc>
 
@@ -158,7 +162,6 @@ map <silent> <C-y> <C-r>
 map! <silent> <C-y> <esc><C-r>i
 map <silent> <C-z> u
 map! <silent> <C-z> <esc>ui
-
 
 " ctrl+s saves the current buffer
 map <C-s> :update<CR>

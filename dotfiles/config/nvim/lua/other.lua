@@ -80,9 +80,6 @@ require('noice').setup({
   },
 })
 
--- Tardis
-require("bookmarks").setup{}
-
 -- Project.nvim
 require('project_nvim').setup{}
 telescope.load_extension('projects')
