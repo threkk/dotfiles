@@ -21,6 +21,7 @@ set fileformats=unix,mac,dos    " Handle all line endings, but prefer unix.
 
 " UI
 set title                       " Sets the title of the window.
+set splitkeep=screen            " Keep the same screen lines in all splits
 set number                      " Show line numbers.
 set showcmd                     " Show the executed command in the bottom bar.
 set wildmenu                    " Visual autocomplete for command menu

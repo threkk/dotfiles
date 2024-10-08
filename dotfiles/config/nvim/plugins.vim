@@ -5,20 +5,6 @@ if has('nvim') || has('terminal')
   tmap <silent> <C-e> <C-\><C-n>:Nuake<CR>
 endif
 
-" NerdTree Git
-map <silent> <leader>t :NERDTreeToggle<CR>
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-      \ "Modified"  : "✹",
-      \ "Staged"    : "✚",
-      \ "Untracked" : "✭",
-      \ "Renamed"   : "➜",
-      \ "Unmerged"  : "═",
-      \ "Deleted"   : "✖",
-      \ "Dirty"     : "✗",
-      \ "Clean"     : "✔︎",
-      \ "Unknown"   : "?"
-      \ }
-
 " Vista
 map <silent> <leader>o :Vista!!<CR>
 map! <silent> <leader>o <Esc>:Vista!!<CR>
@@ -42,9 +28,6 @@ autocmd BufRead,FileReadPost * :Sleuth
 
 " Rainbow parenthesis
 let g:rainbow_active = 1
-
-" Editorconfig
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " vim-one
 let g:one_allow_italics = 1

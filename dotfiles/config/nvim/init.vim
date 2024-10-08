@@ -25,25 +25,15 @@ if is_nvim
     Plug 'equalsraf/neovim-gui-shim',                   " Shims for UI config.
     Plug 'nvim-lua/plenary.nvim',                       " Supporting library
     Plug 'nvim-lua/popup.nvim',                         " Supporting library
-    Plug 'ryanoasis/vim-devicons'                       " Nerd font viml support
-    Plug 'kyazdani42/nvim-web-devicons',                " Nerd font lua support
     Plug 'roxma/vim-paste-easy'                         " Fixes pasting.
-    Plug 'luukvbaal/stabilize.nvim',                    " Stabilises the UI.
-    Plug 'wellle/targets.vim'                           " Provides additional text objects 
     Plug 'ojroques/vim-oscyank'                         " Copy-paste
     Plug 'echasnovski/mini.nvim'                        " Mini
-
-    " File tree menu
-    Plug 'preservim/nerdtree'                           " File tree.
-    Plug 'Xuyuanp/nerdtree-git-plugin'                  " with git support
 
     " Lightline 
     Plug 'itchyny/lightline.vim'                        " Better statusline.
 
     " Brackets
-    Plug 'tpope/vim-surround'                           " Brackets operations.
     Plug 'luochen1990/rainbow'                          " Brackets color.
-    Plug 'cohama/lexima.vim'                            " Closes parenthesis
 
     " Git  
     Plug 'lewis6991/gitsigns.nvim'                      " Git diff in neovim
@@ -76,8 +66,6 @@ if is_nvim
 
     Plug 'rafamadriz/friendly-snippets'                 " Snippets for autocompletion
     Plug 'liuchengxu/vista.vim'                         " Tags
-    Plug 'jxnblk/vim-mdx-js'                            " MDX syntax highlight
-    Plug 'j-hui/fidget.nvim'                            " LSP progress info
     Plug 'https://tildegit.org/sloum/gemini-vim-syntax' " Gemini syntax highlight 
 
     " Autcomplete
@@ -89,15 +77,8 @@ if is_nvim
     Plug 'onsails/lspkind-nvim'                         " Meta information
     " Plug 'hrsh7th/cmp-nvim-lsp-signature-help'        " Signature helper
 
-    " Noice
-    Plug 'folke/noice.nvim'                             " Noice alerts
-    Plug 'MunifTanjim/nui.nvim'                         " Requirement for the noice alerts.
-    Plug 'rcarriga/nvim-notify'                         " Makes them appear
-
     " Other
     Plug 'bagrat/vim-workspace'                         " Tab appeareance
-    Plug 'ahmedkhalf/project.nvim'                      " Project management
-    Plug 'easymotion/vim-easymotion'                    " Move around the place
     Plug 'folke/twilight.nvim'                          " Dims other blocks of text
     Plug 'godlygeek/tabular'                            " Aligns stuff.
     Plug 'gorodinskiy/vim-coloresque'                   " Colours preview.
