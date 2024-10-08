@@ -1,0 +1,28 @@
+# Other themes
+# - tokionight
+# - ayu mirage
+# - seoulbones_dark
+theme = Ayu Mirage
+
+# Font configuration
+font-size = 16
+font-family = "Victor Mono"
+
+# Cursor
+cursor-style = block
+cursor-style-blink = true
+
+# Window
+window-padding-x = 8
+window-padding-y = 8
+adjust-cell-height = 10%
+window-vsync = true
+unfocused-split-opacity = 0.8
+# minimum-contrast = 1
+
+# Shell
+shell-integration-features = true
+
+# MacOS
+macos-non-native-fullscreen = true
+macos-titlebar-style = tabs
