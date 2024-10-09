@@ -35,17 +35,8 @@ if is_nvim
     " Brackets
     Plug 'luochen1990/rainbow'                          " Brackets color.
 
-    " Git  
-    Plug 'lewis6991/gitsigns.nvim'                      " Git diff in neovim
-
-    " Comments
-    Plug 'tpope/vim-commentary'
-
     " Search
     Plug 'nvim-telescope/telescope.nvim'                " Moving around in nvim
-
-    " Blocks
-    Plug 'lukas-reineke/indent-blankline.nvim'          " Indicates the block line in nvim
 
     " Debugger
     Plug 'mfussenegger/nvim-dap'                        " Debugger
@@ -78,10 +69,8 @@ if is_nvim
     " Plug 'hrsh7th/cmp-nvim-lsp-signature-help'        " Signature helper
 
     " Other
-    Plug 'bagrat/vim-workspace'                         " Tab appeareance
     Plug 'folke/twilight.nvim'                          " Dims other blocks of text
     Plug 'godlygeek/tabular'                            " Aligns stuff.
-    Plug 'gorodinskiy/vim-coloresque'                   " Colours preview.
     Plug 'lenovsky/nuake'                               " Floating terminal
     Plug 'terryma/vim-multiple-cursors'                 " Mutiple cursors.
     Plug 'tpope/vim-sleuth'                             " Set tabs and spaces.

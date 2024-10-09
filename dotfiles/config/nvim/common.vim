@@ -25,6 +25,7 @@ set splitkeep=screen            " Keep the same screen lines in all splits
 set number                      " Show line numbers.
 set showcmd                     " Show the executed command in the bottom bar.
 set wildmenu                    " Visual autocomplete for command menu
+set list                        " Display whitespaces
 set cursorline                  " Highlights the current line.
 set ruler                       " Shows the column and line of the cursor.
 set noshowmode                  " Hides the current mode.
@@ -45,7 +46,6 @@ set tabstop=4                   " Number of visual spaces per TAB.
 set softtabstop=4               " Number of spaces in tab when editing.
 set expandtab                   " Tabs are spaces.
 set smarttab                    " Inserts as many spaces as needed to tab.
-set nolist                      " Hides non visual chars (tabs, break lines...)
 set lcs=tab:>.,trail:.          " ...but only tabs and trailing whitespace
 
 " Indent
