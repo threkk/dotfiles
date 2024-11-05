@@ -27,3 +27,4 @@ dotfiles/config/planetscale
 dotfiles/config/waypoint
 dotfiles/config/btop
 dotfiles/config/.wrangler/
+dotfiles/config/nvim/bookmarks.db.json

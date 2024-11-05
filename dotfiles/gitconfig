@@ -61,3 +61,6 @@
     autocorrect = 7
 [http]
     sslVerify = true
+[diff "sqlite3"]
+    binary = true
+    textconv = "echo .dump | sqlite3"

@@ -1,7 +1,0 @@
-poetry
-httpie
-pyls
-flake8
-mypy
-pylint
-black
