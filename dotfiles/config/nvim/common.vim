@@ -61,19 +61,16 @@ set ignorecase                  " Makes the patterns no case-sensitive
 set smartcase                   " unless it contains an uppercase.
 
 " Folding
-set foldenable                  " Enables folding.
-set foldlevelstart=4            " Sets the initial level of deepness.
-set foldnestmax=10              " Limits the level of deepness.
-set foldmethod=syntax           " Folding based on syntax.
+set nofoldenable                " Disables folding
 
 set fillchars+=stl:\ ,stlnc:\   " Characters to fill the statuslines and vertical separators.
 
 " Backup
 set backup
 set writebackup
-set backupdir=$HOME/.config/nvim-tmp,/tmp/nvim-tmp   " Directories for backups.
-set backupskip=/tmp/nvim-tmp/*                       " Don't create backups for these folders.
-set directory=$HOME/.config/nvim-tmp,/tmp/nvim-tmp   " Directories for swapfiles.
+set backupdir=/tmp/nvim-tmp/backup,$HOME/.cache/nvim-tmp/backup,  " Directories for backups.
+set backupskip=/tmp/*,$HOME/.cache/,node_modules,.git             " Don't create backups for these folders.
+set directory=/tmp/nvim-tmp/swap,$HOME/.cache/nvim-tmp/swap       " Directories for swapfiles.
 
 " Undo
 set undodir=$HOME/.config/nvim-undo,/tmp/nvim-undo   " Directories for undo.
@@ -96,23 +93,16 @@ inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent> <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 " inoremap <silent> <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
-" Enables tab for selecting the options.
+" Enables tab for selecting the options if the menu is open. Otherwise, (de)indent.
 inoremap <silent> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<cr>"
-
-" open omni completion menu closing previous if open and opening new menu without changing the text
-" inoremap <silent> <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
-"            \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-d>"
+inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 " Closes the menu once an option has been selected.
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Leader
 let mapleader=';'
-
-" Enable folding with the spacebar
-nnoremap <space> za
 
 " Move vertically by visual line
 nnoremap <silent> j gj
