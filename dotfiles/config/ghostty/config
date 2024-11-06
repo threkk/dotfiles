@@ -26,3 +26,4 @@ shell-integration-features = true
 # MacOS
 macos-non-native-fullscreen = true
 macos-titlebar-style = tabs
+macos-option-as-alt = true
