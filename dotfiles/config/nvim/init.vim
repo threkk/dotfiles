@@ -27,7 +27,12 @@ if is_nvim
     Plug 'nvim-lua/popup.nvim',                         " Supporting library
     Plug 'roxma/vim-paste-easy'                         " Fixes pasting.
     Plug 'ojroques/vim-oscyank'                         " Copy-paste
-    Plug 'echasnovski/mini.nvim'                        " Mini
+    Plug 'echasnovski/mini.nvim'                        " Multiple general plugins
+
+    " Popups, messages and notifications
+    Plug 'MunifTanjim/nui.nvim'                         " Supporting library
+    Plug 'rcarriga/nvim-notify'                         " Supporting library
+    Plug 'folke/noice.nvim'                             " Better popups
 
     " Lightline 
     Plug 'itchyny/lightline.vim'                        " Better statusline.
@@ -45,8 +50,6 @@ if is_nvim
     " Language support
     Plug 'nvim-treesitter/nvim-treesitter'              " Syntax colouring for neovim
     Plug 'neovim/nvim-lspconfig'                        " LSP configuration
-    Plug 'hrsh7th/vim-vsnip'                            " Required by nvim-comp
-    Plug 'hrsh7th/cmp-vsnip'                            " Required by nvim-comp
     Plug 'sigmasd/deno-nvim'                            " Improves deno support
     Plug 'b0o/schemastore.nvim'                         " Improves JSONLS support
     Plug 'williamboman/mason.nvim'                      " LSP manager
@@ -54,26 +57,14 @@ if is_nvim
 
     Plug 'mfussenegger/nvim-lint'                       " Linter
     Plug 'mhartington/formatter.nvim'                   " Formatter
-
-    Plug 'rafamadriz/friendly-snippets'                 " Snippets for autocompletion
-    Plug 'liuchengxu/vista.vim'                         " Tags
-    Plug 'https://tildegit.org/sloum/gemini-vim-syntax' " Gemini syntax highlight 
-
-    " Autcomplete
-    Plug 'hrsh7th/nvim-cmp'                             " Autocomplete
-    Plug 'hrsh7th/cmp-nvim-lsp'                         " LSP support
-    Plug 'hrsh7th/cmp-buffer'                           " Buffer support
-    Plug 'hrsh7th/cmp-path'                             " Path support
-    Plug 'hrsh7th/cmp-nvim-lua'                         " Neovim Lua API
-    Plug 'onsails/lspkind-nvim'                         " Meta information
-    " Plug 'hrsh7th/cmp-nvim-lsp-signature-help'        " Signature helper
-
+    
     " Other
     Plug 'folke/twilight.nvim'                          " Dims other blocks of text
     Plug 'godlygeek/tabular'                            " Aligns stuff.
     Plug 'lenovsky/nuake'                               " Floating terminal
     Plug 'terryma/vim-multiple-cursors'                 " Mutiple cursors.
     Plug 'tpope/vim-sleuth'                             " Set tabs and spaces.
+    Plug 'https://tildegit.org/sloum/gemini-vim-syntax' " Gemini syntax highlight 
 
     " Themes
     Plug 'arcticicestudio/nord-vim'

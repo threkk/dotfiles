@@ -5,21 +5,6 @@ if has('nvim') || has('terminal')
   tmap <silent> <C-e> <C-\><C-n>:Nuake<CR>
 endif
 
-" Vista
-map <silent> <leader>o :Vista!!<CR>
-map! <silent> <leader>o <Esc>:Vista!!<CR>
-
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-
-let g:vista_default_executive = 'nvim_lsp'
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-let g:vista#renderer#icons = {
-      \   "function": "\uf794",
-      \   "variable": "\uf71b",
-      \  }
-
 " vim-paste-easy
 let g:paste_easy_message=0
 

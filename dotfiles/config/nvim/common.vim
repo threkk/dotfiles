@@ -68,13 +68,11 @@ set fillchars+=stl:\ ,stlnc:\   " Characters to fill the statuslines and vertica
 " Backup
 set backup
 set writebackup
-set backupdir=/tmp/nvim-tmp/backup,$HOME/.cache/nvim-tmp/backup,  " Directories for backups.
-set backupskip=/tmp/*,$HOME/.cache/,node_modules,.git             " Don't create backups for these folders.
-set directory=/tmp/nvim-tmp/swap,$HOME/.cache/nvim-tmp/swap       " Directories for swapfiles.
-
-" Undo
-set undodir=$HOME/.config/nvim-undo,/tmp/nvim-undo   " Directories for undo.
 set undofile
+set backupdir=$HOME/.cache/nvim-tmp/backup,/tmp/nvim-tmp/backup " Directories for backups.
+set directory=$HOME/.cache/nvim-tmp/swap,/tmp/nvim-tmp/swap     " Directories for swapfiles.
+set undodir=$HOME/.cache/nvim-tmp/undo,/tmp/nvim-tmp/undo       " Directories for undo.
+set backupskip=$HOME/.cache/,node_modules,.git,/tmp             " Don't create backups for these folders.
 
 " Themes and colours
 set termguicolors
@@ -93,8 +91,9 @@ inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent> <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 " inoremap <silent> <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
-" Enables tab for selecting the options if the menu is open. Otherwise, (de)indent.
+" Enables tab for selecting the options if the menu is open.
 inoremap <silent> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" Shift tab deletes a tab in insert mode.
 inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-d>"
 inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
@@ -127,8 +126,6 @@ map Q <Nop>
 " I am tired of :W when I want to write.
 nnoremap W w
 
-" Shift tab deletes a tab in insert mode.
-inoremap <s-tab> <C-d>
 
 " Make tab in v mode indent code
 vmap <tab> >gv
@@ -234,13 +231,9 @@ map <leader>D :split<CR>
 " Omni
 inoremap <C-space> <C-x><C-o>
 " Buffers
-inoremap <C-b> <C-x><C-p>
+inoremap <C-p> <C-x><C-p>
 " Lines
 inoremap <C-l> <C-x><C-l>
 
-" Not really used
-" Tags
-inoremap <C-]> <C-x><C-]>
-
 " Files
-inoremap <C-[> <C-x><C-f>
+inoremap <C-f> <C-x><C-f>

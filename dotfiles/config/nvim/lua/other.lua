@@ -98,25 +98,39 @@ local minifiles_toggle = function(...)
 		MiniFiles.open()
 	end
 end
-vim.keymap.set("n", "<leader>t", minifiles_toggle, { silent = true })
+vim.keymap.set("n", "<leader>t", minifiles_toggle, ns)
 
 -- mini.icons: UI icons.
 require("mini.icons").setup()
 MiniIcons.mock_nvim_web_devicons()
 
--- mini.notify: Shows notifications.
-local bottom_right = function()
-	local has_statusline = vim.o.laststatus > 0
-	local pad = vim.o.cmdheight + (has_statusline and 1 or 0)
-	return { anchor = "SE", col = vim.o.columns, row = vim.o.lines - pad }
-end
-require("mini.notify").setup({
-	content = {
-		format = function(notif)
-			return notif.msg
-		end,
+-- mini.clue: shows hints based on keys pressed.
+local miniclue = require("mini.clue")
+miniclue.setup({
+	triggers = {
+		-- Leader triggers
+		{ mode = "n", keys = "<Leader>" },
+		{ mode = "x", keys = "<Leader>" },
+
+		-- Built-in completion
+		{ mode = "i", keys = "<C-x>" },
+
+		-- `g` key
+		{ mode = "n", keys = "g" },
+		{ mode = "x", keys = "g" },
+
+		-- Registers
+		{ mode = "n", keys = '"' },
+		{ mode = "x", keys = '"' },
+		{ mode = "i", keys = "<C-r>" },
+		{ mode = "c", keys = "<C-r>" },
 	},
-	window = { config = bottom_right },
+
+	clues = {
+		miniclue.gen_clues.builtin_completion(),
+		miniclue.gen_clues.g(),
+		miniclue.gen_clues.registers(),
+	},
 })
 
 -- mini.cursorword: Highlights the word under the cursor
@@ -142,5 +156,27 @@ require("mini.indentscope").setup()
 require("mini.jump2d").setup({
 	mappings = {
 		start_jumping = "<leader><leader>",
+	},
+})
+
+-- mini.move: Improved line swapping. Should overwrite our defaults.
+require("mini.move").setup()
+
+-- Noice.nvim
+require("noice").setup({
+	lsp = {
+		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+		override = {
+			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+			["vim.lsp.util.stylize_markdown"] = true,
+		},
+	},
+	-- you can enable a preset for easier configuration
+	presets = {
+		bottom_search = false, -- use a classic bottom cmdline for search
+		command_palette = true, -- position the cmdline and popupmenu together
+		long_message_to_split = true, -- long messages will be sent to a split
+		inc_rename = false, -- enables an input dialog for inc-rename.nvim
+		lsp_doc_border = true, -- add a border to hover docs and signature help
 	},
 })
