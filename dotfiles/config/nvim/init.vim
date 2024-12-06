@@ -34,9 +34,6 @@ if is_nvim
     Plug 'rcarriga/nvim-notify'                         " Supporting library
     Plug 'folke/noice.nvim'                             " Better popups
 
-    " Lightline 
-    Plug 'itchyny/lightline.vim'                        " Better statusline.
-
     " Brackets
     Plug 'luochen1990/rainbow'                          " Brackets color.
 
@@ -60,7 +57,6 @@ if is_nvim
     
     " Other
     Plug 'folke/twilight.nvim'                          " Dims other blocks of text
-    Plug 'godlygeek/tabular'                            " Aligns stuff.
     Plug 'lenovsky/nuake'                               " Floating terminal
     Plug 'terryma/vim-multiple-cursors'                 " Mutiple cursors.
     Plug 'tpope/vim-sleuth'                             " Set tabs and spaces.

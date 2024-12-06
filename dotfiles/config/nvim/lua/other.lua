@@ -104,6 +104,12 @@ vim.keymap.set("n", "<leader>t", minifiles_toggle, ns)
 require("mini.icons").setup()
 MiniIcons.mock_nvim_web_devicons()
 
+-- mini.tabline: Tabs improvements
+require("mini.tabline").setup()
+
+-- mini.statusline: Status line improvements
+require("mini.statusline").setup()
+
 -- mini.clue: shows hints based on keys pressed.
 local miniclue = require("mini.clue")
 miniclue.setup({

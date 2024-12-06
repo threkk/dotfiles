@@ -6,13 +6,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Mappings
     local opts = { buffer = ev.buf, noremap = true, silent = true  }
+    local tb = require"telescope.builtin"
     -- ++ Moving around ++
     vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', '<leader>gd', require"telescope.builtin".lsp_definitions, opts)
-    vim.keymap.set('n', '<leader>gi', require"telescope.builtin".lsp_implementations, opts)
-    vim.keymap.set('n', '<leader>gr', require"telescope.builtin".lsp_references, opts)
-    vim.keymap.set('n', '<leader>gt', require"telescope.builtin".lsp_type_definitions, opts)
-    vim.keymap.set('n', '<leader>go', require"telescope.builtin".lsp_document_symbols, opts)
+    vim.keymap.set('n', '<leader>gd', tb.lsp_definitions, opts)
+    vim.keymap.set('n', '<leader>gi', tb.lsp_implementations, opts)
+    vim.keymap.set('n', '<leader>gr', tb.lsp_references, opts)
+    vim.keymap.set('n', '<leader>gt', tb.lsp_type_definitions, opts)
+    vim.keymap.set('n', '<leader>go', tb.lsp_document_symbols, opts)
 
     -- ++ Information ++
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
@@ -33,6 +34,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>ge', vim.diagnostic.open_float, opts)
     vim.keymap.set('n', '<leader>gp', vim.diagnostic.goto_prev, opts)
     vim.keymap.set('n', '<leader>gn', vim.diagnostic.goto_next, opts)
-    vim.keymap.set('n', '<leader>gE', require"telescope.builtin".diagnostics, opts)
+    vim.keymap.set('n', '<leader>gE', tb.diagnostics, opts)
   end,
 })
