@@ -1,48 +1,40 @@
-local ns = { noremap = true, silent = true }
+local opts = function(str)
+	return { noremap = true, silent = true, desc = str }
+end
+
+local builtin = require("telescope.builtin")
 
 -- Searches a file
-vim.api.nvim_set_keymap('n', '<leader>f',
-  '<cmd>lua require"telescope.builtin".find_files()<cr>',  ns)
+vim.keymap.set("n", "<leader>f", builtin.find_files, opts("Find files"))
 
-vim.api.nvim_set_keymap('n', '<C-o>', 
-  '<cmd>lua require"telescope.builtin".find_files()<cr>', ns)
+vim.keymap.set("n", "<C-o>", builtin.find_files, opts("Find files"))
 
-vim.api.nvim_set_keymap('!', '<C-o>', 
-  '<esc><cmd>lua require"telescope.builtin".find_files()<cr>', ns)
+vim.keymap.set("!", "<C-o>", builtin.find_files, opts("Find files"))
 
 -- Searches a buffer
-vim.api.nvim_set_keymap('n', '<leader>b',
-  '<cmd>lua require"telescope.builtin".buffers()<cr>',  ns)
+vim.keymap.set("n", "<leader>b", builtin.buffers, opts("Buffers"))
 
 -- Searches with a live grep
-vim.api.nvim_set_keymap('n', '<leader>p',
-  '<cmd>lua require"telescope.builtin".live_grep()<cr>',  ns)
+vim.keymap.set("n", "<leader>p", builtin.live_grep, opts("Live grep"))
 
-vim.api.nvim_set_keymap('n', '<C-p>',
-  '<cmd>lua require"telescope.builtin".live_grep()<cr>',  ns)
+vim.keymap.set("n", "<C-p>", builtin.live_grep, opts("Live grep"))
 
-vim.api.nvim_set_keymap('!', '<C-p>',
-  '<esc><cmd>lua require"telescope.builtin".live_grep()<cr>',  ns)
+vim.keymap.set("!", "<C-p>", builtin.live_grep, opts("Live grep"))
 
 -- Searches in the current file
-vim.api.nvim_set_keymap('n', '<c-f>',
-  '<cmd>lua require"telescope.builtin".current_buffer_fuzzy_find()<cr>',  ns)
+vim.keymap.set("n", "<c-f>", builtin.current_buffer_fuzzy_find, opts("Search buffer"))
 
-vim.api.nvim_set_keymap('!', '<c-f>',
-  '<esc><cmd>lua require"telescope.builtin".current_buffer_fuzzy_find()<cr>',  ns)
+vim.keymap.set("!", "<c-f>", builtin.current_buffer_fuzzy_find, opts("Search buffer"))
 
 -- Searches the list of builtins
-vim.api.nvim_set_keymap('n', '<leader>e',
-  '<cmd>lua require"telescope.builtin".builtin()<cr>',  ns)
+vim.keymap.set("n", "<leader>e", builtin.builtin, opts("Builtin"))
 
 -- Searches the Git files.
-vim.api.nvim_set_keymap('n', '<leader>s',
-  '<cmd>lua require"telescope.builtin".git_files()<cr>',  ns)
+vim.keymap.set("n", "<leader>s", builtin.git_files, opts("Git files"))
 
 -- Searches the Git Status.
-vim.api.nvim_set_keymap('n', '<leader>S',
-  '<cmd>lua require"telescope.builtin".git_status()<cr>',  ns)
+vim.keymap.set("n", "<leader>S", builtin.git_status, opts("Git status"))
 
 -- Opens telescope main menu
-vim.api.nvim_set_keymap('n', '<leader>k', '<cmd>Telescope<cr>', ns)
-vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>Telescope<cr>', ns)
+vim.keymap.set("n", "<leader>k", builtin.commands, opts("Commands"))
+vim.keymap.set("n", "<C-k>", builtin.commands, opts("Commands"))

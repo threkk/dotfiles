@@ -1,23 +1,24 @@
 " General
-syntax enable                   " Enables syntax processing.
-filetype plugin on              " Enables plugin detection.
-filetype plugin indent on       " Load filetype-specific indent files.
-set modelines=1                 " Enables custom configurations per file.
-set history=700                 " Size of the command history.
-set hidden                      " Hides not active buffers.
-set visualbell                  " Uses a visual bell instead of the sound.
-set noerrorbells                " Doesn't display the error bells.
-set encoding=utf8               " Sets the encoding to UTF-8.
-set termencoding=utf-8          " Sets the terminal encoding to UTF-8.
-set mouse=a                     " Enables the mouse in old terminals.
-set backspace=eol,start,indent  " Makes backspace work as expected in old terminals.
-set nocompatible                " Disables vi compatibility.
-set ttyfast                     " Indicates a fast terminal.
-set updatetime=300              " Smaller update times.
-set scrolloff=5                 " Show a few lines of context.
-set fileformats=unix,mac,dos    " Handle all line endings, but prefer unix.
-" set digraph                   " Enables input of special characters.
-" set clipboard+=unnamedplus    " Use the system clipboard.
+syntax enable                        " Enables syntax processing.
+filetype plugin on                   " Enables plugin detection.
+filetype plugin indent on            " Load filetype-specific indent files.
+set modelines=1                      " Enables custom configurations per file.
+set history=700                      " Size of the command history.
+set hidden                           " Hides not active buffers.
+set visualbell                       " Uses a visual bell instead of the sound.
+set noerrorbells                     " Doesn't display the error bells.
+set encoding=utf8                    " Sets the encoding to UTF-8.
+set termencoding=utf-8               " Sets the terminal encoding to UTF-8.
+set mouse=a                          " Enables the mouse in old terminals.
+set backspace=eol,start,indent       " Makes backspace work as expected in old terminals.
+set nocompatible                     " Disables vi compatibility.
+set ttyfast                          " Indicates a fast terminal.
+set updatetime=300                   " Smaller update times.
+set scrolloff=5                      " Show a few lines of context.
+set fileformats=unix,mac,dos         " Handle all line endings, but prefer unix.
+set omnifunc=syntaxcomplete#Complete " Enables autocomplete
+" set digraph                        " Enables input of special characters.
+" set clipboard+=unnamedplus         " Use the system clipboard.
 
 " UI
 set title                       " Sets the title of the window.
@@ -34,7 +35,7 @@ set shortmess+=c                " Don't give |ins-completion-menu| messages.
 set signcolumn=yes              " Always show signcolumns.
 set textwidth=0                 " Maximum line width (disabled).
 set colorcolumn=81              " Draws a vertical line at the selected column.
-" Don't set columns, let the terminal do it.
+                                " Don't set columns, let the terminal do it.
 
 " Line wrap
 set wrap                        " Lines longer than the width will wrap and continue on the next line.
@@ -231,9 +232,8 @@ map <leader>D :split<CR>
 " Omni
 inoremap <C-space> <C-x><C-o>
 " Buffers
-inoremap <C-p> <C-x><C-p>
+inoremap <C-b> <C-x><C-p>
 " Lines
-inoremap <C-l> <C-x><C-l>
-
-" Files
-inoremap <C-f> <C-x><C-f>
+inoremap <C-h> <C-x><C-l>
+" Locations
+inoremap <C-l> <C-x><C-f>

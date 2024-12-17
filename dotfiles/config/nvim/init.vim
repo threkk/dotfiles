@@ -1,5 +1,5 @@
 " .vimrc - Alberto de Murga <alberto@threkk.com>
-
+ 
 " Lazy loading
 " From https://github.com/junegunn/vim-plug/wiki/faq#conditional-activation
 function! Cond(cond, ...)
@@ -45,12 +45,12 @@ if is_nvim
     Plug 'rcarriga/nvim-dap-ui'                         " Debugger ui
 
     " Language support
-    Plug 'nvim-treesitter/nvim-treesitter'              " Syntax colouring for neovim
+    Plug 'nvim-treesitter/nvim-treesitter'              " Syntax trees for neovim
     Plug 'neovim/nvim-lspconfig'                        " LSP configuration
+    Plug 'williamboman/mason.nvim'                      " LSP manager
+    Plug 'williamboman/mason-lspconfig.nvim'            " LSP automatic setup
     Plug 'sigmasd/deno-nvim'                            " Improves deno support
     Plug 'b0o/schemastore.nvim'                         " Improves JSONLS support
-    Plug 'williamboman/mason.nvim'                      " LSP manager
-    Plug 'williamboman/mason-lspconfig.nvim'            " Supporting package
 
     Plug 'mfussenegger/nvim-lint'                       " Linter
     Plug 'mhartington/formatter.nvim'                   " Formatter
@@ -60,6 +60,7 @@ if is_nvim
     Plug 'lenovsky/nuake'                               " Floating terminal
     Plug 'terryma/vim-multiple-cursors'                 " Mutiple cursors.
     Plug 'tpope/vim-sleuth'                             " Set tabs and spaces.
+    Plug 'OXY2DEV/markview.nvim'                        " Markdown preview
     Plug 'https://tildegit.org/sloum/gemini-vim-syntax' " Gemini syntax highlight 
 
     " Themes
@@ -86,19 +87,12 @@ source $BASE/languages/python.vim
 
 if is_nvim
   " General
-  lua require('other')
   lua require('tree_sitter')
+  lua require('mini_conf')
+  lua require('other')
   lua require('lsp')  
-  lua require('autocomp')
   lua require('linter')
   lua require('telescope_bindings')
-
-  " Languages
-  lua require('languages.go')
-  lua require('languages.javascript')
-  lua require('languages.other')
-  lua require('languages.perl')
-  lua require('languages.python')
 else
   source $BASE/only_vim.vim
 endif
