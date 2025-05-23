@@ -1,8 +1,8 @@
 " Nuake
 if has('nvim') || has('terminal')
-  map <silent> <C-e> :Nuake<CR>
-  map! <silent> <C-e> <Esc>:Nuake<CR>
-  tmap <silent> <C-e> <C-\><C-n>:Nuake<CR>
+  map <silent> <C-,> :Nuake<CR>
+  map! <silent> <C-,> <Esc>:Nuake<CR>
+  tmap <silent> <C-,> <C-\><C-n>:Nuake<CR>
 endif
 
 " vim-paste-easy

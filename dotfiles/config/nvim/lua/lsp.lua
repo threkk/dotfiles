@@ -11,9 +11,9 @@ require("mason").setup({
 	},
 })
 
--- Enables virtual lines in all diagnostics.
+-- Enables virtual text in diagnostics
 vim.diagnostic.config({
-	virtual_lines = true,
+	virtual_text = true,
 })
 
 -- Custom confs
@@ -103,21 +103,13 @@ local perlcritic = require("efmls-configs.linters.perlcritic")
 local languages = require("efmls-configs.defaults").languages()
 local shfmt = require("efmls-configs.formatters.shfmt")
 local prettier = require("efmls-configs.formatters.prettier")
-local stylua = require("efmls-configs.formatters.stylua")
 local perltidy = require("efmls-configs.formatters.perltidy")
 languages = vim.tbl_extend("force", languages, {
-	lua = { stylua },
 	sh = { shfmt, shellcheck },
 	perl = { perlcritic, perltidy }, -- TODO: Modify to adapt to the b.com config.
 	dockerfile = { hadolint },
 	json = { prettier },
 	graphql = { prettier },
-	css = { prettier },
-	html = { prettier },
-	typescript = { prettier },
-	javascript = { prettier },
-	typescriptreact = { prettier },
-	javascriptreact = { prettier },
 	vue = { prettier },
 })
 
@@ -161,39 +153,39 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			-- Recommended setup https://neovim.io/doc/user/lsp.html#lsp-completion
 			vim.cmd([[set completeopt+=menuone,noselect,popup]])
 			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-			vim.keymap.set("i", "<c-space>", function()
+			vim.keymap.set({ "i", "n" }, "<c-space>", function()
 				vim.lsp.completion.get()
 			end)
 		end
 
 		local tb = require("telescope.builtin")
 		-- ++ Moving around ++
-		vim.keymap.set("n", "gd", tb.lsp_definitions, opts("Definition"))
-		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts("Declaration"))
-		vim.keymap.set("n", "gI", tb.lsp_implementations, opts("Implementation"))
-		vim.keymap.set("n", "gy", tb.lsp_type_definitions, opts("Type definitions"))
-		vim.keymap.set("n", "go", tb.lsp_document_symbols, opts("Symbols"))
-		vim.keymap.set("n", "gr", tb.lsp_references, opts("References"))
+		vim.keymap.set("n", "grd", tb.lsp_definitions, opts("Definition"))
+		vim.keymap.set("n", "grD", vim.lsp.buf.declaration, opts("Declaration"))
+		vim.keymap.set("n", "gri", tb.lsp_implementations, opts("Implementation")) -- Default
+		vim.keymap.set("n", "gry", tb.lsp_type_definitions, opts("Type definitions"))
+		vim.keymap.set("n", "grr", tb.lsp_references, opts("References")) -- Default
+		vim.keymap.set("n", "gO", tb.lsp_document_symbols, opts("Symbols")) -- Default
 
 		-- ++ Information ++
-		-- vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover")) -- Default value.
-		vim.keymap.set("n", "gK", vim.lsp.buf.signature_help, opts("Signature help"))
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover")) -- Default value.
+		vim.keymap.set({ "i", "n" }, "<C-g>", vim.lsp.buf.signature_help, opts("Signature help"))
 
 		-- ++ Actions ++
-		vim.keymap.set("n", "<leader>ga", vim.lsp.buf.code_action, opts("Code action"))
-		vim.keymap.set("n", "<leader>gr", vim.lsp.buf.rename, opts("Rename"))
-		vim.keymap.set("n", "<leader>gf", function()
+		vim.keymap.set("n", "gra", vim.lsp.buf.code_action, opts("Code action"))
+		vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts("Rename")) -- Default
+		vim.keymap.set("n", "grf", function()
 			vim.lsp.buf.format({ async = true })
 		end, opts("Format"))
-		vim.keymap.set("n", "<leader>gc", function()
+		vim.keymap.set("n", "grc", function()
 			vim.lsp.codelens.refresh()
 			vim.lsp.codelens.run()
 		end, opts("Code lens"))
 
 		-- ++ Diagnostics ++
-		vim.keymap.set("n", "ge", vim.diagnostic.open_float, opts("Diagnostic"))
+		vim.keymap.set({ "n", "i" }, "<C-e>", vim.diagnostic.open_float, opts("Diagnostic"))
 		-- vim.keymap.set("n", "<leader>gp", vim.diagnostic.goto_prev, opts("Go prev diagnostic"))
 		-- vim.keymap.set("n", "<leader>gn", vim.diagnostic.goto_next, opts("Go next diagnostic"))
-		vim.keymap.set("n", "gE", tb.diagnostics, opts("Diagnostics"))
+		vim.keymap.set("n", "gre", tb.diagnostics, opts("Diagnostics"))
 	end,
 })
