@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+for repo in $(cat ./go.mod | grep "\tgithub.com/" | sed 's/\t//' | sed 's/\ v.*//' | sed 's|github\.com/\([^/]*\/[^/]*\).*|\1|p' | uniq); do; printf "Last commit: %10s | %5s ⭐ | %s\n" "$(gh api /repos/$repo/commits | jq -r '.[0].commit.author.date' | sed 's/\(.*\)T.*/\1/')" "$(gh api /repos/$repo -q '.stargazers_count')" "github.com/$repo"; done;
