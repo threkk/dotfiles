@@ -49,11 +49,8 @@ if is_nvim
     Plug 'neovim/nvim-lspconfig'                        " LSP configuration
     Plug 'williamboman/mason.nvim'                      " LSP manager
     Plug 'williamboman/mason-lspconfig.nvim'            " LSP automatic setup
-    Plug 'sigmasd/deno-nvim'                            " Improves deno support
+    Plug 'creativenull/efmls-configs-nvim'              " Transforms linters into LSPs
     Plug 'b0o/schemastore.nvim'                         " Improves JSONLS support
-
-    Plug 'mfussenegger/nvim-lint'                       " Linter
-    Plug 'mhartington/formatter.nvim'                   " Formatter
     
     " Other
     Plug 'folke/twilight.nvim'                          " Dims other blocks of text
@@ -91,7 +88,6 @@ if is_nvim
   lua require('mini_conf')
   lua require('other')
   lua require('lsp')  
-  lua require('linter')
   lua require('telescope_bindings')
 else
   source $BASE/only_vim.vim

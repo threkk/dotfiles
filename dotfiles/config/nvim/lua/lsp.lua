@@ -11,91 +11,159 @@ require("mason").setup({
 	},
 })
 
-local util = require("lspconfig.util")
-require("mason-lspconfig").setup()
-require("mason-lspconfig").setup_handlers({
-	-- default handler (optional)
-	function(server_name)
-		require("lspconfig")[server_name].setup({})
-	end,
-	["jsonls"] = function()
-		require("lspconfig").jsonls.setup({
-			settings = {
-				json = {
-					schemas = require("schemastore").json.schemas(),
-					validate = { enable = true },
-				},
-			},
-		})
-	end,
-	["lua_ls"] = function()
-		require("lspconfig").lua_ls.setup({
-			on_init = function(client)
-				if client.workspace_folders then
-					local path = client.workspace_folders[1].name
-					if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
-						return
-					end
-				end
+-- Enables virtual lines in all diagnostics.
+vim.diagnostic.config({
+	virtual_lines = true,
+})
 
-				client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-					runtime = {
-						version = "LuaJIT",
-					},
-					workspace = {
-						checkThirdParty = false,
-						library = {
-							vim.env.VIMRUNTIME,
-						},
-					},
-				})
-			end,
-			settings = {
-				Lua = {},
+-- Custom confs
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+vim.lsp.config("jsonls", {
+	settings = {
+		json = {
+			schemas = require("schemastore").json.schemas(),
+			validate = { enable = true },
+		},
+	},
+	capabilities = capabilities,
+})
+
+vim.lsp.config("lua_ls", {
+	on_init = function(client)
+		if client.workspace_folders then
+			local path = client.workspace_folders[1].name
+			if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+				return
+			end
+		end
+		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+			runtime = {
+				version = "LuaJIT",
 			},
-		})
-	end,
-	["ts_ls"] = function()
-		require("lspconfig").ts_ls.setup({
-			root_dir = util.root_pattern("package.json"),
-			single_file_support = false,
-		})
-	end,
-	["eslint"] = function()
-		require("lspconfig").eslint.setup({
-			root_dir = util.root_pattern("package.json"),
-		})
-	end,
-	["volar"] = function()
-		require("lspconfig").volar.setup({
-			filetypes = { "vue" },
-			init_options = {
-				vue = {
-					-- disable hybrid mode
-					hybridMode = false,
+			workspace = {
+				checkThirdParty = false,
+				library = {
+					vim.env.VIMRUNTIME,
 				},
 			},
 		})
 	end,
-	["denols"] = function()
-		require("deno-nvim").setup({
-			server = {
-				root_dir = util.root_pattern("deno.json", "deno.jsonc"),
-			},
-		})
+	settings = {
+		Lua = {},
+	},
+})
+
+vim.lsp.config("denols", {
+	-- There is an open bug that makes denols open always.
+	-- https://github.com/neovim/nvim-lspconfig/issues/3728
+	-- https://github.com/neovim/neovim/issues/32037#issuecomment-2774451000
+	root_markers = { "deno.json", "deno.jsonc" },
+	root_dir = function(_, callback)
+		local root_dir = vim.fs.root(0, { "deno.json", "deno.jsonc" })
+
+		if root_dir then
+			callback(root_dir)
+		end
 	end,
+})
+
+vim.lsp.config("ts_ls", {
+	-- There is an open bug that makes denols open always.
+	-- https://github.com/neovim/nvim-lspconfig/issues/3728
+	-- https://github.com/neovim/neovim/issues/32037#issuecomment-2774451000
+	root_markers = { "package.json" },
+	root_dir = function(_, callback)
+		local deno_dir = vim.fs.root(0, { "deno.json", "deno.jsonc" })
+		local root_dir = vim.fs.root(0, { "tsconfig.json", "jsconfig.json", "package.json" })
+
+		if root_dir and deno_dir == nil then
+			callback(root_dir)
+		end
+	end,
+})
+
+vim.lsp.config("volar", {
+	-- Disable hybnid mode
+	filetypes = { "vue" },
+	init_options = {
+		vue = {
+			-- disable hybrid mode
+			hybridMode = false,
+		},
+	},
+})
+
+-- Linters
+local hadolint = require("efmls-configs.linters.hadolint")
+local shellcheck = require("efmls-configs.linters.shellcheck")
+local perlcritic = require("efmls-configs.linters.perlcritic")
+
+-- Formatters
+local languages = require("efmls-configs.defaults").languages()
+local shfmt = require("efmls-configs.formatters.shfmt")
+local prettier = require("efmls-configs.formatters.prettier")
+local stylua = require("efmls-configs.formatters.stylua")
+local perltidy = require("efmls-configs.formatters.perltidy")
+languages = vim.tbl_extend("force", languages, {
+	lua = { stylua },
+	sh = { shfmt, shellcheck },
+	perl = { perlcritic, perltidy }, -- TODO: Modify to adapt to the b.com config.
+	dockerfile = { hadolint },
+	json = { prettier },
+	graphql = { prettier },
+	css = { prettier },
+	html = { prettier },
+	typescript = { prettier },
+	javascript = { prettier },
+	typescriptreact = { prettier },
+	javascriptreact = { prettier },
+	vue = { prettier },
+})
+
+vim.lsp.config("efm", {
+	filetypes = vim.tbl_keys(languages),
+	settings = {
+		rootMarkers = { ".git/" },
+		languages = languages,
+	},
+	root_dir = function(_, callback)
+		local deno_dir = vim.fs.root(0, { "deno.json", "deno.jsonc" })
+		local root_dir = vim.fs.root(0, { ".git/" })
+
+		if root_dir and deno_dir == nil then
+			callback(root_dir)
+		end
+	end,
+
+	init_options = {
+		documentFormatting = true,
+		documentRangeFormatting = true,
+	},
+})
+
+-- Enable LSPs
+require("mason-lspconfig").setup({
+	ensure_installed = { "efm" },
 })
 
 --- +++ KEYMAPS +++
 vim.api.nvim_create_autocmd("LspAttach", {
-	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(ev)
-		-- Enable completion triggered by <c-x><c-o>
-		vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-		-- Mappings
+		-- Options
 		local opts = function(str)
 			return { buffer = ev.buf, noremap = true, silent = true, desc = str }
+		end
+
+		-- ++ Completion ++
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		if client:supports_method("textDocument/completion") then
+			-- Recommended setup https://neovim.io/doc/user/lsp.html#lsp-completion
+			vim.cmd([[set completeopt+=menuone,noselect,popup]])
+			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+			vim.keymap.set("i", "<c-space>", function()
+				vim.lsp.completion.get()
+			end)
 		end
 
 		local tb = require("telescope.builtin")
@@ -108,15 +176,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "gr", tb.lsp_references, opts("References"))
 
 		-- ++ Information ++
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover"))
+		-- vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover")) -- Default value.
 		vim.keymap.set("n", "gK", vim.lsp.buf.signature_help, opts("Signature help"))
 
 		-- ++ Actions ++
 		vim.keymap.set("n", "<leader>ga", vim.lsp.buf.code_action, opts("Code action"))
 		vim.keymap.set("n", "<leader>gr", vim.lsp.buf.rename, opts("Rename"))
-		-- vim.keymap.set('n', '<leader>gf', function ()
-		--   vim.lsp.buf.format({ async = true })
-		-- end, opts)
+		vim.keymap.set("n", "<leader>gf", function()
+			vim.lsp.buf.format({ async = true })
+		end, opts("Format"))
 		vim.keymap.set("n", "<leader>gc", function()
 			vim.lsp.codelens.refresh()
 			vim.lsp.codelens.run()

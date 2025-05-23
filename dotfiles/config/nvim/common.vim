@@ -8,7 +8,6 @@ set hidden                           " Hides not active buffers.
 set visualbell                       " Uses a visual bell instead of the sound.
 set noerrorbells                     " Doesn't display the error bells.
 set encoding=utf8                    " Sets the encoding to UTF-8.
-set termencoding=utf-8               " Sets the terminal encoding to UTF-8.
 set mouse=a                          " Enables the mouse in old terminals.
 set backspace=eol,start,indent       " Makes backspace work as expected in old terminals.
 set nocompatible                     " Disables vi compatibility.
@@ -83,13 +82,13 @@ colorscheme one                 " Chooses the colour scheme.
 
 " Shows the longest autcomplete.
 " http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
-set completeopt=longest,menuone,preview
+" "set completeopt=longest,menuone,preview
 
 " Makes ENTER select the pop up menu.
 inoremap <silent> <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Selects the first options by default.
-inoremap <silent> <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" inoremap <silent> <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 " inoremap <silent> <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " Enables tab for selecting the options if the menu is open.

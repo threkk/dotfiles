@@ -16,13 +16,13 @@ telescope.setup({})
 -- Preview of the search
 vim.opt.inccommand = "nosplit"
 
+-- Bring back rounded borders
+-- vim.o.winborder = 'rounded'
+
 -- Define ts as a markdown language instead of typescript.
 vim.g.markdown_fenced_languages = {
 	"ts=typescript",
 }
--- Terminal
-vim.keymap.set("n", "<c-g>", ":tabnew | term<CR>", opts("New terminal tab"))
-vim.keymap.set("i", "<c-g>", "<Esc>:tabnew | term<CR>", opts("new terminal tab"))
 
 -- Twilight
 require("twilight").setup({})

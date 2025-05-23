@@ -55,6 +55,9 @@ require("mini.jump2d").setup({
 -- mini.move: Improved line swapping. Should overwrite our defaults.
 require("mini.move").setup()
 
+-- mini.bracketed: Bracked operations
+require("mini.bracketed").setup()
+
 -- UI improvements
 -- mini.files: File viewer
 require("mini.files").setup()
