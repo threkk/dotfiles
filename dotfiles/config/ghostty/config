@@ -1,10 +1,13 @@
 # Other themes
+# ghostty +list-themes
 # - tokionight
 # - ayu mirage
 # - seoulbones_dark
-theme = Ayu Mirage
+# - Ayu Mirage
+theme = tokyonight
 
 # Font configuration
+# ghostty +list-fonts
 font-size = 16
 font-family = "Victor Mono"
 

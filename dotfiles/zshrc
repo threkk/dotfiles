@@ -50,6 +50,12 @@ export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.bin:$PATH
 export PATH="$HOME/.local/share/mise/shims:$PATH"
 
+# We need to set up the MANPAGER here because it depends on 
+# neovim being available.
+if command -v nvim >/dev/null 2>&1; then
+	export MANPAGER='nvim +Man!'
+fi
+
 # Aliases
 if [ -f $HOME/.alias ]; then
   . $HOME/.alias

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 alias vimrc="${EDITOR} ${HOME}/.config/nvim/init.vim"
 alias tmux="tmux new-session -ADs main"
 alias less="less -r -S -N"
