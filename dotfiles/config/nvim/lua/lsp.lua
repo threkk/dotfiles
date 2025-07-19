@@ -54,6 +54,18 @@ vim.lsp.config("lua_ls", {
 	},
 })
 
+vim.lsp.config("harper_ls", {
+	settings = {
+		["harper-ls"] = {
+			-- linters = {
+			-- 	SentenceCapitalization = false,
+			-- 	SpellCheck = false,
+			-- },
+			dialect = "British",
+		},
+	},
+})
+
 vim.lsp.config("denols", {
 	-- There is an open bug that makes denols open always.
 	-- https://github.com/neovim/nvim-lspconfig/issues/3728
