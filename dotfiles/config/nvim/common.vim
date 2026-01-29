@@ -33,7 +33,7 @@ set cmdheight=2                 " Command line height.
 set shortmess+=c                " Don't give |ins-completion-menu| messages.
 set signcolumn=yes              " Always show signcolumns.
 set textwidth=0                 " Maximum line width (disabled).
-set colorcolumn=81              " Draws a vertical line at the selected column.
+set colorcolumn=100             " Draws a vertical line at the selected column.
                                 " Don't set columns, let the terminal do it.
 
 " Line wrap
