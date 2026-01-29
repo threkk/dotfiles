@@ -1,43 +1,32 @@
--- ++ SYNTAX HIGHLIGHTING ++
-require("nvim-treesitter.configs").setup({
-	auto_install = true,
-	sync_install = false,
-	ignore_install = {},
-	highlight = {
-		enable = true,
-	},
-	incremental_selection = {
-		enable = true,
-	},
-	textobjects = {
-		enabled = true,
-	},
-	indent = {
-		enable = true,
-	},
-	ensure_installed = {
-		"bash",
-		"css",
-		"dockerfile",
-		"go",
-		"gomod",
-		"graphql",
-		"html",
-		"javascript",
-		"json",
-		-- "latex",
-		"lua",
-		"markdown",
-		"markdown_inline",
-		"perl",
-		"python",
-		"regex",
-		"tsx",
-		"typescript",
-		"vim",
-		"vue",
-		"yaml",
-	},
-})
+local desired = {
+	"css",
+	"go",
+	"html",
+	"java",
+	"javascript",
+	"lua",
+	"markdown",
+	"markdown_inline",
+	"perl",
+	"python",
+	"query",
+	"typescript",
+	"vim",
+	"vimdoc",
+	"vue",
+}
 
-vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
+-- Async install logic
+local installed = require("nvim-treesitter.config").get_installed()
+local to_install = vim.iter(desired)
+	:filter(function(lang) return not vim.tbl_contains(installed, lang) end)
+	:totable()
+if #to_install > 0 then
+	require("nvim-treesitter").install(to_install)
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function(args)
+		pcall(vim.treesitter.start, args.buf)
+	end
+})

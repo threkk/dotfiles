@@ -22,6 +22,21 @@ require("mini.splitjoin").setup()
 -- mini.git: Git integration
 require("mini.git").setup()
 
+-- mini.snippets: Better snippet support.
+local gen_loader = require("mini.snippets").gen_loader
+local snippets = require("mini.snippets")
+snippets.setup({
+	snippets = {
+		gen_loader.from_file(vim.fn.stdpath("config").."/snippets/global.json"),
+		gen_loader.from_lang(),
+	},
+})
+snippets.start_lsp_server()
+
+-- mini.completion: Better autocomplete.
+require("mini.completion").setup()
+
+
 local align_blame = function(au_data)
 	if au_data.data.git_subcommand ~= "blame" then
 		return
@@ -72,6 +87,7 @@ vim.keymap.set("n", "<leader>t", minifiles_toggle, ns)
 -- mini.icons: UI icons.
 require("mini.icons").setup()
 MiniIcons.mock_nvim_web_devicons()
+MiniIcons.tweak_lsp_kind()
 
 -- mini.tabline: Tabs improvements
 require("mini.tabline").setup()
@@ -139,5 +155,14 @@ starter.setup({
 	content_hooks = {
 		starter.gen_hook.adding_bullet(),
 		starter.gen_hook.aligning("center", "center"),
+	},
+})
+
+-- mini.notifiy: Notification messages
+require("mini.notify").setup({
+	content = {
+		format = function(notif)
+			return string.format(" %s ", notif.msg)
+		end,
 	},
 })

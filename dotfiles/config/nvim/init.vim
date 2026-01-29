@@ -27,12 +27,7 @@ if is_nvim
     Plug 'nvim-lua/popup.nvim',                         " Supporting library
     Plug 'roxma/vim-paste-easy'                         " Fixes pasting.
     Plug 'ojroques/vim-oscyank'                         " Copy-paste
-    Plug 'echasnovski/mini.nvim'                        " Multiple general plugins
-
-    " Popups, messages and notifications
-    Plug 'MunifTanjim/nui.nvim'                         " Supporting library
-    Plug 'rcarriga/nvim-notify'                         " Supporting library
-    Plug 'folke/noice.nvim'                             " Better popups
+    Plug 'nvim-mini/mini.nvim'                          " Multiple general plugins
 
     " Brackets
     Plug 'luochen1990/rainbow'                          " Brackets color.
@@ -45,12 +40,13 @@ if is_nvim
     Plug 'rcarriga/nvim-dap-ui'                         " Debugger ui
 
     " Language support
-    Plug 'nvim-treesitter/nvim-treesitter'              " Syntax trees for neovim
-    Plug 'neovim/nvim-lspconfig'                        " LSP configuration
-    Plug 'williamboman/mason.nvim'                      " LSP manager
-    Plug 'williamboman/mason-lspconfig.nvim'            " LSP automatic setup
-    Plug 'creativenull/efmls-configs-nvim'              " Transforms linters into LSPs
-    Plug 'b0o/schemastore.nvim'                         " Improves JSONLS support
+    Plug 'nvim-treesitter/nvim-treesitter', { 'branch': 'main' } " Syntax trees for neovim
+    Plug 'neovim/nvim-lspconfig'                                 " LSP configuration
+    Plug 'williamboman/mason.nvim'                               " LSP manager
+    Plug 'williamboman/mason-lspconfig.nvim'                     " LSP automatic setup
+    Plug 'b0o/schemastore.nvim'                                  " Improves JSONLS support
+    Plug 'stevearc/conform.nvim'                                 " Formatter
+    Plug 'rafamadriz/friendly-snippets'                          " Snippets
     
     " Other
     Plug 'folke/twilight.nvim'                          " Dims other blocks of text
@@ -74,13 +70,7 @@ endif
 
 source $BASE/common.vim
 source $BASE/plugins.vim
-
-" Languages
-source $BASE/languages/golang.vim
-source $BASE/languages/javascript.vim
-source $BASE/languages/other.vim
-source $BASE/languages/perl.vim
-source $BASE/languages/python.vim
+source $BASE/languages.vim
 
 if is_nvim
   " General
@@ -88,6 +78,7 @@ if is_nvim
   lua require('mini_conf')
   lua require('other')
   lua require('lsp')  
+  lua require('formatter')
   lua require('telescope_bindings')
 else
   source $BASE/only_vim.vim
