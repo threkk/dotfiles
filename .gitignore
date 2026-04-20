@@ -30,4 +30,3 @@ dotfiles/config/.wrangler/
 dotfiles/config/nvim/bookmarks.db.json
 .luarc.json
 cloudflared/
-mise/
